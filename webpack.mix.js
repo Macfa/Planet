@@ -12,6 +12,10 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .postCss('resources/css/app.css', 'public/css', [
-        //
-    ]);
+    // .postCss('resources/css/app.css', 'public/css', [ // ori
+    .sass('resources/scss/common.scss', 'public/css/main', [])
+    .sass('resources/scss/font.scss', 'public/css/main', [])
+    .sass('resources/scss/header.scss', 'public/css/main', [])
+    .sass('resources/scss/layout.scss', 'public/css/main', [])
+    .sass('resources/scss/channel/create.scss', 'public/css/channel', [])
+    ;

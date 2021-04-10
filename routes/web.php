@@ -12,7 +12,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Http\Controllers\Main\MainController;
+use App\Http\Controllers\Channel\ChannelController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('main.index');
+// });
+
+Route::get('/', [MainController::class, 'index']);
+Route::get('/create', [ChannelController::class, 'create']);
