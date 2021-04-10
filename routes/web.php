@@ -14,10 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 use App\Http\Controllers\Main\MainController;
 use App\Http\Controllers\Channel\ChannelController;
-
-// Route::get('/', function () {
-//     return view('main.index');
-// });
+use App\Http\Controllers\Post\PostController;
 
 Route::get('/', [MainController::class, 'index']);
 Route::get('/create', [ChannelController::class, 'create']);
+Route::get('/create_post', [PostController::class, 'create']);

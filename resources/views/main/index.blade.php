@@ -1,6 +1,6 @@
   @include('layouts.header')
   <link rel="stylesheet" type="text/css" href="{{ asset('css/main/layout.css') }}">
-  
+
   <section id="main">
     <div class="wrap">
       <article class="advertising"><a href="#"><img src="../img/test.jpg"></a></article>
@@ -59,7 +59,7 @@
             <p>사람들과 얘기하고 싶었던 주제로 나만의 몽드를 만들어 보세요.</p>
             <p>어쩌면 마음이 맞는 친구를 찾을지도 모릅니다.</p>
             <ul>
-              <li><a href="#">포스트 작성</a></li>
+              <li><a href="{{ url('/create_post') }}">포스트 작성</a></li>
               <li><a href="{{ url('/create') }}">몽드 만들기</a></li>
             </ul>
           </div>

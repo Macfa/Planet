@@ -4,5 +4,6 @@
     "/css/main/layout.css": "/css/main/layout.css",
     "/css/main/header.css": "/css/main/header.css",
     "/css/main/font.css": "/css/main/font.css",
-    "/css/main/common.css": "/css/main/common.css"
+    "/css/main/common.css": "/css/main/common.css",
+    "/css/post/create.css": "/css/post/create.css"
 }

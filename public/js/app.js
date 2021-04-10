@@ -19087,6 +19087,19 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 /***/ }),
 
+/***/ "./resources/scss/post/create.scss":
+/*!*****************************************!*\
+  !*** ./resources/scss/post/create.scss ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
 /***/ "./resources/scss/common.scss":
 /*!************************************!*\
   !*** ./resources/scss/common.scss ***!
@@ -19460,7 +19473,8 @@ process.umask = function() { return 0; };
 /******/ 			"css/main/layout": 0,
 /******/ 			"css/main/header": 0,
 /******/ 			"css/main/font": 0,
-/******/ 			"css/main/common": 0
+/******/ 			"css/main/common": 0,
+/******/ 			"css/post/create": 0
 /******/ 		};
 /******/ 		
 /******/ 		// no chunk on demand loading
@@ -19508,12 +19522,13 @@ process.umask = function() { return 0; };
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/channel/create","css/main/layout","css/main/header","css/main/font","css/main/common"], () => (__webpack_require__("./resources/js/app.js")))
-/******/ 	__webpack_require__.O(undefined, ["css/channel/create","css/main/layout","css/main/header","css/main/font","css/main/common"], () => (__webpack_require__("./resources/scss/common.scss")))
-/******/ 	__webpack_require__.O(undefined, ["css/channel/create","css/main/layout","css/main/header","css/main/font","css/main/common"], () => (__webpack_require__("./resources/scss/font.scss")))
-/******/ 	__webpack_require__.O(undefined, ["css/channel/create","css/main/layout","css/main/header","css/main/font","css/main/common"], () => (__webpack_require__("./resources/scss/header.scss")))
-/******/ 	__webpack_require__.O(undefined, ["css/channel/create","css/main/layout","css/main/header","css/main/font","css/main/common"], () => (__webpack_require__("./resources/scss/layout.scss")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/channel/create","css/main/layout","css/main/header","css/main/font","css/main/common"], () => (__webpack_require__("./resources/scss/channel/create.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/channel/create","css/main/layout","css/main/header","css/main/font","css/main/common","css/post/create"], () => (__webpack_require__("./resources/js/app.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/channel/create","css/main/layout","css/main/header","css/main/font","css/main/common","css/post/create"], () => (__webpack_require__("./resources/scss/common.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/channel/create","css/main/layout","css/main/header","css/main/font","css/main/common","css/post/create"], () => (__webpack_require__("./resources/scss/font.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/channel/create","css/main/layout","css/main/header","css/main/font","css/main/common","css/post/create"], () => (__webpack_require__("./resources/scss/header.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/channel/create","css/main/layout","css/main/header","css/main/font","css/main/common","css/post/create"], () => (__webpack_require__("./resources/scss/layout.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/channel/create","css/main/layout","css/main/header","css/main/font","css/main/common","css/post/create"], () => (__webpack_require__("./resources/scss/channel/create.scss")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/channel/create","css/main/layout","css/main/header","css/main/font","css/main/common","css/post/create"], () => (__webpack_require__("./resources/scss/post/create.scss")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

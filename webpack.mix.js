@@ -18,4 +18,5 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/scss/header.scss', 'public/css/main', [])
     .sass('resources/scss/layout.scss', 'public/css/main', [])
     .sass('resources/scss/channel/create.scss', 'public/css/channel', [])
+    .sass('resources/scss/post/create.scss', 'public/css/post', [])
     ;

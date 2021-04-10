@@ -2,12 +2,18 @@
 .wrap { width:1276px; margin:0 auto; }
 input:focus { outline:none; }
 
+/* 셀렉트 */
+#channel .board_box .select_box { margin-bottom: 16px; }
+.cst_select { border-radius:0; /* 아이폰 사파리 보더 없애기 */ -webkit-appearance:none; /* 화살표 없애기 for chrome*/ -moz-appearance:none; /* 화살표 없애기 for firefox*/ appearance:none /* 화살표 없애기 공통*/ }
+#channel .board_box .select_box select { padding: 5px 10px; width: 218px; height: 31px; background: url('/image/sort-down.png') no-repeat 95% 50%;   background-size: 15px; }
+// #channel .board_box .select_box select option { font-size: 17px;}
+
 /* 메인 */
 #channel {  }
-#channel .board_box { margin:30px 0 0; overflow:hidden; }
+#channel .board_box { margin:40px 0 0; overflow:hidden; }
 #channel .board_box .left { float:left; width:calc(100% - 216px); }
 #channel .board_box .left div.list { border:1px solid #cbc7c7; border-radius:10px; min-height:686px; }
-#channel .board_box .left div.list .menu { font-size: 25px; border-bottom: 4px solid rgba(90,78,112,1);}
+#channel .board_box .left div.list .menu { font-size: 25px; border-bottom: 4px solid rgba(90,78,112,1); text-align: center; }
 #channel .board_box .left div.list .input_box { border: 1px solid #cbc7c7; padding: 15px 9px; border-radius:10px; }
 #channel .board_box .left div.list .box { height: 55px; width: 1028px; border-radius: 5px; }
 #channel .board_box .left div.list .box::placeholder { padding-left: 30px; }

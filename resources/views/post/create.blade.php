@@ -3,18 +3,19 @@
 <section id="channel">
   <div class="wrap">
     <article class="board_box">
+        <div class="select_box">
+            <select class="cst_select" name="" id="">
+                <option value="">등록할 채널을 선택해주세요</option>
+            </select>
+        </div>        
       <div class="left">
         <div class="list">
             <form action="">
                 <div class="input_box">
-                    <span class="menu">이름</span>
-                    
+                    <span class="menu">포스트</span>
                 </div>
                 <div class="input_box">
                     <input type="text" class="box" placeholder="이름을 입력하세요">
-                </div>
-                <div class="input_box">
-                    <span class="menu">설명</span>
                 </div>
                 <div class="input_box">
                     <textarea name="" class="text_box" id="" placeholder="정보를 적어주세요"></textarea>

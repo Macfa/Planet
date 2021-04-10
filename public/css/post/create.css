@@ -9,9 +9,32 @@ input:focus {
   outline: none;
 }
 
+/* 셀렉트 */
+#channel .board_box .select_box {
+  margin-bottom: 16px;
+}
+
+.cst_select {
+  border-radius: 0;
+  /* 아이폰 사파리 보더 없애기 */
+  -webkit-appearance: none;
+  /* 화살표 없애기 for chrome*/
+  -moz-appearance: none;
+  /* 화살표 없애기 for firefox*/
+  appearance: none;
+}
+
+#channel .board_box .select_box select {
+  padding: 5px 10px;
+  width: 218px;
+  height: 31px;
+  background: url("/image/sort-down.png") no-repeat 95% 50%;
+  background-size: 15px;
+}
+
 /* 메인 */
 #channel .board_box {
-  margin: 30px 0 0;
+  margin: 40px 0 0;
   overflow: hidden;
 }
 
@@ -29,6 +52,7 @@ input:focus {
 #channel .board_box .left div.list .menu {
   font-size: 25px;
   border-bottom: 4px solid #5a4e70;
+  text-align: center;
 }
 
 #channel .board_box .left div.list .input_box {
