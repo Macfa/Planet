@@ -17,5 +17,5 @@ use App\Http\Controllers\Channel\ChannelController;
 use App\Http\Controllers\Post\PostController;
 
 Route::get('/', [MainController::class, 'index']);
-Route::get('/create', [ChannelController::class, 'create']);
-Route::get('/create_post', [PostController::class, 'create']);
+Route::get('/register', [ChannelController::class, 'create']);
+Route::get('/create', [PostController::class, 'create']);
