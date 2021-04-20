@@ -1,23 +1,24 @@
 @include('layouts.header')
-<link rel="stylesheet" type="text/css" href="{{ asset('css/post/create.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/channel/create.css') }}">
 <section id="channel">
   <div class="wrap">
     <article class="board_box">
       <div class="left">
         <div class="list">
-            <form action="">
+            <form action="{{ route('channelStore') }}" method="POST">
+                @csrf
                 <div class="input_box">
                     <span class="menu">이름</span>
                     
                 </div>
                 <div class="input_box">
-                    <input type="text" class="box" placeholder="이름을 입력하세요">
+                    <input type="text" name="name" class="box" placeholder="이름을 입력하세요">
                 </div>
                 <div class="input_box">
                     <span class="menu">설명</span>
                 </div>
                 <div class="input_box">
-                    <textarea name="" class="text_box" id="" placeholder="정보를 적어주세요"></textarea>
+                    <textarea name="description" class="text_box" id="" placeholder="정보를 적어주세요"></textarea>
                 </div>
                 {{-- <div style="float: right; font-size: 20px;"> --}}
                 <div class="point">
@@ -28,7 +29,8 @@
                 <div>
                     <ul class="btn">
                         <li><a href="{{ url('/') }}">취소</a></li>
-                        <li><a href="#">등록</a></li>
+                        {{-- <li><a href="">등록</a></li> --}}
+                        <li><input type="submit" value="등록" class="submit"></li>
                     </ul>
                 </div>
             </form>

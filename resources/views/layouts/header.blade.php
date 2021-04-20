@@ -42,7 +42,7 @@
 
 <body>
   <header id="header">
-    <h1><a href="../html/main.html"><img src="../img/logo.png"></a></h1>
+    <h1><a href="/"><img src="../img/logo.png"></a></h1>
     <div class="input">
       <form action="" autocomplete="" enctype="" method="" target="">
         <input type="text" name="" placeholder="검색...">

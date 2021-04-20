@@ -12,10 +12,23 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-use App\Http\Controllers\Main\MainController;
-use App\Http\Controllers\Channel\ChannelController;
-use App\Http\Controllers\Post\PostController;
+// use App\Http\Controllers\Main\MainController;
+use App\Http\Controllers\ChannelsController;
+use App\Http\Controllers\PostsController;
+use App\Http\Controllers\CommentsController;
 
-Route::get('/', [MainController::class, 'index']);
-Route::get('/register', [ChannelController::class, 'create']);
-Route::get('/create', [PostController::class, 'create']);
+// Main's route
+Route::get('/', [ChannelsController::class, 'index'])->name('channelMain');
+
+// Channel's route 
+Route::get('/channel/{id}', [ChannelsController::class, 'show'])->where('id', '[0-9]+')->name("channelShow");
+Route::get('/channel/create', [ChannelsController::class, 'create'])->name("channelCreate");
+Route::post('/channel', [ChannelsController::class, 'store'])->name("channelStore");
+
+// Post's route
+Route::get('/post/create',[PostsController::class, 'create'])->name('postCreate');
+Route::post('/post', [PostsController::class, 'store'])->name('postStore');
+Route::get('/post/{id}', [PostsController::class, 'show'])->where('id', '[0-9]+')->name("postShow");
+
+// Comment's route
+Route::post('/comment', [CommentsController::class, 'store'])->name('commentStore');
