@@ -20,24 +20,32 @@
                 <col style="width:75px;">
                 <col style="width:*;">
               </colgroup>
-              <tr>
-                <td>
-                  <!-- 업이면 클래스 up, 다운이면 down -->
-                  <span class="updown up">1111</span>
-                </td>
-                <td><div class="thum"></div></td>
-                <td>
-                  <div class="title">
-                    <a href="#">
-                      <p>제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목</p>
-                      <span>[1111]</span>
-                    </a>
-                  </div>
-                  <div class="user">
-                    <p><span>[아프리카tv]</span>온 닉네임 / n분 전</p>
-                  </div>
-                </td>
-              </tr>
+              @forelse ($posts as $post)
+                <tr>
+                  <td>
+                    <!-- 업이면 클래스 up, 다운이면 down -->
+                    <span class="updown up">{{ $post->like }}</span>
+                  </td>
+                  <td><div class="thum"></div></td>
+                  <td>
+                    <div class="title">
+                      <a href="javascript:OpenModal({{ $post->memberID }});">
+                        <p>{{ $post->title }}</p>
+                        <span>[{{ $post->like }}]</span>
+                      </a>
+                    </div>
+                    <div class="user">
+                      <p><span><a href="{{ route('channelShow', $post->channelID) }}">[{{ $post->name }}]</a></span>온 <a href="{{ route('userMypage') }}">{{ $post->memberID }}</a> / n분 전</p>
+                    </div>
+                  </td>
+                </tr>                
+              @empty
+                <tr>
+                  <td>
+                    데이터가 없습니다.
+                  </td>
+                </tr>
+              @endforelse
             </table>
           </div>
         </div>
@@ -59,15 +67,16 @@
             <p>사람들과 얘기하고 싶었던 주제로 나만의 몽드를 만들어 보세요.</p>
             <p>어쩌면 마음이 맞는 친구를 찾을지도 모릅니다.</p>
             <ul>
-              <li><a href="{{ url('/p/create') }}">포스트 작성</a></li>
-              <li><a href="{{ url('/c/create') }}">몽드 만들기</a></li>
+              <li><a href="{{ route('postCreate') }}">포스트 작성</a></li>
+              <li><a href="{{ route('channelCreate') }}">몽드 만들기</a></li>
             </ul>
           </div>
         </div>
       </article>
     </div>
   </section>
-</body>
-
-
-</html>
+  <script>
+    function OpenModal(id) {
+      window.open('/post/'+id);
+    }
+  </script>

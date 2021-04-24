@@ -32,7 +32,7 @@ input:focus { outline:none; }
 #main .board_box .left div.list table tr td div.title {  }
 #main .board_box .left div.list table tr td div.title a { display:block; overflow:hidden; padding:0 0 3px 4px; box-sizing:border-box; }
 #main .board_box .left div.list table tr td div.title a p { color:rgba(0, 0, 0, 0.87); font-size:19px; letter-spacing:0; float:left; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:calc(100% - 100px); font-weight:500; }
-#main .board_box .left div.list table tr td div.title a span { float:right; font-size:19px; font-weight:500; padding:0 30px 0 0; box-sizing:border-box; }
+#main .board_box .left div.list table tr td div.title a span { margin-left: 7px; font-size:19px; font-weight:500; padding:0 30px 0 0; box-sizing:border-box; }
 #main .board_box .left div.list table tr td div.user {  }
 #main .board_box .left div.list table tr td div.user p { font-size:12px; color:#666; }
 #main .board_box .left div.list table tr td div.user p span { color:#0008f9; margin:0 5px 0 0; }
@@ -52,12 +52,51 @@ input:focus { outline:none; }
 #main .board_box .right .best ol li a span { color:#e60013; font-size:12px; margin:4px 12px 0 0; padding:0 0 0 25px; background-image:url('/image/icon_triup.png'); background-repeat:no-repeat; background-position:0 50%; float:left; }
 #main .board_box .right .best ol li a p { float:left; text-overflow:ellipsis; white-space:nowrap; max-width:calc(100% - 70px); overflow:hidden; letter-spacing:0; }
 
+#main .board_box .right .right_sub { border:1px solid #cbc7c7; border-radius:10px; overflow:hidden; }
+#main .board_box .right .right_sub ul { overflow:hidden; border-bottom:1px solid #b5b5b5; }
+#main .board_box .right .right_sub .info { background-color:#5a4e70; color:#f6f6f8; display:block; border-radius:10px 10px 0 0; padding:10px 0 10px 10px; letter-spacing:1.9px; font-size:20px; }
+#main .board_box .right .right_sub ul li:first-child { border-right:1px solid #b5b5b5; box-sizing:border-box; }
+#main .board_box .right .right_sub ul li a { font-size:19px; color:#282828; background-color:#e9e9e9; display:block; text-align:center; padding:8px 0; letter-spacing:1.9px; }
+#main .board_box .right .right_sub ul li.on a { background-color:#fff; }
+#main .board_box .right .right_sub ol {  }
+#main .board_box .right .right_sub ol li { border-top:2px solid #f0f0f0; }
+#main .board_box .right .right_sub ol li:first-child { border:0; }
+#main .board_box .right .right_sub ol li a { font-size:18px; color:#282828; display:block; padding:5px 18px; box-sizing:border-box; overflow:hidden; }
+#main .board_box .right .right_sub ol li:first-child a { padding:9px 18px 7px; }
+#main .board_box .right .right_sub ol li a span { color:#e60013; font-size:12px; margin:4px 12px 0 0; padding:0 0 0 25px; background-image:url('/image/icon_triup.png'); background-repeat:no-repeat; background-position:0 50%; float:left; }
+#main .board_box .right .right_sub ol li a p { float:left; text-overflow:ellipsis; white-space:nowrap; max-width:calc(100% - 70px); overflow:hidden; letter-spacing:0; }
+
 #main .board_box .right .link { margin:20px 0 0; border:1px solid #cbc7c7; border-radius:20px; padding:0 10px 9px; box-sizing:border-box; }
 #main .board_box .right .link p { font-size:14px; letter-spacing:0; line-height:17px; margin:17px 0 0; color:#282828; }
 #main .board_box .right .link ul { padding:10px 0 0; }
 #main .board_box .right .link ul li { margin:10px 0 0; }
 #main .board_box .right .link ul li a { background-color:#5a4e70; color:#f6f6f8; display:block; border-radius:10px; padding:5px 0; text-align:center; letter-spacing:1.9px; font-size:20px; }
 
+/*
+Custom 
+*/
+
+// ChannelShow
+#main .board_box .left .add_planet { width: 200px; margin: 10px 0 10px auto;}
+#main .board_box .left .add_planet a { background-color:#5a4e70; color:#f6f6f8; display:block; border-radius:10px; padding:5px 0; text-align:center; letter-spacing:1.9px; font-size:20px; }
+.right .right_sub > .info_detail {
+  padding: 0 10px 9px;
+  margin: 0 auto;
+  width: 88%;
+}
+.right .right_sub .info_detail .description {
+  margin: 10px 0 10px;
+  word-break:break-all;
+  padding-bottom: 10px;
+  border-bottom: 2px black solid;
+}
+.right .right_sub .info_detail .flex { display: flex; }
+.right .right_sub .info_detail .flex .flex_item { flex: auto; }
+.right .right_sub .info_detail .flex .flex_item div { font-size: 16px; line-height: 1.5; letter-spacing: 0.32px; height: 24px; font-weight: bold; font-stretch: normal; }
+.right .right_sub .info_detail .flex .flex_item p { line-height: 1.5; letter-spacing: 0.32px; height: 24px; font-size: 16px; }
+/* 
+Done
+*/
 
 @media screen and (max-width:1440px) {
   .wrap { width:1276px; }

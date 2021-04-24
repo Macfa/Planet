@@ -14,6 +14,7 @@ class ChannelsController extends Controller
             ->get()
             ->toJson();
         $posts = json_decode($posts);
+
         return view('channel.index', compact('posts'));
     }
 
@@ -34,13 +35,21 @@ class ChannelsController extends Controller
     }
 
     public function show($id) {
-        $posts = Post::where('hide', '=', 0)
-            ->where("channelID", '=', $id)
+        $posts = Post::join('channels', 'channels.id', '=', 'posts.channelID')
+            ->where('posts.hide', '=', 0)
+            ->where("posts.channelID", '=', $id)
             ->get()
             ->toJson();
 
         $posts = json_decode($posts);
-        return view('channel.index', compact('posts'));
+        // $channel = Channel::where('hide', '=', 0)
+        //     ->where('id', '=', $id)
+        //     ->get()
+        //     ->first()
+        //     ->toJson();
+
+        // $channel = json_decode($channel);
+        return view('channel.show', compact('posts'));
     }
 }
 

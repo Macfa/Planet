@@ -37,6 +37,7 @@
   <link rel="stylesheet" type="text/css" href="{{ asset('css/main/font.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ asset('css/main/header.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ asset('css/main/common.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/main/layout.css') }}">
 </head>
 
 
@@ -50,7 +51,6 @@
       </form>
     </div>
     <ul class="btn">
-      <li><a href="#">회원가입</a></li>
-      <li class="login"><a href="#">로그인</a></li>
+      <li class="login"><a href="{{ route('googleLogin') }}">로그인</a></li>
     </ul>
   </header>
