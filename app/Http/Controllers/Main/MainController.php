@@ -18,4 +18,5 @@ class MainController extends Controller
         $posts = json_decode($posts);
         return view('main.index', compact('posts'));
     }
+    
 }

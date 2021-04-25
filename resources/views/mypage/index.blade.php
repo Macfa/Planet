@@ -12,9 +12,10 @@
             <a href="#">레닛 추가</a>
           </div>
           <ul class="tab">
-            <li class="on"><a href="#">쓴 글</a></li>
-            <li><a href="#">쓴 댓글</a></li>
-            <li><a href="#">스크랩</a></li>
+            {{-- <li @if( basename(Request::url()) =="post") class="o1n" @endif><a href="{{ route('userMypage', 'comment') }}">쓴 댓글</a></li> --}}
+            <li @if( basename(Request::url()) =="post") class="on" @endif><a href="{{ route('userMypage', 'post') }}">쓴 글</a></li>
+            <li @if( basename(Request::url()) =="comment") class="on" @endif><a href="{{ route('userMypage', 'comment') }}">쓴 댓글</a></li>
+            <li @if( basename(Request::url()) =="scrap") class="on" @endif><a href="{{ route('userMypage', 'scrap') }}">스크랩</a></li>
           </ul>
           <div class="list">
             <table>
@@ -60,8 +61,7 @@
             <div class="info_detail">
               <div class="flex">
                 <div class="flex_item">
-                  <div>11,000</div>
-                  <p>여행출발일</p>
+                  <div><img src="{{ asset('image/close.png') }}"/>nickname</div>
                 </div>
                 <div class="flex_item">
                   {{-- <div>{{ $post->created_at->format('Y-m-d') }}</div> --}}
@@ -118,6 +118,13 @@
   <script>
     function OpenModal(id) {
       window.open('/post/'+id);
+    }
+    window.onload = function() {
+      // $uri_path = $_SERVER['REQUEST_URI']; 
+      // $uri_parts = explode('/', $uri_path);
+      // $request_url = end($uri_parts);
+
+
     }
   </script>
   

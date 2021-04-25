@@ -39,7 +39,7 @@ Route::get('/post/{id}', [PostsController::class, 'show'])->where('id', '[0-9]+'
 Route::post('/comment', [CommentsController::class, 'store'])->name('commentStore');
 
 // User's route
-Route::get('/mypage', [UsersController::class, 'index'])->name('userMypage');
+Route::get('/mypage/{el}', [UsersController::class, 'index'])->name('userMypage');
 
 // Login with APIs
 Route::get('login/google', [LoginController::class, 'redirectToProvider'])->name('googleLogin');

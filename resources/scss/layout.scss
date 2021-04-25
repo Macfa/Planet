@@ -16,7 +16,7 @@ input:focus { outline:none; }
 #main .board_box .left ul.category li a { box-sizing:border-box; padding:6px 7px 6px 1px; display:inline-block; font-size:18px; color:#3e3e3e; }
 #main .board_box .left ul.category li a img { height:25px !important; margin:0 9px 0 0; }
 
-#main .board_box .left ul.tab { border:1px solid #cbc7c7; border-radius:10px; margin:0 0 10px; padding:0 5px; box-sizing:border-box; }
+#main .board_box .left ul.tab { border:1px solid #cbc7c7; border-radius:10px; margin:0 0 10px; padding:10px 5px; box-sizing:border-box; }
 #main .board_box .left ul.tab li { display:inline-block; }
 #main .board_box .left ul.tab li a { display:inline-block; padding:3px 12px; color:#7a7a7a; font-size:16px; letter-spacing:0; }
 #main .board_box .left ul.tab li.on a { color:#625777; position:relative; font-weight:500; }
@@ -94,9 +94,14 @@ Custom
 .right .right_sub .info_detail .flex .flex_item { flex: auto; }
 .right .right_sub .info_detail .flex .flex_item div { font-size: 16px; line-height: 1.5; letter-spacing: 0.32px; height: 24px; font-weight: bold; font-stretch: normal; }
 .right .right_sub .info_detail .flex .flex_item p { line-height: 1.5; letter-spacing: 0.32px; height: 24px; font-size: 16px; }
+
+
+// mypage
+
 /* 
 Done
 */
+
 
 @media screen and (max-width:1440px) {
   .wrap { width:1276px; }

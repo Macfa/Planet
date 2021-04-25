@@ -35,7 +35,7 @@
                       </a>
                     </div>
                     <div class="user">
-                      <p><span><a href="{{ route('channelShow', $post->channelID) }}">[{{ $post->name }}]</a></span>온 <a href="{{ route('userMypage') }}">{{ $post->memberID }}</a> / n분 전</p>
+                      <p><span><a href="{{ route('channelShow', $post->channelID) }}">[{{ $post->name }}]</a></span>온 <a href="{{ route('userMypage', 'post') }}">{{ $post->memberID }}</a> / n분 전</p>
                     </div>
                   </td>
                 </tr>                
