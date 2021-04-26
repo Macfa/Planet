@@ -8,7 +8,7 @@
                     <img src="{{ asset('image/arrow-top.png') }}" alt="앞으로" />
                 </div>
                 
-                <span class="now-page">1111</span>
+                <span class="now-page">{{ $post->like }}</span>
                 
                 <div class="arrow-bot">
                     <img src="{{ asset('image/arrow-bot.png') }}" alt="뒤로" />
@@ -17,12 +17,12 @@
             
             <div class="modal-title">
                 <h4>
-                    {{ $post->title }} [1111]
+                    {{ $post->title }} [{{ $post->comments_count }}]
                 </h4>
             </div>
             
             <div class="write-info">
-                <p><span class="write-source">[{{ $post->channelID }}]</span> 온 닉네임/n분 전</p>
+                <p><span><a href="{{ route('channelShow', $post->channelID) }}">[{{ $post->channel->name }}]</a></span>온 <a href="{{ route('userMypage', 'post') }}">{{ $post->memberID }}</a> / n분 전</p>
             </div>
             
             <div class="modal-close">

@@ -29,13 +29,13 @@
                   <td><div class="thum"></div></td>
                   <td>
                     <div class="title">
-                      <a href="javascript:OpenModal({{ $post->memberID }});">
+                      <a href="javascript:OpenModal({{ $post->id }});">
                         <p>{{ $post->title }}</p>
-                        <span>[{{ $post->like }}]</span>
+                        <span>[{{ $post->comments_count }}]</span>
                       </a>
                     </div>
                     <div class="user">
-                      <p><span><a href="{{ route('channelShow', $post->channelID) }}">[{{ $post->name }}]</a></span>온 <a href="{{ route('userMypage', 'post') }}">{{ $post->memberID }}</a> / n분 전</p>
+                      <p><span><a href="{{ route('channelShow', $post->channelID) }}">[{{ $post->channel->name }}]</a></span>온 <a href="{{ route('userMypage', 'post') }}">{{ $post->memberID }}</a> / n분 전</p>
                     </div>
                   </td>
                 </tr>                

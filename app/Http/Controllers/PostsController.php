@@ -11,8 +11,10 @@ use App\Models\Comment;
 class PostsController extends Controller
 {
     public function show($id) {
-        $posts = Post::where('hide', '=', 0)
-            ->where('id', '=', $id)
+        $posts = Post::with('channel')
+            ->withCount('comments')
+            ->where('posts.hide', '=', 0)
+            ->where('posts.id', '=', $id)
             ->get()
             ->first()
             ->toJson();

@@ -34,11 +34,11 @@
                   <div class="title">
                     <a href="javascript:OpenModal({{ $post->memberID }});">
                       <p>{{ $post->title }}</p>
-                      <span>[{{ $post->like }}]</span>
+                      <span>[{{ $post->comments_count }}]</span>
                     </a>
                   </div>
                   <div class="user">
-                    <p><span><a href="{{ route('channelShow', $post->channelID) }}">[{{ $post->name }}]</a></span>온 <a href="{{ route('userMypage', 'post') }}">{{ $post->memberID }}</a> / n분 전</p>
+                    <p><span><a href="{{ route('channelShow', $post->channelID) }}">[{{ $post->channel->name }}]</a></span>온 <a href="{{ route('userMypage', 'post') }}">{{ $post->memberID }}</a> / n분 전</p>
                   </div>
                 </td>
               </tr>                
@@ -58,7 +58,7 @@
               레닛정보
             </div>
             <div class="info_detail">
-              <p class="description">{{ $post->description }}</p>
+              <p class="description">{{ $channel->description }}</p>
               <div class="flex">
                 <div class="flex_item">
                   <div>11,000</div>
@@ -66,14 +66,14 @@
                 </div>
                 <div class="flex_item">
                   {{-- <div>{{ $post->created_at->format('Y-m-d') }}</div> --}}
-                  <div>{{ date('Y년 m월 d일', strtotime($post->created_at)) }}</div>
+                  <div>{{ date('Y년 m월 d일', strtotime($channel->created_at)) }}</div>
                   <p>최초 관측일</p>              
                 </div>
               </div>
               <div class="flex">
                 <div class="flex_item">
                   <div>nickname</div>
-                  <p>{{ $post->memberID }}</p>
+                  <p>{{ $channel->owner }}</p>
                 </div>
               </div>              
             </div>

@@ -10,7 +10,8 @@ use App\Models\Comment;
 class UsersController extends Controller
 {
     public function index($el) {
-        $posts = Post::join('channels', 'channels.id', '=', 'posts.channelID')
+        $posts = Post::with('channel')
+        ->withCount('comments')
         ->where('memberID', '=', 1)
         ->get()    
         ->toJson();

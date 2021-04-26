@@ -23,33 +23,37 @@ class ChannelsController extends Controller
     }
 
     public function store(Request $req) {
-        Channel::create([
+        $lastID = Channel::create([
             'name' => $req->input('name'),
             'description' => $req->input('description'),
             'owner' => 1,
             'hide' => 0
-        ]);        
+        ])->id;
 
         // return back()->withInput();
-        return redirect()->route('channelMain');
+        return redirect()->route('channelShow', ['id' => $lastID]);
     }
 
     public function show($id) {
-        $posts = Post::join('channels', 'channels.id', '=', 'posts.channelID')
+        // get all of posts with channels
+        $posts = Post::with('channel')
+            ->withCount('comments')
             ->where('posts.hide', '=', 0)
             ->where("posts.channelID", '=', $id)
             ->get()
             ->toJson();
 
+        // channel info
+        $channel = Channel::where('hide', '=', 0)
+            ->where('id', '=', $id)
+            ->get()
+            ->first()
+            ->toJson();
+        
         $posts = json_decode($posts);
-        // $channel = Channel::where('hide', '=', 0)
-        //     ->where('id', '=', $id)
-        //     ->get()
-        //     ->first()
-        //     ->toJson();
+        $channel = json_decode($channel);
 
-        // $channel = json_decode($channel);
-        return view('channel.show', compact('posts'));
+        return view('channel.show', compact('posts', 'channel'));
     }
 }
 

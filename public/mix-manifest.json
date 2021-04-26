@@ -1,10 +1,4 @@
 {
     "/js/app.js": "/js/app.js",
-    "/js/custom.js": "/js/custom.js",
-    "/css/channel/create.css": "/css/channel/create.css",
-    "/css/main/layout.css": "/css/main/layout.css",
-    "/css/main/header.css": "/css/main/header.css",
-    "/css/main/font.css": "/css/main/font.css",
-    "/css/main/common.css": "/css/main/common.css",
-    "/css/post/create.css": "/css/post/create.css"
+    "/css/app.css": "/css/app.css"
 }

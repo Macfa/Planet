@@ -23,8 +23,9 @@ class CommentsController extends Controller
     public function storeFirst($req) {
         $comments = Comment::create([
             'postID' => $req->input('postID'),
-            // 'group' => $req->input('postID'),
+            'group' => $req->input('postID'),
             'content' => $req->input('content'),
+            'parent' => $req->input('id'),
             'memberID' => 1,
             'like' => 0,
             'hate' => 0,

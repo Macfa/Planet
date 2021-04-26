@@ -13,10 +13,10 @@ class Post extends Model
     protected $guarded = [];    
 
     public function channel() {
-        return $this->belongsTo(Channel::class);
+        return $this->belongsTo(Channel::class, 'id', 'id');
     }
 
-    public function comment() {
-        return $this->hasMany(Comment::class);
+    public function comments() {
+        return $this->hasMany(Comment::class, 'postID');
     }
 }
