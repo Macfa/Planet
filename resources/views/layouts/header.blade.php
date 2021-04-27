@@ -51,6 +51,15 @@
       </form>
     </div>
     <ul class="btn">
-      <li class="login"><a href="{{ route('googleLogin') }}">로그인</a></li>
+          @auth
+          <li class="login"><img src="{{ asset('image/arrow-bot.png') }}" alt="뒤로" /></li>
+          <li class="login"><img src="{{ asset('image/arrow-bot.png') }}" alt="뒤로" /></li>
+          <li class="login"><img src="{{ asset('image/arrow-bot.png') }}" alt="뒤로" /></li>
+          <li class="login"><img src="{{ asset('image/arrow-bot.png') }}" alt="뒤로" /></li>
+          {{ Auth::user()->name }}
+          @else
+            <li class="login"><a href="{{ route('social.oauth', 'google') }}">로그인</a></li>
+          @endauth
+      </div>
     </ul>
   </header>

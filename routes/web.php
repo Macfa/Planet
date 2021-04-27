@@ -42,7 +42,17 @@ Route::post('/comment', [CommentsController::class, 'store'])->name('commentStor
 Route::get('/mypage/{el}', [UsersController::class, 'index'])->name('userMypage');
 
 // Login with APIs
-Route::get('login/google', [LoginController::class, 'redirectToProvider'])->name('googleLogin');
-Route::get('login/google/callback', [LoginController::class, 'handleProviderCallback'])->name('googleLoginCallBack');
+// Route::get('login/google', [LoginController::class, 'redirectToProvider'])->name('googleLogin');
+// Route::get('login/google/callback', [LoginController::class, 'handleProviderCallback'])->name('googleLoginCallBack');
 
+Route::get('auth/social', 'Auth\LoginController@show')->name('social.login');
+Route::get('oauth/{driver}', [LoginController::class, 'redirectToProvider'])->name('social.oauth');
+Route::get('oauth/{driver}/callback', [LoginController::class, 'handleProviderCallback'])->name('social.callback');
 
+// Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
