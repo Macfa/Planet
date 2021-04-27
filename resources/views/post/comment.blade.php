@@ -35,7 +35,7 @@
             @if ($comment->depth == 0)
             
             <!-- 댓글 리스트 -->
-            <div class="comment-list">
+            <div class="comment-list" id="comment-list">
                 <div class="comment-item">
                     <div class="comment-top">
                         <div class="write-info">
@@ -62,30 +62,7 @@
                         </p>
                     </div>
                     <!-- 답글 작성 폼 -->
-                    <div class="reply-form">
-                        <form method="post" action="/comment">
-                            @csrf
-                            <input type="hidden" name="group" value="{{ $comment->group }}">
-                            <input type="hidden" name="postID" value="{{ $post->id }}">
-                            <input type="hidden" name="id" value="{{ $comment->id }}">
-                            <div class="reply-input">
-                                <textarea
-                                name="content"
-                                id="reply_text"
-                                ></textarea>
-                                
-                                <div class="form-btn">
-                                    <div class="reset-btn">
-                                        <button type="reset">취소{{ $comment->group }}</button>
-                                    </div>
-                                    
-                                    <div class="write-btn">
-                                        <button type="submit">등록</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>                                    
+                    <comment-reply></comment-reply>                                 
                 </div>
             </div>   
             
@@ -261,3 +238,4 @@
     </div>
 </div>
 </div>
+<script src="{{ asset('js/comment/comment.js') }}"></script>
