@@ -62,7 +62,7 @@
                         </p>
                     </div>
                     <!-- 답글 작성 폼 -->
-                    <comment-reply></comment-reply>                                 
+                    <template></template>
                 </div>
             </div>   
             
@@ -238,4 +238,4 @@
     </div>
 </div>
 </div>
-<script src="{{ asset('js/comment/comment.js') }}"></script>
+<script src="{{ mix('js/app.js') }}"></script>

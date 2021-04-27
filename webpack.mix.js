@@ -11,6 +11,6 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .js('resources/js/comment/comment.js', 'public/js/comment')
-    .sass('resources/scss/app.scss', 'public/css');
+mix.js('resources/js/app.js', 'public/js').vue()
+    .js('resources/js/comment.js', 'public/js')
+    .sass('resources/sass/app.scss', 'public/css');
