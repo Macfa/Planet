@@ -1,8 +1,9 @@
   @include('layouts.header')
   <link rel="stylesheet" type="text/css" href="{{ asset('css/main/layout.css') }}">
+  
 
   <section id="main">
-    <div class="wrap">
+    <div class="wrap" id="app">
       <article class="advertising"><a href="#"><img src="../img/test.jpg"></a></article>
       <article class="board_box">
         <div class="left">
@@ -10,8 +11,8 @@
             <li><a href="#"><img src="../img/icon_podium.png">포디엄</a></li>
           </ul>
           <ul class="tab">
-            <li class="on"><a href="#">실시간</a></li>
-            <li><a href="#">인기</a></li>
+            <li :class="{on: type===1}"><a @click="changeType(1)">실시간</a></li>
+            <li :class="{on: type===2}"><a @click="changeType(2)">인기</a></li>
           </ul>
           <div class="list">
             <table>
@@ -52,8 +53,8 @@
         <div class="right">
           <div class="best">
             <ul>
-              <li class="on"><a href="#">실시간</a></li>
-              <li><a href="#">인기</a></li>
+              <li :class="{on: bestType===1}"><a v-on:click="changeBestType(1)">실시간</a></li>
+              <li :class="{on: bestType===2}"><a v-on:click="changeBestType(2)">인기</a></li>
             </ul>
             <ol>
               <li><a href="#"><span class="up">111</span><p>아프리카tv</p></a></li>
@@ -80,3 +81,4 @@
       window.open('/post/'+id);
     }
   </script>
+<script src="{{ asset('js/app.js') }}"></script>

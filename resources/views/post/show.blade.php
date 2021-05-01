@@ -41,10 +41,10 @@
                     </div>
                     
                     <!-- 게시글 기타 기능 -->
-                    <div class="board-etc-function">
+                    <div class="board-etc-function" id="post">
                         <ul>
                             <li>
-                                <img src="{{ asset('image/square-small.png') }}" alt="" />
+                                <img @click="upvote(1212)" src="{{ asset('image/square-small.png') }}" alt="" />
                                 
                                 <div class="function-text">
                                     <p>{{ $post->like }}</p>
@@ -145,3 +145,28 @@
         </div>
     </div>
     
+    <script>
+        // window.Vue = require('vue').default;
+        // import Vue from 'vue'
+
+        new Vue({
+            el: '#post',
+            data: {
+                bestType: 1,
+                type: 1,
+            },
+            methods: {
+                changeBestType: function(bestType) {
+                    this.bestType = bestType;
+                },
+                changeType: function(type) {
+                    this.type = type;
+                }
+            },
+            computed: {
+                upvote: function(id) {
+                alert(id);
+                }
+            }
+        });
+    </script>

@@ -13,8 +13,8 @@
             <a href="#">레닛 추가</a>
           </div>
           <ul class="tab">
-            <li class="on"><a href="#">실시간</a></li>
-            <li><a href="#">인기</a></li>
+            <li :class="{on: type===1}"><a @click="changeType(1)">실시간</a></li>
+            <li :class="{on: type===2}"><a @click="changeType(2)">인기</a></li>
           </ul>
           <div class="list">
             <table>
@@ -95,4 +95,4 @@
       window.open('/post/'+id);
     }
   </script>
-  
+  <script src="{{ asset('js/app.js') }}"></script>
