@@ -44,7 +44,7 @@
                     <div class="board-etc-function" id="post">
                         <ul>
                             <li>
-                                <img @click="upvote(1212)" src="{{ asset('image/square-small.png') }}" alt="" />
+                                <img @click="upvote({{ $post->id }})" src="{{ asset('image/square-small.png') }}" alt="" />
                                 
                                 <div class="function-text">
                                     <p>{{ $post->like }}</p>
@@ -73,51 +73,13 @@
                                 <div class="function-text">
                                     <p>스크랩</p>
                                 </div>
+                                {{-- <scrap-template></scrap-template> --}}
                             </li>
                             <li>
                                 <img src="{{ asset('image/square-small.png') }}" alt="" />
                                 
                                 <div class="function-text">
                                     <p>신고</p>
-                                </div>
-                                
-                                <div class="function-sub">
-                                    <div class="function-item">
-                                        <img
-                                        src="{{ asset('image/square-small.png') }}"
-                                        alt=""
-                                        class="fc-icon"
-                                        />
-                                        
-                                        <div class="function-text">카카오톡</div>
-                                    </div>
-                                    <div class="function-item">
-                                        <img
-                                        src="{{ asset('image/square-small.png') }}"
-                                        alt=""
-                                        class="fc-icon"
-                                        />
-                                        
-                                        <div class="function-text">페이스북</div>
-                                    </div>
-                                    <div class="function-item">
-                                        <img
-                                        src="{{ asset('image/square-small.png') }}"
-                                        alt=""
-                                        class="fc-icon"
-                                        />
-                                        
-                                        <div class="function-text">트위터</div>
-                                    </div>
-                                    <div class="function-item">
-                                        <img
-                                        src="{{ asset('image/square-small.png') }}"
-                                        alt=""
-                                        class="fc-icon"
-                                        />
-                                        
-                                        <div class="function-text">라인</div>
-                                    </div>
                                 </div>
                             </li>
                         </ul>
@@ -144,29 +106,27 @@
             </div>
         </div>
     </div>
-    
+    <script src="{{ mix('js/app.js') }}"></script>
     <script>
-        // window.Vue = require('vue').default;
-        // import Vue from 'vue'
-
         new Vue({
             el: '#post',
             data: {
-                bestType: 1,
-                type: 1,
+                vote: null,
             },
             methods: {
-                changeBestType: function(bestType) {
-                    this.bestType = bestType;
+                upvote(id) {
+                    alert("처리되었습니다.");
+                    axios.post("/post/upvote/"+id)
+                    .then((res) => {
+                        console.log(res);
+                    })
+                    .catch(function(err) {
+                        console.log(err);
+                    })
                 },
-                changeType: function(type) {
-                    this.type = type;
+                commentUpvote: function(id) {
+                    alert("comment : "+id);
                 }
             },
-            computed: {
-                upvote: function(id) {
-                alert(id);
-                }
-            }
         });
     </script>

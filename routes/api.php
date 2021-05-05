@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostsController;
+use App\Http\Controllers\CommentsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+// Route::post('/post/upvote/{id}',[PostsController::class, 'upvote'])->where('id', '[0-9]*')->name('postUpvote');
+// Route::get('/get/upvote', 'PostsController@upvote')->name('ssss');

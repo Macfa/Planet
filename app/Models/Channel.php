@@ -12,7 +12,10 @@ class Channel extends Model
     protected $primaryKey = "id";
     protected $guarded = [];
 
-    public function post() {
-        return $this->hasMany(Post::class);
+    public function posts() {
+        return $this->hasMany(Post::class, 'id', 'chnnelID');
+    }
+    public function favorite() {
+        return $this->belongsTo(Favorite::class, 'id', 'id');
     }
 }

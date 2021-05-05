@@ -39,7 +39,7 @@
                     </a>
                   </div>
                   <div class="user">
-                    <p><span><a href="{{ route('channelShow', $post->channelID) }}">[{{ $post->channel->name }}]</a></span>온 {{ $post->memberID }} / n분 전</p>
+                    <p><span><a href="{{ route('channelShow', $post->channelID) }}">[{{ $post->channel->name }}]</a></span>온 {{ $post->user->name }} / n분 전</p>
                   </div>
                 </td>
               </tr>                
@@ -72,7 +72,8 @@
               {{-- <p class="description">{{ $post->channel->description }}</p> --}}
               <div class="flex">
                 <div class="flex_item">
-                  <div>{{ date('Y년 m월 d일', strtotime($post->created_at)) }}</div>
+                  {{-- {{ dd($posts->channel) }} --}}
+                  <div>{{ date('Y년 m월 d일', strtotime($post->channel->created_at)) }}</div>
                   <p>여행출발일</p>
                 </div>
                 <div class="flex_item">

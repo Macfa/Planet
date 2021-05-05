@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Channel;
 use App\Models\Post;
+use App\Models\Favorite;
 
 class ChannelsController extends Controller
 {
@@ -26,7 +27,7 @@ class ChannelsController extends Controller
         $lastID = Channel::create([
             'name' => $req->input('name'),
             'description' => $req->input('description'),
-            'owner' => 1,
+            'owner' => auth()->id(),
             'hide' => 0
         ])->id;
 
@@ -38,8 +39,16 @@ class ChannelsController extends Controller
         // get all of posts with channels
         $posts = Post::with('channel')
             ->withCount('comments')
+            ->with('user')
             ->where('posts.hide', '=', 0)
             ->where("posts.channelID", '=', $id)
+            ->get()
+            ->toJson();
+
+        // favorite info
+        $favorites = Favorite::where('memberID', '=', auth()->id())
+            ->with('channel')
+            ->orderby('id', 'desc')
             ->get()
             ->toJson();
 
@@ -52,8 +61,15 @@ class ChannelsController extends Controller
         
         $posts = json_decode($posts);
         $channel = json_decode($channel);
+        $favorites = json_decode($favorites);
 
-        return view('channel.show', compact('posts', 'channel'));
+        return view('channel.show', compact('posts', 'channel', 'favorites'));
+    }
+    public function addFavorite($id) {
+        Favorite::create([
+            'memberID' => auth()->id(),
+            'channelID' => $id
+        ]);
     }
 }
 

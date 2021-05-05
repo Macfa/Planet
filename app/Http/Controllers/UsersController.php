@@ -11,8 +11,9 @@ class UsersController extends Controller
 {
     public function index($el) {
         $posts = Post::with('channel')
+        ->with('user')
         ->withCount('comments')
-        ->where('memberID', '=', 1)
+        ->where('memberID', '=', auth()->id())
         ->get()    
         ->toJson();
 

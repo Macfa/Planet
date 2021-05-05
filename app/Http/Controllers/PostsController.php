@@ -45,7 +45,7 @@ class PostsController extends Controller
             'channelID' => $req->input('channelID'),
             'title' => $req->input('title'),
             'content' => $req->input('content'),
-            'memberID' => 1,
+            'memberID' => auth()->id(),
             'like' => 0,
             'hate' => 0,
             'penalty' => 0,
@@ -54,5 +54,10 @@ class PostsController extends Controller
 
         $redirect = $req->input('channelID');
         return redirect()->route('channelShow', ['id' => $redirect]);
+    }
+
+    public function upvote($id) {
+        $result = Post::where('id', '=', $id)
+            ->increment('like',1);
     }
 }

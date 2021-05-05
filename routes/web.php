@@ -30,29 +30,25 @@ Route::get('/channel/{id}', [ChannelsController::class, 'show'])->where('id', '[
 Route::get('/channel/create', [ChannelsController::class, 'create'])->name("channelCreate");
 Route::post('/channel', [ChannelsController::class, 'store'])->name("channelStore");
 
+// Favorite's route
+Route::post('/channel/favorite/{id}',[ChannelsController::class, 'addFavorite'])->where('id', '[0-9]+')->name("channelAddFavorite");
+
+
 // Post's route
 Route::get('/post/create',[PostsController::class, 'create'])->name('postCreate');
 Route::post('/post', [PostsController::class, 'store'])->name('postStore');
 Route::get('/post/{id}', [PostsController::class, 'show'])->where('id', '[0-9]+')->name("postShow");
+Route::post('/post/upvote/{id}',[PostsController::class, 'upvote'])->where('id', '[0-9]*')->name('postUpvote');
 
 // Comment's route
 Route::post('/comment', [CommentsController::class, 'store'])->name('commentStore');
+Route::post('/comment/upvote/{id}',[CommentsController::class, 'upvote'])->where('id', '[0-9]*')->name('commentUpvote');
 
 // User's route
 Route::get('/mypage/{el}', [UsersController::class, 'index'])->name('userMypage');
 
 // Login with APIs
-// Route::get('login/google', [LoginController::class, 'redirectToProvider'])->name('googleLogin');
-// Route::get('login/google/callback', [LoginController::class, 'handleProviderCallback'])->name('googleLoginCallBack');
-
 Route::get('auth/social', 'Auth\LoginController@show')->name('social.login');
 Route::get('oauth/{driver}', [LoginController::class, 'redirectToProvider'])->name('social.oauth');
 Route::get('oauth/{driver}/callback', [LoginController::class, 'handleProviderCallback'])->name('social.callback');
 
-// Auth::routes();
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-// Auth::routes();
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

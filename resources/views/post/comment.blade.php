@@ -25,7 +25,7 @@
     </div>
     
     <!-- 댓글 -->
-    <div class="comment-list-parent">
+    <div class="comment-list-parent" id="comment">
         <div class="section-title">
             <h4>댓글 보기</h4>
         </div>
@@ -49,7 +49,8 @@
                                 <li>스탬프</li>
                                 <li>댓글</li>
                                 <li>
-                                    <img src="{{ asset('image/square-small.png') }}" alt="" /> {{ $comment->like }}
+                                    <img @click="upvote({{ $comment->id }})" src="{{ asset('image/square-small.png') }}" alt="" />
+                                    {{ $comment->like }}
                                 </li>
                                 <li><img src="{{ asset('image/square-small.png') }}" alt="" /></li>
                             </ul>
@@ -62,7 +63,7 @@
                         </p>
                     </div>
                     <!-- 답글 작성 폼 -->
-                    <template></template>
+                    
                 </div>
             </div>   
             
@@ -85,7 +86,7 @@
                                         <li>댓글</li>
                                         <li>
                                             <img src="{{ asset('image/square-small.png') }}" alt="" />
-                                            1111
+                                            {{ $comment->like }}
                                         </li>
                                         <li>
                                             <img src="{{ asset('image/square-small.png') }}" alt="" />
@@ -238,4 +239,24 @@
     </div>
 </div>
 </div>
-{{-- <script src="{{ mix('js/app.js') }}"></script> --}}
+<script src="{{ mix('js/app.js') }}"></script>
+<script>
+    new Vue({
+        el: '#comment',
+        data: {
+            vote: null,
+        },
+        methods: {
+            upvote(id) {
+                alert("처리되었습니다.");
+                axios.post("/comment/upvote/"+id)
+                .then((res) => {
+                    this.vote = this.vote+1;
+                })
+                .catch(function(err) {
+                    console.log(err);
+                })
+            },
+        },
+    });
+</script>

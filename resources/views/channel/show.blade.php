@@ -2,19 +2,23 @@
   <link rel="stylesheet" type="text/css" href="{{ asset('css/main/layout.css') }}">
   
   <section id="main">
-    <div class="wrap">
+    <div class="wrap" id="channel">
       <article class="advertising"><a href="#"><img src="../img/test.jpg"></a></article>
       <article class="board_box">
         <div class="left">
           <ul class="category">
-            <li><a href="#"><img src="../img/icon_podium.png">포디엄</a></li>
+            <li><a href="{{ route('channelMain') }}"><img src="../img/icon_podium.png">포디엄</a></li>
+            @foreach ( $favorites as $favorite )
+            <li v-for><a href="{{ route('channelShow', $favorite->channel->id) }}"><img src="../img/icon_podium.png">{{ $favorite->channel->name }}</a></li>
+            @endforeach
           </ul>
           <div class="add_planet">
-            <a href="#">레닛 추가</a>
+            <a href="#" @click="addFavorite({{ $channel->id }})">레닛 추가</a>
+            {{-- <a href="{{ route('channelAddFavorite') }}">레닛 추가</a> --}}
           </div>
           <ul class="tab">
-            <li :class="{on: type===1}"><a @click="changeType(1)">실시간</a></li>
-            <li :class="{on: type===2}"><a @click="changeType(2)">인기</a></li>
+            <li :class="{on: type===1}"><a href="" @click="clickType(1)">실시간</a></li>
+            <li :class="{on: type===2}"><a href="" @click="clickType(2)">인기</a></li>
           </ul>
           <div class="list">
             <table>
@@ -96,3 +100,27 @@
     }
   </script>
   <script src="{{ asset('js/app.js') }}"></script>
+  <script>
+    new Vue({
+      el: "#main",
+      data: {
+        type: 1
+      },
+      methods: {
+        clickType: function(id) {
+          this.type = id;
+        },
+        addFavorite: function(id) {
+          // alert(id);
+          // return;
+          axios.post("/channel/favorite/"+id)
+          .then((res) => {
+              console.log(res);
+          })
+          .catch(function(err) {
+              console.log(err);
+          })
+        }
+      }
+    })
+  </script>

@@ -8,8 +8,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
+// class User extends Model
 {
     use HasFactory, Notifiable;
+    protected $table = "users";
+    protected $primaryKey = "id";
 
     /**
      * The attributes that are mass assignable.
@@ -44,4 +47,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function Posts() {
+        return $this->hasMany(Post::class, 'id');
+    }
+    public function Points() {
+        return $this->hasMany(Point::class, 'id');
+    }
+    public function Favorites() {
+        return $this->hasMany(Favorite::class, 'id');
+    }
 }

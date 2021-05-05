@@ -26,7 +26,7 @@ class CommentsController extends Controller
             'group' => $req->input('postID'),
             'content' => $req->input('content'),
             'parent' => $req->input('id'),
-            'memberID' => 1,
+            'memberID' => auth()->id(),
             'like' => 0,
             'hate' => 0,
             'hide' => 0,
@@ -68,5 +68,10 @@ class CommentsController extends Controller
             // ->update([
             //     'depth' => $val['depth']+1
             // ]);
+    }
+
+    public function upvote($id) {
+        $result = Comment::where('id', '=', $id)
+            ->increment('like',1);
     }
 }

@@ -33,6 +33,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="96x96" href="../img/favicon/favicon-96x96.png">
 
+  <script src="{{ asset('js/app.js') }}" defer></script>
   {{-- <link rel="stylesheet" type="text/css" href="../css/common.css"> --}}
   <link rel="stylesheet" type="text/css" href="{{ asset('css/main/font.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ asset('css/main/header.css') }}">
@@ -42,6 +43,7 @@
 
 
 <body>
+  <div id="app">
   <header id="header">
     <h1><a href="/"><img src="../img/logo.png"></a></h1>
     <div class="input">

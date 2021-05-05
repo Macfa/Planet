@@ -2,82 +2,96 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSRF Token -->
+      <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0" />
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="Cache-Control" content="no-cache"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  
 
-    <!-- Scripts -->
-    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="몽드">
+    <meta property="og:description" content="사람들과 얘기하고 싶었던 주제로 나만의 몽드를 만들어 보세요.">
+    <meta property="og:image" content="../img/favicon/og_img.png">
+    <meta property="og:url" content="">
+
+    <meta name="description" content="어쩌면 마음이 맞는 친구를 찾을지도 모릅니다." />
+    <meta name="keywords" content="" />
+    <meta name="author" content="" />
+
+    {{-- <meta name="viewport" content="width=device-width, initial-scale=1"> --}}
+
+
+    <title>Monde</title>
+    {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
+
+    <link rel="apple-touch-icon" sizes="57x57" href="../img/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="../img/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../img/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../img/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../img/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="../img/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../img/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../img/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../img/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../img/favicon/favicon-96x96.png">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/main/font.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/main/header.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/main/common.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/main/layout.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/main/index.css') }}">
 
     <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    {{-- <link rel="dns-prefetch" href="//fonts.gstatic.com"> --}}
+    {{-- <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> --}}
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
 </head>
+
+
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-                            
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <main class="py-4">
-            @yield('content')
-        </main>
+  <div id="app"> 
+  <div>
+  <header id="header">
+    <h1><a href="/"><img src="../img/logo.png"></a></h1>
+    <div class="input">
+      <form action="" autocomplete="" enctype="" method="" target="">
+        <input type="text" name="" placeholder="검색...">
+        <button type="submit"></button>
+      </form>
     </div>
+    <ul class="btn">
+        @guest
+            <li class="login"><a href="{{ route('social.oauth', 'google') }}">로그인</a></li>
+        @else
+            <li class="login"><img src="{{ asset('image/arrow-bot.png') }}" alt="뒤로" /></li>
+            <li class="login"><img src="{{ asset('image/arrow-bot.png') }}" alt="뒤로" /></li>
+            <li class="login"><img src="{{ asset('image/arrow-bot.png') }}" alt="뒤로" /></li>
+            <li class="login"><img src="{{ asset('image/arrow-bot.png') }}" alt="뒤로" /></li>
+            {{ Auth::user()->name }}
+        @endguest
+      </div>
+    </ul>
+  </header>
+  <div>
+  @yield('content')
+  </div>
+</div>
+</div>
+
+<!-- Scripts -->
+<script src="{{ asset('js/app.js') }}" async defer></script>
+{{-- <script src="{{ mix('js/app.js') }}"></script> --}}
 </body>
 </html>
+
