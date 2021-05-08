@@ -1,6 +1,7 @@
-  @include('layouts.header')
-  <link rel="stylesheet" type="text/css" href="{{ asset('css/main/layout.css') }}">
-  
+  @extends('layouts.app')
+
+  @section('content')
+
   <section id="main">
     <div class="wrap" id="channel">
       <article class="advertising"><a href="#"><img src="../img/test.jpg"></a></article>
@@ -8,17 +9,17 @@
         <div class="left">
           <ul class="category">
             <li><a href="{{ route('channelMain') }}"><img src="../img/icon_podium.png">포디엄</a></li>
-            @foreach ( $favorites as $favorite )
-            <li v-for><a href="{{ route('channelShow', $favorite->channel->id) }}"><img src="../img/icon_podium.png">{{ $favorite->channel->name }}</a></li>
+            @foreach ($favorites as $favorite)
+            <li><a href="{{ route('channelShow', $favorite->channel->id) }}"><img src="../img/icon_podium.png">{{ $favorite->channel->name }}</a></li>  
             @endforeach
           </ul>
           <div class="add_planet">
-            <a href="#" @click="addFavorite({{ $channel->id }})">레닛 추가</a>
+            <a href="#" onclick="addFavorite({{ $channel->id }})">레닛 추가</a>
             {{-- <a href="{{ route('channelAddFavorite') }}">레닛 추가</a> --}}
           </div>
           <ul class="tab">
-            <li :class="{on: type===1}"><a href="" @click="clickType(1)">실시간</a></li>
-            <li :class="{on: type===2}"><a href="" @click="clickType(2)">인기</a></li>
+            <li class="on"><a href="#">실시간</a></li>
+            <li><a href="#">인기</a></li>
           </ul>
           <div class="list">
             <table>
@@ -95,32 +96,34 @@
     </div>
   </section>
   <script>
+    $('#main .tab li').click(function(event){
+      $('#main .tab li').removeClass('on');
+      $(this).addClass('on');
+    });
     function OpenModal(id) {
       window.open('/post/'+id);
     }
-  </script>
-  <script src="{{ asset('js/app.js') }}"></script>
-  <script>
-    new Vue({
-      el: "#main",
-      data: {
-        type: 1
-      },
-      methods: {
-        clickType: function(id) {
-          this.type = id;
+    function addFavorite(id) {
+      $.ajax({
+        type: "post",
+        url: "/channel/favorite",
+        data: {
+          'id': id
         },
-        addFavorite: function(id) {
-          // alert(id);
-          // return;
-          axios.post("/channel/favorite/"+id)
-          .then((res) => {
-              console.log(res);
-          })
-          .catch(function(err) {
-              console.log(err);
-          })
+        success: function(data) {
+          if(data) {
+            var url = '{{ route('channelShow', ":id") }}';
+            url = url.replace(':id', data.id);
+            $('.category').append('<li><a href="'+url+'"><img src="../img/icon_podium.png">'+data.channel.name+'</a></li>');
+          } else {
+            alert("이미 처리된 항목입니다.");
+          }
+        },
+        error: function(err) {
+          alert(err);
         }
-      }
-    })
+      })
+    }
   </script>
+
+  @endsection

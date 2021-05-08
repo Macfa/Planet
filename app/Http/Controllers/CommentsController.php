@@ -71,7 +71,13 @@ class CommentsController extends Controller
     }
 
     public function upvote($id) {
-        $result = Comment::where('id', '=', $id)
+        Comment::where('id', '=', $id)
             ->increment('like',1);
+
+        $result = Comment::where('id', '=', $id)
+            ->get()
+            ->first();
+
+        return response()->json($result);
     }
 }

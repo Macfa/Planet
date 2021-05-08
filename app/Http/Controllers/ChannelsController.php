@@ -65,11 +65,29 @@ class ChannelsController extends Controller
 
         return view('channel.show', compact('posts', 'channel', 'favorites'));
     }
-    public function addFavorite($id) {
-        Favorite::create([
-            'memberID' => auth()->id(),
-            'channelID' => $id
-        ]);
+    public function addFavorite(Request $req) {
+        $id = $req->input('id');
+
+        $exist = Favorite::where('channelID', '=', $id)
+            ->where('memberID', '=', auth()->id())
+            ->get()
+            ->count();
+
+        if($exist==0) {
+            $lastID = Favorite::create([
+                'memberID' => auth()->id(),
+                'channelID' => $id
+            ])->id;
+
+            $result = Favorite::where('id', '=', $lastID)
+            ->with('channel')
+            ->get()
+            ->first()
+            ->toJson();
+
+            $result = json_decode($result);
+            return response()->json($result);
+        }
     }
 }
 

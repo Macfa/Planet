@@ -13,6 +13,7 @@ class PostsController extends Controller
     public function show($id) {
         $posts = Post::with('channel')
             ->withCount('comments')
+            ->with('user')
             ->where('posts.hide', '=', 0)
             ->where('posts.id', '=', $id)
             ->get()
@@ -22,6 +23,7 @@ class PostsController extends Controller
 
         $comments = Comment::where('hide', '=', 0)
             ->where('postID', '=', $id)
+            ->with('user')
             ->orderBy('group', 'asc')
             ->orderBy('parent', 'asc')
             ->orderBy('order', 'asc')
@@ -57,7 +59,14 @@ class PostsController extends Controller
     }
 
     public function upvote($id) {
-        $result = Post::where('id', '=', $id)
+        Post::where('id', '=', $id)
             ->increment('like',1);
+        
+        $result = Post::where('id','=',$id)
+            ->select('like')
+            ->get()
+            ->first();
+
+        return response()->json($result);
     }
 }

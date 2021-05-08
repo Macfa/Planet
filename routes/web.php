@@ -31,7 +31,7 @@ Route::get('/channel/create', [ChannelsController::class, 'create'])->name("chan
 Route::post('/channel', [ChannelsController::class, 'store'])->name("channelStore");
 
 // Favorite's route
-Route::post('/channel/favorite/{id}',[ChannelsController::class, 'addFavorite'])->where('id', '[0-9]+')->name("channelAddFavorite");
+Route::post('/channel/favorite',[ChannelsController::class, 'addFavorite'])->where('id', '[0-9]+')->name("channelAddFavorite");
 
 
 // Post's route
@@ -46,6 +46,10 @@ Route::post('/comment/upvote/{id}',[CommentsController::class, 'upvote'])->where
 
 // User's route
 Route::get('/mypage/{el}', [UsersController::class, 'index'])->name('userMypage');
+
+// apis
+Route::get('/api/main', [MainController::class, 'getData']);
+Route::get('/api/channel', [ChannelsController::class, 'getData']);
 
 // Login with APIs
 Route::get('auth/social', 'Auth\LoginController@show')->name('social.login');

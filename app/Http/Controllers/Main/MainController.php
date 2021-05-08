@@ -30,9 +30,4 @@ class MainController extends Controller
         $favorites = json_decode($favorites);
         return view('main.index', compact('posts','favorites'));
     }
-    
-    public function index_axios() {
-
-    }
-
 }
