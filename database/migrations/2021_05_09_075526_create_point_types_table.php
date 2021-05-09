@@ -17,6 +17,7 @@ class CreatePointTypesTable extends Migration
             $table->increments('id');
             $table->integer('point')->default(0);
             $table->string('path', 50);
+            $table->string('action', 50);
             $table->timestamps();
         });
     }

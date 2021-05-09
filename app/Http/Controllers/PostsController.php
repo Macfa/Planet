@@ -55,10 +55,11 @@ class PostsController extends Controller
             'hide' => 0
         ]);
 
-        // $pointsController = new PointsController();
-        // $pointsController->earn();
+        $pointsController = new PointsController();
+        $pointsController->earn(auth()->id(), 1);
 
-        PointsController->earn();
+        // PointsController->earn();
+
         $redirect = $req->input('channelID');
         return redirect()->route('channelShow', ['id' => $redirect]);
     }

@@ -8,12 +8,21 @@ use App\Models\Point;
 
 class PointsController extends Controller
 {
-    public function earn() {
+    public function earn($memberID, $pointTypeID) {
         // Earn Point function 
-        dd(1);
-        // Point::create([
-        //     'memberID' => $memberID,
+        Point::create([
+            'memberID' => $memberID,
+            'pointTypeID' => $pointTypeID
+        ]);
+    }
 
-        // ])
+    public function spend($memberID, $pointTypeID) {
+        Point::where('memerID', '=', $memberID)
+            ->get()
+            ;
+    }
+
+    public function get($memberID) {
+        // get point you have
     }
 }
