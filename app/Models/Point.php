@@ -16,9 +16,9 @@ class Point extends Model
     //     return $this->belongsTo(Channel::class, 'id', 'id');
     // }
 
-    // public function comments() {
-    //     return $this->hasMany(Comment::class, 'postID');
-    // }
+    public function point_types() {
+        return $this->hasMany(PointType::class, 'pointTypeID', 'id');
+    }
     public function user() {
         return $this->belongsTo(User::class, 'memberID', 'id');
     }

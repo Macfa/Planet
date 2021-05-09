@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Channel;
 use App\Models\Post;
 use App\Models\Comment;
+use App\Http\Controllers\PointsController;
 
 class PostsController extends Controller
 {
@@ -54,6 +55,10 @@ class PostsController extends Controller
             'hide' => 0
         ]);
 
+        // $pointsController = new PointsController();
+        // $pointsController->earn();
+
+        PointsController->earn();
         $redirect = $req->input('channelID');
         return redirect()->route('channelShow', ['id' => $redirect]);
     }
