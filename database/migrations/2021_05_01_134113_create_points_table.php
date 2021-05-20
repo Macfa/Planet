@@ -16,8 +16,10 @@ class CreatePointsTable extends Migration
         Schema::create('points', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('memberID')->nullable();
-            // $table->integer('point')->default(0);
-            $table->integer('pointTypeID')->nullable();
+            $table->integer('point')->default(0);
+            $table->string('route', 50);
+            $table->string('action', 50);
+            $table->string('msg', 255);            
             $table->timestamps();
         });
     }

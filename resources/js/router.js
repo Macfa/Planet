@@ -9,7 +9,7 @@ const routes = [
     {
         path: '/',
         component: postList,
-        name: "channelMain"
+        name: "main"
     },
     {
         path: '/channel/:id',

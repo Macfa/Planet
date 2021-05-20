@@ -22,8 +22,9 @@ use App\Http\Controllers\UsersController;
 
 
 // Main's route
-Route::get('/', [MainController::class, 'index'])->name('channelMain');
-// Route::get('/', [ChannelsController::class, 'index'])->name('channelMain');
+Route::get('/', [MainController::class, 'index'])->name('mainHomePage');
+Route::get('/search', [MainController::class, 'search'])->name('mainSearch');
+// Route::get('/', [ChannelsController::class, 'index'])->name('main');
 
 // Channel's route 
 Route::get('/channel/{id}', [ChannelsController::class, 'show'])->where('id', '[0-9]+')->name("channelShow");
@@ -45,7 +46,7 @@ Route::post('/comment', [CommentsController::class, 'store'])->name('commentStor
 Route::post('/comment/upvote/{id}',[CommentsController::class, 'upvote'])->where('id', '[0-9]*')->name('commentUpvote');
 
 // User's route
-Route::get('/mypage/{el}', [UsersController::class, 'index'])->name('userMypage');
+Route::get('/mypage/{el?}', [UsersController::class, 'index'])->name('userMypage');
 
 // apis
 Route::get('/api/main', [MainController::class, 'getData']);

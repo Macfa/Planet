@@ -66,8 +66,10 @@
   <header id="header">
     <h1><a href="/"><img src="../img/logo.png"></a></h1>
     <div class="input">
-      <form action="" autocomplete="" enctype="" method="" target="">
-        <input type="text" name="" placeholder="검색...">
+      <form name="mainSearchForm" action="{{ route('mainSearch') }}" autocomplete="" enctype="" method="get" target="">
+        {{-- @csrf --}}
+        <input type="text" name="searchText" placeholder="검색..." value="{{ Request::input('searchText') }}">
+        <input type="hidden" name="searchType">
         <button type="submit"></button>
       </form>
     </div>

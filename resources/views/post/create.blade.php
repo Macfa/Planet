@@ -1,5 +1,8 @@
 @include('layouts.header')
+
 <link rel="stylesheet" type="text/css" href="{{ asset('css/post/create.css') }}">
+<script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script>
+
 <section id="channel">
     <div class="wrap">
         <article class="board_box">
@@ -26,8 +29,8 @@
                         <div class="input_box">
                             <input type="text" class="box" name="title" placeholder="이름을 입력하세요">
                         </div>
-                        <div class="input_box">
-                            <textarea class="text_box" id="" name="content" placeholder="정보를 적어주세요"></textarea>
+                        <div class="input_box" style="display:none" id="editor">
+                            {{-- <textarea class="text_box" id="editor" name="content" placeholder="정보를 적어주세요"></textarea> --}}
                         </div>
                         {{-- <div style="float: right; font-size: 20px;"> --}}
                             <div class="point">
@@ -56,6 +59,16 @@
             </article>
         </div>
     </section>
+
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#editor' ), {
+            // minHeight: '300px'
+        } )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
 </body>
 
 

@@ -45,7 +45,7 @@
 <body>
   <div id="app">
   <header id="header">
-    <h1><router-link to="/channelMain"><a href="#"><img src="../img/logo.png"></a></router-link></h1>
+    <h1><router-link to="/main"><a href="#"><img src="../img/logo.png"></a></router-link></h1>
     <div class="input">
       <form action="" autocomplete="" enctype="" method="" target="">
         <input type="text" name="" placeholder="검색...">

@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\Channel;
 use App\Models\Post;
 use App\Models\Comment;
-use App\Http\Controllers\PointsController;
+use App\Models\Point;
+use App\Models\PointInfoList;
+
 
 class PostsController extends Controller
 {
@@ -55,11 +57,19 @@ class PostsController extends Controller
             'hide' => 0
         ]);
 
-        $pointsController = new PointsController();
-        $pointsController->earn(auth()->id(), 1);
+        // get point info's list
+        $pointInfoList = PointInfoList::where('action', '글쓰기')
+        ->get()
+        ->first();
 
-        // PointsController->earn();
-
+        // earn point
+        Point::create([
+            'memberID' => auth()->id(),
+            'point' => $pointInfoList['point'],
+            'route' => $pointInfoList['route'],
+            'action' => $pointInfoList['action'],
+            'msg' => $pointInfoList['msg']
+        ]);
         $redirect = $req->input('channelID');
         return redirect()->route('channelShow', ['id' => $redirect]);
     }

@@ -8,7 +8,7 @@
       <article class="board_box">
         <div class="left">
           <ul class="category">
-            <li><a href="{{ route('channelMain') }}"><img src="../img/icon_podium.png">포디엄</a></li>
+            <li><a href="{{ route('mainHomePage') }}"><img src="../img/icon_podium.png">포디엄</a></li>
             @foreach ($favorites as $favorite)
             <li><a href="{{ route('channelShow', $favorite->channel->id) }}"><img src="../img/icon_podium.png">{{ $favorite->channel->name }}</a></li>  
             @endforeach

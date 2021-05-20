@@ -52,7 +52,7 @@ class User extends Authenticatable
         return $this->hasMany(Post::class, 'id');
     }
     public function Points() {
-        return $this->hasMany(Point::class, 'id');
+        return $this->hasMany(Point::class, 'id', 'memberID');
     }
     public function Favorites() {
         return $this->hasMany(Favorite::class, 'id');

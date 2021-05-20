@@ -1,5 +1,6 @@
-  @include('layouts.header')
+@extends('layouts.app')
   
+@section('content')
   <section id="main">
     <div class="wrap">
       <article class="advertising"><a href="#"><img src="../img/test.jpg"></a></article>
@@ -13,9 +14,9 @@
           </div>
           <ul class="tab">
             {{-- <li @if( basename(Request::url()) =="post") class="o1n" @endif><a href="{{ route('userMypage', 'comment') }}">쓴 댓글</a></li> --}}
-            <li @if( basename(Request::url()) =="post") class="on" @endif><a href="{{ route('userMypage', 'post') }}">쓴 글</a></li>
-            <li @if( basename(Request::url()) =="comment") class="on" @endif><a href="{{ route('userMypage', 'comment') }}">쓴 댓글</a></li>
-            <li @if( basename(Request::url()) =="scrap") class="on" @endif><a href="{{ route('userMypage', 'scrap') }}">스크랩</a></li>
+            <li @if( $el =="post") class="on" @endif><a href="{{ route('userMypage', 'post') }}">쓴 글</a></li>
+            <li @if( $el =="comment") class="on" @endif><a href="{{ route('userMypage', 'comment') }}">쓴 댓글</a></li>
+            <li @if( $el =="scrap") class="on" @endif><a href="{{ route('userMypage', 'scrap') }}">스크랩</a></li>
           </ul>
           <div class="list">
             <table>
@@ -69,6 +70,7 @@
                   <p>포인트 필수</p>              
                 </div>
               </div>
+              <br/>
               {{-- <p class="description">{{ $post->channel->description }}</p> --}}
               <div class="flex">
                 <div class="flex_item">
@@ -78,7 +80,7 @@
                 </div>
                 <div class="flex_item">
                   {{-- <div>{{ $post->created_at->format('Y-m-d') }}</div> --}}
-                  <div>포인트 및 멤버</div>
+                  <div>{{ $points->totalPoint }}</div>
                   <p>보유코인</p>              
                 </div>
               </div>
@@ -88,7 +90,7 @@
                   <p>포스트 수</p>
                 </div>
                 <div class="flex_item">
-                  <div>포인트필수</div>
+                    <div>{{ $points->postPoint }}</div>  
                   <p>포스트로 획득한 코인</p>
                 </div>                
               </div>              
@@ -98,7 +100,7 @@
                   <p>댓글 수</p>
                 </div>
                 <div class="flex_item">
-                  <div>포인트필수</div>
+                  <div>{{ $points->commentPoint }}</div>  
                   <p>댓글로 획득한 코인</p>
                 </div>                
               </div>              
@@ -120,12 +122,5 @@
     function OpenModal(id) {
       window.open('/post/'+id);
     }
-    window.onload = function() {
-      // $uri_path = $_SERVER['REQUEST_URI']; 
-      // $uri_parts = explode('/', $uri_path);
-      // $request_url = end($uri_parts);
-
-
-    }
   </script>
-  
+  @endsection
