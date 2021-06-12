@@ -27,8 +27,6 @@ class CommentsController extends Controller
             'content' => $req->input('content'),
             'parent' => $req->input('id'),
             'memberID' => auth()->id(),
-            'like' => 0,
-            'hate' => 0,
             'hide' => 0,
             'order' => 1,
             'depth' => 0
@@ -70,14 +68,20 @@ class CommentsController extends Controller
             // ]);
     }
 
-    public function upvote($id) {
-        Comment::where('id', '=', $id)
-            ->increment('like',1);
+    public function likeVote(Request $req) {
+        // 이력 확인
+        $id = $req->input('id');
+        $vote = $req->input('vote');
 
-        $result = Comment::where('id', '=', $id)
-            ->get()
-            ->first();
+        $post = Comment::find($id);
+        $post->likes()
+            ->updateOrCreate([
+                'memberID'=>auth()->id()
+            ], [
+                'like' => $vote,
+                'memberID'=>auth()->id()
+            ]);
 
-        return response()->json($result);
+        return response()->json(['like' => $vote]);
     }
 }

@@ -8,6 +8,8 @@ use App\Models\Channel;
 use App\Models\Post;
 use App\Models\Comment;
 use App\Models\Favorite;
+use Illuminate\Support\Facades\DB;
+
 
 class MainController extends Controller
 {
@@ -16,24 +18,24 @@ class MainController extends Controller
         $posts = Post::withCount('comments')
             ->with('channel')
             ->with('user')
+            ->with('likes')
             ->where('posts.hide', '=', '0')
-            ->get()
-            ->toJson();
+            ->get();
 
         $favorites = Favorite::where('memberID', '=', auth()->id())
             ->with('channel')
             ->orderby('id', 'desc')
-            ->get()
-            ->toJson();
+            ->get();
 
-        $posts = json_decode($posts);
-        $favorites = json_decode($favorites);
+        // $posts = json_decode($posts);
+        // ddd($posts);
+        // $favorites = json_decode($favorites);
         return view('main.index', compact('posts','favorites'));
     }
 
     public function search(Request $req) {
         [$results, $el] = $this->searchProccess($req);
-        
+
         $results = json_decode($results);
         // dd($results);
         return view('main.result', compact('results', 'el'));
@@ -53,7 +55,7 @@ class MainController extends Controller
             $whereObj = Post::where('content', 'like', '%'.$req->input('searchText').'%');
         }
 
-        // last Process 
+        // last Process
         $whereObj = $whereObj->withCount('comments')
             ->with('channel')
             ->with('user')

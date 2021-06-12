@@ -1,7 +1,7 @@
-@include('layouts.header')
+@extends('layouts.app')
 
+@section('content')
 <link rel="stylesheet" type="text/css" href="{{ asset('css/post/create.css') }}">
-<script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script>
 
 <section id="channel">
     <div class="wrap">
@@ -12,25 +12,26 @@
                     <select class="cst_select" name="channelID" id="">
                         <option value="">등록할 채널을 선택해주세요</option>
                         @forelse ($channels as $channel)
-                            
+
                             <option value="{{ $channel->id }}">{{ $channel->name }}</option>
                         @empty
-                            
+
                         @endforelse
-                        
+
                     </select>
-                </div>        
+                </div>
                 <div class="left">
                     <div class="list">
-                        
+
                         <div class="input_box">
                             <span class="menu">포스트</span>
                         </div>
                         <div class="input_box">
                             <input type="text" class="box" name="title" placeholder="이름을 입력하세요">
                         </div>
-                        <div class="input_box" style="display:none" id="editor">
-                            {{-- <textarea class="text_box" id="editor" name="content" placeholder="정보를 적어주세요"></textarea> --}}
+                        <div class="input_box">
+                            <textarea class="text_box" id="editor" name="content" placeholder="정보를 적어주세요"></textarea>
+                            {{-- <textarea class="text_box" id="editor" name="content" placeholder="정보를 적어주세요" style="display:none"></textarea> --}}
                         </div>
                         {{-- <div style="float: right; font-size: 20px;"> --}}
                             <div class="point">
@@ -44,7 +45,7 @@
                                     <li><input type="submit" value="등록" class="submit"></li>
                                 </ul>
                             </div>
-                            
+
                         </div>
                     </div>
                     <div class="right">
@@ -60,16 +61,6 @@
         </div>
     </section>
 
-<script>
-    ClassicEditor
-        .create( document.querySelector( '#editor' ), {
-            // minHeight: '300px'
-        } )
-        .catch( error => {
-            console.error( error );
-        } );
-</script>
-</body>
-
-
-</html>
+{{-- <script src="{{ asset('js/ckeditor.js') }}"></script>--}}
+ <script src="{{ asset('js/editor.js') }}"></script>
+@endsection

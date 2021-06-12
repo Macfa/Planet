@@ -10,7 +10,7 @@
           <ul class="category">
             <li><a href="{{ route('mainHomePage') }}"><img src="../img/icon_podium.png">포디엄</a></li>
             @foreach ($favorites as $favorite)
-            <li><a href="{{ route('channelShow', $favorite->channel->id) }}"><img src="../img/icon_podium.png">{{ $favorite->channel->name }}</a></li>  
+            <li><a href="{{ route('channelShow', $favorite->channel->id) }}"><img src="../img/icon_podium.png">{{ $favorite->channel->name }}</a></li>
             @endforeach
           </ul>
           <div class="add_planet">
@@ -32,21 +32,21 @@
               <tr>
                 <td>
                   <!-- 업이면 클래스 up, 다운이면 down -->
-                  <span class="updown up">{{ $post->like }}</span>
+                  <span class="updown up">{{ $post->likes->sum('like') }}</span>
                 </td>
                 <td><div class="thum"></div></td>
                 <td>
                   <div class="title">
-                    <a href="javascript:OpenModal({{ $post->memberID }});">
+                    <a href="javascript:OpenModal({{ $post->id }});">
                       <p>{{ $post->title }}</p>
                       <span>[{{ $post->comments_count }}]</span>
                     </a>
                   </div>
                   <div class="user">
-                    <p><span><a href="{{ route('channelShow', $post->channelID) }}">[{{ $post->channel->name }}]</a></span>온 <a href="{{ route('userMypage', 'post') }}">{{ $post->memberID }}</a> / n분 전</p>
+                    <p><span><a href="{{ route('channelShow', $post->channelID) }}">[{{ $post->channel->name }}]</a></span>온 <a href="{{ route('userMypage', 'post') }}">{{ $post->user->name }}</a> / n분 전</p>
                   </div>
                 </td>
-              </tr>                
+              </tr>
               @empty
               <tr>
                 <td>
@@ -66,13 +66,13 @@
               <p class="description">{{ $channel->description }}</p>
               <div class="flex">
                 <div class="flex_item">
-                  <div>11,000</div>
+                  <div>{{ $channel->favorite_count + 1 }}</div>
                   <p>거주자</p>
                 </div>
                 <div class="flex_item">
                   {{-- <div>{{ $post->created_at->format('Y-m-d') }}</div> --}}
                   <div>{{ date('Y년 m월 d일', strtotime($channel->created_at)) }}</div>
-                  <p>최초 관측일</p>              
+                  <p>최초 관측일</p>
                 </div>
               </div>
               <div class="flex">
@@ -80,7 +80,7 @@
                   <div>nickname</div>
                   <p>{{ $channel->owner }}</p>
                 </div>
-              </div>              
+              </div>
             </div>
           </div>
           <div class="link">

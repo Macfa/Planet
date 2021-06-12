@@ -22,9 +22,9 @@ class CreatePostsTable extends Migration
             $table->integer('memberID');
             // $table->foreign('memberID')->references('id')->on('member');
             // $table->integer('postStampSeq')->nullable();
-            $table->integer('like')->default('0');
-            $table->integer('hate')->default('0');
-            $table->integer('penalty')->default('0');
+            // $table->integer('like')->default('0');
+            // $table->integer('hate')->default('0');
+            // $table->integer('penalty')->default('0');
             $table->boolean('hide')->default('0');
             $table->timestamps();
         });

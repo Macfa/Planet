@@ -9,20 +9,20 @@ use App\Models\Post;
 use App\Models\Comment;
 use App\Models\Point;
 use App\Models\PointInfoList;
-
+use App\Models\Like;
 
 class PostsController extends Controller
 {
     public function show($id) {
-        $posts = Post::with('channel')
+        $post = Post::with('channel')
             ->withCount('comments')
+            ->with('likes')
             ->with('user')
             ->where('posts.hide', '=', 0)
             ->where('posts.id', '=', $id)
             ->get()
-            ->first()
-            ->toJson();
-        $post = json_decode($posts);
+            ->first();
+//        $post = json_decode($post);
 
         $comments = Comment::where('hide', '=', 0)
             ->where('postID', '=', $id)
@@ -31,9 +31,10 @@ class PostsController extends Controller
             ->orderBy('parent', 'asc')
             ->orderBy('order', 'asc')
             ->orderBy('depth', 'asc')
-            ->get()
-            ->toJson();
-        $comments = json_decode($comments);
+            ->get();
+//            ->toJson();
+//        $comments = json_decode($comments);
+        // ddd($post);
         return view('post.show', compact('post', 'comments'));
     }
 
@@ -46,43 +47,47 @@ class PostsController extends Controller
     }
 
     public function store(Request $req) {
+        // ddd($req);
         Post::create([
             'channelID' => $req->input('channelID'),
             'title' => $req->input('title'),
             'content' => $req->input('content'),
             'memberID' => auth()->id(),
-            'like' => 0,
-            'hate' => 0,
-            'penalty' => 0,
             'hide' => 0
         ]);
 
         // get point info's list
-        $pointInfoList = PointInfoList::where('action', '글쓰기')
-        ->get()
-        ->first();
+        // $pointInfoList = PointInfoList::where('action', '글쓰기')
+        // ->get()
+        // ->first();
 
         // earn point
-        Point::create([
-            'memberID' => auth()->id(),
-            'point' => $pointInfoList['point'],
-            'route' => $pointInfoList['route'],
-            'action' => $pointInfoList['action'],
-            'msg' => $pointInfoList['msg']
-        ]);
+        // Point::create([
+        //     'memberID' => auth()->id(),
+        //     'point' => $pointInfoList['point'],
+        //     'route' => $pointInfoList['route'],
+        //     'action' => $pointInfoList['action'],
+        //     'msg' => $pointInfoList['msg']
+        // ]);
+
         $redirect = $req->input('channelID');
         return redirect()->route('channelShow', ['id' => $redirect]);
     }
 
-    public function upvote($id) {
-        Post::where('id', '=', $id)
-            ->increment('like',1);
-        
-        $result = Post::where('id','=',$id)
-            ->select('like')
-            ->get()
-            ->first();
+    public function likeVote(Request $req) {
+        // 이력 확인
+        $id = $req->input('id');
+        $vote = $req->input('vote');
 
-        return response()->json($result);
+        $post = Post::find($id);
+        $post->likes()
+            ->updateOrCreate([
+            'memberID'=>auth()->id()
+        ], [
+            'like' => $vote,
+            'memberID'=>auth()->id()
+        ]);
+
+        return response()->json(['like' => $vote]);
     }
 }

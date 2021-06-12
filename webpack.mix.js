@@ -10,6 +10,17 @@ const mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
-
-mix.js('resources/js/app.js', 'public/js').vue()
+ mix.js('resources/js/app.js', 'public/js')
+    .js('resources/js/editor.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css');
+
+// mix.webpackConfig({
+//     resolve: {
+//         modules: [
+//             path.resolve(__dirname, 'vendor/laravel/spark/resources/assets/js')
+//         ]
+//     },
+//     plugins: [
+//         // ...
+//     ],
+// });

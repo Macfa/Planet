@@ -40,28 +40,23 @@ class ChannelsController extends Controller
         $posts = Post::with('channel')
             ->withCount('comments')
             ->with('user')
+            ->with('likes')
             ->where('posts.hide', '=', 0)
             ->where("posts.channelID", '=', $id)
-            ->get()
-            ->toJson();
+            ->get();
 
         // favorite info
         $favorites = Favorite::where('memberID', '=', auth()->id())
             ->with('channel')
             ->orderby('id', 'desc')
-            ->get()
-            ->toJson();
+            ->get();
 
         // channel info
         $channel = Channel::where('hide', '=', 0)
+            ->withCount('favorite')
             ->where('id', '=', $id)
             ->get()
-            ->first()
-            ->toJson();
-        
-        $posts = json_decode($posts);
-        $channel = json_decode($channel);
-        $favorites = json_decode($favorites);
+            ->first();
 
         return view('channel.show', compact('posts', 'channel', 'favorites'));
     }
@@ -82,10 +77,8 @@ class ChannelsController extends Controller
             $result = Favorite::where('id', '=', $lastID)
             ->with('channel')
             ->get()
-            ->first()
-            ->toJson();
+            ->first();
 
-            $result = json_decode($result);
             return response()->json($result);
         }
     }

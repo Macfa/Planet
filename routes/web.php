@@ -18,6 +18,7 @@ use App\Http\Controllers\PostsController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\Main\MainController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\EditorsController;
 use App\Http\Controllers\UsersController;
 
 
@@ -26,7 +27,7 @@ Route::get('/', [MainController::class, 'index'])->name('mainHomePage');
 Route::get('/search', [MainController::class, 'search'])->name('mainSearch');
 // Route::get('/', [ChannelsController::class, 'index'])->name('main');
 
-// Channel's route 
+// Channel's route
 Route::get('/channel/{id}', [ChannelsController::class, 'show'])->where('id', '[0-9]+')->name("channelShow");
 Route::get('/channel/create', [ChannelsController::class, 'create'])->name("channelCreate");
 Route::post('/channel', [ChannelsController::class, 'store'])->name("channelStore");
@@ -39,11 +40,13 @@ Route::post('/channel/favorite',[ChannelsController::class, 'addFavorite'])->whe
 Route::get('/post/create',[PostsController::class, 'create'])->name('postCreate');
 Route::post('/post', [PostsController::class, 'store'])->name('postStore');
 Route::get('/post/{id}', [PostsController::class, 'show'])->where('id', '[0-9]+')->name("postShow");
-Route::post('/post/upvote/{id}',[PostsController::class, 'upvote'])->where('id', '[0-9]*')->name('postUpvote');
+Route::post('/post/likeVote',[PostsController::class, 'likeVote'])
+    ->name('postlikeVote');
+//Route::post('/post/upvote',[PostsController::class, 'upvote'])->where('id', '[0-9]*')->name('postUpvote');
 
 // Comment's route
 Route::post('/comment', [CommentsController::class, 'store'])->name('commentStore');
-Route::post('/comment/upvote/{id}',[CommentsController::class, 'upvote'])->where('id', '[0-9]*')->name('commentUpvote');
+Route::post('/comment/likeVote',[CommentsController::class, 'likeVote'])->name('commentLikeVote');
 
 // User's route
 Route::get('/mypage/{el?}', [UsersController::class, 'index'])->name('userMypage');
@@ -57,3 +60,5 @@ Route::get('auth/social', 'Auth\LoginController@show')->name('social.login');
 Route::get('oauth/{driver}', [LoginController::class, 'redirectToProvider'])->name('social.oauth');
 Route::get('oauth/{driver}/callback', [LoginController::class, 'handleProviderCallback'])->name('social.callback');
 
+// it must be change api sections
+Route::post('/api/upload', [EditorsController::class, 'upload']);

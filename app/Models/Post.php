@@ -22,4 +22,7 @@ class Post extends Model
     public function user() {
         return $this->belongsTo(User::class, 'memberID', 'id');
     }
+    public function likes() {
+        return $this->morphMany('App\Models\Like', 'likeable');
+    }
 }

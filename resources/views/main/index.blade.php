@@ -24,11 +24,12 @@
                 <col style="width:75px;">
                 <col style="width:*;">
               </colgroup>
+              
               @forelse ($posts as $post)
                 <tr>
                   <td>
                     <!-- 업이면 클래스 up, 다운이면 down -->
-                    <span class="updown up">{{ $post->like }}</span>
+                    <span class="updown up">{{ $post->likes->sum('like') }}</span>
                   </td>
                   <td><div class="thum"></div></td>
                   <td>
@@ -41,7 +42,7 @@
                     <div class="user">
                       <p><span><a href="{{ route('channelShow', $post->channelID) }}">[{{ $post->channel->name }}]</a></span>온 <a href="{{ route('userMypage', 'post') }}">{{ $post->user->name }}</a> / n분 전</p>                    </div>
                   </td>
-                </tr>                
+                </tr>
               @empty
                 <tr>
                   <td>
@@ -87,7 +88,7 @@
      $('#main .right .best>ul li').click(function(event){
       $('#main .right .best li').removeClass('on');
       $(this).addClass('on');
-     });     
+     });
     function OpenModal(id) {
       window.open('/post/'+id);
     }
