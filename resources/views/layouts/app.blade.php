@@ -2,8 +2,6 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <script async charset="utf-8" src="//cdn.embedly.com/widgets/platform.js"></script>
-
       <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -52,6 +50,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main/index.css') }}">
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/jquery-tmpl.js') }}"></script>
+    <script async charset="utf-8" src="//cdn.embedly.com/widgets/platform.js"></script>
     <!-- Fonts -->
     {{-- <link rel="dns-prefetch" href="//fonts.gstatic.com"> --}}
     {{-- <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> --}}

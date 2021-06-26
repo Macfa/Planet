@@ -15,8 +15,10 @@ class CreateFavoritesTable extends Migration
     {
         Schema::create('favorites', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('memberID')->nullable();
-            $table->integer('channelID')->nullable();
+            $table->integer('userID')->unsigned();
+            $table->foreign('userID')->references('id')->on('users')->onDelete('cascade');
+            $table->integer('channelID')->unsigned();
+            $table->foreign('channelID')->references('id')->on('channels')->onDelete('cascade');
             $table->timestamps();
         });
     }

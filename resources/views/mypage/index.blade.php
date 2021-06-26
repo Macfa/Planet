@@ -1,5 +1,5 @@
 @extends('layouts.app')
-  
+
 @section('content')
   <section id="main">
     <div class="wrap">
@@ -29,7 +29,7 @@
               <tr>
                 <td>
                   <!-- 업이면 클래스 up, 다운이면 down -->
-                  <span class="updown up">{{ $post->like }}</span>
+                  <span class="updown up">{{ $post->likes->sum('like') }}</span>
                 </td>
                 <td><div class="thum"></div></td>
                 <td>
@@ -40,10 +40,11 @@
                     </a>
                   </div>
                   <div class="user">
-                    <p><span><a href="{{ route('channelShow', $post->channelID) }}">[{{ $post->channel->name }}]</a></span>온 {{ $post->user->name }} / n분 전</p>
+                    <p><span><a href="{{ route('channelShow', $post->channelID) }}">[{{ $post->channel->name }}]</a></span>온 {{ $post->user->name }} /
+                        {{ $post->created_at->diffForHumans() }}</p>
                   </div>
                 </td>
-              </tr>                
+              </tr>
               @empty
               <tr>
                 <td>
@@ -67,7 +68,7 @@
                 <div class="flex_item">
                   {{-- <div>{{ $post->created_at->format('Y-m-d') }}</div> --}}
                   <div>버튼</div>
-                  <p>포인트 필수</p>              
+                  <p>포인트 필수</p>
                 </div>
               </div>
               <br/>
@@ -80,30 +81,30 @@
                 </div>
                 <div class="flex_item">
                   {{-- <div>{{ $post->created_at->format('Y-m-d') }}</div> --}}
-                  <div>{{ $points->totalPoint }}</div>
-                  <p>보유코인</p>              
+                  <div>{{ $point->totalPoint }}</div>
+                  <p>보유코인</p>
                 </div>
               </div>
               <div class="flex">
                 <div class="flex_item">
-                  <div>멤버필요</div>
+                  <div>{{ $point->postCount }}</div>
                   <p>포스트 수</p>
                 </div>
                 <div class="flex_item">
-                    <div>{{ $points->postPoint }}</div>  
+                    <div>{{ $point->postPoint }}</div>
                   <p>포스트로 획득한 코인</p>
-                </div>                
-              </div>              
+                </div>
+              </div>
               <div class="flex">
                 <div class="flex_item">
-                  <div>멤버</div>
+                  <div>{{ $point->commentCount }}</div>
                   <p>댓글 수</p>
                 </div>
                 <div class="flex_item">
-                  <div>{{ $points->commentPoint }}</div>  
+                  <div>{{ $point->commentPoint }}</div>
                   <p>댓글로 획득한 코인</p>
-                </div>                
-              </div>              
+                </div>
+              </div>
             </div>
           </div>
           <div class="link">

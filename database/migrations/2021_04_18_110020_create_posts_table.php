@@ -18,14 +18,10 @@ class CreatePostsTable extends Migration
             $table->integer('channelID')->unsigned();
             $table->foreign('channelID')->references('id')->on('channels')->onDelete('cascade');
             $table->string('title', 200);
+            $table->string('image', 100);
             $table->mediumText('content');
-            $table->integer('memberID');
-            // $table->foreign('memberID')->references('id')->on('member');
-            // $table->integer('postStampSeq')->nullable();
-            // $table->integer('like')->default('0');
-            // $table->integer('hate')->default('0');
-            // $table->integer('penalty')->default('0');
-            $table->boolean('hide')->default('0');
+            $table->integer('userID')->unsigned();
+            $table->foreign('userID')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

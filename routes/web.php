@@ -39,17 +39,18 @@ Route::post('/channel/favorite',[ChannelsController::class, 'addFavorite'])->whe
 // Post's route
 Route::get('/post/create',[PostsController::class, 'create'])->name('postCreate');
 Route::post('/post', [PostsController::class, 'store'])->name('postStore');
+Route::delete('/post/destroy', [PostsController::class, 'destroy'])->name('post.destroy');
 Route::get('/post/{id}', [PostsController::class, 'show'])->where('id', '[0-9]+')->name("postShow");
-Route::post('/post/likeVote',[PostsController::class, 'likeVote'])
-    ->name('postlikeVote');
+Route::post('/post/voteLikeInPost',[PostsController::class, 'voteLikeInPost'])
+    ->name('voteLikeInPost');
 //Route::post('/post/upvote',[PostsController::class, 'upvote'])->where('id', '[0-9]*')->name('postUpvote');
 
 // Comment's route
 Route::post('/comment', [CommentsController::class, 'store'])->name('commentStore');
-Route::post('/comment/likeVote',[CommentsController::class, 'likeVote'])->name('commentLikeVote');
+Route::post('/comment/voteLikeInComment',[CommentsController::class, 'voteLikeInComment'])->name('voteLikeInComment');
 
 // User's route
-Route::get('/mypage/{el?}', [UsersController::class, 'index'])->name('userMypage');
+Route::get('/mypage/{user?}', [UsersController::class, 'index'])->name('userMypage');
 
 // apis
 Route::get('/api/main', [MainController::class, 'getData']);

@@ -7,13 +7,13 @@
         <div class="modal-top">
             <div class="modal-page">
                 <div class="arrow-top">
-                    <img onclick="likeVote({{ $post->id }},1)" src="{{ asset('image/arrow-top.png') }}" alt="앞으로" />
+                    <img onclick="voteLikeInPost({{ $post->id }},1)" src="{{ asset('image/arrow-top.png') }}" alt="앞으로" />
                 </div>
 
                 <span class="now-page post-like">{{ $post->likes->sum('like') }}</span>
 
                 <div class="arrow-bot">
-                    <img onclick="likeVote({{ $post->id }},-1)" src="{{ asset('image/arrow-bot.png') }}" alt="뒤로" />
+                    <img onclick="voteLikeInPost({{ $post->id }},-1)" src="{{ asset('image/arrow-bot.png') }}" alt="뒤로" />
                 </div>
             </div>
 
@@ -24,7 +24,7 @@
             </div>
 
             <div class="write-info">
-                <p><span><a href="{{ route('channelShow', $post->channelID) }}">[{{ $post->channel->name }}]</a></span>온 <a href="{{ route('userMypage', 'post') }}">{{ $post->user->name }}</a> / n분 전</p>
+                <p><span><a href="{{ route('channelShow', $post->channelID) }}">[{{ $post->channel->name }}]</a></span>온 <a href="{{ route('userMypage', 'post') }}">{{ $post->user->name }}</a> / {{ $post->created_at->diffForHumans() }}</p>
             </div>
 
             <div class="modal-close">
@@ -44,14 +44,14 @@
                     <div class="board-etc-function" id="post">
                         <ul>
                             <li>
-                                <img onclick="likeVote({{ $post->id }},1)" src="{{ asset('image/square-small.png') }}" alt="" />
+                                <img onclick="voteLikeInPost({{ $post->id }},1)" src="{{ asset('image/square-small.png') }}" alt="" />
 
                                 <div class="function-text post-like">
                                     <p>{{ $post->likes->sum('like') }}</p>
                                 </div>
                             </li>
                             <li>
-                                <img onclick="likeVote({{ $post->id }}, -1)" src="{{ asset('image/square-small.png') }}" alt="" />
+                                <img onclick="voteLikeInPost({{ $post->id }}, -1)" src="{{ asset('image/square-small.png') }}" alt="" />
                             </li>
                             <li>
                                 <img src="{{ asset('image/square-small.png') }}" alt="" />
@@ -81,6 +81,20 @@
                                 <div class="function-text">
                                     <p>신고</p>
                                 </div>
+                            </li>
+                            <li>
+                                <a href="#" onclick="editPost({{ $post->id }})">
+                                    <div class="function-text">
+                                        <p>edit</p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" onclick="deletePost({{ $post->id }})">
+                                    <div class="function-text">
+                                        <p>delete</p>
+                                    </div>
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -119,73 +133,28 @@
             element.appendChild( anchor );
         } );
 
-        function likeVote(id, vote) {
+        function voteLikeInPost(id, vote) {
             $.ajax({
-                url: "/post/likeVote",
+                url: "/post/voteLikeInPost",
                 data: { id: id, vote:vote },
                 type: "post",
                 success: function(data) {
-
                     $(".post-like").text(data.like);
-
-                    alert("처리되었습니다.");
                 }
             });
         }
-        function commentLikeVote(id, vote) {
+        function deletePost(id) {
             $.ajax({
-                url: "/comment/likeVote",
-                data: { id: id, vote:vote },
-                type: "post",
+                url: "/post/destroy",
+                data: { id: id },
+                method: "DELETE",
+                // type: "post",
                 success: function(data) {
-                    var el = ".comment-"+id+" .comment-like";
-                    $(el).text(data.like);
-
-                    alert("처리되었습니다.");
+                    window.back();
                 }
-            });
+            })
         }
-
-        function reply(group, postID, commentID) {
-            var valueList = {
-                "group": group,
-                "postID": postID,
-                "commentID": commentID
-            };
-            var el = ".comment-"+commentID+" .comment-item";
-            $("#reply").tmpl(valueList).appendTo(el);
-        }
-
-        function cancleReply(commentID) {
-            var el = ".comment-"+commentID+" .comment-item .reply-form";
-            $(el).remove();
+        function editPost(id) {
         }
     </script>
-
-<script id="reply" type="text/x-jquery-tmpl">
-<div class="reply-form">
-    <form method="post" action="/comment">
-        @csrf
-        <input type="hidden" name="group" value="${group}">
-        <input type="hidden" name="postID" value="${postID}">
-        <input type="hidden" name="id" value="${commentID}">
-        <div class="reply-input">
-            <textarea
-            name="content"
-            id="reply_text"
-            ></textarea>
-
-            <div class="form-btn">
-                <div class="reset-btn">
-                    <button onclick="cancleReply(${commentID})" type="reset">취소</button>
-                </div>
-
-                <div class="write-btn">
-                    <button type="submit">등록</button>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
-</script>
 @endsection

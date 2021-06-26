@@ -12,9 +12,7 @@ class ChannelsController extends Controller
 {
     public function index() {
         $posts = Post::where('hide', '=', '0')
-            ->get()
-            ->toJson();
-        $posts = json_decode($posts);
+            ->get();
 
         return view('channel.index', compact('posts'));
     }

@@ -9,79 +9,97 @@ class CommentsController extends Controller
 {
     public function store(Request $req) {
         $id = $req->input('id'); // 그룹 아이디
+
         if($id == null) {
             // 첫 댓글의 경우
-            $this->storeFirst($req);
+            $result = $this->storeFirst($req);
         } else {
             // 대댓글의 경우
-            $this->storeLast($req);
+            $result = $this->storeLast($req);
         }
 
-        return back()->withInput();
+        if($result) {
+            return response()->json($result);
+        } else {
+//            return false;
+//            exit;
+            return null;
+        }
     }
 
     public function storeFirst($req) {
-        $comments = Comment::create([
+        // 댓글
+        $created = Comment::create([
             'postID' => $req->input('postID'),
             'group' => $req->input('postID'),
             'content' => $req->input('content'),
-            'parent' => $req->input('id'),
-            'memberID' => auth()->id(),
-            'hide' => 0,
-            'order' => 1,
-            'depth' => 0
+            'memberID' => auth()->id()
         ]);
-        Comment::where('id', '=', $comments->id)
-            ->update([
-                'group' => $comments->id
-            ]);
+
+        if($created->exists) {
+            $checkUpdated = Comment::where('id', '=', $created->id)
+                ->update([
+                    'group' => $created->id
+                ]);
+
+            $result = [
+                'result' => 'suc'
+            ];
+
+        } else {
+            $result = null;
+        }
+        return $result;
     }
 
-    public function storeLast($req) {
-        $depth = Comment::where('id', '=', $req->input('id'))
-            ->value('depth');
+    public function storeLast($req) { // 대댓글
+        $thatComment = Comment::where('id', $req->input('id'))
+            ->select('depth', 'order')
+            ->get()
+            ->first();
 
-        $order = Comment::where('group', '=', $req->input('group'))
-            ->where('parent', '=', $req->input('id'))
-            ->where('depth', '=', $depth+1)
-            ->max('order');
-            // ->update([
-            //     'order' => $valAsIS['order']+1
-            // ]);
-        // dd($order+1);
+        $thatCommentOrder = Comment::where('group', '=', $req->input('group'))
+            ->where('order', '>=', $thatComment['order']+1)
+            ->increment('order', 1);
 
-        $comments = Comment::create([
+//        dd($thatCommentDepth);
+        $comment = Comment::create([
             'postID' => $req->input('postID'),
-            'group' => $req->input('group'), // group or id
-            'parent' => $req->input('id'),
+            'group' => $req->input('group'),
             'content' => $req->input('content'),
-            'depth' => $depth+1,
-            'order' => $order+1,
-            'memberID' => 1
+            'depth' => $thatComment['depth']+1,
+            'order' => $thatComment['order']+1,
+            'memberID' => auth()->id()
         ]);
-
-            // ->get()
-            // ->first();
-            // dd($comments);
-            // ->update([
-            //     'depth' => $val['depth']+1
-            // ]);
     }
 
-    public function likeVote(Request $req) {
+    public function voteLikeInComment(Request $req) {
         // 이력 확인
         $id = $req->input('id');
         $vote = $req->input('vote');
 
-        $post = Comment::find($id);
-        $post->likes()
-            ->updateOrCreate([
-                'memberID'=>auth()->id()
-            ], [
-                'like' => $vote,
-                'memberID'=>auth()->id()
-            ]);
+        // 수정 및 생성
+        $comment = Comment::find($id);
+        $checkExistValue = $comment->likes()
+            ->where('like', $vote)
+            ->first();
 
-        return response()->json(['like' => $vote]);
+        if($checkExistValue != null) {
+            $result = $checkExistValue->delete(); // get bool
+        } else {
+            $result = $comment->likes()
+                ->updateOrCreate([
+                    'memberID'=>auth()->id()
+                ], [
+                    'like' => $vote,
+                    'memberID'=>auth()->id()
+                ])->exists;
+        }
+
+        // 결과
+        if($result) {
+            $totalVote = $comment->likes->sum('like');
+            return response()->json(['like' => $totalVote]);
+        }
     }
 }

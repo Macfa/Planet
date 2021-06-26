@@ -24,7 +24,6 @@
                 <col style="width:75px;">
                 <col style="width:*;">
               </colgroup>
-              
               @forelse ($posts as $post)
                 <tr>
                   <td>
@@ -40,7 +39,7 @@
                       </a>
                     </div>
                     <div class="user">
-                      <p><span><a href="{{ route('channelShow', $post->channelID) }}">[{{ $post->channel->name }}]</a></span>온 <a href="{{ route('userMypage', 'post') }}">{{ $post->user->name }}</a> / n분 전</p>                    </div>
+                      <p><span><a href="{{ route('channelShow', $post->channelID) }}">[{{ $post->channel->name }}]</a></span>온 <a href="{{ route('userMypage', $post->user ) }}">{{ $post->user->name }}</a> / {{ $post->created_at->diffForHumans() }}</p></div>
                   </td>
                 </tr>
               @empty

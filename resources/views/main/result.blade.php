@@ -1,5 +1,5 @@
 @extends('layouts.app')
-  
+
 @section('content')
   <section id="main">
     <div class="wrap">
@@ -29,7 +29,7 @@
               <tr>
                 <td>
                   <!-- 업이면 클래스 up, 다운이면 down -->
-                  <span class="updown up">{{ $result->like }}</span>
+                  <span class="updown up">{{ $result->likes->sum('like') }}</span>
                 </td>
                 <td><div class="thum"></div></td>
                 <td>
@@ -43,7 +43,7 @@
                     <p><span><a href="{{ route('channelShow', $result->channelID) }}">[{{ $result->channel->name }}]</a></span>온 {{ $result->user->name }} / n분 전</p>
                   </div>
                 </td>
-              </tr>                
+              </tr>
               @empty
               <tr>
                 <td>

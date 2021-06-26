@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'ko',
 
     /*
     |--------------------------------------------------------------------------
@@ -133,7 +133,7 @@ return [
     | this array to grant expanded functionality to your applications.
     |
     */
-    
+
     'providers' => [
 
         /*
@@ -177,6 +177,12 @@ return [
 
         // socialite
         Laravel\Socialite\SocialiteServiceProvider::class,
+
+        // debugbar
+        Barryvdh\Debugbar\ServiceProvider::class,
+
+        // Laravel IDE helper
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
     ],
 
     /*

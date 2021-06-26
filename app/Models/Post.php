@@ -25,4 +25,7 @@ class Post extends Model
     public function likes() {
         return $this->morphMany('App\Models\Like', 'likeable');
     }
+    public function coins() {
+        return $this->morphMany('App\Models\Coin', 'coinable');
+    }
 }

@@ -18,17 +18,11 @@ class CreateCommentsTable extends Migration
             $table->integer('postID')->unsigned();
             $table->foreign('postID')->references('id')->on('posts')->onDelete('cascade');
             $table->integer('group')->nullable();
-            $table->integer('parent')->nullable();
-            // $table->mediumText('content');
-            $table->longText('content')->nullable();
-            $table->integer('memberID');
-            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            // $table->integer('like')->default('0');
-            // $table->integer('hate')->default('0');
-            // $table->integer('stamp')->default('0');
-            $table->tinyInteger('hide')->default('0');
+            $table->mediumText('content')->nullable();
+            $table->integer('userID')->unsigned();
+            $table->foreign('userID')->references('id')->on('users')->onDelete('cascade');
             $table->integer('depth')->default('0');
-            $table->integer('order')->default('1');
+            $table->integer('order')->default('0');
             $table->timestamps();
         });
     }

@@ -24,11 +24,11 @@ class User extends Authenticatable
         'avatar', 'provider_id', 'provider',
         'access_token'
    ];
-    
-   
-   //You can also use below statement 
+
+
+   //You can also use below statement
    protected $guarded = ['*'];
-   
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -52,7 +52,7 @@ class User extends Authenticatable
         return $this->hasMany(Post::class, 'id');
     }
     public function Points() {
-        return $this->hasMany(Point::class, 'id', 'memberID');
+        return $this->hasMany(Point::class, 'id');
     }
     public function Favorites() {
         return $this->hasMany(Favorite::class, 'id');

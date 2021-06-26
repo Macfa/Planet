@@ -15,11 +15,17 @@ class Comment extends Model
     public function post() {
         return $this->belongsTo(Post::class);
     }
-
     public function user() {
         return $this->belongsTo(User::class, 'memberID', 'id');
     }
     public function likes() {
         return $this->morphMany('App\Models\Like', 'likeable');
     }
+    public function coins() {
+        return $this->morphMany('App\Models\Coin', 'coinable');
+    }
+
+    // Functions...
+//    public function checkExist() {
+//    }
 }

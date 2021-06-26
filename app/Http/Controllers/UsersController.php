@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Channel;
@@ -12,28 +13,37 @@ use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
-    public function index($el = 'post') {
+    public function index(User $user) {
+        $el = 'post';
         $posts = Post::with('channel')
         ->with('user')
+        ->with('likes')
         ->withCount('comments')
-        ->where('memberID', '=', auth()->id())
-        ->get()
-        ->toJson();
-
-        $pointResult = Point::where('memberID', '=', auth()->id())
+        ->where('memberID', '=', $user->id)
         ->get();
-        // ->toJson();
 
-        // get data from pointResult and transform into object
-        $points = array();
-        $points['totalPoint'] = $pointResult->sum('point');
-        $points['postPoint'] = $pointResult->where('route', 'post')->sum('point');
-        $points['commentPoint'] = $pointResult->where('route', 'comment')->sum('point');
-        $points = (object)$points;
+        //
+//        Point::where('memberID')
+//        $pointResult = Point::where('memberID', '=', $user->id)
+        $userInfo = User::with('points.pointType')->find($user->id);
 
-        $posts = json_decode($posts);
+        $point = array();
+        $point['totalPoint'] = $userInfo->points->sum(function ($point) {
+            return $point->pointType->point;
+        });
+        $point['postPoint'] = $userInfo->points->where('pointable_type', 'App\Models\Post')->sum(function ($point) {
+            return $point->pointType->point;
+        });
+        $point['commentPoint'] = $userInfo->points->where('pointable_type', 'App\Models\Comment')->sum(function ($point) {
+            return $point->pointType->point;
+        });
+        $point['postCount'] = $userInfo->points->where('pointable_type', 'App\Models\Post')->count();
+        $point['commentCount'] = $userInfo->points->where('pointable_type', 'App\Models\Comment')->count();
 
-        return view('mypage.index', compact('posts', 'points', 'el'));
+        $point = (object)$point;
+//        dd($point);
+
+        return view('mypage.index', compact('posts', 'point', 'el'));
     }
 
     public function logedIn() {
