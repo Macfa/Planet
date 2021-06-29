@@ -1,24 +1,32 @@
-@include('layouts.header')
+@include('layouts.app')
+
 <link rel="stylesheet" type="text/css" href="{{ asset('css/channel/create.css') }}">
 <section id="channel">
   <div class="wrap">
     <article class="board_box">
       <div class="left">
         <div class="list">
-            <form action="{{ route('channelStore') }}" method="POST">
+{{--            @isset($channel)--}}
+{{--            @isset($channel)--}}
+                @if(isset($channel))
+                    <form action="{{ route('channel.update', $channel->id) }}" method="POST">
+                    @method('PUT')
+                @else
+                    <form action="{{ route('channel.store') }}" method="POST">
+                @endif
                 @csrf
                 <div class="input_box">
                     <span class="menu">이름</span>
-                    
+
                 </div>
                 <div class="input_box">
-                    <input type="text" name="name" class="box" placeholder="이름을 입력하세요">
+                    <input type="text" name="name" class="box" placeholder="이름을 입력하세요" @if(isset($channel)) value="{{ $channel->name }}" @endif >
                 </div>
                 <div class="input_box">
                     <span class="menu">설명</span>
                 </div>
                 <div class="input_box">
-                    <textarea name="description" class="text_box" id="" placeholder="정보를 적어주세요"></textarea>
+                    <textarea name="description" class="text_box" id="" placeholder="정보를 적어주세요">@if(isset($channel)){{ $channel->description }}@endif</textarea>
                 </div>
                 {{-- <div style="float: right; font-size: 20px;"> --}}
                 <div class="point">
@@ -30,7 +38,12 @@
                     <ul class="btn">
                         <li><a href="{{ url('/') }}">취소</a></li>
                         {{-- <li><a href="">등록</a></li> --}}
-                        <li><input type="submit" value="등록" class="submit"></li>
+{{--                        @isset($channel)--}}
+                        @if(isset($channel))
+                            <li><input type="submit" value="수정" class="submit"></li>
+                        @else
+                            <li><input type="submit" value="등록" class="submit"></li>
+                        @endif
                     </ul>
                 </div>
             </form>

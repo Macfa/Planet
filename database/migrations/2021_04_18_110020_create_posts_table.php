@@ -18,7 +18,7 @@ class CreatePostsTable extends Migration
             $table->integer('channelID')->unsigned();
             $table->foreign('channelID')->references('id')->on('channels')->onDelete('cascade');
             $table->string('title', 200);
-            $table->string('image', 100);
+            $table->string('image', 100)->nullable();
             $table->mediumText('content');
             $table->integer('userID')->unsigned();
             $table->foreign('userID')->references('id')->on('users')->onDelete('cascade');

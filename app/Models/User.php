@@ -49,15 +49,19 @@ class User extends Authenticatable
     ];
 
     public function Posts() {
-        return $this->hasMany(Post::class, 'id');
+//        return $this->hasMany(Post::class, 'id');
+        return $this->hasMany(Post::class, 'userID', 'id');
     }
-    public function Points() {
-        return $this->hasMany(Point::class, 'id');
+    public function Coins() {
+        return $this->hasMany(Coin::class, 'userID', 'id');
     }
     public function Favorites() {
         return $this->hasMany(Favorite::class, 'id');
     }
     public function Comments() {
-        return $this->hasMany(Comment::class, 'id');
+        return $this->hasMany(Comment::class, 'userID', 'id');
+    }
+    public function Channels() {
+        return $this->hasMany(Channel::class, 'userID', 'id');
     }
 }

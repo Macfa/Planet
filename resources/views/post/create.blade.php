@@ -6,14 +6,26 @@
 <section id="channel">
     <div class="wrap">
         <article class="board_box">
-            <form action="{{ route('postStore') }}" method="POST">
+            @if(isset($post))
+                <form action="{{ route('post.update', $post->id) }}" method="POST">
+                @method('PUT')
+            @else
+                <form action="{{ route('post.store') }}" method="POST">
+            @endif
                 @csrf
                 <div class="select_box">
                     <select class="cst_select" name="channelID" id="">
                         <option value="">등록할 채널을 선택해주세요</option>
                         @forelse ($channels as $channel)
-
-                            <option value="{{ $channel->id }}">{{ $channel->name }}</option>
+                            @if(isset($post))
+                                @if($post->channelID==$channel->id)
+                                    <option value="{{ $channel->id }}" selected>{{ $channel->name }}</option>
+                                @else
+                                    <option value="{{ $channel->id }}">{{ $channel->name }}</option>
+                                @endif
+                            @else
+                                <option value="{{ $channel->id }}">{{ $channel->name }}</option>
+                            @endif
                         @empty
 
                         @endforelse
@@ -27,10 +39,10 @@
                             <span class="menu">포스트</span>
                         </div>
                         <div class="input_box">
-                            <input type="text" class="box" name="title" placeholder="이름을 입력하세요">
+                            <input type="text" class="box" name="title" @if(isset($post)) value="{{ $post->title }}" @endif placeholder="이름을 입력하세요">
                         </div>
                         <div class="input_box">
-                            <textarea class="text_box" id="editor" name="content" placeholder="정보를 적어주세요"></textarea>
+                            <textarea class="text_box" id="editor" name="content" placeholder="정보를 적어주세요">@if(isset($post)){{ $post->content }}@endif</textarea>
                             {{-- <textarea class="text_box" id="editor" name="content" placeholder="정보를 적어주세요" style="display:none"></textarea> --}}
                         </div>
                         {{-- <div style="float: right; font-size: 20px;"> --}}
@@ -42,7 +54,11 @@
                             <div>
                                 <ul class="btn">
                                     <li><a href="{{ url('/') }}">취소</a></li>
-                                    <li><input type="submit" value="등록" class="submit"></li>
+                                    @if(isset($post))
+                                        <li><input type="submit" value="수정" class="submit"></li>
+                                    @else
+                                        <li><input type="submit" value="등록" class="submit"></li>
+                                    @endif
                                 </ul>
                             </div>
 

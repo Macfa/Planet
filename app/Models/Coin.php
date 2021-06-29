@@ -22,4 +22,7 @@ class Coin extends Model
     {
         return $this->belongsTo('App\Models\CoinType','coinTypeID', 'id');
     }
+    public function user() {
+        return $this->belongsTo('App\Models\User', 'id', 'userID');
+    }
 }

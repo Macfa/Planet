@@ -20,7 +20,7 @@ class Post extends Model
         return $this->hasMany(Comment::class, 'postID');
     }
     public function user() {
-        return $this->belongsTo(User::class, 'memberID', 'id');
+        return $this->belongsTo(User::class, 'userID', 'id');
     }
     public function likes() {
         return $this->morphMany('App\Models\Like', 'likeable');

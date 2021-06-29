@@ -15,7 +15,10 @@ class Channel extends Model
     public function posts() {
         return $this->hasMany(Post::class, 'id', 'chnnelID');
     }
-    public function favorite() {
-        return $this->belongsTo(Favorite::class, 'id', 'id');
+    public function favorites() {
+        return $this->hasMany(Favorite::class, 'channelID', 'id');
+    }
+    public function user() {
+        return $this->belongsTo(User::class, 'userID');
     }
 }

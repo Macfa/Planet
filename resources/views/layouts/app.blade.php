@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-      <!-- CSRF Token -->
+    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0" />
@@ -29,19 +29,19 @@
     <title>Monde</title>
     {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
 
-    <link rel="apple-touch-icon" sizes="57x57" href="../img/favicon/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="../img/favicon/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="../img/favicon/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="../img/favicon/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="../img/favicon/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="../img/favicon/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="../img/favicon/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="../img/favicon/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="../img/favicon/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon/favicon-16x16.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="../img/favicon/favicon-96x96.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('img/favicon/apple-icon-57x57.png') }}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('img/favicon/apple-icon-60x60.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('img/favicon/apple-icon-72x72.png') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('img/favicon/apple-icon-76x76.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('img/favicon/apple-icon-114x114.png') }}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('img/favicon/apple-icon-120x120.png') }}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('img/favicon/apple-icon-144x144.png') }}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('img/favicon/apple-icon-152x152.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/favicon/apple-icon-180x180.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('img/favicon/android-icon-192x192.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img/favicon/favicon-16x16.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('img/favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('img/favicon/favicon-96x96.png') }}">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main/font.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main/header.css') }}">
@@ -55,51 +55,50 @@
     {{-- <link rel="dns-prefetch" href="//fonts.gstatic.com"> --}}
     {{-- <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> --}}
 
-    <!-- Styles -->
+<!-- Styles -->
     {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
 </head>
 
 
 <body>
-  <div id="app">
-  <div>
-  <header id="header">
-    <h1><a href="/"><img src="../img/logo.png"></a></h1>
-    <div class="input">
-      <form name="mainSearchForm" action="{{ route('mainSearch') }}" autocomplete="" enctype="" method="get" target="">
-        {{-- @csrf --}}
-        <input type="text" name="searchText" placeholder="검색..." value="{{ Request::input('searchText') }}">
-        <input type="hidden" name="searchType">
-        <button type="submit"></button>
-      </form>
-    </div>
-    <ul class="btn">
-        @guest
-            <li class="login"><a href="{{ route('social.oauth', 'google') }}">로그인</a></li>
-        @else
-            <li class="login"><img src="{{ asset('image/arrow-bot.png') }}" alt="뒤로" /></li>
-            <li class="login"><img src="{{ asset('image/arrow-bot.png') }}" alt="뒤로" /></li>
-            <li class="login"><img src="{{ asset('image/arrow-bot.png') }}" alt="뒤로" /></li>
-            <li class="login"><img src="{{ asset('image/arrow-bot.png') }}" alt="뒤로" /></li>
-            {{ Auth::user()->name }}
-        @endguest
-      </div>
+<ul id="app">
+    <ul>
+        <div id="header">
+            <h1><a href="/"><img src="{{ asset('img/logo.png') }}"></a></h1>
+            <div class="input">
+                <form name="mainSearchForm" id="mainSearchForm" action="{{ route('home.search') }}" method="get">
+                    {{-- @csrf --}}
+                    <input type="text" name="searchText" placeholder="검색..." value="{{ Request::input('searchText') }}">
+                    <input type="hidden" name="searchType" id="searchType" value="t">
+                    <button type="submit"></button>
+                </form>
+            </div>
+            <ul class="btn">
+                @guest
+                    <li class="login"><a href="{{ route('social.oauth', 'google') }}">로그인</a></li>
+                @else
+                    <li class="login"><img src="{{ asset('image/arrow-bot.png') }}" alt="뒤로" /></li>
+                    <li class="login"><img src="{{ asset('image/arrow-bot.png') }}" alt="뒤로" /></li>
+                    <li class="login"><img src="{{ asset('image/arrow-bot.png') }}" alt="뒤로" /></li>
+                    <li class="login"><img src="{{ asset('image/arrow-bot.png') }}" alt="뒤로" /></li>
+                {{ Auth::user()->name }}
+                @endguest
+            </ul>
+        </div>
     </ul>
-  </header>
-  <div>
-  @yield('content')
-  </div>
-</div>
-</div>
+    <div>
+        @yield('content')
+    </div>
+</ul>
 
 <!-- Scripts -->
 {{-- <script src="{{ asset('js/jquery.js') }}"></script> --}}
 <script>
-  $.ajaxSetup({
-  headers: {
-    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-  }
-});
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 </script>
 </body>
 </html>

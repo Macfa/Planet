@@ -69,7 +69,7 @@ class LoginController extends Controller
         }
     }
 
-  
+
     public function handleProviderCallback( $driver )
     {
         try {
@@ -86,7 +86,7 @@ class LoginController extends Controller
 
     protected function sendSuccessResponse()
     {
-        return redirect()->intended('home');
+        return redirect()->intended('/');
     }
 
     protected function sendFailedResponse($msg = null)
@@ -132,5 +132,5 @@ class LoginController extends Controller
     private function isProviderAllowed($driver)
     {
         return in_array($driver, $this->providers) && config()->has("services.{$driver}");
-    }    
+    }
 }

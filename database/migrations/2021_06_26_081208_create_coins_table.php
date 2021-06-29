@@ -17,7 +17,8 @@ class CreateCoinsTable extends Migration
             $table->increments('id');
             $table->string('coinable_type', 50);
             $table->integer('coinable_id');
-            $table->integer('coinTypeID');
+            $table->integer('coinTypeID')->unsigned();
+            $table->foreign('coinTypeID')->references('id')->on('coin_types')->onDelete('cascade');
             $table->integer('userID')->unsigned();
             $table->foreign('userID')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
