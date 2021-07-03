@@ -50,6 +50,7 @@ class CommentController extends Controller
 
         if($createdCommentID) {
             $result = $this->getComment($createdCommentID);
+//            dd($result);
             return $result;
         } else {
             return redirect()->back();
@@ -133,7 +134,6 @@ class CommentController extends Controller
             ->where('order', '>=', $thatComment['order']+1)
             ->increment('order', 1);
 
-//        dd($thatCommentDepth);
         $created = Comment::create([
             'postID' => $req->input('postID'),
             'group' => $req->input('group'),

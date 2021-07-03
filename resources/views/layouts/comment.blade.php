@@ -46,7 +46,7 @@
                     <div class="comment-info">
                         <ul>
                             <li>스탬프</li>
-                            <li onclick="reply({{ $comment->group }}, {{ $post->id }}, {{ $comment->id }});">댓글</li>
+                            <li onclick="replyCommentForm({{ $comment->group }}, {{ $post->id }}, {{ $comment->id }});">댓글</li>
                             <li>
                                 <img onclick="voteLikeInComment({{ $comment->id }}, 1)" src="{{ asset('image/square-small.png') }}" alt="" />
                                 <span class="comment-like">{{ $comment->likes->sum('like') }}</span>
@@ -215,15 +215,24 @@
 </div>
 
 <script>
-    function addComment() {
-        var data = $("#comment-form").serialize();
+    function addComment(commentID) {
+        var obj = '';
+        var el = '';
+        if(commentID) {
+            obj = "#comment-form-" + commentID;
+            el = ".comment-" + commentID;
+        } else {
+            obj = "#comment-form";
+            el = ".section-title";
+        }
+
+        var data = $(obj).serialize();
         $.ajax({
             url: "/comment",
             data: data,
             type: "post",
             success: function(data) {
                 // console.log(data);
-                var className = '';
                 var valueList = {
                     "id": data.id,
                     "depth": data.depth*44,
@@ -234,9 +243,12 @@
                     "postID": data.postID,
                     "name": data.user.name
                 };
-                var el = ".section-title";
                 $("#replyForm").tmpl(valueList).insertAfter(el);
-                // $("#comment")
+                if(commentID) {
+                    cancleReply(commentID);
+                } else {
+                    $("#comment-form #comment_text").val('');
+                }
             },
             error: function(err) {
                 alert("댓글이 저장되지않았습니다<br/>관리자에게 문의해주세요.");
@@ -257,7 +269,8 @@
             }
         });
     }
-    function reply(group, postID, commentID) {
+    function replyCommentForm(group, postID, commentID) {
+        var hasForm = hasReplyCommentForm();
         var valueList = {
             "group": group,
             "postID": postID,
@@ -270,41 +283,49 @@
         var el = ".comment-"+commentID+" .comment-item .reply-form";
         $(el).remove();
     }
+    function hasReplyCommentForm() {
+        var checkExistForm = $(".reply-form").length;
+
+        if(checkExistForm >= 1) {
+            $(".reply-form").remove();
+            // return true;
+        }
+    }
 </script>
 <script id="replyForm" type="text/x-jquery-tmpl">
-       <div class="comment-list comment-${id}">
-            <div style="padding-left:${depth}px;" class="comment-item">
-                <div class="comment-top">
-                    <div style="" class="write-info">
-                        <img src="{{ asset('image/square-big.png') }}" alt="닉네임" />
-                        <h5 class="nickname">${name}</h5>
-                        <p>${created_at_modi}</p>
-                    </div>
-
-                    <div class="comment-info">
-                        <ul>
-                            <li>스탬프</li>
-                            <li onclick="reply(${group}, ${postID}, ${id});">댓글</li>
-                            <li>
-                                <img onclick="voteLikeInComment(${id}, 1)" src="{{ asset('image/square-small.png') }}" alt="" />
-                                <span class="comment-like">${sumOfVotes}</span>
-                            </li>
-                            <li><img onclick="voteLikeInComment(${id}, -1)" src="{{ asset('image/square-small.png') }}" alt="" /></li>
-                        </ul>
-                    </div>
+   <div class="comment-list comment-${id}">
+        <div style="padding-left:${depth}px;" class="comment-item">
+            <div class="comment-top">
+                <div style="" class="write-info">
+                    <img src="{{ asset('image/square-big.png') }}" alt="닉네임" />
+                    <h5 class="nickname">${name}</h5>
+                    <p>${created_at_modi}</p>
                 </div>
 
-                <div class="comment-cont">
-                    <p>
-                        ${content}
-    </p>
-</div>
-</div>
-</div>
+                <div class="comment-info">
+                    <ul>
+                        <li>스탬프</li>
+                        <li onclick="replyCommentForm(${group}, ${postID}, ${id});">댓글</li>
+                        <li>
+                            <img onclick="voteLikeInComment(${id}, 1)" src="{{ asset('image/square-small.png') }}" alt="" />
+                            <span class="comment-like">${sumOfVotes}</span>
+                        </li>
+                        <li><img onclick="voteLikeInComment(${id}, -1)" src="{{ asset('image/square-small.png') }}" alt="" /></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="comment-cont">
+                <p>
+                    ${content}
+                </p>
+            </div>
+        </div>
+    </div>
 </script>
 <script id="replyWriteForm" type="text/x-jquery-tmpl">
 <div class="reply-form">
-    <form method="post" action="/comment">
+    <form method="post" onSubmit="return false;" id="comment-form-${commentID}">
         @csrf
     <input type="hidden" name="group" value="${group}">
     <input type="hidden" name="postID" value="${postID}">
@@ -321,7 +342,7 @@
             </div>
 
             <div class="write-btn">
-                <button type="submit">등록</button>
+                <button type="submit" onclick="addComment(${commentID});">등록</button>
             </div>
         </div>
     </div>
