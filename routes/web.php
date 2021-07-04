@@ -38,7 +38,9 @@ Route::post('/channel/favorite', [ChannelController::class, 'favorite']);
 
 // User's
 Route::get('/user/{user}', [UserController::class,'show'])->name('user.show');
+
 // Login with APIs
+
 //Route::get('auth/social', 'Auth\LoginController@show')->name('social.login');
 Route::get('auth/social', [LoginController::class,'show'])->name('social.login');
 Route::get('oauth/{driver}', [LoginController::class, 'redirectToProvider'])->name('social.oauth');
