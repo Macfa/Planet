@@ -48,14 +48,14 @@ class PostController extends Controller
         ])->id;
 
         // 포인트 최대값 확인을 위한 조회
-        $coinType = CoinType::where('type','글쓰기')->get()->first();
+        $coinType = CoinType::where('type','글쓰기')->first();
 
 //        // 포인트 추가
-//        $post = Post::find($id);
-//        $post->coins()->create([
-//            'userID' => auth()->id(),
-//            'coinTypeID' => $coinType->id
-//        ]);
+        $post = Post::find($id);
+        $post->coins()->create([
+            'userID' => auth()->id(),
+            'coinTypeID' => $coinType->id
+        ]);
 
         $redirect = $request->input('channelID');
         return redirect()->route('channel.show', $redirect);
