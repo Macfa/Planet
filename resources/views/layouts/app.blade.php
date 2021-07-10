@@ -29,19 +29,19 @@
     <title>Monde</title>
     {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
 
-    <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('img/favicon/apple-icon-57x57.png') }}">
-    <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('img/favicon/apple-icon-60x60.png') }}">
-    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('img/favicon/apple-icon-72x72.png') }}">
-    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('img/favicon/apple-icon-76x76.png') }}">
-    <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('img/favicon/apple-icon-114x114.png') }}">
-    <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('img/favicon/apple-icon-120x120.png') }}">
-    <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('img/favicon/apple-icon-144x144.png') }}">
-    <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('img/favicon/apple-icon-152x152.png') }}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/favicon/apple-icon-180x180.png') }}">
-    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('img/favicon/android-icon-192x192.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img/favicon/favicon-16x16.png') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('img/favicon/favicon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('img/favicon/favicon-96x96.png') }}">
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('image/favicon/apple-icon-57x57.png') }}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('image/favicon/apple-icon-60x60.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('image/favicon/apple-icon-72x72.png') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('image/favicon/apple-icon-76x76.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('image/favicon/apple-icon-114x114.png') }}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('image/favicon/apple-icon-120x120.png') }}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('image/favicon/apple-icon-144x144.png') }}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('image/favicon/apple-icon-152x152.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('image/favicon/apple-icon-180x180.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('image/favicon/android-icon-192x192.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('image/favicon/favicon-16x16.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('image/favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('image/favicon/favicon-96x96.png') }}">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main/font.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main/header.css') }}">
@@ -65,7 +65,7 @@
 <ul id="app">
     <ul>
         <div id="header">
-            <h1><a href="/"><img src="{{ asset('img/logo.png') }}"></a></h1>
+            <h1><a href="/"><img src="{{ asset('image/logo.png') }}"></a></h1>
             <div class="input">
                 <form name="mainSearchForm" id="mainSearchForm" action="{{ route('home.search') }}" method="get">
                     {{-- @csrf --}}
@@ -78,12 +78,21 @@
                 @guest
                     <li class="login"><a href="{{ route('social.oauth', 'google') }}">로그인</a></li>
                 @else
-                    <li class="header_icon"><img src="{{ asset('image/home_4x.png') }}" alt="home" /></li>
-                    <li class="header_icon"><img src="{{ asset('image/mypage_4x.png') }}" alt="mypage" /></li>
+                    <li class="header_icon"><a href="/"><img src="{{ asset('image/home_4x.png') }}" alt="home" /></a></li>
+                    <li class="header_icon"><a href="{{ route('user.show', auth()->id()) }}"><img src="{{ asset('image/mypage_4x.png') }}" alt="mypage" /></a></li>
                     <li class="header_icon"><img src="{{ asset('image/noti_4x.png') }}" alt="noti" /></li>
                     <li class="header_icon"><img src="{{ asset('image/coin_4x.png') }}" alt="coin" /></li>
-                    <li><p>Coin :</p></li>
-                    {{ Auth::user()->name }}
+                    <li>
+                        <p>Coin :
+                            {{ \App\Models\Coin::where('coins.userID',auth()->id())
+                                ->join('coin_types','coin_types.id','=','coins.coinTypeID')
+                                ->sum('coin_types.coin') }}
+                        </p>
+                    </li>
+                    <li><img src="img" alt="img" /></li>
+                    <li>
+                        <p>{{ Auth::user()->name }}</p>
+                    </li>
                     <li class="header_icon"><img src="{{ asset('image/list_4x.png') }}" alt="list" /></li>
                 @endguest
             </ul>

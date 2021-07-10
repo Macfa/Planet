@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Coin;
 use App\Models\Favorite;
+use App\Models\Notification;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -16,10 +17,9 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-//        $this->middleware('auth');
-    }
+//    public function __construct()
+//    {
+//    }
 
     /**
      * Show the application dashboard.
@@ -40,16 +40,14 @@ class HomeController extends Controller
             ->orderby('id', 'desc')
             ->get();
 
-        $coin = User::where('id', auth()->id())
-            ->with('coins')
-            ->with('coins.coinType')
-//            ->sum('coin_type.coin');
-        ->get();
-//        dd($coin);
+        $coin = User::where('users.id', auth()->id())
+            ->join('coins', 'users.id', '=', 'coins.userID')
+            ->join('coin_types', 'coin_types.id', '=', 'coins.coinTypeID')
+            ->sum('coin_types.coin');
         // $posts = json_decode($posts);
         // ddd($posts);
         // $favorites = json_decode($favorites);
-        return view('main.index', compact('posts', 'favorites'));
+        return view('main.index', compact('posts', 'favorites', 'coin'));
     }
 
     public function sidebar(Request $request) {

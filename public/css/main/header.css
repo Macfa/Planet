@@ -76,7 +76,8 @@
   margin: 0;
 }
 
-#header ul.btn li a {
+/*#header ul.btn li a { modify */
+#header ul.btn li.login a {
   letter-spacing: 2px;
   color: #fff;
   background-color: #5a4e70;
