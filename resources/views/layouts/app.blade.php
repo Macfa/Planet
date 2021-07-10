@@ -78,11 +78,13 @@
                 @guest
                     <li class="login"><a href="{{ route('social.oauth', 'google') }}">로그인</a></li>
                 @else
-                    <li class="login"><img src="{{ asset('image/arrow-bot.png') }}" alt="뒤로" /></li>
-                    <li class="login"><img src="{{ asset('image/arrow-bot.png') }}" alt="뒤로" /></li>
-                    <li class="login"><img src="{{ asset('image/arrow-bot.png') }}" alt="뒤로" /></li>
-                    <li class="login"><img src="{{ asset('image/arrow-bot.png') }}" alt="뒤로" /></li>
-                {{ Auth::user()->name }}
+                    <li class="header_icon"><img src="{{ asset('image/home_4x.png') }}" alt="home" /></li>
+                    <li class="header_icon"><img src="{{ asset('image/mypage_4x.png') }}" alt="mypage" /></li>
+                    <li class="header_icon"><img src="{{ asset('image/noti_4x.png') }}" alt="noti" /></li>
+                    <li class="header_icon"><img src="{{ asset('image/coin_4x.png') }}" alt="coin" /></li>
+                    <li><p>Coin :</p></li>
+                    {{ Auth::user()->name }}
+                    <li class="header_icon"><img src="{{ asset('image/list_4x.png') }}" alt="list" /></li>
                 @endguest
             </ul>
         </div>

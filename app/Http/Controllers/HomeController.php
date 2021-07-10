@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Coin;
 use App\Models\Favorite;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -38,6 +40,12 @@ class HomeController extends Controller
             ->orderby('id', 'desc')
             ->get();
 
+        $coin = User::where('id', auth()->id())
+            ->with('coins')
+            ->with('coins.coinType')
+//            ->sum('coin_type.coin');
+        ->get();
+//        dd($coin);
         // $posts = json_decode($posts);
         // ddd($posts);
         // $favorites = json_decode($favorites);

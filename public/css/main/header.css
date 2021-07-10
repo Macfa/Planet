@@ -15,6 +15,11 @@
   transform: translate(0, -50%);
 }
 
+#header .btn .header_icon {
+    width: 37px;
+    height: 37px;
+}
+
 #header .input {
   position: absolute;
   top: 50%;
