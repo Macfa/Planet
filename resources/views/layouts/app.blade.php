@@ -75,6 +75,7 @@
                 </form>
             </div>
             <ul class="btn">
+                <a href="/test">purchase</a>
                 @guest
                     <li class="login"><a href="{{ route('social.oauth', 'google') }}">로그인</a></li>
                 @else

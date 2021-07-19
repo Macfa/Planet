@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Coin;
+use App\Models\CoinType;
 use App\Models\Favorite;
 use App\Models\Notification;
+use App\Models\PointType;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -40,14 +42,15 @@ class HomeController extends Controller
             ->orderby('id', 'desc')
             ->get();
 
-        $coin = User::where('users.id', auth()->id())
-            ->join('coins', 'users.id', '=', 'coins.userID')
-            ->join('coin_types', 'coin_types.id', '=', 'coins.coinTypeID')
-            ->sum('coin_types.coin');
+//        $coin = User::where('users.id', auth()->id())
+//            ->join('coins', 'users.id', '=', 'coins.userID')
+//            ->join('coin_types', 'coin_types.id', '=', 'coins.coinTypeID')
+//            ->sum('coin_types.coin');
         // $posts = json_decode($posts);
         // ddd($posts);
         // $favorites = json_decode($favorites);
-        return view('main.index', compact('posts', 'favorites', 'coin'));
+//        return view('main.index', compact('posts', 'favorites', 'coin'));
+        return view('main.index', compact('posts', 'favorites'));
     }
 
     public function sidebar(Request $request) {
@@ -105,5 +108,16 @@ class HomeController extends Controller
             ->get();
 
         return view('main.index', compact('posts', 'favorites', 'searchType'));
+    }
+
+    public function test() {
+        $coinType = CoinType::where('type', '결제')->first();
+        $post = Post::find(1);
+        $post->coins()->create([
+            'userID' => auth()->id(),
+            'coinTypeID' => $coinType->id
+        ]);
+
+        return redirect()->back();
     }
 }
