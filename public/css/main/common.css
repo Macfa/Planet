@@ -106,6 +106,10 @@ button {
   font-family: "Noto Sans KR";
 }
 
+.clickable {
+    cursor: pointer;
+}
+
 .str-cut {
   text-overflow: ellipsis;
   white-space: nowrap;

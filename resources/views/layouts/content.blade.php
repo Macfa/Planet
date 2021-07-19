@@ -19,8 +19,8 @@
                     </ul>
                 @else
                 <ul class="tab">
-                    <li class="on"><a href="#">실시간</a></li>
-                    <li><a href="#">인기</a></li>
+                    <li class="on clickable realtime" onclick="clickMainMenu('realtime');"><a>실시간</a></li>
+                    <li class="clickable hot" onclick="clickMainMenu('hot');"><a>인기</a></li>
                 </ul>
                 @endif
                 <div class="list">
@@ -81,5 +81,55 @@
         $("#searchType").val(type);
         $("#mainSearchForm").submit();
     }
+    function clickMainMenu(type) {
+        {{--var t = {{ request()->route('channel') }};--}}
+        // alert(t);
+        $.ajax({
+            url: '/mainmenu',
+            type: 'get',
+            data: { 'type': type },
+            success: function(data) {
+                var valueList = [];
+                for(var i=0; i<data.length; i++) {
+                    valueList.push({
+                        "totalVote": data[i].totalVote,
+                        "postID": data[i].id,
+                        "postTitle": data[i].title,
+                        "commentCount": data[i].comments_count,
+                        "postChannelID": data[i].channel.id,
+                        "channelName": data[i].channel.name,
+                        "userName": data[i].user.name,
+                        "userID": data[i].user.id,
+                        "created_at_modi": data[i].created_at_modi
+                    });
+                }
+                $("#main .wrap .left .list table tbody tr").remove();
+                $("#mainMenuItem").tmpl(valueList).appendTo("#main .wrap .left .list table tbody");
+                $("#main .wrap .left .tab li[class="+type+"]").attr('class', 'on');
+            },
+            error: function(err) {
+                console.log(err);
+            }
+        })
+    }
+</script>
+<script id="mainMenuItem" type="text/x-jquery-tmpl">
+<tr>
+    <td>
+        <span class="updown up">${totalVote}</span>
+    </td>
+    <td><div class="thum"></div></td>
+    <td>
+        <div class="title">
+            <a href="javascript:OpenModal(${postID});">
+                <p>${postTitle}</p>
+                <span>[${commentCount}]</span>
+            </a>
+        </div>
+        <div class="user">
+            <p><span><a href="/channel/${postChannelID}">[${channelName}]</a></span>온 <a href="/user/${userID}">${userName}</a> / ${created_at_modi}</p></div>
+    </td>
+</tr>
+{{--<p><span><a href="{{ route('channel.show', $post->channelID) }}">[{{ $post->channel->name }}]</a></span>온 <a href="{{ route('user.show', ${userName}) }}">${userName}</a> / ${created_at_modi}</p></div>--}}
 </script>
 @endsection

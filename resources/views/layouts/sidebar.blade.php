@@ -8,8 +8,8 @@
 <div class="right">
     <div class="best">
         <ul>
-            <li name="realtime" onclick="clickSidebarMenu('realtime');"><a>실시간</a></li>
-            <li name="hot" onclick="clickSidebarMenu('hot');"><a>인기</a></li>
+            <li class="realtime" onclick="clickSidebarMenu('realtime');"><a>실시간</a></li>
+            <li class="hot" onclick="clickSidebarMenu('hot');"><a>인기</a></li>
         </ul>
         <ol class="sidebar_list">
 {{--            <li><a href="#"><span class="up">111</span><p>아프리카tv</p></a></li>--}}
@@ -44,7 +44,7 @@
                     beAppendVariable += '<li><a href="/post/'+data[i].id+'"><span class="up">'+data[i].totalVote+'</span><p>'+data[i].title+'</p></a></li>';
                 }
                 $(".sidebar_list>li").remove();
-                $(".right .best>ul>li[name="+type+"]").attr('class', 'on');
+                $(".right .best>ul>li[class="+type+"]").attr('class', 'on');
                 $(".sidebar_list").append(beAppendVariable);
             },
             error: function(err) {

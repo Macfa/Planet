@@ -19,10 +19,12 @@ use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/test', [HomeController::class, 'test']);
 // Main's route
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/search', [HomeController::class, 'search'])->name('home.search');
 Route::get('/sidebar', [HomeController::class, 'sidebar'])->name('home.sidebar');
+Route::get('/mainmenu', [HomeController::class, 'mainmenu'])->name('home.mainmenu');
 
 // Post's resource
 Route::resource('post', PostController::class);

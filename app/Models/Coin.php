@@ -18,11 +18,18 @@ class Coin extends Model
         return $this->morphTo('coinable', 'coinable_type', 'coinable_id');
     }
 
-    public function coinType()
-    {
-        return $this->belongsTo('App\Models\CoinType','coinTypeID', 'id');
-    }
     public function user() {
-        return $this->belongsTo('App\Models\User', 'id', 'userID');
+        return $this->belongsTo(User::class, 'id', 'userID');
+    }
+
+    public function scopeWritePost($query) {
+//        dd($query);
+        $data = [
+            'coin' => 5,
+            'userID' => auth()->id(),
+            'action' => 'write'
+        ];
+//        return $query->save($data);
+        return $query->create($data);
     }
 }
