@@ -24,7 +24,9 @@ class Comment extends Model
     public function coins() {
         return $this->morphMany('App\Models\Coin', 'coinable');
     }
-
+    public function alarms() {
+        return $this->morphMany('App\Models\AlarmNotification', 'alarm_notifiable');
+    }
     // Functions...
 //    public function checkExist() {
 //    }
