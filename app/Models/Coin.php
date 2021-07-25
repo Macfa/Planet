@@ -22,7 +22,9 @@ class Coin extends Model
     public function user() {
         return $this->belongsTo(User::class, 'id', 'userID');
     }
-
+    public function coinType() {
+        return $this->belongsTo(CoinType::class, 'coinTypeID', 'id');
+    }
     public function scopeWritePost(Builder $query, Post $post) {
 //        $data = [
 //            'coin' => 5,

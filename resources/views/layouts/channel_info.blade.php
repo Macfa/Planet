@@ -30,14 +30,15 @@
                     <a href="{{ route('channel.edit', $channel->id) }}">수정</a>
                 </li>
                 <li class="flex_item">
-                    <form action="{{ route('channel.destroy', $channel->id) }}" method="post">
-                        @csrf
-                        @method('delete')
-                        <button type="submit">
-                            삭제
+                    <button onclick="deleteChannel({{ $channel->id }})">삭제</button>
+{{--                    <form action="{{ route('channel.destroy', $channel->id) }}" method="post">--}}
+{{--                        @csrf--}}
+{{--                        @method('delete')--}}
+{{--                        <button type="submit">--}}
+{{--                            삭제--}}
 {{--                            <a>삭제</a>--}}
-                        </button>
-                    </form>
+{{--                        </button>--}}
+{{--                    </form>--}}
                 </li>
             </div>
             @endif
@@ -54,6 +55,23 @@
     </div>
 </div>
 <script>
+    function deleteChannel(id) {
+        if(confirm('삭제하시겠습니까 ?')) {
+                $.ajax({
+                    type: "DELETE",
+                    url: "/channel/"+id,
+                    data:{"id": id},
+                    success: function(data) {
+                        window.location.href = "/";
+                    },
+                    error: function(err) {
+                        console.log(err);
+                    }
+                })
+        }
+        return false;
+    }
+
     function addFavorite(id) {
         $.ajax({
             type: "post",

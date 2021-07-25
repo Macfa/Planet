@@ -132,7 +132,8 @@ class PostController extends Controller
         Post::where('id', $id)
             ->delete();
 
-        return redirect()->route('home', '',302);
+//        return redirect()->route('home', '',302);
+        return true;
     }
 
     public function voteLikeInPost(Request $req)

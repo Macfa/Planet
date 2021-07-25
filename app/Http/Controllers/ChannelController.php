@@ -133,7 +133,7 @@ class ChannelController extends Controller
         Channel::where('id', $id)
             ->delete();
 
-        return redirect()->route('home');
+        return true;
     }
 
     public function favorite(Request $req) {

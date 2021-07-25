@@ -46,12 +46,28 @@
                     <div class="comment-info">
                         <ul>
                             <li>스탬프</li>
-                            <li onclick="replyCommentForm({{ $comment->group }}, {{ $post->id }}, {{ $comment->id }});">댓글</li>
-                            <li>
+                            <li class="clickable" onclick="replyCommentForm({{ $comment->group }}, {{ $post->id }}, {{ $comment->id }});">댓글</li>
+                            <li class="clickable">
                                 <img onclick="voteLikeInComment({{ $comment->id }}, 1)" src="{{ asset('image/square-small.png') }}" alt="" />
                                 <span class="comment-like">{{ $comment->likes->sum('like') }}</span>
                             </li>
-                            <li><img onclick="voteLikeInComment({{ $comment->id }}, -1)" src="{{ asset('image/square-small.png') }}" alt="" /></li>
+                            <li class="clickable"><img onclick="voteLikeInComment({{ $comment->id }}, -1)" src="{{ asset('image/square-small.png') }}" alt="" /></li>
+                            @if(auth()->id()==$comment->userID)
+                                <li>
+                                    <button onclick="editComment({{ $comment->id }})">
+                                        <div class="function-text">
+                                            <p>edit</p>
+                                        </div>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button onclick="deleteComment({{ $comment->id }})">
+                                        <div class="function-text">
+                                            <p>delete</p>
+                                        </div>
+                                    </button>
+                                </li>
+                            @endif
                         </ul>
                     </div>
                 </div>
@@ -215,6 +231,29 @@
 </div>
 
 <script>
+    function deleteComment(id) {
+        if(confirm('삭제하시겠습니까 ?')) {
+            $.ajax({
+                type: "DELETE",
+                url: "/comment/"+id,
+                data:{"id": id},
+                success: function(data) {
+                    var el = '.comment-'+id;
+                    $(el).remove();
+                    // window.location.href = "/";
+                },
+                error: function(err) {
+                    console.log(err);
+                }
+            })
+        }
+        return false;
+    }
+
+    function editComment(id) {
+        alert("준비중");
+    }
+
     function addComment(commentID) {
         var obj = '';
         var el = '';
@@ -232,7 +271,6 @@
             data: data,
             type: "post",
             success: function(data) {
-                // console.log(data);
                 var valueList = {
                     "id": data.id,
                     "depth": data.depth*44,
@@ -244,6 +282,7 @@
                     "name": data.user.name
                 };
                 $("#replyForm").tmpl(valueList).insertAfter(el);
+                $('.commentCount').html(data.commentCount);
                 if(commentID) {
                     cancleReply(commentID);
                 } else {
@@ -270,13 +309,19 @@
         });
     }
     function replyCommentForm(group, postID, commentID) {
+        var el = ".comment-"+commentID+" .comment-item";
+        var temp_el = el + ' .reply-form';
+
+        if($(temp_el).length > 0) {
+            cancleReply(commentID);
+            return false;
+        }
         var hasForm = hasReplyCommentForm();
         var valueList = {
             "group": group,
             "postID": postID,
             "commentID": commentID
         };
-        var el = ".comment-"+commentID+" .comment-item";
         $("#replyWriteForm").tmpl(valueList).appendTo(el);
     }
     function cancleReply(commentID) {

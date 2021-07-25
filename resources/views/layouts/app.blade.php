@@ -90,7 +90,7 @@
                                 ->sum('coin_types.coin') }}
                         </p>
                     </li>
-                    <li><img src="img" alt="img" /></li>
+                    <li class="header_icon"><img src="{{ Auth::user()->avatar }}" alt="img" /></li>
                     <li>
                         <p>{{ Auth::user()->name }}</p>
                     </li>

@@ -76,7 +76,10 @@ class CommentController extends Controller
      */
     public function edit($id)
     {
-        //
+//        $post = Comment::find($id);
+//        $channels = Channel::get();
+//
+//        return view('post.create', compact('channels', 'post'));
     }
 
     /**
@@ -99,7 +102,12 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        Comment::where('id', $id)
+            ->delete();
+
+//        return redirect()->route('home', '',302);
+        return true;
     }
 
     public function storeComment(Request $req) {
@@ -152,11 +160,14 @@ class CommentController extends Controller
         $comment = Comment::with('user')
             ->with('likes')
             ->find($id);
+        $commentCount = Comment::where('postID', $comment->postID)
+            ->count();
 
         // modify a necessary data
         $comment->created_at_modi = $comment->created_at->diffForHumans();
         $comment->sumOfVotes = $comment->likes->sum('vote');
-
+//        dd($comment->post());
+        $comment->commentCount = $commentCount;
         return $comment;
     }
 

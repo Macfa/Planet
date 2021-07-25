@@ -17,7 +17,7 @@
 
                 <div class="modal-title">
                     <h4>
-                        {{ $post->title }} [{{ $post->comments_count }}]
+                        {{ $post->title }} [<span class="commentCount">{{ $post->comments_count }}</span>]
                     </h4>
                 </div>
 
@@ -89,15 +89,11 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <form action="{{ route('post.destroy', $post->id) }}" method="post">
-                                        @csrf
-                                        @method('delete')
-                                        <button>
-                                            <div class="function-text">
-                                                <p>delete</p>
-                                            </div>
-                                        </button>
-                                    </form>
+                                    <button onclick="deletePost({{ $post->id }})">
+                                        <div class="function-text">
+                                            <p>delete</p>
+                                        </div>
+                                    </button>
                                 </li>
                                 @endif
                             </ul>
@@ -138,6 +134,22 @@
                     element.appendChild( anchor );
                 } );
 
+                function deletePost(id) {
+                    if(confirm('삭제하시겠습니까 ?')) {
+                        $.ajax({
+                            type: "DELETE",
+                            url: "/post/"+id,
+                            data:{"id": id},
+                            success: function(data) {
+                                window.location.href = "/";
+                            },
+                            error: function(err) {
+                                console.log(err);
+                            }
+                        })
+                    }
+                    return false;
+                }
                 function voteLikeInPost(id, vote) {
                     $.ajax({
                         url: "/post/voteLikeInPost",
@@ -147,17 +159,6 @@
                             $(".post-like").text(data.vote);
                         }
                     });
-                }
-                function deletePost(id) {
-                    $.ajax({
-                        url: "/post/destroy",
-                        data: { id: id },
-                        method: "DELETE",
-                        // type: "post",
-                        success: function(data) {
-                            window.back();
-                        }
-                    })
                 }
             </script>
 @endsection
