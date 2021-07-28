@@ -30,7 +30,6 @@
     </div>
 
 @forelse ($comments as $comment)
-
     {{--        @if ($comment->depth == 0)--}}
 
     <!-- 댓글 리스트 -->
@@ -38,7 +37,7 @@
             <div style="padding-left:{{ $comment->depth*44 }}px;" class="comment-item">
                 <div class="comment-top">
                     <div style="" class="write-info {{ $comment->depth>0 ? 'write-info-line':'' }}">
-                        <img src="{{ asset('image/square-big.png') }}" alt="닉네임" />
+                        <img src="{{ $comment->user->avatar }}" alt="닉네임" />
                         <h5 class="nickname">{{ $comment->user->name }}</h5>
                         <p>{{ $comment->created_at->diffForHumans() }}</p>
                     </div>

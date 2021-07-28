@@ -113,11 +113,16 @@ class HomeController extends Controller
     public function test() {
         $coinType = CoinType::where('type', '결제')->first();
         $post = Post::find(1);
-        $post->coins()->create([
-            'userID' => auth()->id(),
-            'coinTypeID' => $coinType->id
-        ]);
-
-        return redirect()->back();
+//        $post->coins()->create([
+//            'userID' => auth()->id(),
+//            'coinTypeID' => $coinType->id
+//        ]);
+        $s = new Coin();
+        $result = $s->purchaseStamp();
+        if($result) {
+            return back()->with('success', '처리 됨ㅋ');
+        } else {
+            return back()->with('error', '포인트가 충분하지않아ㅋ');
+        }
     }
 }

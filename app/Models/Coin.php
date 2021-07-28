@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Coin extends Model
 {
@@ -25,15 +26,24 @@ class Coin extends Model
     public function coinType() {
         return $this->belongsTo(CoinType::class, 'coinTypeID', 'id');
     }
-    public function scopeWritePost(Builder $query, Post $post) {
-//        $data = [
-//            'coin' => 5,
-//            'userID' => auth()->id(),
-//            'action' => 'write'
-//        ];
 
-//        return $post->coins()->create($data);
-//        return $query->save($data);
-//        return $query->create($data);
+    // Custom Functions
+    public function PurchaseStamp() {
+        $user = User::where('id', auth()->id())->first();
+        $totalCoin = $user->coins()->sum('coin');
+        if($totalCoin >= 5) {
+            // purchase
+            $user->coins()->create([
+                'coin'=>-5,
+                'coinable_type'=>'test',
+                'coinable_id'=>1,
+                'userID'=>1,
+                'type'=>'test'
+            ]);
+            return true;
+        } else {
+            // can't purchase
+            return false;
+        }
     }
 }

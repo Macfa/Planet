@@ -65,6 +65,18 @@
 <ul id="app">
     <ul>
         <div id="header">
+            @if(session('success'))
+
+                <div class="alert alert-success" id="alert">
+                    <strong>Success:</strong> {{Session::get('success')}}
+                </div>
+
+            @elseif(session('error'))
+                <div class="alert alert-danger" id="alert">
+
+                    <strong>Error:</strong>{{Session::get('error')}}
+                </div>
+            @endif
             <h1><a href="/"><img src="{{ asset('image/logo.png') }}"></a></h1>
             <div class="input">
                 <form name="mainSearchForm" id="mainSearchForm" action="{{ route('home.search') }}" method="get">
@@ -86,8 +98,7 @@
                     <li>
                         <p>Coin :
                             {{ \App\Models\Coin::where('coins.userID',auth()->id())
-                                ->join('coin_types','coin_types.id','=','coins.coinTypeID')
-                                ->sum('coin_types.coin') }}
+                                ->sum('coin') }}
                         </p>
                     </li>
                     <li class="header_icon"><img src="{{ Auth::user()->avatar }}" alt="img" /></li>
