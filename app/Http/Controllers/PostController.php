@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Channel;
+use App\Models\Coin;
 use App\Models\CoinType;
 use App\Models\Comment;
 use App\Models\Post;
@@ -47,14 +48,10 @@ class PostController extends Controller
             'userID' => auth()->id()
         ])->id;
 
-        // 포인트 최대값 확인을 위한 조회
-        $coinType = CoinType::where('type','글쓰기')->first();
-//        // 포인트 추가
+        // 포인트 추가
         $post = Post::find($id);
-        $post->coins()->create([
-            'userID' => auth()->id(),
-            'coinTypeID' => $coinType->id
-        ]);
+        $coin = new Coin();
+        $coin->writePost($post);
 
 //        $post->coins()->writePost($post);
 //        $post->coins()->qwer();

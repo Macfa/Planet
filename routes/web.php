@@ -19,7 +19,9 @@ use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
+// should be deleted route
 Route::get('/test', [HomeController::class, 'test']);
+
 // Main's route
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/search', [HomeController::class, 'search'])->name('home.search');

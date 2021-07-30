@@ -17,11 +17,18 @@
                         <li @if($searchType === 't') class="on" @endif><a href="javascript:search('t')">제목</a></li>
                         <li @if($searchType === 'c') class="on" @endif><a href="javascript:search('c')">내용</a></li>
                     </ul>
+
+                @elseif(request()->is('user/*'))
+                    <ul class="tab">
+                        <li <?php if( $el =="post"): ?> class="on" <?php endif; ?>><a href="<?php echo e(route('userMypage', 'post')); ?>">쓴 글</a></li>
+                        <li <?php if( $el =="comment"): ?> class="on" <?php endif; ?>><a href="<?php echo e(route('userMypage', 'comment')); ?>">쓴 댓글</a></li>
+                        <li <?php if( $el =="scrap"): ?> class="on" <?php endif; ?>><a href="<?php echo e(route('userMypage', 'scrap')); ?>">스크랩</a></li>
+                    </ul>
                 @else
-                <ul class="tab">
-                    <li class="on clickable realtime" onclick="clickMainMenu('realtime');"><a>실시간</a></li>
-                    <li class="clickable hot" onclick="clickMainMenu('hot');"><a>인기</a></li>
-                </ul>
+                    <ul class="tab">
+                        <li class="on clickable realtime" onclick="clickMainMenu('realtime');"><a>실시간</a></li>
+                        <li class="clickable hot" onclick="clickMainMenu('hot');"><a>인기</a></li>
+                    </ul>
                 @endif
                 <div class="list">
                     <table>

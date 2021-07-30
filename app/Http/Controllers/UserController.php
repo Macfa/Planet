@@ -23,15 +23,9 @@ class UserController extends Controller
         $userInfo = User::with('coins.coinType')->find($user->id);
 
         $coin = array();
-        $coin['totalCoin'] = $userInfo->coins->sum(function ($coin) {
-            return $coin->coinType->coin;
-        });
-        $coin['postCoin'] = $userInfo->coins->where('coinable_type', 'App\Models\Post')->sum(function ($coin) {
-            return $coin->coinType->coin;
-        });
-        $coin['commentCoin'] = $userInfo->coins->where('coinable_type', 'App\Models\Comment')->sum(function ($coin) {
-            return $coin->coinType->coin;
-        });
+        $coin['totalCoin'] = $userInfo->coins->sum('coin');
+        $coin['postCoin'] = $userInfo->coins->where('coinable_type', 'App\Models\Post')->sum('coin');
+        $coin['commentCoin'] = $userInfo->coins->where('coinable_type', 'App\Models\Comment')->sum('coin');
         $coin['postCount'] = $userInfo->coins->where('coinable_type', 'App\Models\Post')->count();
         $coin['commentCount'] = $userInfo->coins->where('coinable_type', 'App\Models\Comment')->count();
 

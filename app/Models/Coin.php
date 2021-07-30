@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -28,7 +29,7 @@ class Coin extends Model
     }
 
     // Custom Functions
-    public function PurchaseStamp() {
+    public function purchaseStamp() {
         $user = User::where('id', auth()->id())->first();
         $totalCoin = $user->coins()->sum('coin');
         if($totalCoin >= 5) {
@@ -44,6 +45,20 @@ class Coin extends Model
         } else {
             // can't purchase
             return false;
+        }
+    }
+
+    public function writePost(Post $post) {
+//        $today = Carbon::now()->toDateTimeString();
+        $today = Carbon::now();
+        $limit = 50;
+//        $totalCoin = $post->coins()->where('created_at', $today)->sum('coin');
+        $totalCoin = $post->join('coins', 'coins.coinable_type', '=', 'test')->whereDate('coins.created_at', $today)->sum('coin');
+
+        if($totalCoin > $limit) {
+            // 코인 추가 획득 불가
+        } else {
+            // 코인 추가 획득
         }
     }
 }

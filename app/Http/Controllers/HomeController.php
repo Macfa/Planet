@@ -111,12 +111,6 @@ class HomeController extends Controller
     }
 
     public function test() {
-        $coinType = CoinType::where('type', '결제')->first();
-        $post = Post::find(1);
-//        $post->coins()->create([
-//            'userID' => auth()->id(),
-//            'coinTypeID' => $coinType->id
-//        ]);
         $s = new Coin();
         $result = $s->purchaseStamp();
         if($result) {
