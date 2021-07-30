@@ -20,9 +20,9 @@
 
                 @elseif(request()->is('user/*'))
                     <ul class="tab">
-                        <li <?php if( $el =="post"): ?> class="on" <?php endif; ?>><a href="<?php echo e(route('userMypage', 'post')); ?>">쓴 글</a></li>
-                        <li <?php if( $el =="comment"): ?> class="on" <?php endif; ?>><a href="<?php echo e(route('userMypage', 'comment')); ?>">쓴 댓글</a></li>
-                        <li <?php if( $el =="scrap"): ?> class="on" <?php endif; ?>><a href="<?php echo e(route('userMypage', 'scrap')); ?>">스크랩</a></li>
+                        <li @if( $el =="post") class="on" @endif><a href="{{ route('user.show', ['user'=>$user->id, 'el'=>'post']) }}">쓴 글</a></li>
+                        <li @if( $el =="comment") class="on" @endif><a href="{{ route('user.show', ['user'=>$user->id, 'el'=>'comment']) }}">쓴 댓글</a></li>
+                        <li @if( $el =="scrap") class="on" @endif><a href="{{ route('user.show', ['user'=>$user->id, 'el'=>'scrap']) }}">스크랩</a></li>
                     </ul>
                 @else
                     <ul class="tab">
