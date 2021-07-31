@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Coin;
 use App\Models\Comment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -49,8 +50,13 @@ class CommentController extends Controller
         }
 
         if($createdCommentID) {
+            // 작성된 댓글 js 로 붙이기 위해 데이터 호출함수
             $result = $this->getComment($createdCommentID);
-//            dd($result);
+
+            $comment = Comment::find($createdCommentID);
+            $coin = new Coin();
+            $coin->writeComment($comment);
+
             return $result;
         } else {
             return redirect()->back();

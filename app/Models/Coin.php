@@ -60,8 +60,28 @@ class Coin extends Model
             // 코인 추가 획득 불가
         } else {
             $post->coins()->create([
-                'type'=> '글쓰기',
+                'type'=> '글작성',
                 'coin'=> 5,
+                'userID'=> auth()->id()
+            ]);
+            // 코인 추가 획득
+        }
+    }
+
+    public function writeComment(Comment $comment) {
+//        $today = Carbon::now()->toDateTimeString();
+        $today = Carbon::now();
+        $limit = 50;
+//        $totalCoin = $post->coins()->where('created_at', $today)->sum('coin');
+//        $totalCoin = $post->join('coins', 'coins.coinable_type', '=', 'test')->whereDate('coins.created_at', $today)->sum('coin');
+        $totalCoin = $comment->coins()->whereDate('coins.created_at', $today)->sum('coin');
+
+        if($totalCoin > $limit) {
+            // 코인 추가 획득 불가
+        } else {
+            $comment->coins()->create([
+                'type'=> '댓글작성',
+                'coin'=> 1,
                 'userID'=> auth()->id()
             ]);
             // 코인 추가 획득
