@@ -62,7 +62,8 @@ class LoginController extends Controller
         }
 
         try {
-            return Socialite::driver($driver)->stateless()->redirect();
+//            return Socialite::driver($driver)->stateless()->redirect();
+            return Socialite::driver($driver)->redirect();
         } catch (Exception $e) {
             // You should show something simple fail message
             return $this->sendFailedResponse($e->getMessage());
@@ -73,7 +74,8 @@ class LoginController extends Controller
     public function handleProviderCallback( $driver )
     {
         try {
-            $user = Socialite::driver($driver)->stateless()->user();
+//            $user = Socialite::driver($driver)->stateless()->user();
+            $user = Socialite::driver($driver)->user();
 //            return dd($user);
         } catch (Exception $e) {
             return $this->sendFailedResponse($e->getMessage());
