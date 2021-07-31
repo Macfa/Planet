@@ -76,8 +76,8 @@ class LoginController extends Controller
 //        $user = Socialite::driver($driver)->stateless()->user();
 //        dd($user);
         try {
-//            $user = Socialite::driver($driver)->stateless()->user();
             $user = Socialite::driver($driver)->stateless()->user();
+//            $user = Socialite::driver($driver)->stateless()->user();
 //            return dd($user);
         } catch (Exception $e) {
             return $this->sendFailedResponse($e->getMessage());
