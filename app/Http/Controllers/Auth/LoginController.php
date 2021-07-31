@@ -62,7 +62,7 @@ class LoginController extends Controller
         }
 
         try {
-            return Socialite::driver($driver)->redirect();
+            return Socialite::driver($driver)->stateless()->redirect();
         } catch (Exception $e) {
             // You should show something simple fail message
             return $this->sendFailedResponse($e->getMessage());
