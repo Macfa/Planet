@@ -53,11 +53,17 @@ class Coin extends Model
         $today = Carbon::now();
         $limit = 50;
 //        $totalCoin = $post->coins()->where('created_at', $today)->sum('coin');
-        $totalCoin = $post->join('coins', 'coins.coinable_type', '=', 'test')->whereDate('coins.created_at', $today)->sum('coin');
+//        $totalCoin = $post->join('coins', 'coins.coinable_type', '=', 'test')->whereDate('coins.created_at', $today)->sum('coin');
+        $totalCoin = $post->coins()->whereDate('coins.created_at', $today)->sum('coin');
 
         if($totalCoin > $limit) {
             // 코인 추가 획득 불가
         } else {
+            $post->coins()->create([
+                'type'=> '글쓰기',
+                'coin'=> 5,
+                'userID'=> auth()->id()
+            ]);
             // 코인 추가 획득
         }
     }
