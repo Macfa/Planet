@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://lanet.co.kr'),
+    'url' => env('APP_URL', 'lanet.co.kr'),
 
     'asset_url' => env('ASSET_URL', null),
 
