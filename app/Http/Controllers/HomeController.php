@@ -9,6 +9,7 @@ use App\Models\Notification;
 use App\Models\PointType;
 use App\Models\Post;
 use App\Models\User;
+use App\Notifications\Alarmnotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -118,5 +119,12 @@ class HomeController extends Controller
         } else {
             return back()->with('error', '포인트가 충분하지않아ㅋ');
         }
+    }
+
+    public function test2() {
+        $user = User::find(auth()->id());
+        $post = Post::find(1);
+
+        $user->notify(new Alarmnotification($post));
     }
 }

@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 // should be deleted route
 Route::get('/test', [HomeController::class, 'test']);
+Route::get('/test2', [HomeController::class, 'test2']);
 
 // Main's route
 Route::get('/', [HomeController::class, 'index'])->name('home');
