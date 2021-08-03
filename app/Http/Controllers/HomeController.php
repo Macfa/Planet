@@ -60,17 +60,16 @@ class HomeController extends Controller
         if($type==='realtime') {
             $posts = Post::with('channel')
                 ->with('likes')
-                ->orderby('id', 'desc')
                 ->limit(5)
-                ->get();
+                ->get()
+                ->orderBy('id', 'desc');
         } else if($type==='hot') {
             $posts = Post::with('channel')
-                ->with('likes', function($q) {
-                    $q->orderby('vote', 'desc');
-                })
+                ->with('likes')
                 ->with('comments')
                 ->limit(5)
-                ->get();
+                ->get()
+                ->orderBy('likes.vote');
 //                ->sortBy;
         }
         foreach($posts as $idx => $post) {
