@@ -278,6 +278,7 @@
                     "content": data.content,
                     "sumOfVotes": data.sumOfVotes,
                     "postID": data.postID,
+                    "avatar": data.user.avatar,
                     "name": data.user.name
                 };
                 $("#replyForm").tmpl(valueList).insertAfter(el);
@@ -341,7 +342,7 @@
         <div style="padding-left:${depth}px;" class="comment-item">
             <div class="comment-top">
                 <div style="" class="write-info">
-                    <img src="{{ asset('image/square-big.png') }}" alt="닉네임" />
+                    <img src="${avatar}" alt="닉네임" />
                     <h5 class="nickname">${name}</h5>
                     <p>${created_at_modi}</p>
                 </div>
