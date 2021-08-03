@@ -61,15 +61,17 @@ class HomeController extends Controller
             $posts = Post::with('channel')
                 ->with('likes')
                 ->limit(5)
-                ->get()
-                ->orderBy('id', 'desc');
+                ->orderBy('id', 'desc')
+                ->get();
+
         } else if($type==='hot') {
             $posts = Post::with('channel')
                 ->with('likes')
                 ->with('comments')
                 ->limit(5)
-                ->get()
-                ->orderBy('likes.vote');
+                ->orderBy('likes.vote')
+                ->get();
+
 //                ->sortBy;
         }
         foreach($posts as $idx => $post) {
