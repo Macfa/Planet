@@ -14,7 +14,7 @@
             @endif
                 @csrf
                 <div class="select_box">
-                    <select class="cst_select" name="channelID" id="">
+                    <select class="cst_select" name="channelID" id="channelList">
                         <option value="">등록할 채널을 선택해주세요</option>
                         @forelse ($channels as $channel)
                             @if(isset($post))
@@ -46,18 +46,18 @@
                             {{-- <textarea class="text_box" id="editor" name="content" placeholder="정보를 적어주세요" style="display:none"></textarea> --}}
                         </div>
                         {{-- <div style="float: right; font-size: 20px;"> --}}
-                            <div class="point">
-                                <div class='point_box'>
-                                    <input type="checkbox">&nbsp;&nbsp;<span>10,000/100</span>
-                                </div>
-                            </div>
-                            <div>
+{{--                            <div class="point">--}}
+{{--                                <div class='point_box'>--}}
+{{--                                    <input type="checkbox">&nbsp;&nbsp;<span>10,000/100</span>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+                            <div style="margin-top: 20px;">
                                 <ul class="btn">
                                     <li><a href="{{ url('/') }}">취소</a></li>
                                     @if(isset($post))
-                                        <li><input type="submit" value="수정" class="submit"></li>
+                                        <li><button value="수정" onclick="clickSubmit()" class="submit clickable">수정</button></li>
                                     @else
-                                        <li><input type="submit" value="등록" class="submit"></li>
+                                        <li><button value="등록" onclick="clickSubmit()" class="submit clickable">등록</button></li>
                                     @endif
                                 </ul>
                             </div>
@@ -79,4 +79,10 @@
 
 {{-- <script src="{{ asset('js/ckeditor.js') }}"></script>--}}
  <script src="{{ asset('js/editor.js') }}"></script>
+    <script>
+        function clickSubmit() {
+            alert('1');
+            $("#channelList");
+        }
+    </script>
 @endsection

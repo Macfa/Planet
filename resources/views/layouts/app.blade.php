@@ -87,6 +87,7 @@
                 </form>
             </div>
             <ul class="btn">
+                <a href="/test2">Notifications</a>
                 <a href="/test">purchase</a>
                 @guest
                     <li class="login"><a href="{{ route('social.oauth', 'google') }}">로그인1</a></li>

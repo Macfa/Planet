@@ -54,6 +54,33 @@ class HomeController extends Controller
         return view('main.index', compact('posts', 'favorites'));
     }
 
+    public function mainmenu(Request $request) {
+        $type = $request->type;
+
+        if($type==='realtime') {
+            $posts = Post::with('channel')
+                ->with('likes')
+                ->orderby('id', 'desc')
+                ->limit(5)
+                ->get();
+        } else if($type==='hot') {
+            $posts = Post::with('channel')
+                ->with('likes', function($q) {
+                    $q->orderby('vote', 'desc');
+                })
+                ->with('comments')
+                ->limit(5)
+                ->get();
+//                ->sortBy;
+        }
+        foreach($posts as $idx => $post) {
+            $posts[$idx]['totalVote'] = $post->likes->sum('vote');
+        }
+        return response($posts, 200);
+//        $posts['like'] = $posts->likes()->sum('vote');
+//        return $posts;
+    }
+
     public function sidebar(Request $request) {
         $type = $request->type;
 
