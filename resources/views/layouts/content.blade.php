@@ -98,6 +98,7 @@
             success: function(data) {
                 var valueList = [];
                 for(var i=0; i<data.length; i++) {
+                    console.log(data[i]);
                     valueList.push({
                         "totalVote": data[i].totalVote,
                         "postID": data[i].id,

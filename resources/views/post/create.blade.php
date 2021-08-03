@@ -7,10 +7,10 @@
     <div class="wrap">
         <article class="board_box">
             @if(isset($post))
-                <form action="{{ route('post.update', $post->id) }}" method="POST">
+                <form id="form" action="{{ route('post.update', $post->id) }}" method="POST">
                 @method('PUT')
             @else
-                <form action="{{ route('post.store') }}" method="POST">
+                <form id="form" action="{{ route('post.store') }}" method="POST">
             @endif
                 @csrf
                 <div class="select_box">
@@ -55,9 +55,9 @@
                                 <ul class="btn">
                                     <li><a href="{{ url('/') }}">취소</a></li>
                                     @if(isset($post))
-                                        <li><button value="수정" onclick="clickSubmit()" class="submit clickable">수정</button></li>
+                                        <li><a onclick="clickSubmit()" class="submit clickable">수정</a></li>
                                     @else
-                                        <li><button value="등록" onclick="clickSubmit()" class="submit clickable">등록</button></li>
+                                        <li><a onclick="clickSubmit()" class="submit clickable">등록</a></li>
                                     @endif
                                 </ul>
                             </div>
@@ -81,8 +81,13 @@
  <script src="{{ asset('js/editor.js') }}"></script>
     <script>
         function clickSubmit() {
-            alert('1');
-            $("#channelList");
+            var val = $("#channelList").val();
+            if(val != "") {
+                $("#form").submit();
+            } else {
+                alert('채널을 선택해주세요');
+                $("#channelList").focus();
+            }
         }
     </script>
 @endsection
