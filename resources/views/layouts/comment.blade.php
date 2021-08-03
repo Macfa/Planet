@@ -355,6 +355,20 @@
                             <span class="comment-like">${sumOfVotes}</span>
                         </li>
                         <li><img onclick="voteLikeInComment(${id}, -1)" src="{{ asset('image/square-small.png') }}" alt="" /></li>
+                        <li>
+                            <button onclick="editComment(${id})">
+                                <div class="function-text">
+                                    <p>edit</p>
+                                </div>
+                            </button>
+                        </li>
+                        <li>
+                            <button onclick="deleteComment({id})">
+                                <div class="function-text">
+                                    <p>delete</p>
+                                </div>
+                            </button>
+                        </li>
                     </ul>
                 </div>
             </div>
