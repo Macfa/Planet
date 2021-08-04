@@ -1,4 +1,5 @@
-require('./ckeditor/build/ckeditor.js');
+// require('./ckeditor/build/ckeditor.js');
+require('@ckeditor/ckeditor5-editor-classic/build/ckeditor.js');
 const UploadAdapter = require('./uploadAdapter.js');
 
 ClassicEditor
