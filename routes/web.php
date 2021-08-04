@@ -12,6 +12,7 @@
 */
 
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\EditorsController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\LoginController;
@@ -50,3 +51,6 @@ Route::get('/user/{user}/{el?}', [UserController::class,'show'])->name('user.sho
 Route::get('auth/social', [LoginController::class,'show'])->name('social.login');
 Route::get('oauth/{driver}', [LoginController::class, 'redirectToProvider'])->name('social.oauth');
 Route::get('oauth/{driver}/callback', [LoginController::class, 'handleProviderCallback'])->name('social.callback');
+
+// it must be change api sections
+Route::post('/api/upload', [EditorsController::class, 'upload']);
