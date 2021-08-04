@@ -12,6 +12,7 @@ class Uploadadapter {
     }
 
     _initRequest() {
+        alert('request');
         console.log(document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
         console.log('test');
         const xhr = this.xhr = new XMLHttpRequest();
