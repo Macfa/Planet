@@ -13,9 +13,10 @@ class Uploadadapter {
 
     _initRequest() {
         console.log(document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+        console.log('test');
         const xhr = this.xhr = new XMLHttpRequest();
-        xhr.open('POST', '/api/upload', true);
-        // xhr.open('POST', 'https://lanet.co.kr/api/upload', true);
+        // xhr.open('POST', '/api/upload', true);
+        xhr.open('POST', 'http://localhost:8000/api/upload', true);
         xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
         xhr.responseType = 'json';
 
@@ -24,7 +25,7 @@ class Uploadadapter {
     _initListeners(resolve, reject, file) {
         const xhr = this.xhr;
         const loader = this.loader;
-        const genericErrorText = '파일을 업로드 할 수 없습니다.'
+        const genericErrorText = '파일을 업로드 할 수 없습니다.11'
 
         xhr.addEventListener('error', () => {reject(genericErrorText)})
         xhr.addEventListener('abort', () => reject())
