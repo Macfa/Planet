@@ -12,10 +12,10 @@ class Uploadadapter {
     }
 
     _initRequest() {
-        // console.log(document.head.querySelector("[name=csrf-token]").content);
+        console.log(document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
         const xhr = this.xhr = new XMLHttpRequest();
-        // xhr.open('POST', '/api/upload', true);
-        xhr.open('POST', 'https://lanet.co.kr/api/upload', true);
+        xhr.open('POST', '/api/upload', true);
+        // xhr.open('POST', 'https://lanet.co.kr/api/upload', true);
         xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
         xhr.responseType = 'json';
 
@@ -30,7 +30,7 @@ class Uploadadapter {
         xhr.addEventListener('abort', () => reject())
         xhr.addEventListener('load', () => {
             const response = xhr.response
-            console.log(response);
+            console.log(xhr);
 
             if(!response || response.error) {
                 return reject( response && response.error ? response.error.message : genericErrorText );
