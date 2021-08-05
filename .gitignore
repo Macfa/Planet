@@ -14,3 +14,4 @@ yarn-error.log
 /config/app.php
 /config/services.php
 /config/session.php
+/ckeditor5
