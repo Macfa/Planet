@@ -3,6 +3,5 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/ckeditor5" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/ckeditor5-build-classic" vcs="Git" />
   </component>
 </project>
