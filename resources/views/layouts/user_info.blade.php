@@ -7,7 +7,7 @@
         <div class="info_detail">
             <div class="flex">
                 <div class="flex_item">
-                    <div><img src="{{ asset('image/close.png') }}"/>nickname</div>
+                    <div><img style="width:36px; height:36px;" src="{{ $user->avatar }}"/>{{ $user->name }}</div>
                 </div>
                 <div class="flex_item">
                     {{-- <div>{{ $post->created_at->format('Y-m-d') }}</div> --}}
