@@ -23,16 +23,7 @@ class EditorsController extends Controller
                 'msg' =>  $msg
             ];
 
-            // $response = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '$url', '$msg')</script>";
-            // @header('Content-type: text/html; charset=utf-8');
             return $result;
-            // $url = $request->upload->store('image');
-            // $CKEditorFuncNum = $request->input('CKEditorFuncNum');
-            // $url = asset('storage/' . $url);
-            // $msg = 'Image successfully uploaded';
-            // $response = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '$url', '$msg')</script>";
-            // @header('Content-type: text/html; charset=utf-8');
-            // return $response;
         }
     }
 }

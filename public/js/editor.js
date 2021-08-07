@@ -48,8 +48,8 @@ var Uploadadapter = /*#__PURE__*/function () {
       console.log('test');
       var xhr = this.xhr = new XMLHttpRequest(); // xhr.open('POST', '/api/upload', true);
 
-      xhr.open('POST', 'http://localhost:8000/api/upload', true);
-      xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+      xhr.open('POST', 'http://localhost:8000/api/upload', true); // xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+
       xhr.responseType = 'json';
     }
   }, {
