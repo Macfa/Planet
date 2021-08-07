@@ -18,7 +18,7 @@ class Uploadadapter {
         const xhr = this.xhr = new XMLHttpRequest();
         // xhr.open('POST', '/api/upload', true);
         xhr.open('POST', 'http://localhost:8000/api/upload', true);
-        xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+        // xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
         xhr.responseType = 'json';
 
     }
@@ -51,5 +51,5 @@ class Uploadadapter {
     }
 }
 
-module.exports = Uploadadapter
-
+// module.exports = Uploadadapter
+export default Uploadadapter;

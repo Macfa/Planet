@@ -53,4 +53,4 @@ Route::get('oauth/{driver}', [LoginController::class, 'redirectToProvider'])->na
 Route::get('oauth/{driver}/callback', [LoginController::class, 'handleProviderCallback'])->name('social.callback');
 
 // it must be change api sections
-Route::post('/api/upload', [EditorsController::class, 'upload']);
+Route::post('/api/upload', [EditorsController::class, 'upload'])->name('ck.upload');

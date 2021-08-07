@@ -77,17 +77,39 @@
         </div>
     </section>
 
-{{-- <script src="{{ asset('js/ckeditor.js') }}"></script>--}}
- <script src="{{ asset('js/editor.js') }}"></script>
-    <script>
-        function clickSubmit() {
-            var val = $("#channelList").val();
-            if(val != "") {
-                $("#form").submit();
-            } else {
-                alert('채널을 선택해주세요');
-                $("#channelList").focus();
+<script src="{{ asset('js/ckeditor.js') }}"></script>
+{{--//uploadUrl: "{{ route('ck.upload',['_token'=> csrf_token()]) }}",--}}
+<script>
+    ClassicEditor.create( document.querySelector( '#editor' ), {
+        // plugins: SimpleUploadAdapter,
+        simpleUpload: {
+            // The URL that the images are uploaded to.
+            uploadUrl: '{{ route('ck.upload') }}',
+
+            // Enable the XMLHttpRequest.withCredentials property.
+            // withCredentials: true,
+
+            // Headers sent along with the XMLHttpRequest to the upload server.
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             }
         }
-    </script>
+    } )
+        .then( editor => {
+            window.editor = editor;
+        } )
+        .catch( error => {
+            console.error( 'There was a problem initializing the editor.', error );
+        } );
+
+    function clickSubmit() {
+        var val = $("#channelList").val();
+        if(val != "") {
+            $("#form").submit();
+        } else {
+            alert('채널을 선택해주세요');
+            $("#channelList").focus();
+        }
+    }
+</script>
 @endsection
