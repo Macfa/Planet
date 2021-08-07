@@ -109,7 +109,7 @@ class ChannelController extends Controller
     {
         $updatedChannel = Channel::where('id', $id)
             ->update([
-                'name' => $request->name,
+//                'name' => $request->name,
                 'description' => $request->description
             ]);
 

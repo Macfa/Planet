@@ -20,7 +20,7 @@
 
                 </div>
                 <div class="input_box">
-                    <input type="text" name="name" class="box" placeholder="이름을 입력하세요" @if(isset($channel)) value="{{ $channel->name }}" @endif >
+                    <input type="text" name="name" class="box" placeholder="이름을 입력하세요" @if(isset($channel)) value="{{ $channel->name }}" readonly @endif >
                 </div>
                 <div class="input_box">
                     <span class="menu">설명</span>

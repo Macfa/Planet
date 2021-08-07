@@ -33,9 +33,16 @@
                 <div class="list">
                     <table>
                         <colgroup>
-                            <col style="width:40px;">
-                            <col style="width:75px;">
-                            <col style="width:100%;">
+                            @if(blank($posts))
+{{--                                <col style="width:100%;">--}}
+                                <col style="width:40px;">
+                                <col style="width:75px;">
+                                <col style="width:100%;">
+                            @else
+                                <col style="width:40px;">
+                                <col style="width:75px;">
+                                <col style="width:100%;">
+                            @endif
                         </colgroup>
                         @forelse ($posts as $post)
                             <tr>
@@ -98,7 +105,6 @@
             success: function(data) {
                 var valueList = [];
                 for(var i=0; i<data.length; i++) {
-                    console.log(data[i]);
                     valueList.push({
                         "totalVote": data[i].totalVote,
                         "postID": data[i].id,

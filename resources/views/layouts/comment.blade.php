@@ -364,7 +364,7 @@
                             </button>
                         </li>
                         <li>
-                            <button onclick="deleteComment({id})">
+                            <button onclick="deleteComment(${id})">
                                 <div class="function-text">
                                     <p>delete</p>
                                 </div>
