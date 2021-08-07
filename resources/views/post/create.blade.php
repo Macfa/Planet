@@ -78,7 +78,6 @@
     </section>
 
 <script src="{{ asset('js/ckeditor.js') }}"></script>
-{{--//uploadUrl: "{{ route('ck.upload',['_token'=> csrf_token()]) }}",--}}
 <script>
     ClassicEditor.create( document.querySelector( '#editor' ), {
         simpleUpload: {
