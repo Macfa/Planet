@@ -178,7 +178,8 @@ input:focus {
 
 /* CKEDITOR */
 .ck-editor__editable_inline {
-  min-height: 300px;
+    min-height: 400px;
+    max-height: 400px;
 }
 
 @media screen and (max-width: 1440px) {
