@@ -81,7 +81,6 @@
 {{--//uploadUrl: "{{ route('ck.upload',['_token'=> csrf_token()]) }}",--}}
 <script>
     ClassicEditor.create( document.querySelector( '#editor' ), {
-        // plugins: SimpleUploadAdapter,
         simpleUpload: {
             // The URL that the images are uploaded to.
             uploadUrl: '{{ route('ck.upload') }}',
