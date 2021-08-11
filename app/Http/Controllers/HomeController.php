@@ -82,9 +82,9 @@ class HomeController extends Controller
         foreach($posts as $idx => $post) {
             $posts[$idx]['totalVote'] = $post->likes->sum('vote');
             $posts[$idx]['created_at_modi'] = $post->created_at->diffForHumans();
-//            $comment->created_at_modi = $comment->created_at->diffForHumans();
         }
-        return response($posts, 200);
+
+        return response()->json(['result' => $posts]);
     }
 
     public function sidebar(Request $request) {

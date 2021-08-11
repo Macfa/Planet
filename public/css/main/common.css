@@ -385,3 +385,8 @@ button {
 .wid100 {
   width: 100% !important;
 }
+
+.none-tr {
+    height: 69px;
+    text-align: center;
+}
