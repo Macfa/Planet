@@ -96,12 +96,15 @@
         $("#mainSearchForm").submit();
     }
     function clickMainMenu(type) {
-        {{--var t = {{ request()->route('channel') }};--}}
-        // alert(t);
+        var channelID = "{{ request()->route('channel') }}";
+
         $.ajax({
             url: '/mainmenu',
             type: 'get',
-            data: { 'type': type },
+            data: {
+                'type': type,
+                'channelID': channelID
+            },
             success: function(data) {
                 var valueList = [];
                 for(var i=0; i<data.length; i++) {

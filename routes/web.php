@@ -33,6 +33,8 @@ Route::get('/mainmenu', [HomeController::class, 'mainmenu'])->name('home.mainmen
 // Post's resource
 Route::resource('post', PostController::class);
 Route::post('/post/voteLikeInPost', [PostController::class, 'voteLikeInPost']);
+Route::post('/post/reportPost', [PostController::class, 'reportPost']);
+Route::post('/post/scrapPost', [PostController::class, 'scrapPost']);
 
 // Comments resource
 Route::resource('comment', CommentController::class);

@@ -31,4 +31,10 @@ class Post extends Model
     public function alarms() {
         return $this->morphMany('App\Models\AlarmNotification', 'alarm_notifiable');
     }
+    public function reports() {
+        return $this->morphMany(Report::class, 'reportable');
+    }
+    public function scrap() {
+        return $this->hasOne(Scrap::class, 'postID', 'id');
+    }
 }

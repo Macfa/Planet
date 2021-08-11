@@ -24,7 +24,7 @@
                                     <option value="{{ $channel->id }}">{{ $channel->name }}</option>
                                 @endif
                             @else
-                                <option value="{{ $channel->id }}">{{ $channel->name }}</option>
+                                <option value="{{ $channel->id }}" @if($fromChannelID==$channel->id) selected @endif>{{ $channel->name }}</option>
                             @endif
                         @empty
 

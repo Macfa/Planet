@@ -64,4 +64,10 @@ class User extends Authenticatable
     public function Channels() {
         return $this->hasMany(Channel::class, 'userID', 'id');
     }
+    public function reports() {
+        return $this->morphMany(Report::class, 'reportable');
+    }
+    public function scrap() {
+        return $this->hasMany(Scrap::class, 'userID', 'id');
+    }
 }

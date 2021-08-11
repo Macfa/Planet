@@ -27,7 +27,11 @@ class Comment extends Model
     public function alarms() {
         return $this->morphMany('App\Models\AlarmNotification', 'alarm_notifiable');
     }
-    // Functions...
-//    public function checkExist() {
+//    public function reports() {
+//        return $this->morphMany(Report::class, 'reportable');
 //    }
+    public function scrap()
+    {
+        return $this->hasOne('App\Models\Scrap', 'postID', 'id');
+    }
 }
