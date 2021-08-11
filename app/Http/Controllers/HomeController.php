@@ -43,19 +43,12 @@ class HomeController extends Controller
             ->orderby('id', 'desc')
             ->get();
 
-//        $coin = User::where('users.id', auth()->id())
-//            ->join('coins', 'users.id', '=', 'coins.userID')
-//            ->join('coin_types', 'coin_types.id', '=', 'coins.coinTypeID')
-//            ->sum('coin_types.coin');
-        // $posts = json_decode($posts);
-        // ddd($posts);
-        // $favorites = json_decode($favorites);
-//        return view('main.index', compact('posts', 'favorites', 'coin'));
         return view('main.index', compact('posts', 'favorites'));
     }
 
     public function mainmenu(Request $request) {
         $type = $request->type;
+        $channelID = $request->channelID;
 
         if($type==='realtime') {
             $posts = Post::with('channel')
@@ -63,6 +56,11 @@ class HomeController extends Controller
                 ->with('user')
                 ->withCount('comments')
                 ->orderby('id', 'desc')
+                ->where(function($query) use ($channelID) {
+                    if($channelID) {
+                        $query->where('channelID', '=', $channelID);
+                    }
+                })
                 ->limit(5)
                 ->get();
         } else if($type==='hot') {
@@ -72,16 +70,21 @@ class HomeController extends Controller
                 })
                 ->withCount('comments')
                 ->with('user')
+                ->where(function($query) use ($channelID) {
+                    if($channelID) {
+                        $query->where('channelID', '=', $channelID);
+                    }
+                })
                 ->limit(5)
                 ->get();
-//                ->sortBy;
         }
+
         foreach($posts as $idx => $post) {
             $posts[$idx]['totalVote'] = $post->likes->sum('vote');
+            $posts[$idx]['created_at_modi'] = $post->created_at->diffForHumans();
+//            $comment->created_at_modi = $comment->created_at->diffForHumans();
         }
         return response($posts, 200);
-//        $posts['like'] = $posts->likes()->sum('vote');
-//        return $posts;
     }
 
     public function sidebar(Request $request) {

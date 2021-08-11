@@ -567,3 +567,11 @@
       justify-content:flex-start;
     }
   }
+
+table {
+    border-collapse: collapse;
+}
+table, td {
+    border: 1px solid black;
+}
+

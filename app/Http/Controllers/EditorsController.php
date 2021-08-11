@@ -20,7 +20,8 @@ class EditorsController extends Controller
             $msg = 'Image uploaded successfully';
             $result = [
                 'url' => $url,
-                'msg' =>  $msg
+                'msg' =>  $msg,
+                'name' => $fileName,
             ];
 
             return $result;

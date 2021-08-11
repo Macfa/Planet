@@ -210,24 +210,6 @@
     </div>
 </div>
 
-<!-- 하단 기능 -->
-<div class="board-bot-function">
-    <div class="left-function">
-        <div class="page-arrow">
-            <img src="{{ asset('image/arrow2-top.png') }}" alt="위로">
-            <span class="post-like">{{ $post->likes_count }}</span>
-            <img src="{{ asset('image/arrow2-bot.png') }}" alt="아래로">
-        </div>
-
-        <img src="{{ asset('image/stamp.png') }}" alt="stamp" class="stamp-image">
-        <img src="{{ asset('image/favorit.png') }}" alt="favorit" class="favorit-image">
-        <img src="{{ asset('image/message.png') }}" alt="message" class="message-image">
-    </div>
-
-    <div class="right-function">
-        <img src="{{ asset('image/message.png') }}" alt="message" class="message-image">
-    </div>
-</div>
 
 <script>
     function deleteComment(id) {
@@ -264,7 +246,12 @@
             el = ".section-title";
         }
 
-        var data = $(obj).serialize();
+        // var data = $(obj).serialize();
+        var data = $(obj).serializeArray();
+        if(data[1].value === "" ) { // 0 : postID, 1 : content
+            data[1].value = "내용이 없습니다";
+        }
+
         $.ajax({
             url: "/comment",
             data: data,
@@ -290,7 +277,7 @@
                 }
             },
             error: function(err) {
-                alert("댓글이 저장되지않았습니다<br/>관리자에게 문의해주세요.");
+                alert("댓글이 저장되지않았습니다\n관리자에게 문의해주세요.");
                 console.log(err);
             }
         })

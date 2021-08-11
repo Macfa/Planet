@@ -27,12 +27,17 @@ class UserController extends Controller
                 ->withCount('comments')
                 ->get();
         } elseif($el == "scrap") {
-            $posts = Post::with('channel')
-                ->with('user')
+            $posts = Post::join('users', 'users.id', '=', 'posts.userID')
+                ->leftJoin('scraps', function($join) {
+                    $join->on('users.id', '=', 'scraps.userID');
+                    $join->on('posts.id', '=', 'scraps.postID');
+                })
+                ->with('channel')
                 ->with('likes')
                 ->withCount('comments')
-                ->where('userID', $user->id)
+                ->where('scraps.userID', $user->id)
                 ->get();
+            //                ('scraps', 'users.id', '=', 'scraps.userID')
         }
 
         $favorites = Favorite::where('userID', auth()->id() )->get();

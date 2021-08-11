@@ -8,6 +8,7 @@ use App\Models\CoinType;
 use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 class PostController extends Controller
 {
@@ -26,11 +27,12 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $fromChannelID = $request->input('channelID');
         $channels = Channel::get();
 
-        return view('post.create', compact('channels'));
+        return view('post.create', compact('channels', 'fromChannelID'));
     }
 
     /**
@@ -162,5 +164,30 @@ class PostController extends Controller
             $totalVote = $post->likes->sum('vote');
             return response()->json(['vote' => $totalVote]);
         }
+    }
+
+    public function reportPost(Request $req) {
+        $postID = $req->id;
+        $post = Post::find($postID);
+        $post->reports()->create([
+            'userID' => $post->userID,
+            'message' => 'test'
+        ]);
+    }
+    public function scrapPost(Request $req) {
+        $postID = $req->id;
+        $post = Post::find($postID);
+
+        $checkExistScrap = $post->scrap()->where('userID', auth()->id());
+        if($checkExistScrap != null) {
+            $checkExistScrap->delete();
+            $result = "delete";
+        } else {
+            $post->scrap()->create([
+                'userID' => auth()->id()
+            ]);
+            $result = "insert";
+        }
+        return response()->json(['result' => $result]);
     }
 }
