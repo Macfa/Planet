@@ -178,7 +178,8 @@ class PostController extends Controller
         $postID = $req->id;
         $post = Post::find($postID);
 
-        $checkExistScrap = $post->scrap()->where('userID', auth()->id());
+        $checkExistScrap = $post->scrap()->where('userID', auth()->id())->first();
+
         if($checkExistScrap != null) {
             $checkExistScrap->delete();
             $result = "delete";

@@ -35,9 +35,9 @@
                         <colgroup>
                             @if(blank($posts))
 {{--                                <col style="width:100%;">--}}
-                                <col style="width:40px;">
-                                <col style="width:75px;">
-                                <col style="width:100%;">
+{{--                                <col style="width:40px;">--}}
+{{--                                <col style="width:75px;">--}}
+{{--                                <col style="width:100%;">--}}
                             @else
                                 <col style="width:40px;">
                                 <col style="width:75px;">
@@ -63,7 +63,7 @@
                                 </td>
                             </tr>
                         @empty
-                            <tr>
+                            <tr class="none-tr">
                                 <td>
                                     데이터가 없습니다.
                                 </td>
@@ -107,21 +107,27 @@
             },
             success: function(data) {
                 var valueList = [];
-                for(var i=0; i<data.length; i++) {
-                    valueList.push({
-                        "totalVote": data[i].totalVote,
-                        "postID": data[i].id,
-                        "postTitle": data[i].title,
-                        "commentCount": data[i].comments_count,
-                        "postChannelID": data[i].channel.id,
-                        "channelName": data[i].channel.name,
-                        "userName": data[i].user.name,
-                        "userID": data[i].user.id,
-                        "created_at_modi": data[i].created_at_modi
-                    });
-                }
                 $("#main .wrap .left .list table tbody tr").remove();
-                $("#mainMenuItem").tmpl(valueList).appendTo("#main .wrap .left .list table tbody");
+                if(data.result.length==0) {
+                    // valueList.push("<tr class='none-tr'><td>데이터가 없습니다.</td></tr>");
+                    var value = "<tr class='none-tr'><td>데이터가 없습니다.</td></tr>";
+                    $("#main .wrap .left .list table tbody").html(value);
+                } else {
+                    for(var i=0; i<data.result.length; i++) {
+                        valueList.push({
+                            "totalVote": data.result[i].totalVote,
+                            "postID": data.result[i].id,
+                            "postTitle": data.result[i].title,
+                            "commentCount": data.result[i].comments_count,
+                            "postChannelID": data.result[i].channel.id,
+                            "channelName": data.result[i].channel.name,
+                            "userName": data.result[i].user.name,
+                            "userID": data.result[i].user.id,
+                            "created_at_modi": data.result[i].created_at_modi
+                        });
+                    }
+                    $("#mainMenuItem").tmpl(valueList).appendTo("#main .wrap .left .list table tbody");
+                }
                 $("#main .wrap .left .tab li[class="+type+"]").attr('class', 'on');
             },
             error: function(err) {
