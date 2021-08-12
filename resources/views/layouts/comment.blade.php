@@ -246,11 +246,18 @@
             el = ".section-title";
         }
 
-        // var data = $(obj).serialize();
-        var data = $(obj).serializeArray();
-        if(data[1].value === "" ) { // 0 : postID, 1 : content
-            data[1].value = "내용이 없습니다";
+        var dataArray = $(obj).serializeArray(),
+            data = {};
+        $(dataArray).each(function(i, field){
+            data[field.name] = field.value;
+        });
+
+
+        if(data['content'] === "" ) { // 0 : postID, 1 : content
+            data['content'] = "내용이 없습니다";
         }
+        // console.log(data['content']);return;
+
 
         $.ajax({
             url: "/comment",
