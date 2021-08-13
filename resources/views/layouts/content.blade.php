@@ -2,7 +2,7 @@
 
 <section id="main">
     <div class="wrap">
-        <article class="advertising"><a href="#"><img src="../img/test.jpg"></a></article>
+{{--        <article class="advertising"><a href="#"><img src="../img/test.jpg"></a></article>--}}
         <article class="board_box">
             <div class="left">
                 <ul class="category">
