@@ -41,6 +41,21 @@
                         <img src="{{ $comment->user->avatar }}" alt="닉네임" />
                         <h5 class="nickname">{{ $comment->user->name }}</h5>
                         <p>{{ $comment->created_at->diffForHumans() }}</p>
+
+                        @if(auth()->id()==$comment->userID)
+                            <div class="ml-20 comment-modi-form">
+                                <button onclick="editComment({{ $comment->id }})">
+                                    <div class="function-text">
+                                        <p>수정</p>
+                                    </div>
+                                </button>
+                                <button onclick="deleteComment({{ $comment->id }})">
+                                    <div class="function-text">
+                                        <p>삭제</p>
+                                    </div>
+                                </button>
+                            </div>
+                        @endif
                     </div>
 
                     <div class="comment-info">
@@ -52,22 +67,7 @@
                                 <span class="comment-like">{{ $comment->likes->sum('like') }}</span>
                             </li>
                             <li class="clickable"><img onclick="voteLikeInComment({{ $comment->id }}, -1)" src="{{ asset('image/square-small.png') }}" alt="" /></li>
-                            @if(auth()->id()==$comment->userID)
-                                <li>
-                                    <button onclick="editComment({{ $comment->id }})">
-                                        <div class="function-text">
-                                            <p>edit</p>
-                                        </div>
-                                    </button>
-                                </li>
-                                <li>
-                                    <button onclick="deleteComment({{ $comment->id }})">
-                                        <div class="function-text">
-                                            <p>delete</p>
-                                        </div>
-                                    </button>
-                                </li>
-                            @endif
+
                         </ul>
                     </div>
                 </div>
