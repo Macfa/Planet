@@ -15,19 +15,23 @@
                     <form action="{{ route('channel.store') }}" method="POST">
                 @endif
                 @csrf
+                <div class="input_box input_box_title">
+                    <div class="sub_box sub_box_line">
+                        <span class="menu">이름</span>
+                    </div>
+                    <div class="sub_box">
+                        <input type="text" name="name" class="box" placeholder="이름을 입력하세요" @if(isset($channel)) value="{{ $channel->name }}" readonly @endif >
+                    </div>
+                </div>
                 <div class="input_box">
-                    <span class="menu">이름</span>
+                    <div class="sub_box sub_box_line">
+                        <span class="menu">설명</span>
+                    </div>
+                    <div class="mt10 sub_box">
+                        <textarea name="description" class="text_box" id="" placeholder="정보를 적어주세요">@if(isset($channel)){{ $channel->description }}@endif</textarea>
+                    </div>
+                </div>
 
-                </div>
-                <div class="input_box">
-                    <input type="text" name="name" class="box" placeholder="이름을 입력하세요" @if(isset($channel)) value="{{ $channel->name }}" readonly @endif >
-                </div>
-                <div class="input_box">
-                    <span class="menu">설명</span>
-                </div>
-                <div class="input_box">
-                    <textarea name="description" class="text_box" id="" placeholder="정보를 적어주세요">@if(isset($channel)){{ $channel->description }}@endif</textarea>
-                </div>
                 {{-- <div style="float: right; font-size: 20px;"> --}}
                 <div class="point">
                     <div class='point_box'>

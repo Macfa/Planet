@@ -35,11 +35,13 @@
                 <div class="left">
                     <div class="list">
 
-                        <div class="input_box">
-                            <span class="menu">포스트</span>
-                        </div>
-                        <div class="input_box">
-                            <input type="text" class="box" name="title" @if(isset($post)) value="{{ $post->title }}" @endif placeholder="이름을 입력하세요">
+                        <div class="input_box input_box_title">
+                            <div class="sub_box sub_box_line">
+                                <span class="menu">포스트</span>
+                            </div>
+                            <div class="sub_box">
+                                <input type="text" class="box" name="title" @if(isset($post)) value="{{ $post->title }}" @endif placeholder="이름을 입력하세요">
+                            </div>
                         </div>
                         <div class="input_box">
                             <textarea class="text_box" id="editor" name="content" placeholder="정보를 적어주세요">@if(isset($post)){{ $post->content }}@endif</textarea>
