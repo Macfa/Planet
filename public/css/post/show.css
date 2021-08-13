@@ -82,7 +82,7 @@
   }
 
   .modal-parent > .modal-wrap > .modal-body {
-    background-color:#5a4e70;
+    background-color:#3d5afe;
     display:flex;
   }
 
@@ -210,13 +210,13 @@
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-write-form .form-btn > .reset-btn button {
     background-color:#fff;
     color:#5a4e70;
-    border:5px solid #5a4e70;
+    border:5px solid #3d5afe;
     margin-right:10px;
 
   }
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-write-form .form-btn > .write-btn button {
-    background-color:#5a4e70;
+    background-color:#3d5afe;
     color:#fff;
     border:0;
   }
@@ -389,7 +389,7 @@
   }
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .reply-form .form-btn > .write-btn button {
-    background-color:#5a4e70;
+    background-color:#3d5afe;
     color:#fff;
     border:0;
   }
@@ -556,7 +556,7 @@
   }
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .reply-list > .reply-item > .reply-form .form-btn > .write-btn button {
-    background-color:#5a4e70;
+    background-color:#3d5afe;
     color:#fff;
     border:0;
   }

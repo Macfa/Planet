@@ -63,10 +63,12 @@
                             <li>스탬프</li>
                             <li class="clickable" onclick="replyCommentForm({{ $comment->group }}, {{ $post->id }}, {{ $comment->id }});">댓글</li>
                             <li class="clickable">
-                                <img onclick="voteLikeInComment({{ $comment->id }}, 1)" src="{{ asset('image/square-small.png') }}" alt="" />
+                                <img onclick="voteLikeInComment({{ $comment->id }}, 1)" class="image-sm" src="{{ asset('image/upvote.png') }}" alt="" />
+                            </li>
+                            <li>
                                 <span class="comment-like">{{ $comment->likes->sum('like') }}</span>
                             </li>
-                            <li class="clickable"><img onclick="voteLikeInComment({{ $comment->id }}, -1)" src="{{ asset('image/square-small.png') }}" alt="" /></li>
+                            <li class="clickable"><img onclick="voteLikeInComment({{ $comment->id }}, -1)" class="image-sm" src="{{ asset('image/downvote.png') }}" alt="" /></li>
 
                         </ul>
                     </div>

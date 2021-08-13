@@ -8,7 +8,7 @@
                 <ul class="category">
                     <li><a href="{{ route('home') }}">포디엄</a></li>
                     @foreach ($favorites as $favorite)
-                        <li class="channel_{{ $favorite->channelID }}"><a href="{{ route('channel.show', $favorite->channelID) }}"><img src="../img/icon_podium.png">{{ $favorite->channel->name }}</a></li>
+                        <li class="channel_{{ $favorite->channelID }}"><a href="{{ route('channel.show', $favorite->channelID) }}">{{ $favorite->channel->name }}</a></li>
                     @endforeach
                 </ul>
                 @if(request()->has('searchText') )
@@ -20,9 +20,9 @@
 
                 @elseif(request()->is('user/*'))
                     <ul class="tab">
-                        <li @if( $el =="post") class="on" @endif><a href="{{ route('user.show', ['user'=>$user->id, 'el'=>'post']) }}">쓴 글</a></li>
-                        <li @if( $el =="comment") class="on" @endif><a href="{{ route('user.show', ['user'=>$user->id, 'el'=>'comment']) }}">쓴 댓글</a></li>
-                        <li @if( $el =="scrap") class="on" @endif><a href="{{ route('user.show', ['user'=>$user->id, 'el'=>'scrap']) }}">스크랩</a></li>
+                        <li @if( $el =="post") class="on" @endif><a href="{{ route('user.show', ['user'=>$user->id, 'el'=>'post']) }}">나의 쓴 글</a></li>
+                        <li @if( $el =="comment") class="on" @endif><a href="{{ route('user.show', ['user'=>$user->id, 'el'=>'comment']) }}">나의 쓴 댓글</a></li>
+                        <li @if( $el =="scrap") class="on" @endif><a href="{{ route('user.show', ['user'=>$user->id, 'el'=>'scrap']) }}">나의 스크랩</a></li>
                     </ul>
                 @else
                     <ul class="tab">
