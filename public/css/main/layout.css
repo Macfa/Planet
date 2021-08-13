@@ -6,7 +6,7 @@
 }
 
 input:focus {
-  outline: none;
+  /*outline: none;*/
 }
 
 /* 메인 */
@@ -384,7 +384,7 @@ input:focus {
 }
 
 /*
-Custom 
+Custom
 */
 #app .board_box .left .add_planet {
   width: 200px;
@@ -439,7 +439,7 @@ Custom
   font-size: 16px;
 }
 
-/* 
+/*
 Done
 */
 @media screen and (max-width: 1440px) {

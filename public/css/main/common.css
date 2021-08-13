@@ -90,12 +90,12 @@ textarea {
 }
 
 input, select, textarea {
-  margin: 0;
-  padding: 10px;
-  box-sizing: border-box;
-  border: 1px solid #e8e8e8;
-  font-family: "Noto Sans KR";
-  vertical-align: middle;
+    margin: 0;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #e8e8e8;
+    font-family: "Noto Sans KR";
+    vertical-align: middle;
 }
 
 button {
