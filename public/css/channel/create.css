@@ -28,7 +28,7 @@ input:focus {
 
 #channel .board_box .left div.list .menu {
   font-size: 25px;
-  border-bottom: 4px solid #5a4e70;
+  border-bottom: 4px solid #3d5afe;
 }
 
 #channel .board_box .left div.list .input_box {
@@ -137,7 +137,7 @@ input:focus {
 #channel ul.btn li a {
   letter-spacing: 2px;
   color: #fff;
-  background-color: #5a4e70;
+  background-color: #3d5afe;
   border-radius: 10px;
   height: 30px;
   line-height: 30px;
@@ -151,7 +151,7 @@ input:focus {
 #channel ul.btn li .submit {
   letter-spacing: 2px;
   color: #fff;
-  background-color: #5a4e70;
+  background-color: #3d5afe;
   border-radius: 10px;
   height: 36px;
   line-height: 30px;

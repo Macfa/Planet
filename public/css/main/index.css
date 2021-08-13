@@ -44,7 +44,7 @@
 
 #main .board_box .left ul.category li a {
   box-sizing: border-box;
-  padding: 6px 7px 6px 1px;
+  padding: 7px 8px;
   display: inline-block;
   font-size: 18px;
   color: #3e3e3e;
@@ -285,7 +285,7 @@
 }
 
 #main .board_box .right .link ul li a {
-  background-color: #5a4e70;
+  background-color: #3d5afe;
   color: #f6f6f8;
   display: block;
   border-radius: 10px;
