@@ -48,7 +48,6 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main/common.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main/layout.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main/index.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/jquery-tmpl.js') }}"></script>
 {{--    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>--}}
