@@ -328,6 +328,11 @@
     margin-left:12px;
   }
 
+.write-info .comment-modi-form > button > div.function-text > p {
+    font-size:9px;
+    vertical-align:middle;
+    margin-left:12px;
+}
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .comment-top > .comment-info > ul > li img,
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .reply-list > .reply-item .reply-top > .reply-info > ul > li img  {
     vertical-align:-4px;
