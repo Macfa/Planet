@@ -30,31 +30,32 @@
                         <!-- 게시글 기타 기능 -->
                         <div class="board-etc-function" id="post">
                             <ul>
-                                <li>
+                                <li class="items">
                                     <img onclick="voteLikeInPost({{ $post->id }},1)" class="image-sm" src="{{ asset('image/upvote.png') }}" alt="" />
-
-                                    <div class="function-text post-like">
-                                        <p>{{ $post->likes->sum('vote') }}</p>
-                                    </div>
                                 </li>
-                                <li>
+                                <li class="items">
+{{--                                    <div class="function-text post-like">--}}
+                                        <p>{{ $post->likes->sum('vote') }}</p>
+{{--                                    </div>--}}
+                                </li>
+                                <li class="items">
                                     <img onclick="voteLikeInPost({{ $post->id }}, -1)" class="image-sm" src="{{ asset('image/downvote.png') }}" alt="" />
                                 </li>
-                                <li>
+                                <li class="items">
                                     <img src="{{ asset('image/stamp.png') }}" class="image-sm" alt="" />
 
                                     <div class="function-text">
                                         <p>스탬프</p>
                                     </div>
                                 </li>
-                                <li>
+                                <li class="items">
                                     <img src="{{ asset('image/share.png') }}" class="image-sm" alt="" />
 
                                     <div class="function-text">
                                         <p>공유</p>
                                     </div>
                                 </li>
-                                <li class="clickable" onclick="scrapPost({{ $post->id }})">
+                                <li class="clickable items" onclick="scrapPost({{ $post->id }})">
                                     <img src="{{ asset('image/scrap.png') }}" class="image-sm" alt="" />
 
                                     <div class="function-text">
@@ -62,7 +63,7 @@
                                     </div>
                                     {{-- <scrap-template></scrap-template> --}}
                                 </li>
-                                <li class="clickable" onclick="reportPost({{ $post->id }})">
+                                <li class="clickable items" onclick="reportPost({{ $post->id }})">
                                     <img src="{{ asset('image/report.png') }}" class="image-sm" alt="" />
 
                                     <div class="function-text">
@@ -70,20 +71,18 @@
                                     </div>
                                 </li>
                                 @if(auth()->id()==$post->userID)
-                                <li>
-                                    <a href="{{ route('post.edit', $post->id) }}">
-                                        <div class="function-text">
-                                            <p>edit</p>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <button onclick="deletePost({{ $post->id }})">
-                                        <div class="function-text">
-                                            <p>delete</p>
-                                        </div>
-                                    </button>
-                                </li>
+                                    <div class="ml-a items-r">
+                                        <li class="clickable items-r" onclick="location.href='{{ route('post.edit', $post->id) }}'">
+                                            <div class="function-text">
+                                                <p>수정</p>
+                                            </div>
+                                        </li>
+                                        <li class="clickable " onclick="deletePost({{ $post->id }})">
+                                            <div class="function-text">
+                                                <p>삭제</p>
+                                            </div>
+                                        </li>
+                                    </div>
                                 @endif
                             </ul>
                         </div>
