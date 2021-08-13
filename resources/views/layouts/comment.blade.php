@@ -256,8 +256,8 @@
         if(data['content'] === "" ) { // 0 : postID, 1 : content
             data['content'] = "내용이 없습니다";
         }
-        // console.log(data['content']);return;
 
+        // console.log(data);return;
 
         $.ajax({
             url: "/comment",
