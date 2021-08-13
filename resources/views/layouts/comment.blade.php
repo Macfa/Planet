@@ -284,7 +284,11 @@
                 }
             },
             error: function(err) {
-                alert("댓글이 저장되지않았습니다\n관리자에게 문의해주세요.");
+                if(err.responseJSON.reason == 'login') {
+                    alert("로그인이 필요한 기능입니다.");
+                } else {
+                    alert("댓글이 저장되지않았습니다\n관리자에게 문의해주세요.");
+                }
                 console.log(err);
             }
         })

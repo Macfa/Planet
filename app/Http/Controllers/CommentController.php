@@ -37,9 +37,9 @@ class CommentController extends Controller
      */
     public function store(Request $request) {
 
-//        if(auth()->id() == null) {
-//            return 'login';
-//        }
+        if(auth()->id() == null) {
+            return response()->json(['reason'=>'login'], 401);
+        }
         $id = $request->input('id'); // 그룹 아이디
 
         if($id == null) {
@@ -61,7 +61,7 @@ class CommentController extends Controller
 
             return $result;
         } else {
-            return redirect()->back();
+            return redirect(["reason"=>""])->back();
         }
     }
 
