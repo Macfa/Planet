@@ -43,70 +43,70 @@ input:focus {
   width: calc(100% - 216px);
 }
 
-#channel .board_box .left div.list {
-  border: 1px solid #cbc7c7;
+#channel .board_box .left div.ch_list {
+  /*border: 1px solid #cbc7c7;*/
   border-radius: 10px;
   min-height: 686px;
 }
 
-#channel .board_box .left div.list .menu {
+#channel .board_box .left div.ch_list .menu {
   font-size: 25px;
   border-bottom: 4px solid #5a4e70;
   text-align: center;
 }
 
-#channel .board_box .left div.list .input_box {
+#channel .board_box .left div.ch_list .input_box {
     border: 1px solid #cbc7c7;
     /*padding: 15px 9px;*/
     border-radius: 10px;
 }
-#channel .board_box .left div.list .input_box_title {
+#channel .board_box .left div.ch_list .input_box_title {
     margin-bottom: 30px;
 }
-#channel .board_box .left div.list .sub_box_line {
+#channel .board_box .left div.ch_list .sub_box_line {
     border-bottom: 1px solid #cbc7c7;
     /*padding: 15px 9px;*/
     /*border-radius: 10px;*/
 }
 
-#channel .board_box .left div.list .sub_box {
+#channel .board_box .left div.ch_list .sub_box {
     padding: 15px 9px;
 }
-#channel .board_box .left div.list .box {
+#channel .board_box .left div.ch_list .box {
     height: 55px;
-    width: 1028px;
+    width: 1040px;
     border-radius: 10px;
 }
 
 
-#channel .board_box .left div.list .box::-moz-placeholder {
+#channel .board_box .left div.ch_list .box::-moz-placeholder {
   /*padding-left: 30px;*/
 }
 
-#channel .board_box .left div.list .box:-ms-input-placeholder {
+#channel .board_box .left div.ch_list .box:-ms-input-placeholder {
   /*padding-left: 30px;*/
 }
 
-#channel .board_box .left div.list .box::placeholder {
+#channel .board_box .left div.ch_list .box::placeholder {
   /*padding-left: 30px;*/
 }
 
-#channel .board_box .left div.list .text_box {
+#channel .board_box .left div.ch_list .text_box {
   height: 267px;
   width: 100%;
 }
 
-#channel .board_box .left div.list .text_box::-moz-placeholder {
+#channel .board_box .left div.ch_list .text_box::-moz-placeholder {
   padding-left: 30px;
   padding-top: 16px;
 }
 
-#channel .board_box .left div.list .text_box:-ms-input-placeholder {
+#channel .board_box .left div.ch_list .text_box:-ms-input-placeholder {
   padding-left: 30px;
   padding-top: 16px;
 }
 
-#channel .board_box .left div.list .text_box::placeholder {
+#channel .board_box .left div.ch_list .text_box::placeholder {
   padding-left: 30px;
   padding-top: 16px;
 }
@@ -190,10 +190,15 @@ input:focus {
 
 /* CKEDITOR */
 .ck-editor__editable_inline {
-    min-height: 400px;
-    max-height: 400px;
+    min-height: 300px;
+    max-height: 300px;
 }
-
+.ck-editor__editable_inline:focus {
+    border: none;
+    border-radius: 2pt;
+    box-shadow: 0 0 0 1pt blue;
+    outline: none;
+}
 
 @media screen and (max-width: 1440px) {
   .wrap {

@@ -6,7 +6,10 @@
 }
 
 input:focus {
-  /*outline: none;*/
+    border: none;
+    border-radius: 2pt;
+    box-shadow: 0 0 0 1pt blue;
+    outline: none;
 }
 
 /* 메인 */
@@ -437,6 +440,13 @@ Custom
   letter-spacing: 0.32px;
   height: 24px;
   font-size: 16px;
+}
+
+.image-m {
+    width: 27px;
+}
+.image-sm {
+    width: 15px;
 }
 
 /*

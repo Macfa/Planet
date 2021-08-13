@@ -87,8 +87,6 @@
                 </form>
             </div>
             <ul class="btn">
-                <a href="/test2">Notifications</a>
-                <a href="/test">purchase</a>
                 @guest
                     <li class="login"><a href="{{ route('social.oauth', 'google') }}">로그인</a></li>
                 @endguest
@@ -97,14 +95,14 @@
                     <li class="header_icon"><a href="{{ route('user.show', auth()->id()) }}"><img src="{{ asset('image/mypage_4x.png') }}" alt="mypage" /></a></li>
                     <li class="header_icon"><img src="{{ asset('image/noti_4x.png') }}" alt="noti" /></li>
                     <li class="header_icon"><img src="{{ asset('image/coin_4x.png') }}" alt="coin" /></li>
-                    <li>
-                        <p>Coin :
-                            {{ \App\Models\Coin::where('coins.userID',auth()->id())
-                                ->sum('coin') }}
+                    <li class="header_text ml-0">
+                        <p>
+                            {{ coin_transform(\App\Models\Coin::where('coins.userID',auth()->id())
+                                ->sum('coin')) }}
                         </p>
                     </li>
                     <li class="header_icon"><img src="{{ Auth::user()->avatar }}" alt="img" /></li>
-                    <li>
+                    <li class="header_text">
                         <p>{{ Auth::user()->name }}</p>
                     </li>
                     <li class="header_icon"><img src="{{ asset('image/list_4x.png') }}" alt="list" /></li>

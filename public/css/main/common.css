@@ -71,7 +71,7 @@ a:link {
 
 a:focus,
 button:focus {
-  outline: none;
+  /*outline: none;*/
 }
 
 table {
@@ -118,6 +118,12 @@ button {
 }
 
 /* -webkit-line-clamp:4; -webkit-box-orient:vertical; */
+.mtb-a {
+    margin: auto 0px;
+}
+.mrl-a {
+    margin: 0px auto;
+}
 .mt0 {
   margin-top: 0px !important;
 }

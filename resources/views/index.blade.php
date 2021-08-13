@@ -4546,7 +4546,7 @@
                         </rect>
                     </svg>
                     <div id="__db">
-                        <span>포스트 작성</span>
+                        <span>게시글 작성</span>
                     </div>
                 </div>
             </div>

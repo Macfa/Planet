@@ -33,26 +33,19 @@
                     </select>
                 </div>
                 <div class="left">
-                    <div class="list">
+                    <div class="ch_list">
 
                         <div class="input_box input_box_title">
                             <div class="sub_box sub_box_line">
                                 <span class="menu">포스트</span>
                             </div>
-                            <div class="sub_box">
+                            <div class="sub_box sub_box_line">
                                 <input type="text" class="box" name="title" @if(isset($post)) value="{{ $post->title }}" @endif placeholder="이름을 입력하세요">
                             </div>
+                            <div class="sub_box">
+                                <textarea class="text_box" id="editor" name="content" placeholder="내용을 적어주세요">@if(isset($post)){{ $post->content }}@endif</textarea>
+                            </div>
                         </div>
-                        <div class="input_box">
-                            <textarea class="text_box" id="editor" name="content" placeholder="정보를 적어주세요">@if(isset($post)){{ $post->content }}@endif</textarea>
-                            {{-- <textarea class="text_box" id="editor" name="content" placeholder="정보를 적어주세요" style="display:none"></textarea> --}}
-                        </div>
-                        {{-- <div style="float: right; font-size: 20px;"> --}}
-{{--                            <div class="point">--}}
-{{--                                <div class='point_box'>--}}
-{{--                                    <input type="checkbox">&nbsp;&nbsp;<span>10,000/100</span>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
                             <div style="margin-top: 20px;">
                                 <ul class="btn">
                                     <li><a href="{{ url('/') }}">취소</a></li>
