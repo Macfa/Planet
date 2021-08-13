@@ -19,7 +19,12 @@
     width: 37px;
     height: 37px;
 }
-
+#header .btn .header_text {
+    height: 37px;
+    line-height: 37px;
+    width: 65px;
+    overflow-x: hidden;
+}
 #header .input {
   position: absolute;
   top: 50%;

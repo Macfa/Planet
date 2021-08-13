@@ -3,26 +3,15 @@
     <div class="modal-parent">
         <div class="modal-wrap">
             <div class="modal-top">
-                <div class="modal-page">
-                    <div class="arrow-top">
-                        <img onclick="voteLikeInPost({{ $post->id }},1)" src="{{ asset('image/arrow-top.png') }}" alt="앞으로" />
-                    </div>
-
-                    <span class="now-page post-like">{{ $post->likes->sum('vote') }}</span>
-
-                    <div class="arrow-bot">
-                        <img onclick="voteLikeInPost({{ $post->id }},-1)" src="{{ asset('image/arrow-bot.png') }}" alt="뒤로" />
-                    </div>
-                </div>
 
                 <div class="modal-title">
                     <h4>
-                        {{ $post->title }} [<span class="commentCount">{{ $post->comments_count }}</span>]
+                        {{ $post->title }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="titleSub">[<span class="commentCount">{{ $post->comments_count }}</span>]</span>
                     </h4>
                 </div>
 
                 <div class="write-info">
-                    <p><span><a href="{{ route('channel.show', $post->channelID) }}">[{{ $post->channel->name }}]</a></span>온 <a href="{{ route('user.show', 'post') }}">{{ $post->user->name }}</a> / {{ $post->created_at->diffForHumans() }}</p>
+                    <p><span><a href="{{ route('channel.show', $post->channelID) }}">[{{ $post->channel->name }}]</a></span>&nbsp;온 <a href="{{ route('user.show', 'post') }}">{{ $post->user->name }}</a> / {{ $post->created_at->diffForHumans() }}</p>
                 </div>
 
                 <div class="modal-close">
@@ -42,31 +31,31 @@
                         <div class="board-etc-function" id="post">
                             <ul>
                                 <li>
-                                    <img onclick="voteLikeInPost({{ $post->id }},1)" src="{{ asset('image/square-small.png') }}" alt="" />
+                                    <img onclick="voteLikeInPost({{ $post->id }},1)" class="image-sm" src="{{ asset('image/upvote.png') }}" alt="" />
 
                                     <div class="function-text post-like">
                                         <p>{{ $post->likes->sum('vote') }}</p>
                                     </div>
                                 </li>
                                 <li>
-                                    <img onclick="voteLikeInPost({{ $post->id }}, -1)" src="{{ asset('image/square-small.png') }}" alt="" />
+                                    <img onclick="voteLikeInPost({{ $post->id }}, -1)" class="image-sm" src="{{ asset('image/downvote.png') }}" alt="" />
                                 </li>
                                 <li>
-                                    <img src="{{ asset('image/square-small.png') }}" alt="" />
+                                    <img src="{{ asset('image/stamp.png') }}" class="image-sm" alt="" />
 
                                     <div class="function-text">
                                         <p>스탬프</p>
                                     </div>
                                 </li>
                                 <li>
-                                    <img src="{{ asset('image/square-small.png') }}" alt="" />
+                                    <img src="{{ asset('image/share.png') }}" class="image-sm" alt="" />
 
                                     <div class="function-text">
                                         <p>공유</p>
                                     </div>
                                 </li>
                                 <li class="clickable" onclick="scrapPost({{ $post->id }})">
-                                    <img src="{{ asset('image/square-small.png') }}" alt="" />
+                                    <img src="{{ asset('image/scrap.png') }}" class="image-sm" alt="" />
 
                                     <div class="function-text">
                                         <p>스크랩</p>
@@ -74,7 +63,7 @@
                                     {{-- <scrap-template></scrap-template> --}}
                                 </li>
                                 <li class="clickable" onclick="reportPost({{ $post->id }})">
-                                    <img src="{{ asset('image/square-small.png') }}" alt="" />
+                                    <img src="{{ asset('image/report.png') }}" class="image-sm" alt="" />
 
                                     <div class="function-text">
                                         <p>신고</p>
@@ -112,7 +101,7 @@
                                     <img onclick="voteLikeInPost({{ $post->id }},-1)" src="{{ asset('image/arrow2-bot.png') }}" alt="아래로">
                                 </div>
 
-                                <img src="{{ asset('image/stamp.png') }}" alt="stamp" class="stamp-image">
+                                <img src="{{ asset('image/stamp_c.png') }}" alt="stamp" class="stamp-image image-m">
                                 <img class="clickable" onclick="scrapPost({{ $post->id }})" src="{{ asset('image/favorit.png') }}" alt="favorit" class="favorit-image">
                                 <img src="{{ asset('image/message.png') }}" alt="message" class="message-image">
                             </div>
@@ -123,21 +112,21 @@
                         </div>
 
                     <!-- 오른쪽 광고배너 -->
-                        <div class="modal-right">
-                            <div class="modal-banner">
-                                <div class="banner-item">
-                                    <h3>광고 배너</h3>
-                                </div>
+{{--                        <div class="modal-right">--}}
+{{--                            <div class="modal-banner">--}}
+{{--                                <div class="banner-item">--}}
+{{--                                    <h3>광고 배너</h3>--}}
+{{--                                </div>--}}
 
-                                <div class="banner-item">
-                                    <h3>광고 배너</h3>
-                                </div>
+{{--                                <div class="banner-item">--}}
+{{--                                    <h3>광고 배너</h3>--}}
+{{--                                </div>--}}
 
-                                <div class="banner-item">
-                                    <h3>광고 배너</h3>
-                                </div>
-                            </div>
-                        </div>
+{{--                                <div class="banner-item">--}}
+{{--                                    <h3>광고 배너</h3>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
                     </div>
                 </div>
             </div>

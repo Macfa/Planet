@@ -69,11 +69,8 @@ class Coin extends Model
     }
 
     public function writeComment(Comment $comment) {
-//        $today = Carbon::now()->toDateTimeString();
         $today = Carbon::now();
         $limit = 50;
-//        $totalCoin = $post->coins()->where('created_at', $today)->sum('coin');
-//        $totalCoin = $post->join('coins', 'coins.coinable_type', '=', 'test')->whereDate('coins.created_at', $today)->sum('coin');
         $totalCoin = $comment->coins()->whereDate('coins.created_at', $today)->sum('coin');
 
         if($totalCoin > $limit) {

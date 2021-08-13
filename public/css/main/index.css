@@ -297,8 +297,11 @@
 
 textarea[name=content]:focus {
     border: none;
-    outline:none;
+    border-radius: 2pt;
+    box-shadow: 0 0 0 1pt blue;
+    outline: none;
 }
+
 @media screen and (max-width: 1440px) {
   .wrap {
     width: 1276px;

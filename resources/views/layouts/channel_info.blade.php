@@ -51,7 +51,7 @@
             @if($channel->userID != auth()->id())
                 <li><a class="favorite_btn clickable" onclick="addFavorite({{ $channel->id }})">가입/탈퇴</a></li>
             @endif
-            <li><a href="{{ route('post.create', ['channelID' => $channel->id]) }}">포스트 작성</a></li>
+            <li><a href="{{ route('post.create', ['channelID' => $channel->id]) }}">게시글 작성</a></li>
             <li><a href="{{ route('channel.create') }}">몽드 만들기</a></li>
         </ul>
     </div>

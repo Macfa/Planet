@@ -37,10 +37,9 @@
 
   .modal-parent > .modal-wrap > .modal-top {
     position:relative;
-    padding:0 50px;
-    margin-bottom:33px;
+    padding:10px 20px;
+    /*margin-bottom:33px;*/
   }
-
   .modal-parent > .modal-wrap > .modal-top > .modal-page {
     display:flex;
     flex-direction:column;
@@ -58,7 +57,14 @@
     font-size:26px;
     font-weight:400;
   }
-
+.modal-parent > .modal-wrap > .modal-top > .modal-title h4 .titleSub {
+    font-size:23px;
+    /*font-weight:400;*/
+}
+    .modal-parent > .modal-wrap > .modal-top > .modal-title h4 .titleSub .commentCount {
+        font-size:21px;
+        /*font-weight:400;*/
+    }
   .modal-parent > .modal-wrap > .modal-top > .write-info > p {
     font-size:14px;
     color:#CBC7C7;
@@ -82,7 +88,7 @@
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left {
     padding:20px 20px 0;
-    /* flex-grow:1; */
+     flex-grow:1;
   }
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left > .modal-content {
@@ -98,7 +104,7 @@
   }
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left .board-text > p {
-    font-size:20px;
+    font-size:14px;
     line-height:29px;
   }
 
@@ -242,27 +248,27 @@
   /* 댓글보기 에서 이래로 이어지는 선 */
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item:before {
 /*.modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list:before {*/
-    content:"";
-    display:block;
-    position:absolute;
-    left:19px;
-    top:0;
-    width:1px;
-    height:100%;
-    background-color:rgba(0, 0, 0, 0.6);
+/*    content:"";*/
+/*    display:block;*/
+/*    position:absolute;*/
+/*    left:19px;*/
+/*    top:0;*/
+/*    width:1px;*/
+/*    height:100%;*/
+/*    background-color:rgba(0, 0, 0, 0.6);*/
   }
 
 /* 댓글보기 에서 좌측으로 이어지는 선 */
 /*.modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .reply-list > .reply-item > .reply-top > .write-info:before {*/
 .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .comment-top > .write-info-line:before {
-    content:"";
-    position:absolute;
-    left:-25px;
-    top:19px;
-    background-color:#707070;
-    width:50px;
-    height:1px;
-    display:block;
+    /*content:"";*/
+    /*position:absolute;*/
+    /*left:-25px;*/
+    /*top:19px;*/
+    /*background-color:#707070;*/
+    /*width:50px;*/
+    /*height:1px;*/
+    /*display:block;*/
 }
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .comment-top,

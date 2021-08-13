@@ -42,7 +42,7 @@
 }
 
 input:focus {
-  outline: none;
+  /*outline: none;*/
 }
 
 /* 헤더 */
