@@ -37,7 +37,9 @@ class CommentController extends Controller
      */
     public function store(Request $request) {
 
-//        dd($request);
+//        if(auth()->id() == null) {
+//            return 'login';
+//        }
         $id = $request->input('id'); // 그룹 아이디
 
         if($id == null) {
