@@ -26,7 +26,7 @@
                         <span class="menu">설명</span>
                     </div>
                     <div class="mt10 sub_box">
-                        <textarea name="description" class="text_box" id="" placeholder="정보를 적어주세요">@if(isset($channel)){{ $channel->description }}@endif</textarea>
+                        <textarea name="description" class="text_box" id="" placeholder="내용을 입력하세요">@if(isset($channel)){{ $channel->description }}@endif</textarea>
                     </div>
                 </div>
 
@@ -38,13 +38,15 @@
                 </div>
                 <div>
                     <ul class="btn">
-                        <li><a href="{{ url('/') }}">취소</a></li>
+                        <li><button onclick="location.href='{{ url('/') }}'">취소</button></li>
                         {{-- <li><a href="">등록</a></li> --}}
 {{--                        @isset($channel)--}}
                         @if(isset($channel))
-                            <li><input type="submit" value="수정" class="submit"></li>
+                            <li><button type="submit" class="submit">수정</button></li>
                         @else
-                            <li><input type="submit" value="등록" class="submit"></li>
+                            <li>
+                                <button type="submit" class="submit">등록</button>
+                            </li>
                         @endif
                     </ul>
                 </div>

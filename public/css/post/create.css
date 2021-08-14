@@ -51,7 +51,7 @@ input:focus {
 
 #channel .board_box .left div.ch_list .menu {
   font-size: 25px;
-  border-bottom: 4px solid #5a4e70;
+  /*border-bottom: 4px solid #5a4e70;*/
   text-align: center;
 }
 
