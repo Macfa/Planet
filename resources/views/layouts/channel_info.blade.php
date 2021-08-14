@@ -5,7 +5,7 @@
             동아리 정보
             <span style="margin-left: 80px;">
             @if(auth()->id()==$channel->userID)
-                <a href="{{ route('channel.edit', $channel->id) }}">수정</a>
+                <button onclick="location.href='{{ route('channel.edit', $channel->id) }}'">수정</button>
                 <button onclick="deleteChannel({{ $channel->id }})">삭제</button>
             @endif
             </span>
