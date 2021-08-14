@@ -317,6 +317,16 @@ textarea[name=content]:focus {
     box-shadow: 0 0 0 1pt blue;
     outline: none;
 }
+.d-btn {
+    background-color: #3d5afe;
+    color: #f6f6f8;
+    display: block;
+    border-radius: 10px;
+    padding: 5px 0;
+    text-align: center;
+    letter-spacing: 1.9px;
+    font-size: 20px;
+}
 
 @media screen and (max-width: 1440px) {
   .wrap {

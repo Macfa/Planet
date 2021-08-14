@@ -462,11 +462,11 @@ Custom
     border-radius: 8px;
     background-color: #3d5afe;
     color: #FFFFFF;
-    font-size:10px;
+    font-size:14px;
     letter-spacing: 1px;
 }
 .right .right_sub .info_detail div span {
-    font-size: 12px;
+    font-size: 14px;
 }
 .right .right_sub .info_detail .flex .flex_item > div {
     font-size: 14px;
