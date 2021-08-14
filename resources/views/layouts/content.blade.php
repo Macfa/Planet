@@ -5,7 +5,9 @@
 {{--        <article class="advertising"><a href="#"><img src="../img/test.jpg"></a></article>--}}
         <article class="board_box">
             <div class="left">
+
                 <ul class="category">
+                    <div class="category_title">최근 방문한 동아리</div>
                     <li><a href="{{ route('home') }}">포디엄</a></li>
                     @foreach ($favorites as $favorite)
                         <li class="channel_{{ $favorite->channelID }}"><a href="{{ route('channel.show', $favorite->channelID) }}">{{ $favorite->channel->name }}</a></li>
@@ -25,6 +27,9 @@
                         <li @if( $el =="scrap") class="on" @endif><a href="{{ route('user.show', ['user'=>$user->id, 'el'=>'scrap']) }}">나의 스크랩</a></li>
                     </ul>
                 @else
+                    <ul class="tab_title">
+                        {{ (isset($channel)) ? $channel->name:'포디엄'  }}
+                    </ul>
                     <ul class="tab">
                         <li class="on clickable realtime" onclick="clickMainMenu('realtime');"><a>실시간</a></li>
                         <li class="clickable hot" onclick="clickMainMenu('hot');"><a>인기</a></li>

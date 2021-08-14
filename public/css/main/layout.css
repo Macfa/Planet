@@ -282,7 +282,7 @@ input:focus {
 }
 
 #app .board_box .right .right_sub .info {
-  background-color: #3d5afe;
+  background-color: #0031CA;
   color: #f6f6f8;
   display: block;
   border-radius: 10px 10px 0 0;
@@ -407,7 +407,7 @@ Custom
 
 .right .right_sub > .info_detail {
   padding: 0 10px 9px;
-  margin: 0 auto;
+  margin: 10px auto;
   width: 88%;
 }
 
@@ -423,7 +423,7 @@ Custom
 }
 
 .right .right_sub .info_detail .flex .flex_item {
-  flex: auto;
+  flex: 1;
 }
 
 .right .right_sub .info_detail .flex .flex_item div {
@@ -456,6 +456,62 @@ Custom
 }
 .p-10 {
     padding: 10px !important;
+}
+.sub_btn {
+    padding: 3px 6px;
+    border-radius: 8px;
+    background-color: #3d5afe;
+    color: #FFFFFF;
+    font-size:10px;
+    letter-spacing: 1px;
+}
+.right .right_sub .info_detail div span {
+    font-size: 12px;
+}
+.right .right_sub .info_detail .flex .flex_item > div {
+    font-size: 14px;
+    /*color: #808080;*/
+}
+.right .right_sub .info_detail .flex .flex_item > p {
+    font-size: 12px;
+    color: #808080;
+}
+#progressbar {
+    margin: 10px 0;
+}
+.modalLayer {
+    display: none;
+    border: 1px solid #808080;
+    border-radius: 10px;
+}
+.modalLayer .modalHeader {
+    border-bottom: 1px solid #808080;
+}
+.modalLayer .modalHeader .Header {
+    font-size: 20px;
+    padding: 5px 10px;
+    letter-spacing: 2px;
+    height: 40px;
+    line-height: 40px;
+}
+.modalLayer .modalFooter {
+    margin: 10px;
+}
+.modalLayer .modalFooter .Body > input {
+    width: 100%;
+}
+.modalLayer .modalFooter .Footer {
+    margin: 20px 0 10px 0;
+    font-size: 12px;
+    color: #808080;
+}
+.modalLayer .modalFooter .Footer .right {
+    text-align: right;
+}
+.modalLayer .modalFooter .Footer .right button{
+    padding: 5px 10px;
+    background-color: #3d5afe;
+    color: #FFFFFF;
 }
 /*
 Done

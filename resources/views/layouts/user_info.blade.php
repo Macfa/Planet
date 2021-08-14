@@ -5,23 +5,41 @@
             마이페이지
         </div>
         <div class="info_detail">
-            <div class="flex">
-                <div class="flex_item">
-                    <div><img style="width:36px; height:36px;" src="{{ $user->avatar }}"/>{{ $user->name }}</div>
-                </div>
-                <div class="flex_item">
-                    {{-- <div>{{ $post->created_at->format('Y-m-d') }}</div> --}}
-                    <div>버튼</div>
-                    <p>포인트 필수</p>
-                </div>
+{{--            <div class="flex">--}}
+{{--                <div class="flex_item">--}}
+{{--                    <div><img style="width:36px; height:36px;" src="{{ $user->avatar }}"/>ID : {{ $user->name }}</div>--}}
+{{--                </div>--}}
+{{--                <div class="flex_item">--}}
+{{--                    <div>버튼</div>--}}
+{{--                    <p>포인트 필수</p>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+                <div class="">
+                    <img style="float: left; width:42px; height:42px;" src="{{ $user->avatar }}"/>
+                    <div style="margin-left: 45px;">
+                        <span>
+                            ID : {{ $user->name }}&nbsp;&nbsp;&nbsp;&nbsp;<button class="sub_btn" onclick="modifyUserName();">변경</button>
+                        </span>
+                        <br/>
+                        <span>
+                            등급 : 등급
+                        </span>
+                    </div>
+{{--                <div class="flex_item">--}}
+{{--                    <div>버튼</div>--}}
+{{--                    <p>포인트 필수</p>--}}
+{{--                </div>--}}
+{{--                <div class="flex_item">--}}
+
+{{--                </div>--}}
             </div>
-            <br/>
-            {{-- <p class="description">{{ $post->channel->description }}</p> --}}
+            <div id="progressbar">
+
+            </div>
             <div class="flex">
                 <div class="flex_item">
-                    {{-- {{ dd($posts->channel) }} --}}
-{{--                    <div>{{ date('Y년 m월 d일', strtotime($post->channel->created_at)) }}</div>--}}
-                    <p>여행출발일</p>
+                    <div>{{ date_format($user->created_at, 'Y년 m월 d일') }}</div>
+                    <p>생성일자</p>
                 </div>
                 <div class="flex_item">
                     {{-- <div>{{ $post->created_at->format('Y-m-d') }}</div> --}}
@@ -32,11 +50,11 @@
             <div class="flex">
                 <div class="flex_item">
                     <div>{{ $coin->postCount }}</div>
-                    <p>포스트 수</p>
+                    <p>게시글 수</p>
                 </div>
                 <div class="flex_item">
                     <div>{{ number_format($coin->postCoin) }}</div>
-                    <p>포스트로 획득한 코인</p>
+                    <p>대자보 등극 게시글 수</p>
                 </div>
             </div>
             <div class="flex">
@@ -46,7 +64,7 @@
                 </div>
                 <div class="flex_item">
                     <div>{{ number_format($coin->commentCoin) }}</div>
-                    <p>댓글로 획득한 코인</p>
+                    <p>베스트 댓글 수</p>
                 </div>
             </div>
 {{--            <div class="flex">--}}
@@ -75,4 +93,50 @@
         </ul>
     </div>
 </div>
+
+<div class="modalLayer">
+    <div class="modalHeader">
+        <div class="Header">
+            <p>변경할 ID를 입력하세요</p>
+        </div>
+    </div>
+    <div class="modalFooter">
+        <div class="Body">
+            <input type="text">
+        </div>
+        <div class="Footer">
+            <div class="left">
+                <img alt="img">
+                <span> 100 차감</span>
+            </div>
+            <div class="right">
+                <button>취소</button>
+                <button>등록</button>
+            </div>
+        </div>
+    </div>
+</div>
+    <script>
+        $("#progressbar").progressbar({
+            classes: {
+                "ui-progressbar": "highlight"
+            },
+            value: false
+        });
+        function modifyUserName() {
+            var popupWidth = 500;
+            var popupHeight = 200;
+            var popupX = (window.screen.width / 2) - (popupWidth / 2);
+            // 만들 팝업창 width 크기의 1/2 만큼 보정값으로 빼주었음
+
+            var popupY= (window.screen.height / 2) - (popupHeight / 2);
+            // 만들 팝업창 height 크기의 1/2 만큼 보정값으로 빼주었음
+            $(".modalLayer").fadeIn("slow");
+            $(".modalLayer").css('width', popupWidth);
+            $(".modalLayer").css('height', popupHeight);
+            $(".modalLayer").css('left', popupX);
+            $(".modalLayer").css('top', popupY);
+            $(".modalLayer").css('position', 'absolute');
+        }
+    </script>
 @endsection
