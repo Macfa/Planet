@@ -26,9 +26,13 @@
 
 #main .board_box .left ul.category {
   overflow: hidden;
-  margin: 0 0 10px;
+  margin: 0 0 20px;
 }
-
+#main .board_box .left .category_title {
+    font-weight: bold;
+    font-size:12px;
+    margin-bottom: 5px;
+}
 #main .board_box .left ul.category li {
   margin: 0 0 0 7px;
   padding: 0 5px;
@@ -36,6 +40,7 @@
   border: 1px solid #cbc7c7;
   border-radius: 10px;
   float: left;
+background-color: #3d5afe;
 }
 
 #main .board_box .left ul.category li:first-child {
@@ -47,7 +52,7 @@
   padding: 7px 8px;
   display: inline-block;
   font-size: 18px;
-  color: #3e3e3e;
+  color: #FFFFFF;
 }
 
 #main .board_box .left ul.category li a img {
@@ -57,12 +62,23 @@
 
 #main .board_box .left ul.tab {
   border: 1px solid #cbc7c7;
-  border-radius: 10px;
+  border-radius: 0px;
+    line-height: 43px;
   margin: 0 0 10px;
   padding: 0 5px;
   box-sizing: border-box;
+    height: 45px;
+    vertical-align: center;
 }
-
+#main .board_box .left ul.tab_title {
+    /*border: 1px solid #cbc7c7;*/
+    border-radius: 10px 10px 0px 0px;
+    padding: 10px 0px 10px 20px;
+    box-sizing: border-box;
+    background-color: #0031CA;
+    color: #FFFFFF;
+    font-size: 18px;
+}
 #main .board_box .left ul.tab li {
   display: inline-block;
 }

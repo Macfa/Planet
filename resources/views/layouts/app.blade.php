@@ -48,9 +48,11 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main/common.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main/layout.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main/index.css') }}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/jquery-tmpl.js') }}"></script>
-{{--    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>--}}
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script async charset="utf-8" src="//cdn.embedly.com/widgets/platform.js"></script>
     <!-- Fonts -->
     {{-- <link rel="dns-prefetch" href="//fonts.gstatic.com"> --}}
@@ -82,7 +84,7 @@
                 <form name="mainSearchForm" id="mainSearchForm" action="{{ route('home.search') }}" method="get">
                     {{-- @csrf --}}
                     <input type="text" name="searchText" placeholder="검색..." value="{{ Request::input('searchText') }}">
-                    <input type="hidden" name="searchType" id="searchType" value="t">
+                    <input type="hidden" name="searchType" id="searchType" value="a">
                     <button type="submit"></button>
                 </form>
             </div>
@@ -91,9 +93,10 @@
                     <li class="login"><a href="{{ route('social.oauth', 'google') }}">로그인</a></li>
                 @endguest
                 @auth
-                    <li class="header_icon"><a href="/"><img src="{{ asset('image/home_4x.png') }}" alt="home" /></a></li>
-                    <li class="header_icon"><a href="{{ route('user.show', auth()->id()) }}"><img src="{{ asset('image/mypage_4x.png') }}" alt="mypage" /></a></li>
-                    <li class="header_icon"><img src="{{ asset('image/noti_4x.png') }}" alt="noti" /></li>
+                    <li class="header_icon"><img src="{{ Auth::user()->avatar }}" alt="img" /></li>
+                    <li class="header_text">
+                        <p>{{ Auth::user()->name }}</p>
+                    </li>
                     <li class="header_icon"><img src="{{ asset('image/coin_4x.png') }}" alt="coin" /></li>
                     <li class="header_text ml-0">
                         <p>
@@ -101,10 +104,9 @@
                                 ->sum('coin')) }}
                         </p>
                     </li>
-                    <li class="header_icon"><img src="{{ Auth::user()->avatar }}" alt="img" /></li>
-                    <li class="header_text">
-                        <p>{{ Auth::user()->name }}</p>
-                    </li>
+                    <li class="header_icon"><a href="/"><img src="{{ asset('image/home_4x.png') }}" alt="home" /></a></li>
+                    <li class="header_icon"><a href="{{ route('user.show', auth()->id()) }}"><img src="{{ asset('image/mypage_4x.png') }}" alt="mypage" /></a></li>
+                    <li class="header_icon"><img src="{{ asset('image/noti_4x.png') }}" alt="noti" /></li>
                     <li class="header_icon"><img src="{{ asset('image/list_4x.png') }}" alt="list" /></li>
                 @endauth
             </ul>

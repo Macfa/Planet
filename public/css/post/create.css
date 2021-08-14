@@ -171,7 +171,7 @@ input:focus {
   display: inline-block;
   text-align: center;
   font-size: 20px;
-  border: 3px solid #5a4370;
+  /*border: 3px solid #5a4370;*/
 }
 
 #channel ul.btn li .submit {
@@ -185,7 +185,7 @@ input:focus {
   display: inline-block;
   text-align: center;
   font-size: 20px;
-  border: 3px solid #5a4370;
+  /*border: 3px solid #5a4370;*/
 }
 
 /* CKEDITOR */

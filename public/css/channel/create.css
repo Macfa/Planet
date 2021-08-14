@@ -145,7 +145,7 @@ input:focus {
   display: inline-block;
   text-align: center;
   font-size: 20px;
-  border: 3px solid #5a4370;
+  /*border: 3px solid #5a4370;*/
 }
 
 #channel ul.btn li .submit {
@@ -153,13 +153,13 @@ input:focus {
   color: #fff;
   background-color: #3d5afe;
   border-radius: 10px;
-  height: 36px;
+  height: 30px;
   line-height: 30px;
-  width: 150px;
+  width: 144px;
   display: inline-block;
   text-align: center;
   font-size: 20px;
-  border: 3px solid #5a4370;
+  /*border: 3px solid #5a4370;*/
 }
 
 @media screen and (max-width: 1440px) {

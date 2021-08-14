@@ -30,25 +30,25 @@
                         <!-- 게시글 기타 기능 -->
                         <div class="board-etc-function" id="post">
                             <ul>
-                                <li class="items">
+                                <li class="clickable items">
                                     <img onclick="voteLikeInPost({{ $post->id }},1)" class="image-sm" src="{{ asset('image/upvote.png') }}" alt="" />
                                 </li>
                                 <li class="items">
-{{--                                    <div class="function-text post-like">--}}
+                                    <div class="post-like">
                                         <p>{{ $post->likes->sum('vote') }}</p>
-{{--                                    </div>--}}
+                                    </div>
                                 </li>
-                                <li class="items">
+                                <li class="clickable items">
                                     <img onclick="voteLikeInPost({{ $post->id }}, -1)" class="image-sm" src="{{ asset('image/downvote.png') }}" alt="" />
                                 </li>
-                                <li class="items">
+                                <li class="clickable items" onclick="stampPost({{ $post->id }});">
                                     <img src="{{ asset('image/stamp.png') }}" class="image-sm" alt="" />
 
                                     <div class="function-text">
                                         <p>스탬프</p>
                                     </div>
                                 </li>
-                                <li class="items">
+                                <li class="clickable items">
                                     <img src="{{ asset('image/share.png') }}" class="image-sm" alt="" />
 
                                     <div class="function-text">
@@ -202,6 +202,16 @@
                             }
                         });
                     }
+                }
+
+                function stampPost() {
+                    var options = 'width=500, height=600, top=30, left=30, resizable=no, scrollbars=no, location=no';
+                    window.open('https://naver.com', '', options);
+
+                    // 출처: https://mine-it-record.tistory.com/304 [나만의 기록들]
+                    // 출처: https://mine-it-record.tistory.com/304 [나만의 기록들]
+                    // var options = "top=100,left=200,width=200,height=200,centerscreen=yes,resizable=no,scrollbars=yes";
+                    // window.open("https://naver.com", '_blank', options);
                 }
             </script>
 @endsection

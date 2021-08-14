@@ -6,8 +6,6 @@
     <article class="board_box">
       <div class="left">
         <div class="list">
-{{--            @isset($channel)--}}
-{{--            @isset($channel)--}}
                 @if(isset($channel))
                     <form action="{{ route('channel.update', $channel->id) }}" method="POST">
                     @method('PUT')
