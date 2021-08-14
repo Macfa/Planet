@@ -129,6 +129,7 @@
     color:rgba(0, 0, 0, 0.6);
     margin-right:16px;
     /*margin-left: auto;*/
+    font-size: 12px;
 }
   .modal-parent > .modal-wrap > .modal-body > .modal-left .board-etc-function > ul > li > .function-text {
     margin-left:8px;
