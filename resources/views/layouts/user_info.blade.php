@@ -15,8 +15,8 @@
 {{--                </div>--}}
 {{--            </div>--}}
                 <div class="">
-                    <img style="float: left; width:42px; height:42px;" src="{{ $user->avatar }}"/>
-                    <div style="margin-left: 45px;">
+                    <img style="float: left; width:45px;" src="{{ $user->avatar }}"/>
+                    <div style="margin-left: 50px;">
                         <span>
                             ID : {{ $user->name }}&nbsp;&nbsp;&nbsp;&nbsp;<button class="sub_btn" onclick="modifyUserName();">변경</button>
                         </span>
@@ -38,13 +38,13 @@
             </div>
             <div class="flex">
                 <div class="flex_item">
-                    <div>{{ date_format($user->created_at, 'Y.m.d') }}</div>
-                    <p>생성일자</p>
-                </div>
-                <div class="flex_item">
                     {{-- <div>{{ $post->created_at->format('Y-m-d') }}</div> --}}
                     <div>{{ number_format($coin->totalCoin) }}</div>
                     <p>보유코인</p>
+                </div>
+                <div class="flex_item">
+                    <div>{{ date_format($user->created_at, 'Y.m.d') }}</div>
+                    <p>생성일자</p>
                 </div>
             </div>
             <div class="flex">
@@ -89,7 +89,7 @@
         <p>어쩌면 마음이 맞는 친구를 찾을지도 모릅니다.</p>
         <ul>
             <li><a href="{{ route('post.create') }}">게시글 작성</a></li>
-            <li><a href="{{ route('channel.create') }}">몽드 만들기</a></li>
+            <li><a href="{{ route('channel.create') }}">동아리 만들기</a></li>
         </ul>
     </div>
 </div>
@@ -121,7 +121,7 @@
             classes: {
                 "ui-progressbar": "highlight"
             },
-            value: false
+            value: 20
         });
         function modifyUserName() {
             var popupWidth = 500;

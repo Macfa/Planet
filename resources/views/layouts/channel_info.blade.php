@@ -19,7 +19,7 @@
                     <p>동아리 인원</p>
                 </div>
                 <div class="flex_item">
-                    <div>{{ date('Y년 m월 d일', strtotime($channel->created_at)) }}</div>
+                    <div>{{ date('Y.m.d', strtotime($channel->created_at)) }}</div>
                     <p>동아리 창단일</p>
                 </div>
             </div>
@@ -30,7 +30,7 @@
                 </div>
             </div>
             @if($channel->userID != auth()->id())
-                <li><a class="d-btn favorite_btn clickable" onclick="addFavorite({{ $channel->id }})">가입/탈퇴</a></li>
+                <li><a class="d-btn favorite_btn clickable" onclick="addFavorite({{ $channel->id }})">동아리 가입</a></li>
             @endif
         </div>
     </div>
@@ -40,7 +40,7 @@
         <ul>
 
             <li><a href="{{ route('post.create', ['channelID' => $channel->id]) }}">게시글 작성</a></li>
-            <li><a href="{{ route('channel.create') }}">몽드 만들기</a></li>
+            <li><a href="{{ route('channel.create') }}">동아리 만들기</a></li>
         </ul>
     </div>
 </div>
