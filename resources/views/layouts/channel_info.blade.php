@@ -3,6 +3,12 @@
     <div class="right_sub">
         <div class="info">
             동아리 정보
+            <span style="margin-left: 80px;">
+            @if(auth()->id()==$channel->userID)
+                <a href="{{ route('channel.edit', $channel->id) }}">수정</a>
+                <button onclick="deleteChannel({{ $channel->id }})">삭제</button>
+            @endif
+            </span>
         </div>
 {{--        {{dd($posts)}}--}}
         <div class="info_detail">
@@ -23,26 +29,8 @@
                     <p>관리자</p>
                 </div>
             </div>
-            @if(auth()->id()==$channel->userID)
-            <div class="flex">
-                <li class="flex_item">
-                    <a href="{{ route('channel.edit', $channel->id) }}">수정</a>
-                </li>
-                <li class="flex_item">
-                    <button onclick="deleteChannel({{ $channel->id }})">삭제</button>
-{{--                    <form action="{{ route('channel.destroy', $channel->id) }}" method="post">--}}
-{{--                        @csrf--}}
-{{--                        @method('delete')--}}
-{{--                        <button type="submit">--}}
-{{--                            삭제--}}
-{{--                            <a>삭제</a>--}}
-{{--                        </button>--}}
-{{--                    </form>--}}
-                </li>
-            </div>
-            @endif
             @if($channel->userID != auth()->id())
-                <li><a class="favorite_btn clickable" onclick="addFavorite({{ $channel->id }})">가입/탈퇴</a></li>
+                <li><a class="d-btn favorite_btn clickable" onclick="addFavorite({{ $channel->id }})">가입/탈퇴</a></li>
             @endif
         </div>
     </div>

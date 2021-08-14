@@ -38,7 +38,7 @@
             </div>
             <div class="flex">
                 <div class="flex_item">
-                    <div>{{ date_format($user->created_at, 'Y년 m월 d일') }}</div>
+                    <div>{{ date_format($user->created_at, 'Y.m.d') }}</div>
                     <p>생성일자</p>
                 </div>
                 <div class="flex_item">
