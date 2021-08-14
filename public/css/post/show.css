@@ -101,7 +101,7 @@
   }
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left .board-text {
-    margin:21px 0;
+    margin:21px 0 100px;
   }
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left .board-text > p {
@@ -133,7 +133,9 @@
   .modal-parent > .modal-wrap > .modal-body > .modal-left .board-etc-function > ul > li > .function-text {
     margin-left:8px;
   }
-
+.modal-parent > .modal-wrap > .modal-body > .modal-left .board-etc-function > ul > li > .function-text > p {
+    font-size: 12px;
+}
   .modal-parent > .modal-wrap > .modal-body > .modal-left .board-etc-function > ul > li > .function-sub {
     position:absolute;
     left:0;

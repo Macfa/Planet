@@ -36,6 +36,7 @@ body {
 
 textarea, input, select, button, a {
   font-size: 12px;
+    color: #FFF;
 }
 
 img {
@@ -66,7 +67,7 @@ a:active {
 
 a:link {
   text-decoration: none;
-  color: #000;
+  color: #FFF;
 }
 
 a:focus,

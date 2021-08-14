@@ -63,8 +63,8 @@ background-color: #3d5afe;
 #main .board_box .left ul.tab {
   border: 1px solid #cbc7c7;
   border-radius: 0px;
-    line-height: 43px;
-  margin: 0 0 10px;
+    line-height: 33px;
+  margin: 0;
   padding: 0 5px;
   box-sizing: border-box;
     height: 45px;
@@ -92,9 +92,10 @@ background-color: #3d5afe;
 }
 
 #main .board_box .left ul.tab li.on a {
-  color: #625777;
+  color: #000000;
   position: relative;
   font-weight: 500;
+    /*text-decoration: underl;*/
 }
 
 #main .board_box .left ul.tab li.on a:after {
@@ -111,7 +112,7 @@ background-color: #3d5afe;
 
 #main .board_box .left div.list {
   border: 1px solid #cbc7c7;
-  border-radius: 10px;
+  border-radius: 0px;
   min-height: 686px;
 }
 
