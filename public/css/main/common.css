@@ -36,7 +36,6 @@ body {
 
 textarea, input, select, button, a {
   font-size: 12px;
-    color: #FFF;
 }
 
 img {
@@ -67,7 +66,7 @@ a:active {
 
 a:link {
   text-decoration: none;
-  color: #FFF;
+  color: #000;
 }
 
 a:focus,
@@ -396,4 +395,13 @@ button {
 .none-tr {
     height: 69px;
     text-align: center;
+}
+.right_sub .info span button {
+    color: #FFF;
+}
+.sub_btn {
+
+}
+.can_btn {
+    
 }
