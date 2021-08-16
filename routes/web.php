@@ -46,6 +46,7 @@ Route::post('/channel/favorite', [ChannelController::class, 'favorite']);
 
 // User's
 Route::get('/user/{user}/{el?}', [UserController::class,'show'])->name('user.show');
+Route::post('/user/{id}', [UserController::class,'modify'])->name('user.modify');
 
 // Login with APIs
 

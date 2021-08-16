@@ -56,6 +56,17 @@ class UserController extends Controller
         return view('user.mypage', compact('posts', 'favorites', 'user', 'coin', 'el'));
     }
 
+    public function modify(Request $request, $id) {
+
+//        dd($request);
+        $name = $request->input("name");
+        $user = User::find($id);
+
+        $user->name = $name;
+        $user->save();
+
+        return redirect()->back();
+    }
     public function logedIn() {
         if(Auth::check()) {
             return true;

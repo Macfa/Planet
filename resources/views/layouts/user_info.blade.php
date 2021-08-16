@@ -18,7 +18,7 @@
                     <img style="float: left; width:45px;" src="{{ $user->avatar }}"/>
                     <div style="margin-left: 50px;">
                         <span>
-                            ID : {{ $user->name }}&nbsp;&nbsp;&nbsp;&nbsp;<button class="sub_btn" onclick="modifyUserName();">변경</button>
+                            ID : {{ $user->name }}&nbsp;&nbsp;&nbsp;&nbsp;<button class="sub_btn" onclick="openModifyUserName();">변경</button>
                         </span>
                         <br/>
                         <span>
@@ -95,26 +95,29 @@
 </div>
 
 <div class="modalLayer">
-    <div class="modalHeader">
-        <div class="Header">
-            <p>변경할 ID를 입력하세요</p>
-        </div>
-    </div>
-    <div class="modalFooter">
-        <div class="Body">
-            <input type="text">
-        </div>
-        <div class="Footer">
-            <div class="left">
-                <img alt="img">
-                <span> 100 차감</span>
-            </div>
-            <div class="right">
-                <button>취소</button>
-                <button>등록</button>
+    <form method="post" action="{{ route('user.modify', $user->id) }}">
+        @csrf
+        <div class="modalHeader">
+            <div class="Header">
+                <p>변경할 ID를 입력하세요</p>
             </div>
         </div>
-    </div>
+        <div class="modalFooter">
+            <div class="Body">
+                <input type="text" name="name">
+            </div>
+            <div class="Footer">
+                <div class="left">
+                    <img alt="img">
+                    <span> 100 차감</span>
+                </div>
+                <div class="right">
+                    <button type="button" onclick="closeModifyUserName();">취소</button>
+                    <button type="submit">등록</button>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
     <script>
         $("#progressbar").progressbar({
@@ -123,20 +126,24 @@
             },
             value: 20
         });
-        function modifyUserName() {
+        function openModifyUserName() {
             var popupWidth = 500;
-            var popupHeight = 200;
+            // var popupHeight = 160;
+            var popupHeight = $(".modalLayer").css("height");
             var popupX = (window.screen.width / 2) - (popupWidth / 2);
             // 만들 팝업창 width 크기의 1/2 만큼 보정값으로 빼주었음
 
             var popupY= (window.screen.height / 2) - (popupHeight / 2);
             // 만들 팝업창 height 크기의 1/2 만큼 보정값으로 빼주었음
-            $(".modalLayer").fadeIn("slow");
+            $(".modalLayer").fadeIn();
             $(".modalLayer").css('width', popupWidth);
             $(".modalLayer").css('height', popupHeight);
             $(".modalLayer").css('left', popupX);
             $(".modalLayer").css('top', popupY);
             $(".modalLayer").css('position', 'absolute');
+        }
+        function closeModifyUserName() {
+            $(".modalLayer").fadeOut();
         }
     </script>
 @endsection
