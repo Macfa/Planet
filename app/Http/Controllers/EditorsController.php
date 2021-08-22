@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class EditorsController extends Controller
 {
     public function upload(Request $request) {
-        if($request->hasFile('upload')) {
+        if($request->hasFile('upload') ) {
             $originName = $request->file('upload')->getClientOriginalName();
             $fileName = pathinfo($originName, PATHINFO_FILENAME);
             $extension = $request->file('upload')->getClientOriginalExtension();
@@ -21,9 +21,7 @@ class EditorsController extends Controller
             $result = [
                 'url' => $url,
                 'msg' =>  $msg,
-                'name' => $fileName,
             ];
-
             return $result;
         }
     }

@@ -63,12 +63,14 @@
                             <li>스탬프</li>
                             <li class="clickable" onclick="replyCommentForm({{ $comment->group }}, {{ $post->id }}, {{ $comment->id }});">댓글</li>
                             <li class="clickable">
-                                <img onclick="voteLikeInComment({{ $comment->id }}, 1)" class="image-sm" src="{{ asset('image/upvote.png') }}" alt="" />
+                                <img onclick="voteLikeInComment({{ $comment->id }}, 1)" id="comment-upvote" class="image-sm" alt="" src="{{ asset('image/upvote.png') }}" />
                             </li>
                             <li>
                                 <span class="comment-like">{{ $comment->likes->sum('like') }}</span>
                             </li>
-                            <li class="clickable"><img onclick="voteLikeInComment({{ $comment->id }}, -1)" class="image-sm" src="{{ asset('image/downvote.png') }}" alt="" /></li>
+                            <li class="clickable">
+                                <img onclick="voteLikeInComment({{ $comment->id }}, -1)" id="comment-downvote" class="image-sm" src="{{ asset('image/downvote.png') }}" alt="" />
+                            </li>
 
                         </ul>
                     </div>
@@ -213,18 +215,30 @@
             }
         })
     }
-    function voteLikeInComment(id, vote) {
+    function voteLikeInComment(id, vote, obj) {
         $.ajax({
             url: "/comment/voteLikeInComment",
             data: { id: id, vote:vote },
             type: "post",
             success: function(data) {
                 var el = ".comment-"+id+" .comment-like";
+                commentClearVote();
+                commentSelectVote(data.vote);
                 $(el).text(data.vote);
-
                 // alert("처리되었습니다.");
             }
         });
+    }
+    function commentClearVote() {
+        $("#comment-downvote").attr("src", "{{ asset('image/downvote.png') }}");
+        $("#comment-upvote").attr("src", "{{ asset('image/upvote.png') }}");
+    }
+    function commentSelectVote(vote) {
+        if(vote == 1) {
+            $("#comment-upvote").attr("src", "{{ asset('image/upvote_c.png') }}");
+        } else if(vote == -1) {
+            $("#comment-downvote").attr("src", "{{ asset('image/downvote_c.png') }}");
+        }
     }
     function replyCommentForm(group, postID, commentID) {
         var el = ".comment-"+commentID+" .comment-item";
@@ -270,7 +284,7 @@
                         <li>스탬프</li>
                         <li onclick="replyCommentForm(${group}, ${postID}, ${id});">댓글</li>
                         <li>
-                            <img onclick="voteLikeInComment(${id}, 1)" src="{{ asset('image/square-small.png') }}" alt="" />
+                            <img onclick="voteLikeInComment(${id}, 1, this)" src="{{ asset('image/square-small.png') }}" alt="" />
                             <span class="comment-like">${sumOfVotes}</span>
                         </li>
                         <li><img onclick="voteLikeInComment(${id}, -1)" src="{{ asset('image/square-small.png') }}" alt="" /></li>

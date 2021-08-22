@@ -6,6 +6,7 @@ use App\Models\Channel;
 use App\Models\Coin;
 use App\Models\CoinType;
 use App\Models\Comment;
+use App\Models\Like;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -43,12 +44,27 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        // 이미지 소스만 추출
+        $content = $request->input('content');
+        $regex = "/https?:\/\/\S+image+\S+\.[gif|png|jpg|jpeg]+/";
+        preg_match($regex, $content,$matchSubject);
+
+        if($matchSubject == []) {
+            // 이미지 소스를 추출하지못했다면
+            $mainImageUrl = '/image/thum.jpg';
+        } else {
+            // 첫번째 이미지 소스를 대표이미지로 지정
+            $mainImageUrl = $matchSubject[0];
+        }
+
         $id = Post::create([
             'channelID' => $request->input('channelID'),
+            'image' => $mainImageUrl[0],
             'title' => $request->input('title'),
-            'content' => $request->input('content'),
+            'content' => $content,
             'userID' => auth()->id()
         ])->id;
+
 
         // 포인트 추가
         $post = Post::find($id);
@@ -74,17 +90,25 @@ class PostController extends Controller
             ->with('likes')
             ->with('user')
             ->where('posts.id', '=', $id)
-            ->get()
+//            ->get()
             ->first();
 
         $comments = Comment::where('postID', '=', $id)
             ->with('user')
+            ->with('likes')
             ->orderBy('group', 'desc')
             ->orderBy('order', 'asc')
             ->orderBy('depth', 'asc')
             ->get();
 
-        return view('post.show', compact('post', 'comments'));
+        $etc = array();
+        $etc['like'] = Post::find($id)->likes()->where('userID', auth()->id())->value('vote');
+
+        $etc['scrap'] = Post::find($id)->scrap()->where('userID', auth()->id())->count();
+        $etc['report'] = Post::find($id)->report()->where('userID', auth()->id())->count();
+        $etc = (object) $etc;
+
+        return view('post.show', compact('post', 'comments', 'etc'));
     }
 
     /**
@@ -162,14 +186,14 @@ class PostController extends Controller
         // 결과
         if ($result) {
             $totalVote = $post->likes->sum('vote');
-            return response()->json(['vote' => $totalVote]);
+            return response()->json(['totalVote' => $totalVote, 'vote' => $vote]);
         }
     }
 
     public function reportPost(Request $req) {
         $postID = $req->id;
         $post = Post::find($postID);
-        $post->reports()->create([
+        $post->report()->create([
             'userID' => $post->userID,
             'message' => 'test'
         ]);
