@@ -18,7 +18,10 @@
                     <img style="float: left; width:45px;" src="{{ $user->avatar }}"/>
                     <div style="margin-left: 50px;">
                         <span>
-                            ID : {{ $user->name }}&nbsp;&nbsp;&nbsp;&nbsp;<button class="sub_btn" onclick="openModifyUserName();">변경</button>
+                            ID : {{ $user->name }}&nbsp;&nbsp;&nbsp;&nbsp;
+                            @if(auth()->id() == $user->id)
+                                <button class="sub_btn" onclick="openModifyUserName();">변경</button>
+                            @endif
                         </span>
                         <br/>
                         <span>

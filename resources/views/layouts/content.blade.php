@@ -55,7 +55,9 @@
                                     <!-- 업이면 클래스 up, 다운이면 down -->
                                     <span class="updown up">{{ $post->likes->sum('vote') }}</span>
                                 </td>
-                                <td><div class="thum"></div></td>
+                                <td>
+                                    <div class="thum" style="background-image: url({{ $post->image }});"></div>
+                                </td>
                                 <td>
                                     <div class="title">
                                         <a href="javascript:OpenModal({{ $post->id }});">

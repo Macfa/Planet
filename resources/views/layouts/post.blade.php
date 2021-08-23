@@ -31,7 +31,12 @@
                         <div class="board-etc-function" id="post">
                             <ul>
                                 <li class="clickable items">
-                                    <img onclick="voteLikeInPost({{ $post->id }},1)" class="image-sm" src="{{ asset('image/upvote.png') }}" alt="" />
+                                    <img id="post-upvote" onclick="voteLikeInPost({{ $post->id }},1)" class="image-sm" alt=""
+                                         @if($etc->like == 1)
+                                             src="{{ asset('image/upvote_c.png') }}" />
+                                        @else
+                                            src="{{ asset('image/upvote.png') }}" />
+                                        @endif
                                 </li>
                                 <li class="items">
                                     <div class="post-like">
@@ -39,7 +44,12 @@
                                     </div>
                                 </li>
                                 <li class="clickable items">
-                                    <img onclick="voteLikeInPost({{ $post->id }}, -1)" class="image-sm" src="{{ asset('image/downvote.png') }}" alt="" />
+                                    <img id="post-downvote" onclick="voteLikeInPost({{ $post->id }}, -1)" class="image-sm" alt=""
+                                         @if($etc->like == -1)
+                                            src="{{ asset('image/downvote_c.png') }}" />
+                                        @else
+                                            src="{{ asset('image/downvote.png') }}" />
+                                        @endif
                                 </li>
                                 <li class="clickable items" onclick="stampPost({{ $post->id }});">
                                     <img src="{{ asset('image/stamp.png') }}" class="image-sm" alt="" />
@@ -56,7 +66,12 @@
                                     </div>
                                 </li>
                                 <li class="clickable items" onclick="scrapPost({{ $post->id }})">
-                                    <img src="{{ asset('image/scrap.png') }}" class="image-sm" alt="" />
+                                    <img class="image-sm" name="scrap" alt=""
+                                         @if($etc->scrap == 1)
+                                             src="{{ asset('image/scrap_c.png') }}" />
+                                        @else
+                                             src="{{ asset('image/scrap.png') }}" />
+                                        @endif
 
                                     <div class="function-text">
                                         <p>스크랩</p>
@@ -64,7 +79,12 @@
                                     {{-- <scrap-template></scrap-template> --}}
                                 </li>
                                 <li class="clickable items" onclick="reportPost({{ $post->id }})">
-                                    <img src="{{ asset('image/report.png') }}" class="image-sm" alt="" />
+                                    <img class="image-sm" alt=""
+                                         @if($etc->report == 1)
+                                            src="{{ asset('image/report_c.png') }}" />
+                                        @else
+                                            src="{{ asset('image/report.png') }}" />
+                                        @endif
 
                                     <div class="function-text">
                                         <p>신고</p>
@@ -95,13 +115,28 @@
                         <div class="board-bot-function">
                             <div class="left-function">
                                 <div class="page-arrow">
-                                    <img onclick="voteLikeInPost({{ $post->id }},1)" src="{{ asset('image/arrow2-top.png') }}" alt="위로">
+                                    <img onclick="voteLikeInPost({{ $post->id }},1)" id="post-upvote-fix" class="image-m" alt="위로"
+                                         @if($etc->like == 1)
+                                             src="{{ asset('image/upvote_c.png') }}" />
+                                        @else
+                                            src="{{ asset('image/upvote.png') }}" />
+                                        @endif
                                     <span class="post-like">{{ $post->likes->sum('vote') }}</span>
-                                    <img onclick="voteLikeInPost({{ $post->id }},-1)" src="{{ asset('image/arrow2-bot.png') }}" alt="아래로">
+                                    <img onclick="voteLikeInPost({{ $post->id }},-1)" id="post-downvote-fix" class="image-m" alt="아래로"
+                                         @if($etc->like == -1)
+                                             src="{{ asset('image/downvote_c.png') }}" />
+                                        @else
+                                            src="{{ asset('image/downvote.png') }}" />
+                                        @endif
                                 </div>
 
-                                <img src="{{ asset('image/stamp_c.png') }}" alt="stamp" class="stamp-image image-m">
-                                <img class="clickable" onclick="scrapPost({{ $post->id }})" src="{{ asset('image/favorit.png') }}" alt="favorit" class="favorit-image">
+                                <img alt="stamp" class="stamp-image image-m" src="{{ asset('image/stamp.png') }}"/>
+                                <img class="favorit-image image-m clickable" id="post-scrap" onclick="scrapPost({{ $post->id }})" alt="favorit"
+                                     @if($etc->scrap == 1)
+                                         src="{{ asset('image/scrap_c.png') }}" />
+                                    @else
+                                        src="{{ asset('image/scrap.png') }}" />
+                                    @endif
                                 <img src="{{ asset('image/message.png') }}" alt="message" class="message-image">
                             </div>
 
@@ -164,12 +199,26 @@
                         data: { id: id, vote:vote },
                         type: "post",
                         success: function(data) {
-                            $(".post-like").text(data.vote);
+                            // console.log(data);
+                            clearVote();
+                            selectVote(data.vote);
+                            $(".post-like").text(data.totalVote);
                         },
                         error: function(err) {
                             alert("추천기능에 문제가 생겨 확인 중입니다.");
                         }
                     });
+                }
+                function clearVote() {
+                    $("#post-downvote, #post-downvote-fix").attr("src", "{{ asset('image/downvote.png') }}");
+                    $("#post-upvote, #post-upvote-fix").attr("src", "{{ asset('image/upvote.png') }}");
+                }
+                function selectVote(vote) {
+                    if(vote == 1) {
+                        $("#post-upvote, #post-upvote-fix").attr("src", "{{ asset('image/upvote_c.png') }}");
+                    } else if(vote == -1) {
+                        $("#post-downvote, #post-downvote-fix").attr("src", "{{ asset('image/downvote_c.png') }}");
+                    }
                 }
                 function reportPost(postID) {
                     $.ajax({
@@ -192,8 +241,10 @@
                             type: "post",
                             success: function(data) {
                                 if(data.result == "insert") {
+                                    $("#post-scrap").attr("src", "{{ asset('image/scrap_c.png') }}");
                                     alert("스크랩되었습니다");
                                 } else if(data.result == "delete") {
+                                    $("#post-scrap").attr("src", "{{ asset('image/scrap.png') }}");
                                     alert("스크랩이 삭제되었습니다");
                                 }
                             },
