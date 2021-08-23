@@ -16,7 +16,7 @@
                 </div>
 
                 <div class="write-btn">
-                    <button onclick="addComment();">등록</button>
+                    <button type="submit" onclick="addComment();">등록</button>
                 </div>
             </div>
         </div>
@@ -134,6 +134,14 @@
 @endif
 
 <script>
+    var delay = (function(){
+        var timer = 0;
+        return function(callback, ms){
+            clearTimeout (timer);
+            timer = setTimeout(callback, ms);
+        };
+    })();
+
     function deleteComment(id) {
         if(confirm('삭제하시겠습니까 ?')) {
             $.ajax({
@@ -181,39 +189,41 @@
 
         // console.log(data);return;
 
-        $.ajax({
-            url: "/comment",
-            data: data,
-            type: "post",
-            success: function(data) {
-                var valueList = {
-                    "id": data.id,
-                    "depth": data.depth*44,
-                    "created_at_modi": data.created_at_modi,
-                    "group": data.group,
-                    "content": data.content,
-                    "sumOfVotes": data.sumOfVotes,
-                    "postID": data.postID,
-                    "avatar": data.user.avatar,
-                    "name": data.user.name
-                };
-                $("#replyForm").tmpl(valueList).insertAfter(el);
-                $('.commentCount').html(data.commentCount);
-                if(commentID) {
-                    cancleReply(commentID);
-                } else {
-                    $("#comment-form #comment_text").val('');
+        delay(function() {
+            $.ajax({
+                url: "/comment",
+                data: data,
+                type: "post",
+                success: function(data) {
+                    var valueList = {
+                        "id": data.id,
+                        "depth": data.depth*44,
+                        "created_at_modi": data.created_at_modi,
+                        "group": data.group,
+                        "content": data.content,
+                        "sumOfVotes": data.sumOfVotes,
+                        "postID": data.postID,
+                        "avatar": data.user.avatar,
+                        "name": data.user.name
+                    };
+                    $("#replyForm").tmpl(valueList).insertAfter(el);
+                    $('.commentCount').html(data.commentCount);
+                    if(commentID) {
+                        cancleReply(commentID);
+                    } else {
+                        $("#comment-form #comment_text").val('');
+                    }
+                },
+                error: function(err) {
+                    if(err.responseJSON.reason == 'login') {
+                        alert("로그인이 필요한 기능입니다.");
+                    } else {
+                        alert("댓글이 저장되지않았습니다\n관리자에게 문의해주세요.");
+                    }
+                    console.log(err);
                 }
-            },
-            error: function(err) {
-                if(err.responseJSON.reason == 'login') {
-                    alert("로그인이 필요한 기능입니다.");
-                } else {
-                    alert("댓글이 저장되지않았습니다\n관리자에게 문의해주세요.");
-                }
-                console.log(err);
-            }
-        })
+            })
+        }, 300);
     }
     function voteLikeInComment(id, vote, obj) {
         $.ajax({
