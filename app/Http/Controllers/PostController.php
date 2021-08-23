@@ -59,7 +59,7 @@ class PostController extends Controller
 
         $id = Post::create([
             'channelID' => $request->input('channelID'),
-            'image' => $mainImageUrl[0],
+            'image' => $mainImageUrl,
             'title' => $request->input('title'),
             'content' => $content,
             'userID' => auth()->id()
