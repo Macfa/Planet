@@ -134,11 +134,25 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // 이미지 소스만 추출
+        $content = $request->input('content');
+        $regex = "/https?:\/\/\S+image+\S+\.[gif|png|jpg|jpeg]+/";
+        preg_match($regex, $content,$matchSubject);
+
+        if($matchSubject == []) {
+            // 이미지 소스를 추출하지못했다면
+            $mainImageUrl = '/image/thum.jpg';
+        } else {
+            // 첫번째 이미지 소스를 대표이미지로 지정
+            $mainImageUrl = $matchSubject[0];
+        }
+
         Post::where('id', $id)
             ->update([
+                'image'=>$mainImageUrl,
                 'title'=>$request->title,
                 'channelID'=>$request->channelID,
-                'content'=>$request->content
+                'content'=>$content
             ]);
 
         return redirect()->route('post.show', $id, 302);
