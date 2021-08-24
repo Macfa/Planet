@@ -37,4 +37,40 @@ class Post extends Model
     public function scrap() {
         return $this->hasOne(Scrap::class, 'postID', 'id');
     }
+    // Custom Functions
+    public function getExistPostLikeAttribute() {
+        $checkExistLike = $this->likes->firstWhere('userID',auth()->id());
+
+        if($checkExistLike) {
+            return $checkExistLike->vote;
+        } else {
+            return 0;
+        }
+    }
+    public function getExistPostScrapAttribute() {
+        if($this->scrap) {
+            $checkExistScrap = $this->scrap->where('userID', auth()->id());
+
+            if($checkExistScrap) {
+                return $checkExistScrap->where('userID', auth()->id())->count();
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
+    }
+    public function getExistPostReportAttribute() {
+        if($this->report) {
+            $checkExistReport = $this->report;
+
+            if($checkExistReport) {
+                return $checkExistReport->where('userID', auth()->id())->count();
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
+    }
 }
