@@ -32,7 +32,7 @@
                             <ul>
                                 <li class="clickable items">
                                     <img id="post-upvote" onclick="voteLikeInPost({{ $post->id }},1)" class="image-sm" alt=""
-                                         @if($etc->like == 1)
+                                         @if($post->existPostLike == 1)
                                              src="{{ asset('image/upvote_c.png') }}" />
                                         @else
                                             src="{{ asset('image/upvote.png') }}" />
@@ -45,7 +45,7 @@
                                 </li>
                                 <li class="clickable items">
                                     <img id="post-downvote" onclick="voteLikeInPost({{ $post->id }}, -1)" class="image-sm" alt=""
-                                         @if($etc->like == -1)
+                                         @if($post->existPostLike == -1)
                                             src="{{ asset('image/downvote_c.png') }}" />
                                         @else
                                             src="{{ asset('image/downvote.png') }}" />
@@ -67,7 +67,7 @@
                                 </li>
                                 <li class="clickable items" onclick="scrapPost({{ $post->id }})">
                                     <img class="image-sm" name="scrap" alt=""
-                                         @if($etc->scrap == 1)
+                                         @if($post->existPostScrap == 1)
                                              src="{{ asset('image/scrap_c.png') }}" />
                                         @else
                                              src="{{ asset('image/scrap.png') }}" />
@@ -80,7 +80,7 @@
                                 </li>
                                 <li class="clickable items" onclick="reportPost({{ $post->id }})">
                                     <img class="image-sm" alt=""
-                                         @if($etc->report == 1)
+                                         @if($post->existPostReport == 1)
                                             src="{{ asset('image/report_c.png') }}" />
                                         @else
                                             src="{{ asset('image/report.png') }}" />
@@ -116,14 +116,14 @@
                             <div class="left-function">
                                 <div class="page-arrow">
                                     <img onclick="voteLikeInPost({{ $post->id }},1)" id="post-upvote-fix" class="image-m" alt="위로"
-                                         @if($etc->like == 1)
+                                         @if($post->existPostLike == 1)
                                              src="{{ asset('image/upvote_c.png') }}" />
                                         @else
                                             src="{{ asset('image/upvote.png') }}" />
                                         @endif
                                     <span class="post-like">{{ $post->likes->sum('vote') }}</span>
                                     <img onclick="voteLikeInPost({{ $post->id }},-1)" id="post-downvote-fix" class="image-m" alt="아래로"
-                                         @if($etc->like == -1)
+                                         @if($post->existPostLike == -1)
                                              src="{{ asset('image/downvote_c.png') }}" />
                                         @else
                                             src="{{ asset('image/downvote.png') }}" />
@@ -132,7 +132,7 @@
 
                                 <img alt="stamp" class="stamp-image image-m" src="{{ asset('image/stamp.png') }}"/>
                                 <img class="favorit-image image-m clickable" id="post-scrap" onclick="scrapPost({{ $post->id }})" alt="favorit"
-                                     @if($etc->scrap == 1)
+                                     @if($post->postScrap == 1)
                                          src="{{ asset('image/scrap_c.png') }}" />
                                     @else
                                         src="{{ asset('image/scrap.png') }}" />

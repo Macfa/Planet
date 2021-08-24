@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig host="ec2-54-180-156-61.ap-northeast-2.compute.amazonaws.com" id="8dcdd243-da24-4942-99e2-cc1c83dd2fdf" keyPath="$PROJECT_DIR$/macfa_planet.pem" port="22" nameFormat="DESCRIPTIVE" username="ubuntu" />
+    </configs>
+  </component>
+</project>

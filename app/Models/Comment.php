@@ -34,4 +34,15 @@ class Comment extends Model
     {
         return $this->hasOne('App\Models\Scrap', 'postID', 'id');
     }
+
+    // Custom Function
+    public function getExistCommentLikeAttribute() {
+        $checkExistLike = $this->likes->firstWhere('userID',auth()->id());
+
+        if($checkExistLike) {
+            return $checkExistLike->vote;
+        } else {
+            return 0;
+        }
+    }
 }

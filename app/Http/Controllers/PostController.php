@@ -101,14 +101,7 @@ class PostController extends Controller
             ->orderBy('depth', 'asc')
             ->get();
 
-        $etc = array();
-        $etc['like'] = Post::find($id)->likes()->where('userID', auth()->id())->value('vote');
-
-        $etc['scrap'] = Post::find($id)->scrap()->where('userID', auth()->id())->count();
-        $etc['report'] = Post::find($id)->report()->where('userID', auth()->id())->count();
-        $etc = (object) $etc;
-
-        return view('post.show', compact('post', 'comments', 'etc'));
+        return view('post.show', compact('post', 'comments'));
     }
 
     /**
@@ -176,31 +169,28 @@ class PostController extends Controller
     public function voteLikeInPost(Request $req)
     {
         // 이력 확인
-        $id = $req->input('id');
+        $id = $req->input('id'); //postID
         $vote = $req->input('vote');
 
         // 수정 및 생성
         $post = Post::find($id);
         $checkExistValue = $post->likes()
             ->where('vote', $vote)
+            ->where('userID', auth()->id())
             ->first();
 
         if ($checkExistValue != null) {
             $result = $checkExistValue->delete(); // get bool
         } else {
-            $result = $post->likes()
-                ->updateOrCreate([
-                    'userID' => auth()->id()
-                ], [
-                    'vote' => $vote,
-                    'userID' => auth()->id()
-                ])->exists;
+            $result = $post->likes()->updateOrCreate(
+                ['userID' => auth()->id()],
+                ['vote' => $vote, 'userID' => auth()->id()]
+            );
         }
-
         // 결과
         if ($result) {
             $totalVote = $post->likes->sum('vote');
-            return response()->json(['totalVote' => $totalVote, 'vote' => $vote]);
+            return response()->json(['totalVote' => $totalVote, 'vote' => $post->existPostLike]);
         }
     }
 

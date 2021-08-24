@@ -63,13 +63,23 @@
                             <li>스탬프</li>
                             <li class="clickable" onclick="replyCommentForm({{ $comment->group }}, {{ $post->id }}, {{ $comment->id }});">댓글</li>
                             <li class="clickable">
-                                <img onclick="voteLikeInComment({{ $comment->id }}, 1)" id="comment-upvote" class="image-sm" alt="" src="{{ asset('image/upvote.png') }}" />
+                                <img onclick="voteLikeInComment({{ $comment->id }}, 1)" id="comment-{{ $comment->id }}-upvote" class="image-sm" alt=""
+                                     @if($comment->existCommentLike == 1)
+                                         src="{{ asset('image/upvote_c.png') }}" />
+                                    @else
+                                        src="{{ asset('image/upvote.png') }}" />
+                                    @endif
                             </li>
                             <li>
-                                <span class="comment-like">{{ $comment->likes->sum('like') }}</span>
+                                <span class="comment-like">{{ $comment->likes->sum('vote') }}</span>
                             </li>
                             <li class="clickable">
-                                <img onclick="voteLikeInComment({{ $comment->id }}, -1)" id="comment-downvote" class="image-sm" src="{{ asset('image/downvote.png') }}" alt="" />
+                                <img onclick="voteLikeInComment({{ $comment->id }}, -1)" id="comment-{{ $comment->id }}-downvote" class="image-sm" alt=""
+                                     @if($comment->existCommentLike == -1)
+                                         src="{{ asset('image/downvote_c.png') }}" />
+                                    @else
+                                        src="{{ asset('image/downvote.png') }}" />
+                                    @endif
                             </li>
 
                         </ul>
@@ -232,22 +242,22 @@
             type: "post",
             success: function(data) {
                 var el = ".comment-"+id+" .comment-like";
-                commentClearVote();
-                commentSelectVote(data.vote);
-                $(el).text(data.vote);
+                commentClearVote(id);
+                commentSelectVote(id, data.vote);
+                $(el).text(data.totalVote);
                 // alert("처리되었습니다.");
             }
         });
     }
-    function commentClearVote() {
-        $("#comment-downvote").attr("src", "{{ asset('image/downvote.png') }}");
-        $("#comment-upvote").attr("src", "{{ asset('image/upvote.png') }}");
+    function commentClearVote(id) {
+        $("#comment-"+id+"-downvote").attr("src", "{{ asset('image/downvote.png') }}");
+        $("#comment-"+id+"-upvote").attr("src", "{{ asset('image/upvote.png') }}");
     }
-    function commentSelectVote(vote) {
+    function commentSelectVote(id, vote) {
         if(vote == 1) {
-            $("#comment-upvote").attr("src", "{{ asset('image/upvote_c.png') }}");
+            $("#comment-"+id+"-upvote").attr("src", "{{ asset('image/upvote_c.png') }}");
         } else if(vote == -1) {
-            $("#comment-downvote").attr("src", "{{ asset('image/downvote_c.png') }}");
+            $("#comment-"+id+"-downvote").attr("src", "{{ asset('image/downvote_c.png') }}");
         }
     }
     function replyCommentForm(group, postID, commentID) {
@@ -287,6 +297,18 @@
                     <img src="${avatar}" alt="닉네임" />
                     <h5 class="nickname">${name}</h5>
                     <p>${created_at_modi}</p>
+                    <div class="ml-20 comment-modi-form">
+                        <button onclick="editComment(${id})">
+                            <div class="function-text">
+                                <p>수정</p>
+                            </div>
+                        </button>
+                        <button onclick="deleteComment(${id})">
+                            <div class="function-text">
+                                <p>삭제</p>
+                            </div>
+                        </button>
+                    </div>
                 </div>
 
                 <div class="comment-info">
@@ -294,24 +316,10 @@
                         <li>스탬프</li>
                         <li onclick="replyCommentForm(${group}, ${postID}, ${id});">댓글</li>
                         <li>
-                            <img onclick="voteLikeInComment(${id}, 1, this)" src="{{ asset('image/square-small.png') }}" alt="" />
-                            <span class="comment-like">${sumOfVotes}</span>
+                            <img onclick="voteLikeInComment(${id}, 1)" id="comment-{{ $comment->id }}-upvote" class="image-sm" alt="" src="{{ asset('image/upvote.png') }}" />
                         </li>
-                        <li><img onclick="voteLikeInComment(${id}, -1)" src="{{ asset('image/square-small.png') }}" alt="" /></li>
-                        <li>
-                            <button onclick="editComment(${id})">
-                                <div class="function-text">
-                                    <p>edit</p>
-                                </div>
-                            </button>
-                        </li>
-                        <li>
-                            <button onclick="deleteComment(${id})">
-                                <div class="function-text">
-                                    <p>delete</p>
-                                </div>
-                            </button>
-                        </li>
+                        <li><span class="comment-like">${sumOfVotes}</li>
+                        <li><img onclick="voteLikeInComment(${id}, -1)" id="comment-{{ $comment->id }}-downvote" class="image-sm" alt="" src="{{ asset('image/upvote.png') }}" /></li>
                     </ul>
                 </div>
             </div>

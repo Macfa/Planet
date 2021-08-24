@@ -189,24 +189,22 @@ class CommentController extends Controller
         $comment = Comment::find($id);
         $checkExistValue = $comment->likes()
             ->where('vote', $vote)
+            ->where('userID', auth()->id())
             ->first();
 
         if ($checkExistValue != null) {
             $result = $checkExistValue->delete(); // get bool
         } else {
-            $result = $comment->likes()
-                ->updateOrCreate([
-                    'userID' => auth()->id()
-                ], [
-                    'vote' => $vote,
-                    'userID' => auth()->id()
-                ])->exists;
+            $result = $comment->likes()->updateOrCreate(
+                ['userID' => auth()->id()],
+                ['vote' => $vote, 'userID' => auth()->id()]
+            );
         }
 
         // 결과
         if ($result) {
             $totalVote = $comment->likes->sum('vote');
-            return response()->json(['vote' => $totalVote]);
+            return response()->json(['totalVote' => $totalVote, 'vote' => $comment->existCommentLike]);
         }
     }
 }
