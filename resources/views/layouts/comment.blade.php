@@ -316,10 +316,10 @@
                         <li>스탬프</li>
                         <li onclick="replyCommentForm(${group}, ${postID}, ${id});">댓글</li>
                         <li>
-                            <img onclick="voteLikeInComment(${id}, 1)" id="comment-{{ $comment->id }}-upvote" class="image-sm" alt="" src="{{ asset('image/upvote.png') }}" />
+                            <img onclick="voteLikeInComment(${id}, 1)" id="comment-${$id}-upvote" class="image-sm" alt="" src="{{ asset('image/upvote.png') }}" />
                         </li>
                         <li><span class="comment-like">${sumOfVotes}</li>
-                        <li><img onclick="voteLikeInComment(${id}, -1)" id="comment-{{ $comment->id }}-downvote" class="image-sm" alt="" src="{{ asset('image/upvote.png') }}" /></li>
+                        <li><img onclick="voteLikeInComment(${id}, -1)" id="comment-${$id}-downvote" class="image-sm" alt="" src="{{ asset('image/upvote.png') }}" /></li>
                     </ul>
                 </div>
             </div>

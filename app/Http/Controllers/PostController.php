@@ -68,11 +68,11 @@ class PostController extends Controller
 
         // 포인트 추가
         $post = Post::find($id);
+//        $post->saveCoinForWritePost();
+//        dd($post->coins());
         $coin = new Coin();
         $coin->writePost($post);
 
-//        $post->coins()->writePost($post);
-//        $post->coins()->qwer();
         $redirect = $request->input('channelID');
         return redirect()->route('channel.show', $redirect);
     }

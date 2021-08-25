@@ -257,7 +257,8 @@
 
                 function stampPost() {
                     var options = 'width=500, height=600, top=30, left=30, resizable=no, scrollbars=no, location=no';
-                    window.open('https://naver.com', '', options);
+                    // window.open('https://naver.com', '', options);
+                    window.location.assign('https://naver.com', '', options);
 
                     // 출처: https://mine-it-record.tistory.com/304 [나만의 기록들]
                     // 출처: https://mine-it-record.tistory.com/304 [나만의 기록들]
