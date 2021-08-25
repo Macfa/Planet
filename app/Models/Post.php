@@ -37,6 +37,7 @@ class Post extends Model
     public function scrap() {
         return $this->hasOne(Scrap::class, 'postID', 'id');
     }
+
     // Custom Functions
     public function getExistPostLikeAttribute() {
         $checkExistLike = $this->likes->firstWhere('userID',auth()->id());

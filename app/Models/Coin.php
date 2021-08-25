@@ -49,7 +49,6 @@ class Coin extends Model
     }
 
     public function writePost(Post $post) {
-//        $today = Carbon::now()->toDateTimeString();
         $today = Carbon::now();
         $limit = 50;
 //        $totalCoin = $post->coins()->where('created_at', $today)->sum('coin');
