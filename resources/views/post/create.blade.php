@@ -48,11 +48,11 @@
                         </div>
                             <div style="margin-top: 20px;">
                                 <ul class="btn">
-                                    <li><a href="{{ url('/') }}">취소</a></li>
+                                    <li><button type="button" onclick="location.href='{{ url('/') }}'">취소</button></li>
                                     @if(isset($post))
-                                        <li><a onclick="clickSubmit()" class="submit clickable">수정</a></li>
+                                        <li><button type="submit" onclick="clickSubmit()">수정</button></li>
                                     @else
-                                        <li><a onclick="clickSubmit()" class="submit clickable">등록</a></li>
+                                        <li><button type="submit" onclick="clickSubmit()">등록</button></li>
                                     @endif
                                 </ul>
                             </div>
