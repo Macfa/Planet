@@ -160,7 +160,7 @@ input:focus {
   margin: 0;
 }
 
-#channel ul.btn li a {
+#channel ul.btn li button {
   letter-spacing: 2px;
   color: #fff;
   background-color: #3d5afe;

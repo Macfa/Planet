@@ -120,10 +120,6 @@ background-color: #3d5afe;
   border-bottom: 1px solid #cbc7c7;
 }
 
-#main .board_box .left div.list table tr td {
-  padding: 9px 0;
-}
-
 #main .board_box .left div.list table tr td span.updown {
   margin: 2px 0 0;
   font-size: 8px;
