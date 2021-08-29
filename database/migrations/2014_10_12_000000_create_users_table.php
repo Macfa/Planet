@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('avatar')->nullable();
+            $table->enum('isNameChanged', ['Y', 'N'])->default('N');
             $table->string('provider', 20)->nullable();
             $table->string('provider_id')->nullable();
             $table->string('access_token')->nullable();

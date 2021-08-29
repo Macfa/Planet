@@ -52,8 +52,8 @@ class User extends Authenticatable
 //        return $this->hasMany(Post::class, 'id');
         return $this->hasMany(Post::class, 'userID', 'id');
     }
-    public function Coins() {
-        return $this->hasMany(Coin::class, 'userID', 'id');
+    public function coins() {
+        return $this->morphMany(Coin::class, 'coinable');
     }
     public function Favorites() {
         return $this->hasMany(Favorite::class, 'id');
@@ -69,5 +69,13 @@ class User extends Authenticatable
     }
     public function scrap() {
         return $this->hasMany(Scrap::class, 'userID', 'id');
+    }
+    public function hasCoins() {
+        return $this->hasMany(Coin::class, 'userID', 'id');
+    }
+
+    // Custom Functions...
+    public function setSetNameAttribute($name) {
+        $this->attributes['name'] = $name;
     }
 }
