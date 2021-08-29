@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Coin;
 use App\Models\Favorite;
 use App\Models\Post;
 use App\Models\User;
@@ -44,11 +45,11 @@ class UserController extends Controller
         $user = User::find($user->id);
 
         $coin = array();
-        $coin['totalCoin'] = $user->coins->sum('coin');
-        $coin['postCoin'] = $user->coins->where('coinable_type', 'App\Models\Post')->sum('coin');
-        $coin['commentCoin'] = $user->coins->where('coinable_type', 'App\Models\Comment')->sum('coin');
-        $coin['postCount'] = $user->coins->where('coinable_type', 'App\Models\Post')->count();
-        $coin['commentCount'] = $user->coins->where('coinable_type', 'App\Models\Comment')->count();
+        $coin['totalCoin'] = $user->hasCoins()->sum('coin');
+        $coin['postCoin'] = $user->hasCoins()->where('coinable_type', 'App\Models\Post')->sum('coin');
+        $coin['commentCoin'] = $user->hasCoins()->where('coinable_type', 'App\Models\Comment')->sum('coin');
+        $coin['postCount'] = $user->hasCoins()->where('coinable_type', 'App\Models\Post')->count();
+        $coin['commentCount'] = $user->hasCoins()->where('coinable_type', 'App\Models\Comment')->count();
 
         $coin = (object)$coin;
 //        dd($coin);
@@ -57,16 +58,26 @@ class UserController extends Controller
     }
 
     public function modify(Request $request, $id) {
-
-//        dd($request);
-        $name = $request->input("name");
         $user = User::find($id);
+        $name = $request->input("name");
 
-        $user->name = $name;
-        $user->save();
+        if($user->isNameChanged==='N') {
+            $user->setName = $name;
+            $user->save();
 
-        return redirect()->back();
+            $result = true;
+        } else {
+            $coin = new Coin();
+            $result = $coin->changeUserName($user);
+        }
+
+        if($result) {
+            return redirect()->back()->with(['msg'=>'변경되었습니다', 'type'=>'success']);
+        } else {
+            return redirect()->back()->with(['msg'=>'코인이 부족합니다', 'type'=>'error']);
+        }
     }
+
     public function logedIn() {
         if(Auth::check()) {
             return true;

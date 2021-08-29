@@ -83,4 +83,23 @@ class Coin extends Model
             // 코인 추가 획득
         }
     }
+    public function changeUserName(User $user) {
+        $checkChanged = $user->isNameChanged;
+        $limit = 100;
+        $totalCoin = $user->coins()->sum('coin');
+
+        if($checkChanged === 'Y') {
+            if($totalCoin > $limit) {
+                $user->coins()->create([
+                    'type'=>'계정변경',
+                    'coin'=>-100
+                ]);
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return true;
+        }
+    }
 }

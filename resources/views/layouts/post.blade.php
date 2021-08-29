@@ -51,7 +51,8 @@
                                             src="{{ asset('image/downvote.png') }}" />
                                         @endif
                                 </li>
-                                <li class="clickable items" onclick="stampPost({{ $post->id }});">
+                                <!-- Button trigger modal -->
+                                <li data-bs-toggle="modal" data-bs-target="#openStampModal" class="clickable items">
                                     <img src="{{ asset('image/stamp.png') }}" class="image-sm" alt="" />
 
                                     <div class="function-text">
@@ -160,6 +161,27 @@
 {{--                                    <h3>광고 배너</h3>--}}
 {{--                                </div>--}}
 {{--                            </div>--}}
+{{--                        </div>--}}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="openStampModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4>스탬프 목록</h4>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="list-group">
+                                <li class="list-group-item">Test 1</li>
+                                <li class="list-group-item">Test 2</li>
+                            </ul>
+                        </div>
+{{--                        <div class="modal-footer">--}}
+{{--                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>--}}
+{{--                            <button type="button" class="btn btn-primary">Save changes</button>--}}
 {{--                        </div>--}}
                     </div>
                 </div>
