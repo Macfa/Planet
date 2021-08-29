@@ -86,13 +86,15 @@ class Coin extends Model
     public function changeUserName(User $user) {
         $checkChanged = $user->isNameChanged;
         $limit = 100;
-        $totalCoin = $user->coins()->sum('coin');
-
+        $totalCoin = $user->hasCoins()->sum('coin');
+//        dd($user);
         if($checkChanged === 'Y') {
+
             if($totalCoin > $limit) {
                 $user->coins()->create([
-                    'type'=>'계정변경',
-                    'coin'=>-100
+                    'type'=>'아이디변경',
+                    'coin'=>-100,
+                    'userID'=>auth()->id()
                 ]);
                 return true;
             } else {

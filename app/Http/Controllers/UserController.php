@@ -61,15 +61,16 @@ class UserController extends Controller
         $user = User::find($id);
         $name = $request->input("name");
 
-        if($user->isNameChanged==='N') {
-            $user->setName = $name;
-            $user->save();
-
-            $result = true;
-        } else {
-            $coin = new Coin();
-            $result = $coin->changeUserName($user);
-        }
+        $result = $user->changeUserName($name);
+//        if($user->isNameChanged==='N') {
+//            $user->setName = $name;
+//            $user->save();
+//
+//            $result = true;
+//        } else {
+//            $coin = new Coin();
+//            $result = $coin->changeUserName($user);
+//        }
 
         if($result) {
             return redirect()->back()->with(['msg'=>'변경되었습니다', 'type'=>'success']);
