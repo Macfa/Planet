@@ -78,4 +78,29 @@ class User extends Authenticatable
     public function setSetNameAttribute($name) {
         $this->attributes['name'] = $name;
     }
+    public function changeUserName($name) {
+        // 무료 이름 변경을 이전에 이용했었는지 체크
+        if($this->isNameChanged == "N") {
+            // 처음이라면 이름 변경 후 저장
+            $this->name = $name;
+            $this->isNameChanged = "Y";
+
+            $this->save();
+
+            return true;
+        } else {
+//            dd($this);
+            $coin = new Coin();
+            $result = $coin->changeUserName($this);
+
+            if($result) {
+                $this->name = $name;
+                $this->save();
+
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
 }

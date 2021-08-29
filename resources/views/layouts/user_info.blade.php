@@ -140,7 +140,7 @@
                 <div class="modal-body">
                     <div class="form-floating mb-3 has-validation">
 {{--                        <input type="text" class="form-control" name="name" id="floatingName" placeholder="사용자 이름" minlength="3" maxlength="8" required pattern="^[가-힣,a-z]{3,8}$">--}}
-                        <input type="text" class="form-control" name="name" id="floatingName" placeholder="사용자 이름" required pattern="^[가-힣,a-z,1-9]{3,8}$">
+                        <input type="text" class="form-control" name="name" id="floatingName" placeholder="사용자 이름" required pattern="^[가-힣,a-z,A-Z,1-9]{3,8}$">
                         <label for="floatingName">변경할 유저명를 입력하세요</label>
                         <div class="valid-feedback">
                             가능합니다
