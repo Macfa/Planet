@@ -18,7 +18,11 @@
                         <span class="menu">이름</span>
                     </div>
                     <div class="sub_box">
-                        <input type="text" name="name" class="box" placeholder="이름을 입력하세요" @if(isset($channel)) value="{{ $channel->name }}" readonly @endif >
+                        <input type="text" name="name" class="box @error('name') is-invalid @enderror" placeholder="이름을 입력하세요" @if(isset($channel)) value="{{ $channel->name }}" readonly @else value="{{ old('name') }}" @endif >
+                        @error('name')
+{{--                            <span class="text-danger">{{ $errors->first('name') }}</span>--}}
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
                 <div class="input_box">
@@ -26,7 +30,11 @@
                         <span class="menu">설명</span>
                     </div>
                     <div class="mt10 sub_box">
-                        <textarea name="description" class="text_box" id="" placeholder="내용을 입력하세요">@if(isset($channel)){{ $channel->description }}@endif</textarea>
+                        <textarea name="description" class="text_box @error('description') is-invalid @enderror" id="" placeholder="내용을 입력하세요">@if(isset($channel)){{ $channel->description }}@else{{ old('description') }}@endif</textarea>
+                        @error('description')
+{{--                            <span class="text-danger">{{ $errors->first('description') }}</span>--}}
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
 

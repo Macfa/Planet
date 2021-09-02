@@ -16,8 +16,7 @@ class CreateExperiencesTable extends Migration
         Schema::create('experiences', function (Blueprint $table) {
             $table->increments('id');
             $table->morphs('experienced'); // Path From
-//            $table->integer('minExp');
-//            $table->integer('maxExp');
+            $table->string('msg');
             $table->integer('exp');
             $table->integer('userID')->unsigned();
             $table->foreign('userID')->references('id')->on('users')->onDelete('cascade');

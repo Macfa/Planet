@@ -17,7 +17,9 @@
                     <select class="cst_select" name="channelID" id="channelList">
                         <option value="">등록할 채널을 선택해주세요</option>
                         @forelse ($channels as $channel)
-                            @if(isset($post))
+                            @if(old('channelID'))
+                                <option value="{{ $channel->id }}" @if(old('channelID')==$channel->id) selected @endif>{{ $channel->name }}</option>
+                            @elseif(isset($post))
                                 @if($post->channelID==$channel->id)
                                     <option value="{{ $channel->id }}" selected>{{ $channel->name }}</option>
                                 @else
@@ -31,6 +33,10 @@
                         @endforelse
 
                     </select>
+                    @error('channelID')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+
                 </div>
                 <div class="left">
                     <div class="ch_list">
@@ -40,19 +46,25 @@
                                 <span class="menu">포스트</span>
                             </div>
                             <div class="sub_box sub_box_line">
-                                <input type="text" class="box" name="title" @if(isset($post)) value="{{ $post->title }}" @endif placeholder="이름을 입력하세요">
+                                <input type="text" class="box" name="title" @if(old('title')) value="{{ old('title') }}" @elseif(isset($post)) value="{{ $post->title }}" @endif placeholder="이름을 입력하세요">
+                                @error('title')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="sub_box">
-                                <textarea class="text_box" id="editor" name="content" placeholder="내용을 적어주세요">@if(isset($post)){{ $post->content }}@endif</textarea>
+                                <textarea class="text_box" id="editor" name="content" placeholder="내용을 적어주세요">@if(old('content')){{ old('content') }}@elseif(isset($post)){{ $post->content }} @endif</textarea>
+                                @error('content')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                             <div style="margin-top: 20px;">
                                 <ul class="btn">
                                     <li><button type="button" onclick="location.href='{{ url('/') }}'">취소</button></li>
                                     @if(isset($post))
-                                        <li><button type="submit" onclick="clickSubmit()">수정</button></li>
+                                        <li><button type="submit" onclick="">수정</button></li>
                                     @else
-                                        <li><button type="submit" onclick="clickSubmit()">등록</button></li>
+                                        <li><button type="submit" onclick="">등록</button></li>
                                     @endif
                                 </ul>
                             </div>
@@ -95,14 +107,14 @@
             console.error( 'There was a problem initializing the editor.', error );
         } );
 
-    function clickSubmit() {
-        var val = $("#channelList").val();
-        if(val != "") {
-            $("#form").submit();
-        } else {
-            alert('채널을 선택해주세요');
-            $("#channelList").focus();
-        }
-    }
+    // function clickSubmit() {
+    //     var val = $("#channelList").val();
+    //     if(val != "") {
+    //         $("#form").submit();
+    //     } else {
+    //         alert('채널을 선택해주세요');
+    //         $("#channelList").focus();
+    //     }
+    // }
 </script>
 @endsection

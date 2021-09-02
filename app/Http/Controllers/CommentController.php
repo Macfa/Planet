@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Coin;
 use App\Models\Comment;
+use App\Models\Experience;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -57,7 +58,9 @@ class CommentController extends Controller
 
             $comment = Comment::find($createdCommentID);
             $coin = new Coin();
+            $experience = new Experience();
             $coin->writeComment($comment);
+            $experience->writeComment($comment);
 
             return $result;
         } else {

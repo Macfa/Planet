@@ -6,6 +6,7 @@ use App\Models\Channel;
 use App\Models\Favorite;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ChannelController extends Controller
 {
@@ -37,20 +38,35 @@ class ChannelController extends Controller
      */
     public function store(Request $request)
     {
+        // set validation rules
+        $rules = [
+            'name' => 'required|unique:channels|max:100|min:2',
+            'description' => 'required|max:255|min:2',
+        ];
+
+        $messages = [
+            'required' => ':attribute 입력해주세요.',
+            'min' => ':attribute 은 최소 2 글자 이상입니다.',
+            'max' => ':attribute 최대 255 글자 이하입니다.',
+            'unique' => ':attribute 이 이미 사용 중입니다.'
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages)->validate();
+
+
         $created = Channel::create([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
             'userID' => auth()->id()
         ]);
 
-        $channel = Channel::find($created->id);
+        $channel = Channel::findOrFail($created->id);
         $channel->favorites()->create([
             'userID' => auth()->id(),
             'channelID' => $created->id
         ]);
 
         // return back()->withInput();
-        return redirect()->route('channel.show', $created->id);
+        return redirect()->route('channel.show', $created->id)->with(['msg'=>'동아리가 생성되었습니다.', 'type'=>'info']);
     }
 
     /**
@@ -107,9 +123,19 @@ class ChannelController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // set validation rules
+        $rules = [
+            'description' => 'required|max:255',
+        ];
+
+        $messages = [
+            'required' => ':attribute 입력해주세요.',
+            'max' => ':attribute 최대 255 글자 이하입니다.',
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages)->validate();
+
         $updatedChannel = Channel::where('id', $id)
             ->update([
-//                'name' => $request->name,
                 'description' => $request->description
             ]);
 
