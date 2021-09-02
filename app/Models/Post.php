@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use mysql_xdevapi\Exception;
 
 class Post extends Model
 {
@@ -26,7 +28,10 @@ class Post extends Model
         return $this->morphMany(Like::class, 'likeable');
     }
     public function coins() {
-        return $this->morphMany('App\Models\Coin', 'coinable');
+        return $this->morphMany(Coin::class, 'coinable');
+    }
+    public function experiences() {
+        return $this->morphMany(Experience::class, 'experienced');
     }
     public function alarms() {
         return $this->morphMany('App\Models\AlarmNotification', 'alarm_notifiable');
@@ -74,4 +79,39 @@ class Post extends Model
             return 0;
         }
     }
+//    public function EarnExpFromWritePost() {
+//        $today = Carbon::now();
+//        $limit = 20;
+//        $totalExp = $this->experiences()->whereDate('experiences.created_at', $today)->sum('exp');
+//
+//        if($totalExp > $limit) {
+//            // 코인 추가 획득 불가
+//            $result = [
+//                "code"=> "ok",
+//                "msg" => "경험치일일최대"
+//            ];
+//
+//            return $result;
+//        } else {
+//            try {
+//                $result_craeted = $this->experiences()->create([
+//                    'msg'=> '글작성',
+//                    'exp'=> 5,
+//                    'userID'=> auth()->id()
+//                ]);
+//                $result = [
+//                    "code"=> "ok",
+//                    "msg" => ""
+//                ];
+//
+//                return $result;
+//            } catch (Exception $e) {
+//                $result = [
+//                    "code"=> "err",
+//                    "msg" => $e->getMessage()
+//                ];
+//                return $result;
+//            }
+//        }
+//    }
 }

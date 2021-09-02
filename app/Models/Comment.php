@@ -22,7 +22,10 @@ class Comment extends Model
         return $this->morphMany(Like::class, 'likeable');
     }
     public function coins() {
-        return $this->morphMany('App\Models\Coin', 'coinable');
+        return $this->morphMany(Coin::class, 'coinable');
+    }
+    public function experiences() {
+        return $this->morphMany(Experience::class, 'experienced');
     }
     public function alarms() {
         return $this->morphMany('App\Models\AlarmNotification', 'alarm_notifiable');

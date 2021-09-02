@@ -117,6 +117,7 @@ class LoginController extends Controller
         } else {
             // create a new user
             $user = User::create([
+                "gradeID" => 1, // 가입 시 등급
                 'name' => $providerUser->getName(),
                 'email' => $providerUser->getEmail(),
                 'avatar' => $providerUser->getAvatar(),

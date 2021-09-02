@@ -6,10 +6,12 @@ use App\Models\Channel;
 use App\Models\Coin;
 use App\Models\CoinType;
 use App\Models\Comment;
+use App\Models\Experience;
 use App\Models\Like;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
@@ -44,6 +46,20 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        // set validation rules
+        $rules = [
+            'channelID' => 'required',
+            'title' => 'required|max:200',
+            'content' => 'required|min:1',
+        ];
+
+        $messages = [
+            'required' => ':attribute 입력해주세요.',
+            'max' => ':attribute 최대 255 글자 이하입니다.',
+            'min' => ':attribute 입력해주세요.',
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages)->validate();
+
         // 이미지 소스만 추출
         $content = $request->input('content');
         $regex = "/https?:\/\/\S+image+\S+\.[gif|png|jpg|jpeg]+/";
@@ -56,6 +72,7 @@ class PostController extends Controller
             // 첫번째 이미지 소스를 대표이미지로 지정
             $mainImageUrl = $matchSubject[0];
         }
+
 
         $id = Post::create([
             'channelID' => $request->input('channelID'),
@@ -71,7 +88,13 @@ class PostController extends Controller
 //        $post->saveCoinForWritePost();
 //        dd($post->coins());
         $coin = new Coin();
+        $experience = new Experience();
+
         $coin->writePost($post);
+        $experience->writePost($post);
+//        $res = $post->experiences->writePost();
+//        $res = $post->EarnExpFromWritePost();
+//        dd($res);
 
         $redirect = $request->input('channelID');
         return redirect()->route('channel.show', $redirect);
@@ -127,6 +150,20 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // set validation rules
+        $rules = [
+            'channelID' => 'required',
+            'title' => 'min:1|required|max:200',
+            'content' => 'min:1|required',
+        ];
+
+        $messages = [
+            'required' => ':attribute 입력해주세요.',
+            'max' => ':attribute 최대 255 글자 이하입니다.',
+            'min' => ':attribute를 최소 1 글자 이상 입력해주세요.',
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages)->validate();
+
         // 이미지 소스만 추출
         $content = $request->input('content');
         $regex = "/https?:\/\/\S+image+\S+\.[gif|png|jpg|jpeg]+/";

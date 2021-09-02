@@ -55,6 +55,9 @@ class User extends Authenticatable
     public function coins() {
         return $this->morphMany(Coin::class, 'coinable');
     }
+    public function grade() {
+        return $this->hasOne(Grade::class, "id", "gradeID");
+    }
     public function Favorites() {
         return $this->hasMany(Favorite::class, 'id');
     }
@@ -72,6 +75,9 @@ class User extends Authenticatable
     }
     public function hasCoins() {
         return $this->hasMany(Coin::class, 'userID', 'id');
+    }
+    public function hasExperiences() {
+        return $this->hasMany(Experience::class, "userID", "id");
     }
 
     // Custom Functions...
