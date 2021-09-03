@@ -14,10 +14,9 @@ class CreateScrapsTable extends Migration
     public function up()
     {
         Schema::create('scraps', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('postID');
-            $table->integer('userID')->unsigned();
-            $table->foreign('userID')->references('id')->on('users')->onDelete('cascade');
+            $table->id();
+            $table->bigInteger('postID');
+            $table->bigInteger('userID');
             $table->timestamps();
         });
     }

@@ -42,7 +42,7 @@
             </div>
             <div class="progress mt10 mb10">
                 {{-- style 계산식 입력 --}}
-                <div class="progress-bar" role="progressbar" style="width: {{ ( $user->grade->minExp - $user->hasExperiences()->sum('exp') ) / $user->grade->maxExp * 100 }}%;" aria-valuenow="{{ $user->hasExperiences()->sum('exp') }}" aria-valuemin="{{ $user->grade->minExp }}" aria-valuemax="{{ $user->grade->maxExp }}">{{ $user->hasExperiences()->sum('exp') - $user->grade->minExp }}</div>
+                <div class="progress-bar" role="progressbar" style="width: {{ ( $user->hasExperiences()->sum('exp') - $user->grade->minExp ) / $user->grade->maxExp * 100 }}%;" aria-valuenow="{{ $user->hasExperiences()->sum('exp') }}" aria-valuemin="{{ $user->grade->minExp }}" aria-valuemax="{{ $user->grade->maxExp }}">{{ $user->hasExperiences()->sum('exp') - $user->grade->minExp }}</div>
             </div>
 {{--            <div id="progressbar">--}}
 

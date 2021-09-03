@@ -14,13 +14,12 @@ class CreateCoinsTable extends Migration
     public function up()
     {
         Schema::create('coins', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('coinable_type', 50);
             $table->integer('coinable_id');
             $table->string('type', 50);
             $table->integer('coin');
-            $table->integer('userID')->unsigned();
-            $table->foreign('userID')->references('id')->on('users')->onDelete('cascade');
+            $table->bigInteger('userID');
             $table->timestamps();
         });
     }

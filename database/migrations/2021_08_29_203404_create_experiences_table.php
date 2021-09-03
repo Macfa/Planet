@@ -14,12 +14,13 @@ class CreateExperiencesTable extends Migration
     public function up()
     {
         Schema::create('experiences', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->morphs('experienced'); // Path From
             $table->string('msg');
             $table->integer('exp');
-            $table->integer('userID')->unsigned();
-            $table->foreign('userID')->references('id')->on('users')->onDelete('cascade');
+//            $table->integer('userID')->unsigned();
+//            $table->foreign('userID')->references('id')->on('users');
+            $table->bigInteger('userID');
             $table->timestamps();
         });
     }
