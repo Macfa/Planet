@@ -19,9 +19,8 @@ class CreateNotificationsTable extends Migration
             $table->morphs('notifiable');
             $table->string('message');
             $table->integer('count')->default(0);
-            $table->integer('userID')->unsigned()->nullable(false);
-            $table->foreign('userID')->references('id')->on('users')->onDelete('cascade');
-            $table->integer('ownerID');
+            $table->bigInteger('userID');
+            $table->bigInteger('ownerID');
             $table->timestamp('read_at')->nullable();
             $table->timestamps();
         });
@@ -34,6 +33,6 @@ class CreateNotificationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notifications');
+        Schema::dropIfExists('alarmnotification');
     }
 }

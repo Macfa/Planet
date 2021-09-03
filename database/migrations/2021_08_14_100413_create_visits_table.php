@@ -14,9 +14,9 @@ class CreateVisitsTable extends Migration
     public function up()
     {
         Schema::create('visits', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('channelID');
-            $table->integer('userID');
+            $table->id();
+            $table->bigInteger('channelID');
+            $table->bigInteger('userID');
             $table->timestamps();
         });
     }
