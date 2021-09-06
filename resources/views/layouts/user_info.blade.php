@@ -40,9 +40,16 @@
 
 {{--                </div>--}}
             </div>
-            <div class="progress mt10 mb10">
-                {{-- style 계산식 입력 --}}
-                <div class="progress-bar" role="progressbar" style="width: {{ ( $user->hasExperiences()->sum('exp') - $user->grade->minExp ) / $user->grade->maxExp * 100 }}%;" aria-valuenow="{{ $user->hasExperiences()->sum('exp') }}" aria-valuemin="{{ $user->grade->minExp }}" aria-valuemax="{{ $user->grade->maxExp }}">{{ $user->hasExperiences()->sum('exp') - $user->grade->minExp }}</div>
+            <div class="mt10 mb10">
+                <div class="progress">
+                    {{-- style 계산식 입력 --}}
+                    <div class="progress-bar" role="progressbar" style="width: {{ ( $user->hasExperiences()->sum('exp') - $user->grade->minExp ) / $user->grade->maxExp * 100 }}%;" aria-valuenow="{{ $user->hasExperiences()->sum('exp') }}" aria-valuemin="{{ $user->grade->minExp }}" aria-valuemax="{{ $user->grade->maxExp }}">{{ $user->hasExperiences()->sum('exp') - $user->grade->minExp }}</div>
+                </div>
+                <div class="flex">
+                    <div class="cst_sp_g_12 flex_item">다음 등급까지 {{ $user->grade->maxExp - $user->hasExperiences()->sum('exp') }}xp</div>
+{{--                    <div class="cst_sp_g_12 flex_item">{{ $user->grade->next_grade }}</div>--}}
+{{--                    <div class="cst_sp_g_12 flex_item">{{ $user->grade->maxExp }}</div>--}}
+                </div>
             </div>
 {{--            <div id="progressbar">--}}
 
@@ -105,32 +112,6 @@
     </div>
 </div>
 
-{{--<div class="modalLayer">--}}
-{{--    <form method="post" action="{{ route('user.modify', $user->id) }}">--}}
-{{--        @csrf--}}
-{{--        <div class="modalHeader">--}}
-{{--            <div class="Header">--}}
-{{--                <p>변경할 ID를 입력하세요</p>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--        <div class="modalFooter">--}}
-{{--            <div class="Body">--}}
-{{--                <input type="text" name="name" required>--}}
-{{--            </div>--}}
-{{--            <div class="Footer">--}}
-{{--                <div class="left">--}}
-{{--                    <img alt="img">--}}
-{{--                    <span> 100 차감</span>--}}
-{{--                </div>--}}
-{{--                <div class="right">--}}
-{{--                    <button type="button" onclick="closeModifyUserName();">취소</button>--}}
-{{--                    <button type="submit">등록</button>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </form>--}}
-{{--</div>--}}
-
 <!-- Modal -->
 <div class="modal fade" id="modalModifyUserName" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -144,14 +125,11 @@
                 <div class="modal-body">
 {{--                    <div class="form-floating mb-3 has-validation">--}}
                     <div class="mb-3 has-validation">
-                        <input type="text" class="form-control" name="name" id="floatingName" placeholder="닉네임 입력" required pattern="^[가-힣,a-z,A-Z,1-9]{2,8}$">
-{{--                        <label for="floatingName">변경할 유저명를 입력하세요</label>--}}
-                        <div class="valid-feedback">
-                            가능합니다
-                        </div>
-                        <div class="invalid-feedback">
-                            2 ~ 8자로 한영, 숫자로 이름를 입력해주세요
-                        </div>
+                        <input type="text" class="form-control" name="name" id="floatingName" placeholder="닉네임 입력" >
+{{--                        <input type="text" class="form-control" name="name" id="floatingName" placeholder="닉네임 입력" required pattern="^[가-힣,a-z,A-Z,1-9]{2,8}$">--}}
+                        @error('name')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
 
                     </div>
                 </div>
@@ -173,4 +151,11 @@
         </form>
     </div>
 </div>
+<script>
+    @if (count($errors) > 0)
+        $( document ).ready(function() {
+            $('#modalModifyUserName').modal('show');
+        });
+    @endif
+</script>
 @endsection

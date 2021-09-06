@@ -45,10 +45,13 @@ class ChannelController extends Controller
         ];
 
         $messages = [
-            'required' => ':attribute 입력해주세요.',
-            'min' => ':attribute 은 최소 2 글자 이상입니다.',
-            'max' => ':attribute 최대 255 글자 이하입니다.',
-            'unique' => ':attribute 이 이미 사용 중입니다.'
+            'name.required' => '동방명을 입력해주세요.',
+            'description.required' => '동방 소개란을 입력해주세요.',
+            'name.min' => '동방명은 최소 2 글자 이상입니다.',
+            'description.min' => '동방 소개란은 최소 2 글자 이상입니다.',
+            'name.max' => '동방명은 최대 255 글자 이하입니다.',
+            'description.max' => '동방 소개란은 최대 255 글자 이하입니다.',
+            'name.unique' => '동방명이 이미 사용 중입니다.'
         ];
         $validator = Validator::make($request->all(), $rules, $messages)->validate();
 

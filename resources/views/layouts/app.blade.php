@@ -88,11 +88,12 @@
                 @endguest
                 @auth
                     <li class="header_icon"><img src="{{ Auth::user()->avatar }}" alt="img" /></li>
-                    <li class="header_text">
+                    <li class="header_text header_text_align">
                         <p>{{ Auth::user()->name }}</p>
                     </li>
                     <li class="header_icon"><img src="{{ asset('image/coin_4x.png') }}" alt="coin" /></li>
-                    <li class="header_text ml-0">
+{{--                    <li class="header_text ml-0 header_text_align">--}}
+                    <li class="header_text header_text_align">
                         <p>
                             {{ coin_transform(\App\Models\Coin::where('coins.userID',auth()->id())
                                 ->sum('coin')) }}
