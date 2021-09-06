@@ -54,9 +54,11 @@ class PostController extends Controller
         ];
 
         $messages = [
-            'required' => ':attribute 입력해주세요.',
-            'max' => ':attribute 최대 255 글자 이하입니다.',
-            'min' => ':attribute 입력해주세요.',
+            'channelID.required' => '채널을 선택해주세요.',
+            'title.required' => '제목을 입력해주세요.',
+            'content.required' => '내용을 입력해주세요.',
+            'max' => '제목은 최대 255 글자 이하입니다.',
+            'min' => '내용은 최소 1글자 이상입니다.',
         ];
         $validator = Validator::make($request->all(), $rules, $messages)->validate();
 
@@ -158,9 +160,12 @@ class PostController extends Controller
         ];
 
         $messages = [
-            'required' => ':attribute 입력해주세요.',
-            'max' => ':attribute 최대 255 글자 이하입니다.',
-            'min' => ':attribute를 최소 1 글자 이상 입력해주세요.',
+            'channelID.required' => '채널을 선택해주세요.',
+            'title.required' => '제목을 입력해주세요.',
+            'content.required' => '내용을 입력해주세요.',
+            'title.max' => '제목은 최대 255 글자 이하입니다.',
+            'content.min' => '내용은 최소 1 글자 이상 입력해주세요.',
+            'title.min' => '제목은 최소 1 글자 이상 입력해주세요.',
         ];
         $validator = Validator::make($request->all(), $rules, $messages)->validate();
 

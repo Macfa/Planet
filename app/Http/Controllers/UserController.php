@@ -8,6 +8,7 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -61,16 +62,20 @@ class UserController extends Controller
         $user = User::find($id);
         $name = $request->input("name");
 
+        // set validation rules
+        $rules = [
+            'name' => 'required|min:1|max:50|unique:users',
+        ];
+
+        $messages = [
+            'name.required' => '이름을 입력해주세요.',
+            'name.max' => '이름은 최대 50 글자 이하입니다.',
+            'name.min' => '이름은 최소 1 글자 이상입니다.',
+            'name.unique' => '동일한 이름이 존재합니다.',
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages)->validate();
+
         $result = $user->changeUserName($name);
-//        if($user->isNameChanged==='N') {
-//            $user->setName = $name;
-//            $user->save();
-//
-//            $result = true;
-//        } else {
-//            $coin = new Coin();
-//            $result = $coin->changeUserName($user);
-//        }
 
         if($result) {
             return redirect()->back()->with(['msg'=>'변경되었습니다', 'type'=>'success']);
