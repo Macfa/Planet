@@ -9,6 +9,7 @@ use App\Models\Notification;
 use App\Models\PointType;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Visit;
 use App\Notifications\Alarmnotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -38,12 +39,9 @@ class HomeController extends Controller
             ->orderby('id', 'desc')
             ->get();
 
-        $favorites = Favorite::where('userID', '=', auth()->id())
-            ->with('channel')
-            ->orderby('id', 'desc')
-            ->get();
-
-        return view('main.index', compact('posts', 'favorites'));
+        $visit = new Visit();
+        $visits = $visit->showHistory();
+        return view('main.index', compact('posts', 'visits'));
     }
 
     public function mainmenu(Request $request) {
@@ -136,12 +134,12 @@ class HomeController extends Controller
             ->with('likes')
             ->get();
 
-        $favorites = Favorite::where('userID', '=', auth()->id())
+        $visits = Favorite::where('userID', '=', auth()->id())
             ->with('channel')
             ->orderby('id', 'desc')
             ->get();
 
-        return view('main.index', compact('posts', 'favorites', 'searchType'));
+        return view('main.index', compact('posts', 'visits', 'searchType'));
     }
 
     public function test() {

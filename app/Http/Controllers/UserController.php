@@ -6,6 +6,7 @@ use App\Models\Coin;
 use App\Models\Favorite;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Visit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -42,8 +43,9 @@ class UserController extends Controller
             //                ('scraps', 'users.id', '=', 'scraps.userID')
         }
 
-        $favorites = Favorite::where('userID', auth()->id() )->get();
         $user = User::find($user->id);
+        $visit = new Visit();
+        $visits = $visit->showHistory();
 
         $coin = array();
         $coin['totalCoin'] = $user->hasCoins()->sum('coin');
@@ -55,7 +57,7 @@ class UserController extends Controller
         $coin = (object)$coin;
 //        dd($coin);
 
-        return view('user.mypage', compact('posts', 'favorites', 'user', 'coin', 'el'));
+        return view('user.mypage', compact('posts', 'visits', 'user', 'coin', 'el'));
     }
 
     public function modify(Request $request, $id) {
@@ -64,13 +66,13 @@ class UserController extends Controller
 
         // set validation rules
         $rules = [
-            'name' => 'required|min:1|max:50|unique:users',
+            'name' => 'required|min:2|max:50|unique:users',
         ];
 
         $messages = [
             'name.required' => '이름을 입력해주세요.',
             'name.max' => '이름은 최대 50 글자 이하입니다.',
-            'name.min' => '이름은 최소 1 글자 이상입니다.',
+            'name.min' => '이름은 최소 2 글자 이상입니다.',
             'name.unique' => '동일한 이름이 존재합니다.',
         ];
         $validator = Validator::make($request->all(), $rules, $messages)->validate();

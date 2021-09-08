@@ -8,10 +8,11 @@
 
                 <ul class="category">
                     <div class="category_title">최근 방문한 동아리</div>
-                    <li><a href="{{ route('home') }}">포디엄</a></li>
-                    @foreach ($favorites as $favorite)
-                        <li class="channel_{{ $favorite->channelID }}"><a href="{{ route('channel.show', $favorite->channelID) }}">{{ $favorite->channel->name }}</a></li>
-                    @endforeach
+                        @forelse ($visits as $visit)
+                            <li class="channel_{{ $visit->channelID }}"><a href="{{ route('channel.show', $visit->channelID) }}">{{ $visit->channel->name }}</a></li>
+                        @empty
+                            <li><a href="{{ route('home') }}">방문채널이 없습니다.</a></li>
+                        @endforelse
                 </ul>
                 @if(request()->has('searchText') )
                     <ul class="tab">
@@ -72,7 +73,7 @@
                         @empty
                             <tr class="none-tr">
                                 <td>
-                                    데이터가 없습니다.
+                                    유령 동아리가 되겠어요. 글을 작성해 소통해 보세요!
                                 </td>
                             </tr>
                         @endforelse

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Channel;
 use App\Models\Favorite;
 use App\Models\Post;
+use App\Models\Visit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -89,19 +90,18 @@ class ChannelController extends Controller
             ->orderby('id', 'desc')
             ->get();
 
-        // favorite info
-        $favorites = Favorite::where('userID', '=', auth()->id())
-            ->with('channel')
-            ->orderby('id', 'desc')
-            ->get();
-
         // channel info
         $channel = Channel::where('id', $id)
             ->withCount('favorites')
             ->get()
             ->first();
 
-        return view('channel.show', compact('posts', 'channel', 'favorites'));
+        // visit info
+        $visit = new Visit();
+        $visits = $visit->addHistory($channel);
+//        $visits = $visit->showHistory();
+
+        return view('channel.show', compact('posts', 'channel', 'visits'));
     }
 
     /**

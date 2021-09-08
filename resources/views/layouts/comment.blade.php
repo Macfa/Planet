@@ -40,7 +40,7 @@
                     <div style="" class="write-info {{ $comment->depth>0 ? 'write-info-line':'' }}">
                         <img src="{{ $comment->user->avatar }}" alt="닉네임" />
                         <h5 class="nickname">{{ $comment->user->name }}</h5>
-                        <p>{{ $comment->created_at->diffForHumans() }}</p>
+                        <p>{{ $comment->updated_at->diffForHumans() }}</p>
 
                         @if(auth()->id()==$comment->userID)
                             <div class="ml-20 comment-modi-form">
@@ -161,7 +161,10 @@
                 success: function(data) {
                     var el = '.comment-'+id;
                     $(el).remove();
-                    // window.location.href = "/";
+                    var commentTotalCount = $(".comment-list").length;
+                    if(commentTotalCount === 0) {
+                        $("#comment").remove();
+                    }
                 },
                 error: function(err) {
                     console.log(err);
@@ -171,17 +174,86 @@
         return false;
     }
 
-    function editComment(id) {
-        alert("준비중");
+    function editComment(commentID) {
+        var el = ".comment-"+commentID+" .comment-item";
+        var el_header = el + ' > .comment-top .comment-modi-form, '+ el + ' > .comment-top .comment-info';
+        var el_content = el + ' > .comment-cont';
+
+        // if($(temp_el).length > 0) {
+        //     cancleReply(commentID);
+        //     return false;
+        // }
+        var valueList = {
+            "commentID": commentID
+        };
+        $(el_header).hide();
+        $(el_content).hide();
+        $("#editForm").tmpl(valueList).appendTo(el);
+    }
+
+    function cancleEdit(commentID) {
+        var el = ".comment-"+commentID+" .comment-item";
+        var el_header = el + ' > .comment-top .comment-modi-form, '+ el + ' > .comment-top .comment-info';
+        var el_content = el + ' > .comment-cont';
+        var el_edit = ".comment-"+commentID+" .comment-item .reply-form";
+        $(el_edit).remove();
+        $(el_header).show();
+        $(el_content).show();
+    }
+    function updateComment(commentID) {
+        var obj = "#comment-edit-form-" + commentID;
+        var data = $(obj).serialize();
+
+        delay(function() {
+            $.ajax({
+                url: "/comment/"+commentID,
+                data: data,
+                type: "PUT",
+                success: function(data) {
+                    var valueList = {
+                        "id": data.id,
+                        "depth": data.depth*44,
+                        "updated_at_modi": data.updated_at_modi,
+                        "group": data.group,
+                        "content": data.content,
+                        "sumOfVotes": data.sumOfVotes,
+                        "postID": data.postID,
+                        "avatar": data.user.avatar,
+                        "commentCount": data.commentCount,
+                        "name": data.user.name
+                    };
+                    if(data.commentCount < 2) { // 첫번째 글일 때, 댓글보기 헤더 추가
+                        $("#replyForm").tmpl(valueList).insertAfter('.comment-write-form');
+                    } else { // 첫번쨰 글이 아닌 경우 그냥 추가
+                        $("#replyForm").tmpl(valueList).insertAfter(el);
+                    }
+
+                    $('.commentCount').html(data.commentCount);
+                    if(commentID) {
+                        cancleReply(commentID);
+                    } else {
+                        $("#comment-form #comment_text").val('');
+                    }
+                },
+                error: function(err) {
+                    if(err.responseJSON.reason == 'login') {
+                        alert("로그인이 필요한 기능입니다.");
+                    } else {
+                        alert("댓글이 저장되지않았습니다\n관리자에게 문의해주세요.");
+                    }
+                    console.log(err);
+                }
+            })
+        }, 300);
     }
 
     function addComment(commentID) {
         var obj = '';
         var el = '';
-        if(commentID) {
+        if(commentID) { // 대댓글
             obj = "#comment-form-" + commentID;
             el = ".comment-" + commentID;
-        } else {
+        } else { // 댓글
             obj = "#comment-form";
             el = ".section-title";
         }
@@ -191,7 +263,6 @@
         $(dataArray).each(function(i, field){
             data[field.name] = field.value;
         });
-
 
         if(data['content'] === "" ) { // 0 : postID, 1 : content
             data['content'] = "내용이 없습니다";
@@ -208,15 +279,21 @@
                     var valueList = {
                         "id": data.id,
                         "depth": data.depth*44,
-                        "created_at_modi": data.created_at_modi,
+                        "updated_at_modi": data.updated_at_modi,
                         "group": data.group,
                         "content": data.content,
                         "sumOfVotes": data.sumOfVotes,
                         "postID": data.postID,
                         "avatar": data.user.avatar,
+                        "commentCount": data.commentCount,
                         "name": data.user.name
                     };
-                    $("#replyForm").tmpl(valueList).insertAfter(el);
+                    if(data.commentCount < 2) { // 첫번째 글일 때, 댓글보기 헤더 추가
+                        $("#replyForm").tmpl(valueList).insertAfter('.comment-write-form');
+                    } else { // 첫번쨰 글이 아닌 경우 그냥 추가
+                        $("#replyForm").tmpl(valueList).insertAfter(el);
+                    }
+
                     $('.commentCount').html(data.commentCount);
                     if(commentID) {
                         cancleReply(commentID);
@@ -289,14 +366,42 @@
         }
     }
 </script>
+<script id="editForm" type="text/x-jquery-tmpl">
+<div class="reply-form">
+    <form method="post" onSubmit="return false;" id="comment-edit-form-${commentID}">
+    <div class="reply-input">
+        <textarea
+        name="content"
+        id="reply_text"
+        ></textarea>
+
+        <div class="form-btn">
+            <div class="reset-btn">
+                <button onclick="cancleEdit(${commentID})" type="reset">취소</button>
+            </div>
+
+            <div class="write-btn">
+                <button type="submit" onclick="updateComment(${commentID}, this);">등록</button>
+            </div>
+        </div>
+    </div>
+</form>
+</div>
+</script>
 <script id="replyForm" type="text/x-jquery-tmpl">
+@{{if commentCount < 2}}
+<div class="comment-list-parent" id="comment">
+    <div class="section-title">
+        <h4>댓글 보기</h4>
+    </div>
+    @{{/if}}
    <div class="comment-list comment-${id}">
         <div style="padding-left:${depth}px;" class="comment-item">
             <div class="comment-top">
                 <div style="" class="write-info">
                     <img src="${avatar}" alt="닉네임" />
                     <h5 class="nickname">${name}</h5>
-                    <p>${created_at_modi}</p>
+                    <p>${updated_at_modi}</p>
                     <div class="ml-20 comment-modi-form">
                         <button onclick="editComment(${id})">
                             <div class="function-text">
@@ -331,11 +436,13 @@
             </div>
         </div>
     </div>
+    @{{if commentCount < 2}}
+</div>
+@{{/if}}
 </script>
 <script id="replyWriteForm" type="text/x-jquery-tmpl">
 <div class="reply-form">
     <form method="post" onSubmit="return false;" id="comment-form-${commentID}">
-        @csrf
     <input type="hidden" name="group" value="${group}">
     <input type="hidden" name="postID" value="${postID}">
     <input type="hidden" name="id" value="${commentID}">

@@ -94,9 +94,6 @@ class PostController extends Controller
 
         $coin->writePost($post);
         $experience->writePost($post);
-//        $res = $post->experiences->writePost();
-//        $res = $post->EarnExpFromWritePost();
-//        dd($res);
 
         $redirect = $request->input('channelID');
         return redirect()->route('channel.show', $redirect);

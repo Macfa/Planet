@@ -115,7 +115,7 @@
 <!-- Modal -->
 <div class="modal fade" id="modalModifyUserName" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <form method="post" action="{{ route('user.modify', $user->id) }}" class="needs-validation" novalidate>
+        <form method="post" action="{{ route('user.modify', $user->id) }}">
             @csrf
             <div class="modal-content">
                 <div class="modal-header">
@@ -124,7 +124,7 @@
                 </div>
                 <div class="modal-body">
 {{--                    <div class="form-floating mb-3 has-validation">--}}
-                    <div class="mb-3 has-validation">
+                    <div class="mb-3">
                         <input type="text" class="form-control" name="name" id="floatingName" placeholder="닉네임 입력" >
 {{--                        <input type="text" class="form-control" name="name" id="floatingName" placeholder="닉네임 입력" required pattern="^[가-힣,a-z,A-Z,1-9]{2,8}$">--}}
                         @error('name')

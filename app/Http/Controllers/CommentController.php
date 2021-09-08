@@ -37,7 +37,6 @@ class CommentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-
         if(auth()->id() == null) {
             return response()->json(['reason'=>'login'], 401);
         }
@@ -102,7 +101,8 @@ class CommentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $updatedComment = $this->getComment($id);
+        return $updatedComment;
     }
 
     /**
@@ -113,11 +113,9 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-
         Comment::where('id', $id)
             ->delete();
 
-//        return redirect()->route('home', '',302);
         return true;
     }
 
@@ -175,7 +173,7 @@ class CommentController extends Controller
             ->count();
 
         // modify a necessary data
-        $comment->created_at_modi = $comment->created_at->diffForHumans();
+        $comment->updated_at_modi = $comment->updated_at->diffForHumans();
         $comment->sumOfVotes = $comment->likes->sum('vote');
 //        dd($comment->post());
         $comment->commentCount = $commentCount;

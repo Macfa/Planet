@@ -59,7 +59,11 @@ class User extends Authenticatable
         return $this->hasOne(Grade::class, "id", "gradeID");
     }
     public function Favorites() {
-        return $this->hasMany(Favorite::class, 'id');
+        // to be delete !
+//        return $this->hasMany(Favorite::class, 'userID', 'id');
+    }
+    public function visits() {
+        return $this->hasMany(Visit::class, 'userID', 'id');
     }
     public function Comments() {
         return $this->hasMany(Comment::class, 'userID', 'id');
