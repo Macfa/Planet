@@ -40,8 +40,13 @@
             data: { 'type': type },
             success: function(data) {
                 var beAppendVariable = '';
-                for(var i=0; i<data.length; i++) {
-                    beAppendVariable += '<li><a href="/post/'+data[i].id+'"><span class="up">'+data[i].totalVote+'</span><p>'+data[i].title+'</p></a></li>';
+
+                for(var i=0; i<5; i++) {
+                    if(data.length > i) {
+                        beAppendVariable += '<li><a href="/post/'+data[i].id+'"><span class="up">'+data[i].totalVote+'</span><p>'+data[i].title+'</p></a></li>';
+                    } else {
+                        beAppendVariable += '<li><a href="/"><p>추천 동방이 없습니다.</p></a></li>';
+                    }
                 }
                 $(".sidebar_list>li").remove();
                 $(".right .best>ul>li[class="+type+"]").attr('class', 'on');
