@@ -1,12 +1,13 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 {{--    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0" />--}}
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 
     <meta name="format-detection" content="telephone=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -44,13 +45,13 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('image/favicon/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('image/favicon/favicon-96x96.png') }}">
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-5.1.0.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/main/font.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/main/header.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/main/common.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/main/layout.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/main/index.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/toastr.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css.bak/bootstrap-5.1.0.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css.bak/main/font.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/common/header.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css.bak/main/common.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css.bak/main/layout.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css.bak/main/index.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css.bak/toastr.min.css') }}">
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
@@ -69,21 +70,21 @@
 </head>
 
 
-<body class="container-fluid">
+<body>
 
-<ul id="app">
-    <ul>
-        <div id="header">
-            <h1><a href="/"><img src="{{ asset('image/logo.png') }}"></a></h1>
-            <div class="input">
-                <form name="mainSearchForm" id="mainSearchForm" action="{{ route('home.search') }}" method="get">
-                    {{-- @csrf --}}
-                    <input type="text" name="searchText" placeholder="검색..." value="{{ Request::input('searchText') }}">
-                    <input type="hidden" name="searchType" id="searchType" value="a">
-                    <button type="submit"></button>
-                </form>
-            </div>
-            <ul class="btn">
+<div id="app" class="container-fluid">
+    <div id="header" class="row align-items-center">
+        <div class="col-1"><a href="/"><img src="{{ asset('image/logo.png') }}"></a></div>
+        <div class="cst-input-form col-4">
+            <form name="mainSearchForm" id="mainSearchForm" action="{{ route('home.search') }}" method="get">
+                {{-- @csrf --}}
+                <input type="text" name="searchText" placeholder="검색..." value="{{ Request::input('searchText') }}">
+                <input type="hidden" name="searchType" id="searchType" value="a">
+                <button type="submit"></button>
+            </form>
+        </div>
+        <div class="cst-icon-list col-7 container">
+            <div class="row justify-content-end">
                 @guest
                     <li class="login"><a href="{{ route('social.oauth', 'google') }}">로그인</a></li>
                 @endguest
@@ -93,7 +94,7 @@
                         <p>{{ Auth::user()->name }}</p>
                     </li>
                     <li class="header_icon"><img src="{{ asset('image/coin_4x.png') }}" alt="coin" /></li>
-{{--                    <li class="header_text ml-0 header_text_align">--}}
+    {{--                    <li class="header_text ml-0 header_text_align">--}}
                     <li class="header_text header_text_align">
                         <p>
                             {{ coin_transform(\App\Models\Coin::where('coins.userID',auth()->id())
@@ -105,13 +106,13 @@
                     <li class="header_icon"><img src="{{ asset('image/noti_4x.png') }}" alt="noti" /></li>
                     <li class="header_icon"><img src="{{ asset('image/list_4x.png') }}" alt="list" /></li>
                 @endauth
-            </ul>
+            </div>
         </div>
-    </ul>
+    </div>
     <div>
         @yield('content')
     </div>
-</ul>
+</div>
 
 <script>
     $.ajaxSetup({
