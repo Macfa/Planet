@@ -74,16 +74,16 @@
 
 <div id="app" class="container-fluid">
     <div id="header" class="row align-items-center">
-        <div class="col-1"><a href="/"><img src="{{ asset('image/logo.png') }}"></a></div>
-        <div class="cst-input-form col-4">
-            <form name="mainSearchForm" id="mainSearchForm" action="{{ route('home.search') }}" method="get">
+        <div class="col-md-1"><a href="/"><img src="{{ asset('image/logo.png') }}"></a></div>
+        <div class="cst-input-form col-md-4 container">
+            <form class="row align-items-center" name="mainSearchForm" id="mainSearchForm" action="{{ route('home.search') }}" method="get">
                 {{-- @csrf --}}
                 <input type="text" name="searchText" placeholder="검색..." value="{{ Request::input('searchText') }}">
                 <input type="hidden" name="searchType" id="searchType" value="a">
                 <button type="submit"></button>
             </form>
         </div>
-        <div class="cst-icon-list col-7 container">
+        <div class="cst-icon-list col-md-7 container">
             <div class="row justify-content-end">
                 @guest
                     <li class="login"><a href="{{ route('social.oauth', 'google') }}">로그인</a></li>

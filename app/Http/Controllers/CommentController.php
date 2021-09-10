@@ -101,8 +101,12 @@ class CommentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $updatedComment = $this->getComment($id);
-        return $updatedComment;
+        $comment = Comment::find($id);
+        $comment->content = $request->input('content');
+        $comment->save();
+
+        $result = $this->getComment($id);
+        return $result;
     }
 
     /**
@@ -143,8 +147,6 @@ class CommentController extends Controller
 
     public function storeReply(Request $req) { // 대댓글
         $thatComment = Comment::where('id', $req->input('id'))
-            ->select('depth', 'order')
-            ->get()
             ->first();
 
         $thatCommentOrder = Comment::where('group', '=', $req->input('group'))
@@ -152,8 +154,8 @@ class CommentController extends Controller
             ->increment('order', 1);
 
         $created = Comment::create([
-            'postID' => $req->input('postID'),
-            'group' => $req->input('group'),
+            'postID' => $thatComment['postID'],
+            'group' => $thatComment['group'],
             'content' => $req->input('content'),
             'depth' => $thatComment['depth']+1,
             'order' => $thatComment['order']+1,
