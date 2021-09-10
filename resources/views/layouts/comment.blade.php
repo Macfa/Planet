@@ -88,7 +88,7 @@
 
                 <div class="comment-cont">
                     <p>
-                        {{ $comment->content }}
+                        {!! $comment->content !!}
                     </p>
                 </div>
             </div>
@@ -136,8 +136,10 @@
         if(status == "show") {
             el.hide();
 
+            // var value = escapeHTML($(`.comment-${commentID} .comment-cont p`).html());
             var templateValues = {
                 "commentID": commentID,
+                "value": "",
                 "form": "edit"
             };
 
@@ -165,6 +167,7 @@
         if(status == "show") {
             var templateValues = {
                 "commentID": commentID,
+                "value": "",
                 "form": "add"
             };
 
@@ -216,7 +219,6 @@
                 type: type,
                 success: function(data) {
                     if(form == "edit") { // 기존 댓글 업데이트 로직
-                        // alert(commentID);
                         $(`.comment-${commentID} .comment-cont p`).html(data.content);
                         toggleEditForm('hide', commentID);
                     } else if(form == "add") { // 신규 댓글 생성 로직
@@ -309,7 +311,9 @@
             $("#comment-"+id+"-downvote").attr("src", "{{ asset('image/downvote_c.png') }}");
         }
     }
-
+    function escapeHTML(str) {
+        return str.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+    }
 </script>
 <script id="replyForm" type="text/x-jquery-tmpl">
 @{{if commentCount < 2}}
@@ -371,7 +375,7 @@
         <textarea
         name="content"
         id="reply_text"
-        ></textarea>
+        >${value}</textarea>
 
         <div class="form-btn">
             <div class="reset-btn">
