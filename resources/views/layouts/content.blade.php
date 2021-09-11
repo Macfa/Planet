@@ -15,28 +15,8 @@
                         @endforelse
                     </ul>
                 @endauth
-                @if(request()->has('searchText') )
-                    <ul class="tab">
-                        <li @if($searchType === 'a') class="on" @endif><a href="javascript:search('a')">제목+내용</a></li>
-                        <li @if($searchType === 't') class="on" @endif><a href="javascript:search('t')">제목</a></li>
-                        <li @if($searchType === 'c') class="on" @endif><a href="javascript:search('c')">내용</a></li>
-                    </ul>
 
-                @elseif(request()->is('user/*'))
-                    <ul class="tab">
-                        <li @if( $el =="post") class="on" @endif><a href="{{ route('user.show', ['user'=>$user->id, 'el'=>'post']) }}">나의 쓴 글</a></li>
-                        <li @if( $el =="comment") class="on" @endif><a href="{{ route('user.show', ['user'=>$user->id, 'el'=>'comment']) }}">나의 쓴 댓글</a></li>
-                        <li @if( $el =="scrap") class="on" @endif><a href="{{ route('user.show', ['user'=>$user->id, 'el'=>'scrap']) }}">나의 스크랩</a></li>
-                    </ul>
-                @else
-                    <ul class="tab_title">
-                        {{ (isset($channel)) ? $channel->name:'포디엄'  }}
-                    </ul>
-                    <ul class="tab">
-                        <li class="on clickable realtime" onclick="clickMainMenu('realtime');"><a>실시간</a></li>
-                        <li class="clickable hot" onclick="clickMainMenu('hot');"><a>인기</a></li>
-                    </ul>
-                @endif
+                @yield('mainmenu')
                 <div class="list">
                     <table>
                         <colgroup>
@@ -74,7 +54,7 @@
                         @empty
                             <tr class="none-tr">
                                 <td>
-                                    유령 동아리가 되겠어요. 글을 작성해 소통해 보세요!
+                                    @yield('message')
                                 </td>
                             </tr>
                         @endforelse
@@ -93,6 +73,81 @@
 </section>
 
 <script>
+    // 무한 스크롤
+    var page = 1;
+
+    $(window).scroll(function() {
+        if($(window).scrollTop() + $(window).height() >= $(document).height()) {
+            loadMoreData(page);
+            page++;
+        }
+    });
+
+    function loadMoreData(page) {
+        var channelID = "{{ request()->route('channel') }}";
+        var type = $(".tab .on").attr('value');
+
+        $.ajax({
+            url: '/mainmenu',
+            type: 'get',
+            data: {
+                "page": page,
+                'type': type,
+                'channelID': channelID
+            },
+            success: function(data) {
+                var valueList = [];
+                // $("#main .wrap .left .list table tbody tr").remove();
+                if(data.result.length==0) {
+                    // valueList.push("<tr class='none-tr'><td>데이터가 없습니다.</td></tr>");
+                    // var value = "<tr class='none-tr'><td>데이터가 없습니다.</td></tr>";
+                    // $("#main .wrap .left .list table tbody").html(value);
+                    toastr.info("데이터가 없습니다");
+                } else {
+                    for(var i=0; i<data.result.length; i++) {
+                        valueList.push({
+                            "totalVote": data.result[i].totalVote,
+                            "postID": data.result[i].id,
+                            "postTitle": data.result[i].title,
+                            "commentCount": data.result[i].comments_count,
+                            "postChannelID": data.result[i].channel.id,
+                            "channelName": data.result[i].channel.name,
+                            "userName": data.result[i].user.name,
+                            "userID": data.result[i].user.id,
+                            "created_at_modi": data.result[i].created_at_modi
+                        });
+                    }
+                    $("#mainMenuItem").tmpl(valueList).insertAfter("#main .wrap .left .list table tbody tr:last-child");
+                }
+                $("#main .wrap .left .tab li[class="+type+"]").attr('class', 'on');
+            },
+            error: function(err) {
+                console.log(err);
+            }
+        })
+    }
+    // function loadMoreData(page) {
+    //     $.ajax({
+    //         url: '?page=' + page,
+    //         type: "get",
+    //         beforeSend: function() {
+    //             $('.ajax-load').show();
+    //         }
+    //     }).done(function(data) {
+    //
+    //
+    //         if(page == " ") {
+    //             $('.ajax-load').html("No more records found");
+    //             return;
+    //         }
+    //         $('.ajax-load').hide();
+    //         $("#load_data").append(data.html);
+    //
+    //     }).fail(function(jqXHR, ajaxOptions, thrownError) {
+    //         alert('server not responding...');
+    //     });
+    // }
+
     $('#main .tab li').click(function(event){
         $('#main .tab li').removeClass('on');
         $(this).addClass('on');

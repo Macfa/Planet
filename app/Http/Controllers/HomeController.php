@@ -37,16 +37,23 @@ class HomeController extends Controller
             ->with('user')
             ->with('likes')
             ->orderby('id', 'desc')
+            ->pagination()
             ->get();
 
         $visit = new Visit();
         $visits = $visit->showHistory();
         return view('main.index', compact('posts', 'visits'));
     }
+    public function getDataFromScrolling(Request $request) {
+        if($request->ajax()) {
+
+        }
+    }
 
     public function mainmenu(Request $request) {
         $type = $request->type;
         $channelID = $request->channelID;
+        $page = $request->page;
 
         if($type==='realtime') {
             $posts = Post::with('channel')
@@ -59,7 +66,7 @@ class HomeController extends Controller
                         $query->where('channelID', '=', $channelID);
                     }
                 })
-                ->limit(5)
+                ->pagination($page)
                 ->get();
         } else if($type==='hot') {
             $posts = Post::with('channel')
@@ -134,12 +141,10 @@ class HomeController extends Controller
             ->with('likes')
             ->get();
 
-        $visits = Favorite::where('userID', '=', auth()->id())
-            ->with('channel')
-            ->orderby('id', 'desc')
-            ->get();
+        $visit = new Visit();
+        $visits = $visit->showHistory();
 
-        return view('main.index', compact('posts', 'visits', 'searchType'));
+        return view('main.search', compact('posts', 'visits', 'searchType'));
     }
 
     public function test() {

@@ -44,6 +44,12 @@ class Post extends Model
     }
 
     // Custom Functions
+    public function scopePagination($query, $page=0) {
+        $count = 5;
+        $skip = $page * $count;
+//        dd([$page, $skip]);
+        return $query->skip($skip)->take($count);
+    }
     public function getExistPostLikeAttribute() {
         $checkExistLike = $this->likes->firstWhere('userID',auth()->id());
 
