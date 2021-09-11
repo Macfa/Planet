@@ -102,7 +102,14 @@
                         </p>
                     </li>
                     <li class="header_icon"><a href="/"><img src="{{ asset('image/home_4x.png') }}" alt="home" /></a></li>
-                    <li class="header_icon"><a href="{{ route('user.show', auth()->id()) }}"><img src="{{ asset('image/mypage_4x.png') }}" alt="mypage" /></a></li>
+                    <li class="header_icon"><a class="btn btn-primary" data-bs-toggle="collapse" href="#header-mypage" role="button" aria-expanded="false" aria-controls="header-mypage"><img src="{{ asset('image/mypage_4x.png') }}" alt="mypage" /></a></li>
+                        <div class="collapse" id="header-mypage">
+                            <div class="card card-body">
+                                Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+                            </div>
+                        </div>
+{{--                    <li class="header_icon"><a href="{{ route('user.show', auth()->id()) }}" class="btn btn-primary" data-bs-toggle="collapse" href="#header-mypage" role="button" aria-expanded="false" aria-controls="header-mypage"><img src="{{ asset('image/mypage_4x.png') }}" alt="mypage" /></a></li>--}}
+
                     <li class="header_icon"><img src="{{ asset('image/noti_4x.png') }}" alt="noti" /></li>
                     <li class="header_icon"><img src="{{ asset('image/list_4x.png') }}" alt="list" /></li>
                 @endauth
@@ -110,6 +117,7 @@
         </div>
     </div>
     <div>
+
         @yield('content')
     </div>
 </div>

@@ -311,9 +311,6 @@
             $("#comment-"+id+"-downvote").attr("src", "{{ asset('image/downvote_c.png') }}");
         }
     }
-    function escapeHTML(str) {
-        return str.replace(/&/g, "&amp;").replace(/</g, "&lt;");
-    }
 </script>
 <script id="replyForm" type="text/x-jquery-tmpl">
 @{{if commentCount < 2}}

@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @extends('layouts.content')
-
-@extends('layouts.user_info')
+@extends('layouts.content-mypage')
+@extends('layouts.userInfo')
