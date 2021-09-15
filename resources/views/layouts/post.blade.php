@@ -1,6 +1,5 @@
-@section('content')
     <link rel="stylesheet" type="text/css" href="{{ asset('css/post/show.css') }}">
-    <div class="modal-parent">
+    <div class="modal-parent container-fluid">
         <div class="modal-wrap">
             <div class="modal-top">
 
@@ -108,7 +107,7 @@
                             </ul>
                         </div>
 
-                    {{--                    @extends('layouts.comment')--}}
+{{--                                        @extends('layouts.comment')--}}
                     @yield('comment')
 
 
@@ -188,6 +187,7 @@
             </div>
             {{--    <script src="{{ asset('js/editorShow.js') }}"></script>--}}
             <script>
+
                 document.querySelectorAll( 'oembed[url]' ).forEach( element => {
                     // Create the <a href="..." class="embedly-card"></a> element that Embedly uses
                     // to discover the media.
@@ -288,4 +288,6 @@
                     // window.open("https://naver.com", '_blank', options);
                 }
             </script>
-@endsection
+        </div>
+    </div>
+{{--@endsection--}}

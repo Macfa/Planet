@@ -23,16 +23,16 @@
   }
 
   .modal-parent {
-    display:flex;
-    justify-content:center;
-    margin-top:150px;
+    /*display:flex;*/
+    /*justify-content:center;*/
+    /*margin-top:150px;*/
   }
 
   .modal-parent >.modal-wrap {
-    width:1276px;
-    min-width:1276px;
-    /* max-width:100%; */
-    border:1px solid #CBC7C7;
+    /*width:1276px;*/
+    /*min-width:1276px;*/
+    /*!* max-width:100%; *!*/
+    /*border:1px solid #CBC7C7;*/
   }
 
   .modal-parent > .modal-wrap > .modal-top {
