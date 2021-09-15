@@ -80,7 +80,7 @@ class HomeController extends Controller
                         $query->where('channelID', '=', $channelID);
                     }
                 })
-                ->limit(5)
+                ->pagination($page)
                 ->get();
         }
 

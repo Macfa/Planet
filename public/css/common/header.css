@@ -48,6 +48,9 @@
 #header .cst-icon-list .header_icon {
     width: max-content;
 }
+#header .cst-icon-list .header_icon_clickable:hover {
+    opacity: 0.5;
+}
 #header .cst-icon-list li img{
 
     width: 37px;
