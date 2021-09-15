@@ -1,4 +1,24 @@
 @section('content')
+    <!-- Modal -->
+    <div class="modal fade" id="open_post_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                {{--            <div class="modal-header">--}}
+                {{--                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>--}}
+                {{--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>--}}
+                {{--            </div>--}}
+                <div class="modal-body">
+                    {{--                @extends('layouts.post')--}}
+{{--                    @extends('layouts.post')--}}
+{{--                    @extends('layouts.comment')--}}
+                </div>
+                {{--            <div class="modal-footer">--}}
+                {{--                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>--}}
+                {{--                <button type="button" class="btn btn-primary">Save changes</button>--}}
+                {{--            </div>--}}
+            </div>
+        </div>
+    </div>
 
 <section id="main">
     <div class="wrap">
@@ -16,7 +36,16 @@
                     </ul>
                 @endauth
 
-                @yield('mainmenu')
+                {{-- search, user.show, content  --}}
+                @hasSection('content-mainmenu')
+                    @yield('content-mainmenu')
+                @endif
+                @hasSection('content-search')
+                    @yield('content-search')
+                @endif
+                @hasSection('content-mypage')
+                    @yield('content-mypage')
+                @endif
                 <div class="list">
                     <table>
                         <colgroup>
@@ -42,7 +71,8 @@
                                 </td>
                                 <td>
                                     <div class="title">
-                                        <a href="javascript:OpenModal({{ $post->id }});">
+{{--                                        <a href="" data-bs-toggle="modal" data-bs-target="#open_post_modal">--}}
+                                        <a href="javascript:OpenModal({{ $post->id }})">
                                             <p>{{ $post->title }}</p>
                                             <span>[{{ $post->comments_count }}]</span>
                                         </a>
@@ -72,60 +102,64 @@
     </div>
 </section>
 
-<script>
-    // 무한 스크롤
-    var page = 1;
+@hasSection('content-mainmenu')
+    <script>
+        // 무한 스크롤
+        var page = 1;
 
-    $(window).scroll(function() {
-        if($(window).scrollTop() + $(window).height() >= $(document).height()) {
-            loadMoreData(page);
-            page++;
-        }
-    });
-
-    function loadMoreData(page) {
-        var channelID = "{{ request()->route('channel') }}";
-        var type = $(".tab .on").attr('value');
-
-        $.ajax({
-            url: '/mainmenu',
-            type: 'get',
-            data: {
-                "page": page,
-                'type': type,
-                'channelID': channelID
-            },
-            success: function(data) {
-                var valueList = [];
-                // $("#main .wrap .left .list table tbody tr").remove();
-                if(data.result.length==0) {
-                    // valueList.push("<tr class='none-tr'><td>데이터가 없습니다.</td></tr>");
-                    // var value = "<tr class='none-tr'><td>데이터가 없습니다.</td></tr>";
-                    // $("#main .wrap .left .list table tbody").html(value);
-                    toastr.info("데이터가 없습니다");
-                } else {
-                    for(var i=0; i<data.result.length; i++) {
-                        valueList.push({
-                            "totalVote": data.result[i].totalVote,
-                            "postID": data.result[i].id,
-                            "postTitle": data.result[i].title,
-                            "commentCount": data.result[i].comments_count,
-                            "postChannelID": data.result[i].channel.id,
-                            "channelName": data.result[i].channel.name,
-                            "userName": data.result[i].user.name,
-                            "userID": data.result[i].user.id,
-                            "created_at_modi": data.result[i].created_at_modi
-                        });
-                    }
-                    $("#mainMenuItem").tmpl(valueList).insertAfter("#main .wrap .left .list table tbody tr:last-child");
-                }
-                $("#main .wrap .left .tab li[class="+type+"]").attr('class', 'on');
-            },
-            error: function(err) {
-                console.log(err);
+        $(window).scroll(function() {
+            if($(window).scrollTop() + $(window).height() >= $(document).height()) {
+                loadMoreData(page);
+                page++;
             }
-        })
-    }
+        });
+
+        function loadMoreData(page) {
+            var channelID = "{{ request()->route('channel') }}";
+            var type = $(".tab .on").attr('value');
+
+            $.ajax({
+                url: '/mainmenu',
+                type: 'get',
+                data: {
+                    "page": page,
+                    'type': type,
+                    'channelID': channelID
+                },
+                success: function(data) {
+                    var valueList = [];
+                    // $("#main .wrap .left .list table tbody tr").remove();
+                    if(data.result.length==0) {
+                        // valueList.push("<tr class='none-tr'><td>데이터가 없습니다.</td></tr>");
+                        // var value = "<tr class='none-tr'><td>데이터가 없습니다.</td></tr>";
+                        // $("#main .wrap .left .list table tbody").html(value);
+                        toastr.info("데이터가 없습니다");
+                    } else {
+                        for(var i=0; i<data.result.length; i++) {
+                            valueList.push({
+                                "totalVote": data.result[i].totalVote,
+                                "postID": data.result[i].id,
+                                "postTitle": data.result[i].title,
+                                "commentCount": data.result[i].comments_count,
+                                "postChannelID": data.result[i].channel.id,
+                                "channelName": data.result[i].channel.name,
+                                "userName": data.result[i].user.name,
+                                "userID": data.result[i].user.id,
+                                "created_at_modi": data.result[i].created_at_modi
+                            });
+                        }
+                        $("#mainMenuItem").tmpl(valueList).insertAfter("#main .wrap .left .list table tbody tr:last-child");
+                    }
+                    $("#main .wrap .left .tab li[class="+type+"]").attr('class', 'on');
+                },
+                error: function(err) {
+                    console.log(err);
+                }
+            })
+        }
+    </script>
+@endif
+<script>
     // function loadMoreData(page) {
     //     $.ajax({
     //         url: '?page=' + page,

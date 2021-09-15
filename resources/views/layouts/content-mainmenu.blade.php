@@ -1,4 +1,4 @@
-@section('mainmenu')
+@section('content-mainmenu')
     <ul class="tab_title">
         {{ (isset($channel)) ? $channel->name:'포디엄'  }}
     </ul>

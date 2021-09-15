@@ -1,4 +1,4 @@
-@section('mainmenu')
+@section('content-search')
 <ul class="tab">
     <li value="a" @if($searchType === 'a') class="on" @endif><a href="javascript:search('a')">제목+내용</a></li>
     <li value="t" @if($searchType === 't') class="on" @endif><a href="javascript:search('t')">제목</a></li>
