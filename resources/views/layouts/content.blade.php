@@ -1,25 +1,12 @@
-@section('content')
-    <!-- Modal -->
-    <div class="modal fade" id="open_post_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                {{--            <div class="modal-header">--}}
-                {{--                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>--}}
-                {{--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>--}}
-                {{--            </div>--}}
-                <div class="modal-body">
-                    {{--                @extends('layouts.post')--}}
-{{--                    @extends('layouts.post')--}}
-{{--                    @extends('layouts.comment')--}}
-                </div>
-                {{--            <div class="modal-footer">--}}
-                {{--                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>--}}
-                {{--                <button type="button" class="btn btn-primary">Save changes</button>--}}
-                {{--            </div>--}}
-            </div>
+<!-- Modal -->
+<div class="modal fade" id="open_post_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
         </div>
     </div>
+</div>
 
+@section('content')
 <section id="main">
     <div class="wrap">
 {{--        <article class="advertising"><a href="#"><img src="../img/test.jpg"></a></article>--}}
@@ -71,8 +58,8 @@
                                 </td>
                                 <td>
                                     <div class="title">
-{{--                                        <a href="" data-bs-toggle="modal" data-bs-target="#open_post_modal">--}}
-                                        <a href="javascript:OpenModal({{ $post->id }})">
+                                        <a href="javascript:test({{ $post->id }})" data-bs-toggle="modal" data-bs-post-id="{{ $post->id }}" data-bs-target="#open_post_modal">
+{{--                                        <a href="javascript:OpenModal({{ $post->id }})">--}}
                                             <p>{{ $post->title }}</p>
                                             <span>[{{ $post->comments_count }}]</span>
                                         </a>
@@ -160,27 +147,37 @@
     </script>
 @endif
 <script>
-    // function loadMoreData(page) {
-    //     $.ajax({
-    //         url: '?page=' + page,
-    //         type: "get",
-    //         beforeSend: function() {
-    //             $('.ajax-load').show();
-    //         }
-    //     }).done(function(data) {
-    //
-    //
-    //         if(page == " ") {
-    //             $('.ajax-load').html("No more records found");
-    //             return;
-    //         }
-    //         $('.ajax-load').hide();
-    //         $("#load_data").append(data.html);
-    //
-    //     }).fail(function(jqXHR, ajaxOptions, thrownError) {
-    //         alert('server not responding...');
-    //     });
-    // }
+    var open_post_modal = document.getElementById('open_post_modal')
+    open_post_modal.addEventListener('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        var button = event.relatedTarget;
+        // Extract info from data-bs-* attributes
+        var postID = button.getAttribute('data-bs-post-id');
+        // postID = JSON.parse(post);
+
+        // If necessary, you could initiate an AJAX request here
+        // and then do the updating in a callback.
+        // Update the modal's content.
+        // var modalBody = open_post_modal.querySelector('.modal-content');
+        var modalBody = $(".modal-content");
+        $.ajax({
+            url: '/post/'+postID,
+            type: 'get',
+            // data: {
+            //     'type': type,
+            // },
+            success: function(data) {
+                console.log(modalBody);
+                console.log(data);
+                // modalBody.innerHTML = data;
+                modalBody.html(data);
+            },
+            error: function(err) {
+                console.log(err);
+            }
+        })
+
+    })
 
     $('#main .tab li').click(function(event){
         $('#main .tab li').removeClass('on');
