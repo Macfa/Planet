@@ -184,6 +184,7 @@
         }
     }
     function checkCommentTypeToProcess(form, commentID) {
+        // make it one
         if(form == "add") {
             addComment(form, commentID);
         } else if(form == "edit") {
@@ -211,7 +212,6 @@
             type = "put";
             url = "/comment/" + commentID;
         }
-
         delay(function() {
             $.ajax({
                 url: url,
@@ -244,6 +244,7 @@
                                 $("#replyForm").tmpl(templateValues).insertAfter(".section-title");
                             }
                         }
+                        $(`#post-${data.postID} .commentCount`).val(data.commentCount);
                         if(commentID) {
                             cancleForm('add', commentID);
                         } else {
@@ -301,8 +302,8 @@
         });
     }
     function commentClearVote(id) {
-        $("#comment-"+id+"-downvote").attr("src", "{{ asset('image/downvote.png') }}");
-        $("#comment-"+id+"-upvote").attr("src", "{{ asset('image/upvote.png') }}");
+        $(`#comment-${id}-downvote`).attr("src", "{{ asset('image/downvote.png') }}");
+        $(`#comment-${id}-upvote`).attr("src", "{{ asset('image/upvote.png') }}");
     }
     function commentSelectVote(id, vote) {
         if(vote == 1) {
@@ -345,10 +346,10 @@
                         <li>스탬프</li>
                         <li onclick="checkCommentTypeToAddForm('add', ${id});">댓글</li>
                         <li>
-                            <img onclick="voteLikeInComment(${id}, 1)" id="comment-${$id}-upvote" class="image-sm" alt="" src="{{ asset('image/upvote.png') }}" />
+                            <img onclick="voteLikeInComment(${id}, 1)" id="comment-${id}-upvote" class="image-sm" alt="" src="{{ asset('image/upvote.png') }}" />
                         </li>
                         <li><span class="comment-like">${sumOfVotes}</li>
-                        <li><img onclick="voteLikeInComment(${id}, -1)" id="comment-${$id}-downvote" class="image-sm" alt="" src="{{ asset('image/upvote.png') }}" /></li>
+                        <li><img onclick="voteLikeInComment(${id}, -1)" id="comment-${id}-downvote" class="image-sm" alt="" src="{{ asset('image/upvote.png') }}" /></li>
                     </ul>
                 </div>
             </div>

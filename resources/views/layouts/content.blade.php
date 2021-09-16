@@ -1,11 +1,3 @@
-<!-- Modal -->
-<div class="modal fade" id="open_post_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-        </div>
-    </div>
-</div>
-
 @section('content')
 <section id="main">
     <div class="wrap">
@@ -48,7 +40,7 @@
                             @endif
                         </colgroup>
                         @forelse ($posts as $post)
-                            <tr>
+                            <tr id="post-{{ $post->id }}">
                                 <td>
                                     <!-- 업이면 클래스 up, 다운이면 down -->
                                     <span class="updown up">{{ $post->likes->sum('vote') }}</span>
@@ -58,10 +50,13 @@
                                 </td>
                                 <td>
                                     <div class="title">
-                                        <a href="javascript:test({{ $post->id }})" data-bs-toggle="modal" data-bs-post-id="{{ $post->id }}" data-bs-target="#open_post_modal">
+                                        <a href="" data-bs-toggle="modal" data-bs-post-id="{{ $post->id }}" data-bs-target="#open_post_modal">
 {{--                                        <a href="javascript:OpenModal({{ $post->id }})">--}}
                                             <p>{{ $post->title }}</p>
-                                            <span>[{{ $post->comments_count }}]</span>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                            <span class="titleSub">[<span class="commentCount">{{ $post->comments_count }}</span>]</span>
+
+{{--                                            <span>[{{ $post->comments_count }}]</span>--}}
                                         </a>
                                     </div>
                                     <div class="user">
@@ -167,8 +162,6 @@
             //     'type': type,
             // },
             success: function(data) {
-                console.log(modalBody);
-                console.log(data);
                 // modalBody.innerHTML = data;
                 modalBody.html(data);
             },
@@ -240,6 +233,7 @@
     <td>
         <div class="title">
             <a href="javascript:OpenModal(${postID});">
+            <a href="" data-bs-toggle="modal" data-bs-post-id="${postID}" data-bs-target="#open_post_modal">
                 <p>${postTitle}</p>
                 <span>[${commentCount}]</span>
             </a>
@@ -251,3 +245,4 @@
 {{--<p><span><a href="{{ route('channel.show', $post->channelID) }}">[{{ $post->channel->name }}]</a></span>온 <a href="{{ route('user.show', ${userName}) }}">${userName}</a> / ${created_at_modi}</p></div>--}}
 </script>
 @endsection
+

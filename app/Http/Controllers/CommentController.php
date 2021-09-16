@@ -42,6 +42,8 @@ class CommentController extends Controller
         }
         $id = $request->input('id'); // 그룹 아이디
 
+//        dd($request->input('content'));
+
         if($id == null) {
             // 첫 댓글의 경우
 //            $result = $this->storeFirst($request);
