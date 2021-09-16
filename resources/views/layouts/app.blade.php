@@ -49,8 +49,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css.bak/main/font.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/common/header.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css.bak/main/common.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css.bak/main/layout.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css.bak/main/index.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/main/layout.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/main/index.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css.bak/toastr.min.css') }}">
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -114,6 +114,16 @@
     </div>
     <div class="header-collaps">
         @include('layouts.header-collaps')
+    </div>
+    <div>
+        <!-- Modal -->
+        <div class="modal fade" id="open_post_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                </div>
+            </div>
+        </div>
+
     </div>
     <div>
 
