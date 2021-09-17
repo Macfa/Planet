@@ -120,6 +120,9 @@
 .header_text_align {
     text-align: left;
 }
+.sticky {
+    position: sticky;
+}
 /*@media screen and (max-width: 1276px) {*/
 /*  #header {*/
 /*    width: 1276px;*/

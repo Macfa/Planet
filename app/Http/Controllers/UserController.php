@@ -95,9 +95,11 @@ class UserController extends Controller
     }
 
     public function logout(Request $request) {
-        Auth::logout();
+
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/')->with("로그아웃 되었습니다.");
+        Auth::logout();
+
+        return redirect('/')->with(["msg" => "로그아웃 되었습니다.", "type" => "info"]);
     }
 }

@@ -1,48 +1,46 @@
 @section('info')
-<div class="right">
-    <div class="right_sub">
-        <div class="info">
-            동아리 정보
-            <span style="margin-left: 80px;">
-            @if(auth()->id()==$channel->userID)
-                <button onclick="location.href='{{ route('channel.edit', $channel->id) }}'">수정</button>
-                <button onclick="deleteChannel({{ $channel->id }})">삭제</button>
-            @endif
-            </span>
-        </div>
+<div class="right_sub">
+    <div class="info">
+        동아리 정보
+        <span style="margin-left: 80px;">
+        @if(auth()->id()==$channel->userID)
+            <button onclick="location.href='{{ route('channel.edit', $channel->id) }}'">수정</button>
+            <button onclick="deleteChannel({{ $channel->id }})">삭제</button>
+        @endif
+        </span>
+    </div>
 {{--        {{dd($posts)}}--}}
-        <div class="info_detail">
-            <p class="description">{{ $channel->description }}</p>
-            <div class="flex">
-                <div class="flex_item">
-                    <div class="totalCount">{{ number_format($channel->favorites_count) }}</div>
-                    <p>동아리 인원</p>
-                </div>
-                <div class="flex_item">
-                    <div>{{ date('Y.m.d', strtotime($channel->created_at)) }}</div>
-                    <p>동아리 창단일</p>
-                </div>
+    <div class="info_detail">
+        <p class="description">{{ $channel->description }}</p>
+        <div class="flex">
+            <div class="flex_item">
+                <div class="totalCount">{{ number_format($channel->favorites_count) }}</div>
+                <p>동아리 인원</p>
             </div>
-            <div class="flex">
-                <div class="flex_item">
-                    <div>{{ $channel->user->name }}</div>
-                    <p>관리자</p>
-                </div>
+            <div class="flex_item">
+                <div>{{ date('Y.m.d', strtotime($channel->created_at)) }}</div>
+                <p>동아리 창단일</p>
             </div>
-            @if($channel->userID != auth()->id())
-                <li><a class="d-btn favorite_btn clickable" onclick="addFavorite({{ $channel->id }})">동아리 가입</a></li>
-            @endif
         </div>
+        <div class="flex">
+            <div class="flex_item">
+                <div>{{ $channel->user->name }}</div>
+                <p>관리자</p>
+            </div>
+        </div>
+        @if($channel->userID != auth()->id())
+            <li><a class="d-btn favorite_btn clickable" onclick="addFavorite({{ $channel->id }})">동아리 가입</a></li>
+        @endif
     </div>
-    <div class="link">
-        <p>사람들과 얘기하고 싶었던 주제로 나만의 몽드를 만들어 보세요.</p>
-        <p>어쩌면 마음이 맞는 친구를 찾을지도 모릅니다.</p>
-        <ul>
+</div>
+<div class="link">
+    <p>사람들과 얘기하고 싶었던 주제로 나만의 몽드를 만들어 보세요.</p>
+    <p>어쩌면 마음이 맞는 친구를 찾을지도 모릅니다.</p>
+    <ul>
 
-            <li><a href="{{ route('post.create', ['channelID' => $channel->id]) }}">게시글 작성</a></li>
-            <li><a href="{{ route('channel.create') }}">동아리 만들기</a></li>
-        </ul>
-    </div>
+        <li><a href="{{ route('post.create', ['channelID' => $channel->id]) }}">게시글 작성</a></li>
+        <li><a href="{{ route('channel.create') }}">동아리 만들기</a></li>
+    </ul>
 </div>
 <script>
     function deleteChannel(id) {

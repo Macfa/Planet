@@ -107,9 +107,7 @@
                             </ul>
                         </div>
 
-{{--                                        @extends('layouts.comment')--}}
                     @yield('comment')
-
 
                     <!-- 하단 기능 -->
                         <div class="board-bot-function">

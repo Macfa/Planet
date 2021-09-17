@@ -16,7 +16,7 @@
 
 #main .board_box {
   margin: 30px 0 0;
-  overflow: hidden;
+  overflow: visible;
 }
 
 #main .board_box .left {
@@ -197,11 +197,11 @@ background-color: #3d5afe;
   margin: 0 5px 0 0;
 }
 
-#main .board_box .right {
-  width: 303px;
-  float: right;
-  margin: 0 0 0 22px;
-}
+/*#main .board_box .right {*/
+/*  width: 303px;*/
+/*  float: right;*/
+/*  margin: 0 0 0 22px;*/
+/*}*/
 
 #main .board_box .right .best {
   border: 1px solid #cbc7c7;
