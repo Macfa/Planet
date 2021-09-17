@@ -244,7 +244,7 @@
                                 $("#replyForm").tmpl(templateValues).insertAfter(".section-title");
                             }
                         }
-                        $(`#post-${data.postID} .commentCount`).val(data.commentCount);
+                        $(`#post-${data.postID} .commentCount, #open_post_modal .commentCount`).text(data.commentCount);
                         if(commentID) {
                             cancleForm('add', commentID);
                         } else {
