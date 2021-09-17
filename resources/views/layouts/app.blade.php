@@ -71,6 +71,13 @@
 
 
 <body>
+<!-- Modal -->
+<div style="top: 57px;" class="modal fade" id="open_post_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
 
 <div id="app" class="container-fluid">
     <div id="header" class="row align-items-center">
@@ -112,19 +119,11 @@
             </div>
         </div>
     </div>
+    @auth
     <div class="header-collaps">
         @include('layouts.header-collaps')
     </div>
-    <div>
-        <!-- Modal -->
-        <div class="modal fade" id="open_post_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                </div>
-            </div>
-        </div>
-
-    </div>
+    @endauth
     <div>
 
         @yield('content')

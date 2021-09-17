@@ -52,8 +52,7 @@
                                     <div class="title">
                                         <a href="" data-bs-toggle="modal" data-bs-post-id="{{ $post->id }}" data-bs-target="#open_post_modal">
 {{--                                        <a href="javascript:OpenModal({{ $post->id }})">--}}
-                                            <p>{{ $post->title }}</p>
-                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                            <p>{{ $post->title }}&nbsp;&nbsp;</p>
                                             <span class="titleSub">[<span class="commentCount">{{ $post->comments_count }}</span>]</span>
 
 {{--                                            <span>[{{ $post->comments_count }}]</span>--}}
@@ -154,6 +153,8 @@
         // and then do the updating in a callback.
         // Update the modal's content.
         // var modalBody = open_post_modal.querySelector('.modal-content');
+        // heder
+        // document.getElementById()
         var modalBody = $(".modal-content");
         $.ajax({
             url: '/post/'+postID,
@@ -234,8 +235,8 @@
         <div class="title">
             <a href="javascript:OpenModal(${postID});">
             <a href="" data-bs-toggle="modal" data-bs-post-id="${postID}" data-bs-target="#open_post_modal">
-                <p>${postTitle}</p>
-                <span>[${commentCount}]</span>
+            <p>${postTitle}&nbsp;&nbsp;</p>
+            <span class="titleSub">[<span class="commentCount">${commentCount}</span>]</span>
             </a>
         </div>
         <div class="user">
@@ -245,4 +246,6 @@
 {{--<p><span><a href="{{ route('channel.show', $post->channelID) }}">[{{ $post->channel->name }}]</a></span>온 <a href="{{ route('user.show', ${userName}) }}">${userName}</a> / ${created_at_modi}</p></div>--}}
 </script>
 @endsection
+
+
 

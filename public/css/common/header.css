@@ -105,6 +105,8 @@
     border-bottom: 1px solid #b5b5b5;
     padding: 10px 0 9px;
     position: relative;
+    /*background-color: #FFF;*/
+    /*z-index: 1055;*/
 }
 
 #header h1 {
