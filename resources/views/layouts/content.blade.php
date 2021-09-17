@@ -1,9 +1,9 @@
 @section('content')
 <section id="main">
-    <div class="wrap">
+    <div class="wrap container">
 {{--        <article class="advertising"><a href="#"><img src="../img/test.jpg"></a></article>--}}
-        <article class="board_box">
-            <div class="left">
+        <article class="board_box row">
+            <div class="left col-9">
                 @auth
                     <ul class="category">
                         <div class="category_title">최근 방문한 동아리</div>
@@ -72,6 +72,7 @@
                     </table>
                 </div>
             </div>
+            <div class="right col-3">
             @hasSection('sidebar')
                 @yield('sidebar')
             @endif
@@ -79,6 +80,7 @@
             @hasSection('info')
                 @yield('info')
             @endif
+            </div>
         </article>
     </div>
 </section>
@@ -226,7 +228,7 @@
     }
 </script>
 <script id="mainMenuItem" type="text/x-jquery-tmpl">
-<tr>
+<tr id="post-${postID}">
     <td>
         <span class="updown up">${totalVote}</span>
     </td>

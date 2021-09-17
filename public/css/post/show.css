@@ -426,7 +426,7 @@
   }
 
   /* 하단 기능 */
-  .modal-parent > .modal-wrap > .modal-body > .modal-left > .modal-content > .board-bot-function {
+  .modal-parent > .modal-wrap > .modal-body > .modal-left > .modal-content .board-bot-function {
     display:flex;
     justify-content:space-between;
     align-items:center;
@@ -437,7 +437,7 @@
     /*margin:0 -100px;*/
   }
 
-  .modal-parent > .modal-wrap > .modal-body > .modal-left > .modal-content > .board-bot-function:before {
+  .modal-parent > .modal-wrap > .modal-body > .modal-left > .modal-content .board-bot-function:before {
     content:"";
     display:block;
     position:absolute;
@@ -449,7 +449,7 @@
     top:0;
   }
 
-  .modal-parent > .modal-wrap > .modal-body > .modal-left > .modal-content > .board-bot-function:after {
+  .modal-parent > .modal-wrap > .modal-body > .modal-left > .modal-content .board-bot-function:after {
     content:"";
     display:block;
     position:absolute;
@@ -461,21 +461,21 @@
     top:100%;
   }
 
-  .modal-parent > .modal-wrap > .modal-body > .modal-left > .modal-content > .board-bot-function > .left-function {
+  .modal-parent > .modal-wrap > .modal-body > .modal-left > .modal-content .board-bot-function > .left-function {
     display:flex;
     align-items:center;
   }
 
-  .modal-parent > .modal-wrap > .modal-body > .modal-left > .modal-content > .board-bot-function > .left-function > .page-arrow {
+  .modal-parent > .modal-wrap > .modal-body > .modal-left > .modal-content .board-bot-function > .left-function > .page-arrow {
     display:flex;
     align-items:center;
   }
 
-  .modal-parent > .modal-wrap > .modal-body > .modal-left > .modal-content > .board-bot-function > .left-function > * {
+  .modal-parent > .modal-wrap > .modal-body > .modal-left > .modal-content .board-bot-function > .left-function > * {
     margin:0 3px;
   }
 
-  .modal-parent > .modal-wrap > .modal-body > .modal-left > .modal-content > .board-bot-function > .right-function {
+  .modal-parent > .modal-wrap > .modal-body > .modal-left > .modal-contents .board-bot-function > .right-function {
     display:flex;
     align-items:center;
   }

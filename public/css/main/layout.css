@@ -188,11 +188,11 @@ input:focus {
   margin: 0 5px 0 0;
 }
 
-#app .board_box .right {
-  width: 303px;
-  float: right;
-  margin: 0 0 0 22px;
-}
+/*#app .board_box .right {*/
+/*  width: 303px;*/
+/*  float: right;*/
+/*  margin: 0 0 0 22px;*/
+/*}*/
 
 #app .board_box .right .best {
   border: 1px solid #cbc7c7;
