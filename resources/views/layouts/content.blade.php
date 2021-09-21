@@ -219,6 +219,7 @@
                     }
                     $("#mainMenuItem").tmpl(valueList).appendTo("#main .wrap .left .list table tbody");
                 }
+                page = 1;
                 $("#main .wrap .left .tab li[class="+type+"]").attr('class', 'on');
             },
             error: function(err) {

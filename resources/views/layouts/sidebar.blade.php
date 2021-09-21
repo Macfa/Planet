@@ -12,7 +12,7 @@
 {{--            <li><a href="#"><span class="up">111</span><p>아프리카tv</p></a></li>--}}
     </ol>
 </div>
-<div class="link sticky top-0">
+<div class="link sidebar-sticky">
     <p>사람들과 얘기하고 싶었던 주제로 나만의 몽드를 만들어 보세요.</p>
     <p>어쩌면 마음이 맞는 친구를 찾을지도 모릅니다.</p>
     <ul>

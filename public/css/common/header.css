@@ -104,9 +104,13 @@
     overflow: hidden;
     border-bottom: 1px solid #b5b5b5;
     padding: 10px 0 9px;
-    position: relative;
+    position: sticky;
+    top: 0px;
+    right: 0px;
+    left: 0px;
     /*background-color: #FFF;*/
     /*z-index: 1055;*/
+    background: rgba(252, 252, 252, 1) !important;
 }
 
 #header h1 {
@@ -121,7 +125,16 @@
     text-align: left;
 }
 .sticky {
-    position: sticky;
+    /*position: sticky !important;*/
+}
+.bottom-20 {
+    bottom: 20px;
+}
+.bottom-30 {
+    bottom: 30px;
+}
+.bottom-10 {
+    bottom: 10px;
 }
 /*@media screen and (max-width: 1276px) {*/
 /*  #header {*/

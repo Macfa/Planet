@@ -110,38 +110,38 @@
                     @yield('comment')
 
                     <!-- 하단 기능 -->
-                        <div class="board-bot-function">
-                            <div class="left-function">
-                                <div class="page-arrow">
-                                    <img onclick="voteLikeInPost({{ $post->id }},1)" id="post-upvote-fix" class="image-m" alt="위로"
-                                         @if($post->existPostLike == 1)
-                                             src="{{ asset('image/upvote_c.png') }}" />
-                                        @else
-                                            src="{{ asset('image/upvote.png') }}" />
-                                        @endif
-                                    <span class="post-like">{{ $post->likes->sum('vote') }}</span>
-                                    <img onclick="voteLikeInPost({{ $post->id }},-1)" id="post-downvote-fix" class="image-m" alt="아래로"
-                                         @if($post->existPostLike == -1)
-                                             src="{{ asset('image/downvote_c.png') }}" />
-                                        @else
-                                            src="{{ asset('image/downvote.png') }}" />
-                                        @endif
-                                </div>
+{{--                        <div class="board-bot-function">--}}
+{{--                            <div class="left-function">--}}
+{{--                                <div class="page-arrow">--}}
+{{--                                    <img onclick="voteLikeInPost({{ $post->id }},1)" id="post-upvote-fix" class="image-m" alt="위로"--}}
+{{--                                         @if($post->existPostLike == 1)--}}
+{{--                                             src="{{ asset('image/upvote_c.png') }}" />--}}
+{{--                                        @else--}}
+{{--                                            src="{{ asset('image/upvote.png') }}" />--}}
+{{--                                        @endif--}}
+{{--                                    <span class="post-like">{{ $post->likes->sum('vote') }}</span>--}}
+{{--                                    <img onclick="voteLikeInPost({{ $post->id }},-1)" id="post-downvote-fix" class="image-m" alt="아래로"--}}
+{{--                                         @if($post->existPostLike == -1)--}}
+{{--                                             src="{{ asset('image/downvote_c.png') }}" />--}}
+{{--                                        @else--}}
+{{--                                            src="{{ asset('image/downvote.png') }}" />--}}
+{{--                                        @endif--}}
+{{--                                </div>--}}
 
-                                <img alt="stamp" class="stamp-image image-m" src="{{ asset('image/stamp.png') }}"/>
-                                <img class="favorit-image image-m clickable" id="post-scrap" onclick="scrapPost({{ $post->id }})" alt="favorit"
-                                     @if($post->postScrap == 1)
-                                         src="{{ asset('image/scrap_c.png') }}" />
-                                    @else
-                                        src="{{ asset('image/scrap.png') }}" />
-                                    @endif
-                                <img src="{{ asset('image/message.png') }}" alt="message" class="message-image">
-                            </div>
+{{--                                <img alt="stamp" class="stamp-image image-m" src="{{ asset('image/stamp.png') }}"/>--}}
+{{--                                <img class="favorit-image image-m clickable" id="post-scrap" onclick="scrapPost({{ $post->id }})" alt="favorit"--}}
+{{--                                     @if($post->postScrap == 1)--}}
+{{--                                         src="{{ asset('image/scrap_c.png') }}" />--}}
+{{--                                    @else--}}
+{{--                                        src="{{ asset('image/scrap.png') }}" />--}}
+{{--                                    @endif--}}
+{{--                                <img src="{{ asset('image/message.png') }}" alt="message" class="message-image">--}}
+{{--                            </div>--}}
 
-                            <div class="right-function">
-                                <img src="{{ asset('image/message.png') }}" alt="message" class="message-image">
-                            </div>
-                        </div>
+{{--                            <div class="right-function">--}}
+{{--                                <img src="{{ asset('image/message.png') }}" alt="message" class="message-image">--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
 
                     <!-- 오른쪽 광고배너 -->
 {{--                        <div class="modal-right">--}}
