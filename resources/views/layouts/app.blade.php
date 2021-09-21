@@ -72,15 +72,31 @@
 
 <body>
 <!-- Modal -->
-<div style="top: 57px;" class="modal fade" id="open_post_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div style="top: 57px; height: 95%;" class="modal fade" id="open_post_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
         </div>
     </div>
 </div>
 
+{{-- This Section must be delete. it's code for test noti--}}
+{{--    <a href="{{ route('test.noti') }}">--}}
+{{--<div style="height:58px;">--}}
+{{--    test for noti--}}
+{{--</div>--}}
+{{--    </a>--}}
+
+{{--<a href="{{ route('test.noti2') }}">--}}
+{{--    <div style="height:58px;">--}}
+{{--        get noti--}}
+{{--        @if(Session::has('data'))--}}
+{{--            <div>{{ Session::get('data') }}</div>--}}
+{{--            @endif--}}
+{{--    </div>--}}
+{{--</a>--}}
+
 <div id="app" class="container-fluid">
-    <div id="header" class="row align-items-center">
+    <div class="row align-items-center" id="header">
         <div class="col-md-1"><a href="/"><img src="{{ asset('image/logo.png') }}"></a></div>
         <div class="cst-input-form col-md-4 container">
             <form class="row align-items-center" name="mainSearchForm" id="mainSearchForm" action="{{ route('home.search') }}" method="get">
@@ -113,7 +129,7 @@
 
 {{--                    <li class="header_icon"><a href="{{ route('user.show', auth()->id()) }}" class="btn btn-primary" data-bs-toggle="collapse" href="#header-mypage" role="button" aria-expanded="false" aria-controls="header-mypage"><img src="{{ asset('image/mypage_4x.png') }}" alt="mypage" /></a></li>--}}
 
-                    <li class="header_icon header_icon_clickable"><img src="{{ asset('image/noti_4x.png') }}" alt="noti" /></li>
+                    <li class="header_icon header_icon_clickable"><a class="" data-bs-toggle="collapse" href="#header-noti" role="button" aria-expanded="false" aria-controls="header-noti"><img src="{{ asset('image/noti_4x.png') }}" alt="noti" /></li></a>
                     <li class="header_icon header_icon_clickable"><a class="" data-bs-toggle="collapse" href="#header-list" role="button" aria-expanded="false" aria-controls="header-list"><img src="{{ asset('image/list_4x.png') }}" alt="list" /></a></li>
                 @endauth
             </div>

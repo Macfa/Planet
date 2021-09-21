@@ -23,6 +23,8 @@ use Illuminate\Support\Facades\Route;
 // should be deleted route
 Route::get('/test', [HomeController::class, 'test']);
 Route::get('/test2', [HomeController::class, 'test2']);
+Route::get('/noti', [\App\Http\Controllers\NoticeNotiController::class, 'test'])->name('test.noti');
+Route::get('/noti2', [\App\Http\Controllers\NoticeNotiController::class, 'test_2'])->name('test.noti2');
 
 // Main's route
 Route::get('/', [HomeController::class, 'index'])->name('home');

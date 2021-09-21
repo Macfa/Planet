@@ -13,7 +13,7 @@ class Comment extends Model
     protected $guarded = [];
 
     public function post() {
-        return $this->belongsTo(Post::class);
+        return $this->belongsTo(Post::class, 'postID', 'id');
     }
     public function user() {
         return $this->belongsTo(User::class, 'userID', 'id');
