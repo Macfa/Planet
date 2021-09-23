@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Channel;
 use App\Models\Coin;
 use App\Models\CoinType;
 use App\Models\Favorite;
@@ -145,6 +146,21 @@ class HomeController extends Controller
         $visits = $visit->showHistory();
 
         return view('main.search', compact('posts', 'visits', 'searchType'));
+    }
+
+    public function searchHelper(Request $request) {
+        $searchText = $request->input('searchText');
+
+        $matched = preg_match('/^\#/', $searchText);
+        $toSearchText = '%'.$searchText.'%';
+
+        if($matched)
+        $expectChannel = Channel::where('name', 'like', $toSearchText)
+            ->limit(5)
+            ->select('image', 'name', 'id')
+            ->get();
+
+        return $expectChannel;
     }
 
     public function test() {

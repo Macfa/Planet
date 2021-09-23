@@ -182,7 +182,7 @@
     function OpenModal(id) {
         window.open('/post/'+id);
     }
-    function search(type) {
+    function getSearchCategory(type) {
         $("#searchType").val(type);
         $("#mainSearchForm").submit();
     }

@@ -29,6 +29,7 @@ Route::get('/noti2', [\App\Http\Controllers\NoticeNotiController::class, 'test_2
 // Main's route
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/search', [HomeController::class, 'search'])->name('home.search');
+Route::get('/searchHelper', [HomeController::class, 'searchHelper'])->name('home.search.helper');
 Route::get('/sidebar', [HomeController::class, 'sidebar'])->name('home.sidebar');
 Route::get('/mainmenu', [HomeController::class, 'mainmenu'])->name('home.mainmenu');
 

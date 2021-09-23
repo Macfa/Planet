@@ -44,7 +44,6 @@
     background-position: 10px center;
     background-repeat: no-repeat;
 }
-
 #header .cst-icon-list .header_icon {
     width: max-content;
 }
@@ -101,7 +100,7 @@
 
 /* 헤더 */
 #header {
-    overflow: hidden;
+    /*overflow: hidden;*/
     border-bottom: 1px solid #b5b5b5;
     padding: 10px 0 9px;
     position: sticky;
