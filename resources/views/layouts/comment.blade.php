@@ -97,7 +97,8 @@
         <p>No users</p>
 @endforelse
         <!-- 하단 기능 Comment -->
-        <div class="board-bot-function" style="position: sticky; bottom:10px;  background: rgba(252, 252, 252, 1) !important;">
+{{--        <div class="board-bot-function" style="position: sticky; bottom:10px;  background: rgba(252, 252, 252, 1) !important;">--}}
+        <div class="board-bot-function">
             <div class="left-function">
                 <div class="page-arrow">
                     <img onclick="voteLikeInPost({{ $post->id }},1)" id="post-upvote-fix" class="image-m" alt="위로"

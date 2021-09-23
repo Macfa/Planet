@@ -27,3 +27,7 @@
     </div>
 </div>
 {{--@endsection--}}
+
+<div class="list-group" id="header-search" style="position:fixed; left:10%; top:6.5%; width:30%">
+{{--    <a href="{{ route('user.logout') }}" class="list-group-item list-group-item-action">로그아웃</a>--}}
+</div>

@@ -185,6 +185,18 @@
             </div>
             {{--    <script src="{{ asset('js/editorShow.js') }}"></script>--}}
             <script>
+                $("#open_post_modal").scroll(function() {
+                    // if($(window).height() - $("#open_post_modal").scrollTop() <= $("#post").offset().top) {
+                    console.log("scroll value : "+$("#open_post_modal").scrollTop() );
+                    console.log("pageY offset : "+window.pageYOffset);
+                    console.log("post top offset : "+$("#post").get(0).getBoundingClientRect().bottom);
+                    console.log("\n\n");
+                    if($("#open_post_modal").scrollTop() >= $("#post").get(0).getBoundingClientRect().top) {
+                        // loadMoreData(page);
+                        // page++;
+                        // alert('1');
+                    }
+                });
 
                 document.querySelectorAll( 'oembed[url]' ).forEach( element => {
                     // Create the <a href="..." class="embedly-card"></a> element that Embedly uses

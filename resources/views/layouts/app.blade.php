@@ -101,7 +101,14 @@
         <div class="cst-input-form col-md-4 container">
             <form class="row align-items-center" name="mainSearchForm" id="mainSearchForm" action="{{ route('home.search') }}" method="get">
                 {{-- @csrf --}}
-                <input type="text" name="searchText" placeholder="검색..." value="{{ Request::input('searchText') }}">
+                <input type="text" name="searchText" onkeydown="searchingCallback(this);" placeholder="검색..." value="{{ Request::input('searchText') }}">
+{{--                <div id="searchRecomment">--}}
+{{--                    <div>--}}
+{{--                        <a href="" class="list-group-item list-group-item-action">Some</a>--}}
+{{--                        <a href="" class="list-group-item list-group-item-action">Some</a>--}}
+{{--                        <a href="" class="list-group-item list-group-item-action">Some</a>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
                 <input type="hidden" name="searchType" id="searchType" value="a">
                 <button type="submit"></button>
             </form>
@@ -147,6 +154,62 @@
 </div>
 
 <script>
+    var timer = null;
+    function searchingCallback() {
+        // var timer = null;
+
+        if (timer) {
+            window.clearTimeout(timer);
+        }
+        timer = window.setTimeout( function() {
+            timer = null;
+            search();
+        }, 600 );
+    }
+
+    function search() {
+        var obj = $("input[name=searchText]");
+        var word = obj.val();
+        // var word = encodeURI(word);
+        // return;
+        $.ajax({
+            type: "get",
+            url: "/searchHelper",
+            data: {
+                'searchText': word
+            },
+            success: function(data) {
+                var elementToPlace = $("#header-search");
+                var dataToAppend = [];
+
+                elementToPlace.children().remove();
+                console.log(data);
+                if(data === null) {
+                    // pass
+                    // dataToAppend.push('<a href="" class="list-group-item list-group-item-action">검색</a>');
+                } else {
+                    $.each(data, function(idx,val) {
+                        dataToAppend.push('<a href="/channel/'+val['id']+'" class="list-group-item list-group-item-action">'+val['name']+'</a>');
+                    });
+                }
+                elementToPlace.append(dataToAppend);
+
+                {{--if(data.result=='created') {--}}
+                {{--    var url = '{{ route('channel.show', ":id") }}';--}}
+                {{--    url = url.replace(':id', data.channelID);--}}
+                {{--    $('.category').append('<li class="channel_'+data.channel.id+'"><a href="'+url+'">'+data.channel.name+'</a></li>');--}}
+                {{--    $('.totalCount').text(data.totalCount);--}}
+                {{--} else if(data.result=='deleted') {--}}
+                {{--    $('.category li.channel_'+data.id).remove();--}}
+                {{--    $('.totalCount').text(data.totalCount);--}}
+                {{--}--}}
+            },
+            error: function(err) {
+                // console.log(err);
+            }
+        })
+    }
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
