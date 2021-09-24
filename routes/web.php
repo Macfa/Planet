@@ -13,6 +13,7 @@
 
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\EditorsController;
+use App\Http\Controllers\MobileHomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\LoginController;
