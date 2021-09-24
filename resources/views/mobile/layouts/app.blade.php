@@ -95,6 +95,7 @@
 {{--</a>--}}
 
 <div id="app" class="container-fluid">
+    모바일
     <div style="width: 1276px;" class="row align-items-center" id="header">
         <div class="col-1"><a href="/"><img src="{{ asset('image/logo.png') }}"></a></div>
         <div class="cst-input-form col-4 container">
