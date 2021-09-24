@@ -184,14 +184,21 @@
 
                 elementToPlace.children().remove();
                 console.log(data);
-                if(data === null) {
+                if(data['list'] === null) {
                     // pass
                     // dataToAppend.push('<a href="" class="list-group-item list-group-item-action">검색</a>');
                 } else {
-                    $.each(data, function(idx,val) {
-                        dataToAppend.push('<a href="/channel/'+val['id']+'" class="list-group-item list-group-item-action">'+val['name']+'</a>');
+                    $.each(data['list'], function(idx,val) {
+                        console.log(val);
+                        console.log(idx);
+                        if(data['type'] == "channel") {
+                            dataToAppend.push('<a href="/channel/'+val['id']+'" class="list-group-item list-group-item-action">'+val['name']+'</a>');
+                        } else if(data['type'] == "post") {
+                            dataToAppend.push('<a href="/post/'+val['id']+'" class="list-group-item list-group-item-action">'+val['title']+'</a>');
+                        }
                     });
                 }
+                console.log(dataToAppend);
                 elementToPlace.append(dataToAppend);
 
                 {{--if(data.result=='created') {--}}

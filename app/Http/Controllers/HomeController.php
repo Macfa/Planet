@@ -150,17 +150,30 @@ class HomeController extends Controller
 
     public function searchHelper(Request $request) {
         $searchText = $request->input('searchText');
+        $matched = substr($searchText, 0, 1);
 
-        $matched = preg_match('/^\#/', $searchText);
-        $toSearchText = '%'.$searchText.'%';
+        if($matched == "#") {
+            // 키워드를 포함하는 동아리 검색
+            $tempSearchText = substr($searchText, 1);
+            $toSearchText = '%'.$tempSearchText.'%';
 
-        if($matched)
-        $expectChannel = Channel::where('name', 'like', $toSearchText)
-            ->limit(5)
-            ->select('image', 'name', 'id')
-            ->get();
+            $expectChannel = Channel::where('name', 'like', $toSearchText)
+                ->limit(5)
+                ->select('image', 'name', 'id')
+                ->get();
+            $type = "channel";
+        } else {
+            // 키워드 없는 게시글 검색.
+            $toSearchText = '%'.$searchText.'%';
 
-        return $expectChannel;
+            $expectChannel = Post::where('title', 'like', $toSearchText)
+                ->limit(5)
+                ->select('title', 'id')
+                ->get();
+            $type = "post";
+        }
+
+        return ["list" => $expectChannel, "type" => $type];
     }
 
     public function test() {
