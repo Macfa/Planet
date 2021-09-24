@@ -65,5 +65,5 @@ Route::get('oauth/{driver}/callback', [LoginController::class, 'handleProviderCa
 Route::post('/api/upload', [EditorsController::class, 'upload'])->name('ck.upload');
 
 Route::domain('m.lanet.co.kr')->group(function () {
-    Route::get('/', [MobileHomeController::class, 'index'])->name('home');
+    Route::get('/', [MobileHomeController::class, 'index'])->name('mobile.home');
 });

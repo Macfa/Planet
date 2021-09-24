@@ -114,6 +114,7 @@
         </div>
         <div class="cst-icon-list col-7 container">
             <div class="row justify-content-end">
+                모바일 이다 !!
                 @guest
                     <li class="login"><a href="{{ route('social.oauth', 'google') }}">로그인</a></li>
                 @endguest
