@@ -1,8 +1,8 @@
 @charset "UTF-8";
 /* 공통 */
 .wrap {
-  width: 1276px;
-  margin: 0 auto;
+  /*width: 1276px;*/
+  /*margin: 0 auto;*/
 }
 
 input:focus {
@@ -517,7 +517,7 @@ Custom
 Done
 */
 @media screen and (max-width: 1440px) {
-  .wrap {
-    width: 1276px;
-  }
+  /*.wrap {*/
+  /*  width: 1276px;*/
+  /*}*/
 }
