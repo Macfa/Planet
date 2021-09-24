@@ -21,6 +21,9 @@ use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
+Route::domain('m.lanet.co.kr')->group(function () {
+    Route::get('/', [MobileHomeController::class, 'index'])->name('mobile.home');
+});
 
 // should be deleted route
 Route::get('/test', [HomeController::class, 'test']);
@@ -63,7 +66,3 @@ Route::get('oauth/{driver}/callback', [LoginController::class, 'handleProviderCa
 
 // it must be change api sections
 Route::post('/api/upload', [EditorsController::class, 'upload'])->name('ck.upload');
-
-Route::domain('m.lanet.co.kr')->group(function () {
-    Route::get('/', [MobileHomeController::class, 'index'])->name('mobile.home');
-});
