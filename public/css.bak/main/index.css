@@ -325,8 +325,8 @@ textarea[name=content]:focus {
     font-size: 20px;
 }
 
-@media screen and (max-width: 1440px) {
-  .wrap {
-    width: 1276px;
-  }
-}
+/*@media screen and (max-width: 1440px) {*/
+/*  .wrap {*/
+/*    width: 1276px;*/
+/*  }*/
+/*}*/

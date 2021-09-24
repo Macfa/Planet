@@ -2,6 +2,7 @@
 <section id="main">
     <div class="wrap container">
 {{--        <article class="advertising"><a href="#"><img src="../img/test.jpg"></a></article>--}}
+{{--        <article class="board_box">--}}
         <article class="board_box row">
             <div class="left col-9">
                 @auth

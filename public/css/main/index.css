@@ -19,10 +19,10 @@
   overflow: visible;
 }
 
-#main .board_box .left {
-  float: left;
-  width: calc(100% - 325px);
-}
+/*#main .board_box .left {*/
+/*  float: left;*/
+/*  width: calc(100% - 325px);*/
+/*}*/
 
 #main .board_box .left ul.category {
   overflow: hidden;
@@ -336,8 +336,8 @@ textarea[name=content]:focus {
     top: 80px;
 }
 
-@media screen and (max-width: 1440px) {
-  .wrap {
-    width: 1276px;
-  }
-}
+/*@media screen and (max-width: 1440px) {*/
+/*  .wrap {*/
+/*    width: 1276px;*/
+/*  }*/
+/*}*/
