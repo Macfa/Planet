@@ -1,4 +1,4 @@
-@section('content')
+@section('mobile.content')
 <section id="main">
     <div class="wrap container">
 {{--        <article class="advertising"><a href="#"><img src="../img/test.jpg"></a></article>--}}

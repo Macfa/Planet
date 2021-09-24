@@ -95,7 +95,6 @@
 {{--</a>--}}
 
 <div id="app" class="container-fluid">
-    모바일
     <div style="width: 1276px;" class="row align-items-center" id="header">
         <div class="col-1"><a href="/"><img src="{{ asset('image/logo.png') }}"></a></div>
         <div class="cst-input-form col-4 container">
@@ -115,6 +114,7 @@
         </div>
         <div class="cst-icon-list col-7 container">
             <div class="row justify-content-end">
+                모바일 이다 !!
                 @guest
                     <li class="login"><a href="{{ route('social.oauth', 'google') }}">로그인</a></li>
                 @endguest
@@ -144,12 +144,12 @@
     </div>
     @auth
     <div class="header-collaps">
-        @include('layouts.header-collaps')
+        @include('mobile.layouts.header-collaps')
     </div>
     @endauth
     <div>
 
-        @yield('content')
+        @yield('mobile.content')
     </div>
 </div>
 

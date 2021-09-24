@@ -10,6 +10,7 @@ class MobileHomeController extends Controller
 {
     public function index()
     {
+//        dd(1);
         $posts = Post::withCount('comments')
             ->with('channel')
             ->with('user')
