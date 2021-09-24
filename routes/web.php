@@ -20,6 +20,7 @@ use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
+
 // should be deleted route
 Route::get('/test', [HomeController::class, 'test']);
 Route::get('/test2', [HomeController::class, 'test2']);
