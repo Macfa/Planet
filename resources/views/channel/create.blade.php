@@ -1,4 +1,4 @@
-@include('layouts.app')
+{{--@include('layouts.app')--}}
 
 <link rel="stylesheet" type="text/css" href="{{ asset('css/channel/create.css') }}">
 <section id="channel">

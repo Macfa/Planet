@@ -1,8 +1,9 @@
 @charset "UTF-8";
 /* 공통 */
 .wrap {
-  /*width: 1276px;*/
-  /*margin: 0 auto;*/
+  width: 1276px;
+  margin: 0 auto;
+    max-width: none !important;
 }
 
 input:focus {
@@ -32,10 +33,10 @@ input:focus {
   overflow: hidden;
 }
 
-#app .board_box .left {
-  float: left;
-  width: calc(100% - 325px);
-}
+/*#app .board_box .left {*/
+/*  float: left;*/
+/*  width: calc(100% - 325px);*/
+/*}*/
 
 #app .board_box .left ul.category {
   overflow: hidden;
@@ -516,8 +517,8 @@ Custom
 /*
 Done
 */
-@media screen and (max-width: 1440px) {
+/*@media screen and (max-width: 1440px) {*/
   /*.wrap {*/
   /*  width: 1276px;*/
   /*}*/
-}
+/*}*/
