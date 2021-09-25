@@ -71,8 +71,8 @@
 
 <body>
 <!-- Modal -->
-<div style="top: 57px; height: 95%;" class="modal fade" id="open_post_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+<div class="modal fade" id="open_post_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div style="top: 53px; margin-top: 0px;" class="modal-dialog modal-xl">
         <div class="modal-content">
         </div>
     </div>
@@ -95,7 +95,7 @@
 {{--</a>--}}
 
 <div id="app" class="container-fluid">
-    <div style="width: 1276px;" class="row align-items-center" id="header">
+    <div style="z-index: 1055; width: 1276px;" class="row align-items-center" id="header">
         <div class="col-1"><a href="/"><img src="{{ asset('image/logo.png') }}"></a></div>
         <div class="cst-input-form col-4 container">
             <form class="row align-items-center" name="mainSearchForm" id="mainSearchForm" action="{{ route('home.search') }}" method="get">
@@ -153,6 +153,14 @@
 </div>
 
 <script>
+    $(document).ready(function () {
+        $('#open_post_modal').on('show.bs.modal', function() {
+            $(document).off('focusin.modal');
+        });
+        $('#open_post_modal').on('shown.bs.modal', function() {
+            $(document).off('focusin.modal');
+        });
+    });
     var timer = null;
     function searchingCallback() {
         // var timer = null;

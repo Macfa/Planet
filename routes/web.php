@@ -25,6 +25,10 @@ Route::domain('m.lanet.co.kr')->group(function () {
     Route::get('/', [MobileHomeController::class, 'index'])->name('mobile.home');
 });
 
+Route::domain('m.localhost')->group(function () {
+    Route::get('/', [MobileHomeController::class, 'index'])->name('mobile.home');
+});
+
 // should be deleted route
 Route::get('/test', [HomeController::class, 'test']);
 Route::get('/test2', [HomeController::class, 'test2']);
