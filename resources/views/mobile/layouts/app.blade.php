@@ -94,10 +94,10 @@
 {{--    </div>--}}
 {{--</a>--}}
 
-<div id="app" class="container-fluid">
-    <div style="width: 1276px;" class="row align-items-center" id="header">
-        <div class="col-1"><a href="/"><img src="{{ asset('image/logo.png') }}"></a></div>
-        <div class="cst-input-form col-4 container">
+<div id="app" class="container-fluid" style="padding: 0;">
+    <div class="row align-items-center" id="header">
+        <div class="col-2"><a href="/"><img src="{{ asset('image/logo.png') }}"></a></div>
+        <div class="cst-input-form col-3 container">
             <form class="row align-items-center" name="mainSearchForm" id="mainSearchForm" action="{{ route('home.search') }}" method="get">
                 {{-- @csrf --}}
                 <input type="text" name="searchText" onkeydown="searchingCallback(this);" placeholder="검색..." value="{{ Request::input('searchText') }}">
@@ -112,11 +112,11 @@
                 <button type="submit"></button>
             </form>
         </div>
-        <div class="cst-icon-list col-7 container">
+        <div class="cst-icon-list col-1 container">
             <div class="row justify-content-end">
-                모바일 이다 !!
                 @guest
-                    <li class="login"><a href="{{ route('social.oauth', 'google') }}">로그인</a></li>
+{{--                    <li class="header_icon"><a href="{{ route('social.oauth', 'google') }}"><img src="{{ asset('image/coin_4x.png') }}" alt="coin" /></a></li>--}}
+                    <li style="padding: 0;" class="header_icon header_icon_clickable"><a href="{{ route('social.oauth', 'google') }}"><img src="{{ asset('image/home_4x.png') }}" alt="home" /></a></li>
                 @endguest
                 @auth
                     <li class="header_icon"><img src="{{ Auth::user()->avatar }}" alt="img" /></li>

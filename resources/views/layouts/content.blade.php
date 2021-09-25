@@ -51,7 +51,7 @@
                                 </td>
                                 <td>
                                     <div class="title">
-                                        <a href="" data-bs-toggle="modal" data-bs-post-id="{{ $post->id }}" data-bs-target="#open_post_modal">
+                                        <a href="" data-bs-toggle="modal" data-bs-focus="false" data-bs-post-id="{{ $post->id }}" data-bs-target="#open_post_modal">
 {{--                                        <a href="javascript:OpenModal({{ $post->id }})">--}}
                                             <p>{{ $post->title }}&nbsp;&nbsp;</p>
                                             <span class="titleSub">[<span class="commentCount">{{ $post->comments_count }}</span>]</span>
@@ -144,6 +144,7 @@
     </script>
 @endif
 <script>
+
     var open_post_modal = document.getElementById('open_post_modal')
     open_post_modal.addEventListener('show.bs.modal', function (event) {
         // Button that triggered the modal

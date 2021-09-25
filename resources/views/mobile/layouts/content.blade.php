@@ -1,10 +1,10 @@
 @section('mobile.content')
 <section id="main">
-    <div class="wrap container">
+    <div style="padding: 0;" class="container">
 {{--        <article class="advertising"><a href="#"><img src="../img/test.jpg"></a></article>--}}
 {{--        <article class="board_box">--}}
         <article class="board_box row">
-            <div class="left col-9">
+            <div style="padding: 0;" class="left col-12">
                 @auth
                     <ul class="category">
                         <div class="category_title">최근 방문한 동아리</div>
@@ -73,15 +73,15 @@
                     </table>
                 </div>
             </div>
-            <div class="right col-3">
-            @hasSection('sidebar')
-                @yield('sidebar')
-            @endif
+{{--            <div class="right col-3">--}}
+{{--            @hasSection('sidebar')--}}
+{{--                @yield('sidebar')--}}
+{{--            @endif--}}
 
-            @hasSection('info')
-                @yield('info')
-            @endif
-            </div>
+{{--            @hasSection('info')--}}
+{{--                @yield('info')--}}
+{{--            @endif--}}
+{{--            </div>--}}
         </article>
     </div>
 </section>
