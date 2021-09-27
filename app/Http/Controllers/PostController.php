@@ -33,7 +33,7 @@ class PostController extends Controller
     public function create(Request $request)
     {
         $fromChannelID = $request->input('channelID');
-        $channels = Channel::get();
+        $channels = Channel::ownChannel()->get();
 
         return view('post.create', compact('channels', 'fromChannelID'));
     }

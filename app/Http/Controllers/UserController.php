@@ -95,11 +95,10 @@ class UserController extends Controller
     }
 
     public function logout(Request $request) {
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+//        Auth::logoutOtherDevices("4", 'id');
+//        $request->session()->invalidate();
+//        $request->session()->regenerateToken();
         Auth::logout();
-
-
         return redirect('/')->with(["msg" => "로그아웃 되었습니다.", "type" => "info"]);
     }
 }

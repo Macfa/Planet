@@ -1,0 +1,18 @@
+.flex-container {
+    display: flex;
+}
+.inline-flex-container {
+    display: inline-flex;
+}
+.flex-justify-space-between {
+    justify-content: space-between;
+}
+.flex-justify-content-flex-end {
+    justify-content: flex-end;
+}
+.align-items-center {
+    align-items: center;
+}
+.flex-wrap-nowrap {
+    flex-wrap: nowrap;
+}

@@ -27,4 +27,8 @@ class Channel extends Model
     public function reports() {
         return $this->morphMany(Report::class, 'reportable');
     }
+    public function scopeOwnChannel($query)
+    {
+        return $query->where('userID', auth()->id());
+    }
 }

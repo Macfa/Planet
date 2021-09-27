@@ -1,82 +1,76 @@
 @charset "UTF-8";
 
 /* Header */
+.header-sections {
+    padding: 0 10px;
+}
 #app {
     margin: 0;
 }
-#header .cst-input-form {
-    /*transform: translate(0, -50%);*/
-}
-#header .cst-input-form {
-    /*position: absolute;*/
-    /*!*top: 50%;*!*/
-    /*left: 153px;*/
-    /*transform: translate(0, -50%);*/
-}
-
-#header .cst-input-form input[type=text] {
+#header .header-section-search input[type=text] {
     border: 1px solid #cbc7c7;
     border-radius: 15px;
     width: 100%;
     height: 33px;
-    line-height: 33px;
+    /*line-height: 33px;*/
     font-size: 14px;
     padding: 0 0 0 31px;
     box-sizing: border-box;
 }
 
-#header .cst-input-form input[type=text]::-moz-placeholder {
+#header .header-section-search input[type=text]::-moz-placeholder {
     color: #cbc7c7;
 }
 
-#header .cst-input-form input[type=text]:-ms-input-placeholder {
+#header .header-section-search input[type=text]:-ms-input-placeholder {
     color: #cbc7c7;
 }
 
-#header .cst-input-form input[type=text]::placeholder {
+#header .header-section-search input[type=text]::placeholder {
     color: #cbc7c7;
 }
 
-#header .cst-input-form input {
-    width: 15px;
-    height: 16px;
+#header .header-section-search input {
+    /*width: 15px;*/
+    /*height: 16px;*/
     background-image: url("/image/icon_search.png");
     background-position: 10px center;
     background-repeat: no-repeat;
 }
-#header .cst-icon-list .header_icon {
+#header .header-sections .header_icon {
     width: max-content;
 }
-#header .cst-icon-list .header_icon_clickable:hover {
+#header .header-sections .header_icon_clickable:hover {
     opacity: 0.5;
 }
-#header .cst-icon-list li img{
+#header .header-sections li img{
 
     width: 37px;
     /*height: 37px;*/
 }
-#header .cst-icon-list .header_text {
+#header .header-sections .header_text {
     height: 37px;
     line-height: 37px;
-    width: 65px;
+    /*width: 65px;*/
+    width: max-content;
     overflow-x: hidden;
 }
-#header cst-icon-list {
+#header header-sections {
     float: right;
     overflow: hidden;
     padding: 0 20px 0 0;
 }
 
-#header cst-icon-list li {
+#header header-sections li {
     float: left;
     margin: 0 0 0 14px;
 }
 
-#header cst-icon-list li:first-child {
+#header header-sections li:first-child {
     margin: 0;
 }
 
-#header cst-icon-list li.login a {
+#header header-sections li.login a {
     letter-spacing: 2px;
     color: #fff;
     background-color: #3d5afe;
@@ -90,7 +84,7 @@
     border: 3px solid #5a4370;
 }
 
-#header cst-icon-list li.login a {
+#header header-sections li.login a {
     background-color: #fff;
     border: 3px solid #5a4370;
     color: #5a4e70;
@@ -107,6 +101,7 @@
     top: 0px;
     right: 0px;
     left: 0px;
+    z-index: 1055;
     /*background-color: #FFF;*/
     /*z-index: 1055;*/
     background: rgba(252, 252, 252, 1) !important;
