@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Channel;
 use App\Models\Favorite;
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Visit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -39,38 +40,53 @@ class ChannelController extends Controller
      */
     public function store(Request $request)
     {
-        // set validation rules
-        $rules = [
-            'name' => 'required|unique:channels|max:100|min:2',
-            'description' => 'required|max:255|min:2',
-        ];
+        $userID = auth()->id();
+        $user = User::find($userID);
 
-        $messages = [
-            'name.required' => '동방명을 입력해주세요.',
-            'description.required' => '동방 소개란을 입력해주세요.',
-            'name.min' => '동방명은 최소 2 글자 이상입니다.',
-            'description.min' => '동방 소개란은 최소 2 글자 이상입니다.',
-            'name.max' => '동방명은 최대 255 글자 이하입니다.',
-            'description.max' => '동방 소개란은 최대 255 글자 이하입니다.',
-            'name.unique' => '동방명이 이미 사용 중입니다.'
-        ];
-        $validator = Validator::make($request->all(), $rules, $messages)->validate();
+        if($user->hasCoins()->sum('coin') < 100) {
+            return redirect()->route('home')->with(['msg'=>'코인이 부족합니다.', 'type'=>'warning']);
+        } else {
+            // set validation rules
+            $rules = [
+                'name' => 'required|unique:channels|max:100|min:2',
+                'description' => 'required|max:255|min:2',
+            ];
 
+            $messages = [
+                'name.required' => '동방명을 입력해주세요.',
+                'description.required' => '동방 소개란을 입력해주세요.',
+                'name.min' => '동방명은 최소 2 글자 이상입니다.',
+                'description.min' => '동방 소개란은 최소 2 글자 이상입니다.',
+                'name.max' => '동방명은 최대 255 글자 이하입니다.',
+                'description.max' => '동방 소개란은 최대 255 글자 이하입니다.',
+                'name.unique' => '동방명이 이미 사용 중입니다.'
+            ];
+            $validator = Validator::make($request->all(), $rules, $messages)->validate();
 
-        $created = Channel::create([
-            'name' => $request->input('name'),
-            'description' => $request->input('description'),
-            'userID' => auth()->id()
-        ]);
+            // create channel
+            $created = Channel::create([
+                'name' => $request->input('name'),
+                'description' => $request->input('description'),
+                'userID' => $userID
+            ]);
 
-        $channel = Channel::findOrFail($created->id);
-        $channel->favorites()->create([
-            'userID' => auth()->id(),
-            'channelID' => $created->id
-        ]);
+            // add favorite
+            $channel = Channel::findOrFail($created->id);
+            $channel->favorites()->create([
+                'userID' => $userID,
+                'channelID' => $created->id,
+            ]);
 
+            $user->coins()->create([
+                "type" => "동아리생성",
+                "coin" => -100,
+                'userID' => $userID
+            ]);
+
+            return redirect()->route('channel.show', $created->id)->with(['msg'=>'동아리가 생성되었습니다.', 'type'=>'info']);
+        }
         // return back()->withInput();
-        return redirect()->route('channel.show', $created->id)->with(['msg'=>'동아리가 생성되었습니다.', 'type'=>'info']);
+
     }
 
     /**

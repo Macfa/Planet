@@ -172,7 +172,9 @@ background-color: #3d5afe;
   max-width: calc(100% - 100px);
   font-weight: 500;
 }
-
+#main .board_box .left div.list table tr td div.title a p:visited {
+    color: #808080;
+}
 #main .board_box .left div.list table tr td div.title a span {
   /* float: right; */
   /*font-size: 15px;*/

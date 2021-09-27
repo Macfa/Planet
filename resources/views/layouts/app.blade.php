@@ -47,6 +47,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css.bak/bootstrap-5.1.0.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css.bak/main/font.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/common/header.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/common/flex.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css.bak/main/common.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main/layout.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main/index.css') }}">
@@ -94,12 +95,16 @@
 {{--    </div>--}}
 {{--</a>--}}
 
-<div id="app" class="container-fluid">
-    <div style="z-index: 1055; width: 1276px;" class="row align-items-center" id="header">
-        <div class="col-1"><a href="/"><img src="{{ asset('image/logo.png') }}"></a></div>
-        <div class="cst-input-form col-4 container">
+<div id="app" class="wid100">
+    <div class="flex-container align-items-center" id="header">
+        <div style="flex: 1 0 auto;" class="header-sections">
+            <a href="/">
+                <img src="{{ asset('image/logo.png') }}">
+            </a>
+        </div>
+        <div style="flex: 5 5 auto;" class="header-sections header-section-search">
             <form class="row align-items-center" name="mainSearchForm" id="mainSearchForm" action="{{ route('home.search') }}" method="get">
-                {{-- @csrf --}}
+                 @csrf
                 <input type="text" name="searchText" onkeydown="searchingCallback(this);" placeholder="검색..." value="{{ Request::input('searchText') }}">
 {{--                <div id="searchRecomment">--}}
 {{--                    <div>--}}
@@ -112,12 +117,16 @@
                 <button type="submit"></button>
             </form>
         </div>
-        <div class="cst-icon-list col-7 container">
-            <div class="row justify-content-end">
-                @guest
-                    <li class="login"><a href="{{ route('social.oauth', 'google') }}">로그인</a></li>
-                @endguest
-                @auth
+        <div style="flex: 6 6 auto;" class="header-sections">
+            @guest
+                <ul class="flex-container flex-justify-content-flex-end">
+                    <li class="login">
+                        <a href="{{ route('social.oauth', 'google') }}">로그인</a>
+                    </li>
+                </ul>
+            @endguest
+            @auth
+                <ul class="row flex-justify-content-flex-end flex-wrap-nowrap">
                     <li class="header_icon"><img src="{{ Auth::user()->avatar }}" alt="img" /></li>
                     <li class="header_text header_text_align">
                         <p>{{ Auth::user()->name }}</p>
@@ -137,8 +146,8 @@
 
                     <li class="header_icon header_icon_clickable"><a class="" data-bs-toggle="collapse" href="#header-noti" role="button" aria-expanded="false" aria-controls="header-noti"><img src="{{ asset('image/noti_4x.png') }}" alt="noti" /></li></a>
                     <li class="header_icon header_icon_clickable"><a class="" data-bs-toggle="collapse" href="#header-list" role="button" aria-expanded="false" aria-controls="header-list"><img src="{{ asset('image/list_4x.png') }}" alt="list" /></a></li>
-                @endauth
-            </div>
+                </ul>
+            @endauth
         </div>
     </div>
     @auth
