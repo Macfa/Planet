@@ -1,21 +1,33 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/post/show.css') }}">
     <div class="modal-parent container-fluid">
         <div class="modal-wrap">
-            <div class="modal-top">
+{{--            <div class="modal-top flex-wrap-wrap">--}}
 
-                <div class="modal-title">
+{{--                <div class="modal-title flex-0-0-100">--}}
+{{--                    <h4>--}}
+{{--                        {{ $post->title }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="titleSub">[<span class="commentCount">{{ $post->comments_count }}</span>]</span>--}}
+{{--                    </h4>--}}
+{{--                </div>--}}
+
+{{--                <div class="write-info">--}}
+{{--                    <p><span><a href="{{ route('channel.show', $post->channelID) }}">[{{ $post->channel->name }}]</a></span>&nbsp;온 <a href="{{ route('user.show', 'post') }}">{{ $post->user->name }}</a> / {{ $post->created_at->diffForHumans() }}</p>--}}
+{{--                </div>--}}
+
+{{--                <div class="modal-close">--}}
+{{--                    <img src="{{ asset('image/close.png') }}" alt="닫기" />--}}
+{{--                </div>--}}
+{{--            </div>--}}
+            <div class="modal-header flex-wrap-wrap">
+                <div class="modal-title flex-0-0-100">
                     <h4>
                         {{ $post->title }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="titleSub">[<span class="commentCount">{{ $post->comments_count }}</span>]</span>
                     </h4>
                 </div>
-
                 <div class="write-info">
                     <p><span><a href="{{ route('channel.show', $post->channelID) }}">[{{ $post->channel->name }}]</a></span>&nbsp;온 <a href="{{ route('user.show', 'post') }}">{{ $post->user->name }}</a> / {{ $post->created_at->diffForHumans() }}</p>
                 </div>
-
-                <div class="modal-close">
-                    <img src="{{ asset('image/close.png') }}" alt="닫기" />
-                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+{{--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-image: url({{ asset('image/close.png') }})"></button>--}}
             </div>
 
             <div class="modal-body">

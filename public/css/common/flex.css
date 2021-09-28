@@ -16,3 +16,9 @@
 .flex-wrap-nowrap {
     flex-wrap: nowrap;
 }
+.flex-wrap-wrap {
+    flex-wrap: wrap;
+}
+.flex-0-0-100 {
+    flex: 0 0 100%;
+}

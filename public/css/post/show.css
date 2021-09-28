@@ -34,51 +34,26 @@
     /*!* max-width:100%; *!*/
     /*border:1px solid #CBC7C7;*/
   }
-
-  .modal-parent > .modal-wrap > .modal-top {
-    position:relative;
-    padding:10px 20px;
-    /*margin-bottom:33px;*/
-  }
-  .modal-parent > .modal-wrap > .modal-top > .modal-page {
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    position:absolute;
-    left:14px;
-    top:5px;
-  }
-
-  .modal-parent > .modal-wrap > .modal-top > .modal-page > .now-page {
-    font-size:9px;
-  }
-
-  .modal-parent > .modal-wrap > .modal-top > .modal-title h4 {
+  .modal-parent > .modal-wrap > .modal-header > .modal-title h4 {
     font-size:26px;
     font-weight:400;
   }
-.modal-parent > .modal-wrap > .modal-top > .modal-title h4 .titleSub {
+.modal-parent > .modal-wrap > .modal-header > .modal-title h4 .titleSub {
     font-size:23px;
     /*font-weight:400;*/
 }
-    .modal-parent > .modal-wrap > .modal-top > .modal-title h4 .titleSub .commentCount {
+    .modal-parent > .modal-wrap > .modal-header > .modal-title h4 .titleSub .commentCount {
         font-size:21px;
         /*font-weight:400;*/
     }
-  .modal-parent > .modal-wrap > .modal-top > .write-info > p {
+  .modal-parent > .modal-wrap > .modal-header > .write-info > p {
     font-size:14px;
     color:#CBC7C7;
   }
 
-  .modal-parent > .modal-wrap > .modal-top > .write-info > p > span {
+  .modal-parent > .modal-wrap > .modal-header > .write-info > p > span {
     font-size:14px;
     color:#0008F9;
-  }
-
-  .modal-parent > .modal-wrap > .modal-top > .modal-close {
-    position:absolute;
-    right:0;
-    top:10px;
   }
 
   .modal-parent > .modal-wrap > .modal-body {
