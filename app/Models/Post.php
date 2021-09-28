@@ -42,6 +42,13 @@ class Post extends Model
     public function scrap() {
         return $this->hasOne(Scrap::class, 'postID', 'id');
     }
+    public function hasPostReadHistories() {
+        $userID = auth()->id();
+        return $this->hasMany(PostReadHistory::class, 'postID')->where('userID', $userID);
+    }
+    public function postReadHistories() {
+        return $this->hasMany(PostReadHistory::class, 'postID');
+    }
 
     // Custom Functions
     public function scopePagination($query, $page=0) {

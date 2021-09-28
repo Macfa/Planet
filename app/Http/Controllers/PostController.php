@@ -33,7 +33,7 @@ class PostController extends Controller
     public function create(Request $request)
     {
         $fromChannelID = $request->input('channelID');
-        $channels = Channel::ownChannel()->get();
+        $channels = Channel::own()->get();
 
         return view('post.create', compact('channels', 'fromChannelID'));
     }
@@ -107,6 +107,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
+        $userID = auth()->id();
         $post = Post::with('channel')
             ->withCount('comments')
             ->with('likes')
@@ -123,6 +124,13 @@ class PostController extends Controller
             ->orderBy('depth', 'asc')
             ->get();
 
+        if($userID) {
+            // 게시글 열람이력을 추가한다
+            $post->postReadHistories()->updateOrCreate(
+                ["userID" => $userID],
+                ['updated_at' => now()]
+            );
+        }
         return view('post.show', compact('post', 'comments'));
     }
 
