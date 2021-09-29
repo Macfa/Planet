@@ -1,6 +1,6 @@
 @section('content')
 <section id="main">
-    <div class="wrap container">
+    <div class="main-wrap">
 {{--        <article class="advertising"><a href="#"><img src="../img/test.jpg"></a></article>--}}
 {{--        <article class="board_box">--}}
         <article class="board_box row">

@@ -73,7 +73,7 @@
 <body>
 <!-- Modal -->
 <div class="modal fade" id="open_post_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div style="top: 53px; margin-top: 0px;" class="modal-dialog modal-xl">
+    <div style="width: 80%; max-width: none; top: 53px; margin-top: 0px;" class="modal-dialog">
         <div class="modal-content">
         </div>
     </div>
