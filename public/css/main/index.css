@@ -160,7 +160,9 @@ background-color: #3d5afe;
   padding: 0 0 3px 4px;
   box-sizing: border-box;
 }
-
+#main .board_box .left div.list table tr td div.title a:visited {
+  color: #808080;
+}
 #main .board_box .left div.list table tr td div.title a p {
   /*color: rgba(0, 0, 0, 0.87);*/
   font-size: 16px;
@@ -172,9 +174,7 @@ background-color: #3d5afe;
   max-width: calc(100% - 100px);
   font-weight: 500;
 }
-#main .board_box .left div.list table tr td div.title a p:visited {
-    color: #808080;
-}
+
 #main .board_box .left div.list table tr td div.title a span {
   /* float: right; */
   /*font-size: 15px;*/

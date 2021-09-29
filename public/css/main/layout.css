@@ -1,9 +1,14 @@
 @charset "UTF-8";
 /* 공통 */
 .wrap {
-  width: 1276px;
+  /*width: 1276px;*/
   margin: 0 auto;
     max-width: none !important;
+}
+.main-wrap {
+    width: 80%;
+    margin: 0 auto;
+    /*max-width: none !important;*/
 }
 
 input:focus {
