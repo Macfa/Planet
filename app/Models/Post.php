@@ -13,6 +13,7 @@ class Post extends Model
     protected $table = "posts";
     protected $primaryKey = "id";
     protected $guarded = [];
+    private $count = 10;
 
     public function channel() {
         return $this->belongsTo(Channel::class, 'channelID', 'id');
@@ -52,10 +53,9 @@ class Post extends Model
 
     // Custom Functions
     public function scopePagination($query, $page=0) {
-        $count = 5;
-        $skip = $page * $count;
+        $skip = $page * $this->count;
 //        dd([$page, $skip]);
-        return $query->skip($skip)->take($count);
+        return $query->skip($skip)->take($this->count);
     }
     public function getExistPostLikeAttribute() {
         $checkExistLike = $this->likes->firstWhere('userID',auth()->id());
@@ -92,39 +92,54 @@ class Post extends Model
             return 0;
         }
     }
-//    public function EarnExpFromWritePost() {
-//        $today = Carbon::now();
-//        $limit = 20;
-//        $totalExp = $this->experiences()->whereDate('experiences.created_at', $today)->sum('exp');
-//
-//        if($totalExp > $limit) {
-//            // 코인 추가 획득 불가
-//            $result = [
-//                "code"=> "ok",
-//                "msg" => "경험치일일최대"
-//            ];
-//
-//            return $result;
-//        } else {
-//            try {
-//                $result_craeted = $this->experiences()->create([
-//                    'msg'=> '글작성',
-//                    'exp'=> 5,
-//                    'userID'=> auth()->id()
-//                ]);
-//                $result = [
-//                    "code"=> "ok",
-//                    "msg" => ""
-//                ];
-//
-//                return $result;
-//            } catch (Exception $e) {
-//                $result = [
-//                    "code"=> "err",
-//                    "msg" => $e->getMessage()
-//                ];
-//                return $result;
-//            }
-//        }
-//    }
+    public static function getData() {
+        return self::withCount('comments')
+            ->orderby('id', 'desc')
+            ->pagination()
+            ->get();
+    }
+    public static function willRemove() {
+        return self::withCount('comments')
+            ->doesntHave('postReadHistories')
+            ->orderby('id', 'desc')
+            ->pagination()
+            ->get();
+    }
+    public static function mainMenu($type, $channelID, $page) {
+//        var_dump($type, $channelID, $page);
+        if($type==='realtime') {
+            $posts = self::with('channel')
+                ->with('likes')
+                ->with('user')
+                ->withCount('comments')
+                ->orderby('id', 'desc')
+                ->where(function($query) use ($channelID) {
+                    if($channelID) {
+                        $query->where('channelID', '=', $channelID);
+                    }
+                })
+                ->pagination($page)
+                ->get();
+        } else if($type==='hot') {
+            $posts = self::with('channel')
+                ->with('likes', function($q) {
+                    $q->orderby('vote', 'desc');
+                })
+                ->withCount('comments')
+                ->with('user')
+                ->where(function($query) use ($channelID) {
+                    if($channelID) {
+                        $query->where('channelID', '=', $channelID);
+                    }
+                })
+                ->pagination($page)
+                ->get();
+        }
+
+        foreach($posts as $idx => $post) {
+            $posts[$idx]['totalVote'] = $post->likes->sum('vote');
+            $posts[$idx]['created_at_modi'] = $post->created_at->diffForHumans();
+        }
+        return $posts;
+    }
 }

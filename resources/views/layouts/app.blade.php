@@ -144,7 +144,13 @@
 
 {{--                    <li class="header_icon"><a href="{{ route('user.show', auth()->id()) }}" class="btn btn-primary" data-bs-toggle="collapse" href="#header-mypage" role="button" aria-expanded="false" aria-controls="header-mypage"><img src="{{ asset('image/mypage_4x.png') }}" alt="mypage" /></a></li>--}}
 
-                    <li class="header_icon header_icon_clickable"><a class="" data-bs-toggle="collapse" href="#header-noti" role="button" aria-expanded="false" aria-controls="header-noti"><img src="{{ asset('image/noti_4x.png') }}" alt="noti" /></li></a>
+                    <li class="header_icon header_icon_clickable">
+                        <a style="position: relative;" class="" data-bs-toggle="collapse" href="#header-noti" role="button" aria-expanded="false" aria-controls="header-noti"><img src="{{ asset('image/noti_4x.png') }}" alt="noti" />
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                              {{ auth()->user()->unreadNotifications->count() }}
+                            <span class="visually-hidden">unread messages</span>
+                        </a>
+                    </li>
                     <li class="header_icon header_icon_clickable"><a class="" data-bs-toggle="collapse" href="#header-list" role="button" aria-expanded="false" aria-controls="header-list"><img src="{{ asset('image/list_4x.png') }}" alt="list" /></a></li>
                 </ul>
             @endauth
@@ -182,12 +188,21 @@
             search();
         }, 600 );
     }
-
+    var myCollapsible = document.getElementById('header-noti')
+    myCollapsible.addEventListener('shown.bs.collapse', function () {
+        $.ajax({
+            type: "get",
+            url: "/mark",
+            error: function(err) {
+                // toastr.warning();
+                // console.log(err);
+            }
+        })
+    })
     function search() {
         var obj = $("input[name=searchText]");
         var word = obj.val();
-        // var word = encodeURI(word);
-        // return;
+
         $.ajax({
             type: "get",
             url: "/searchHelper",
@@ -199,7 +214,7 @@
                 var dataToAppend = [];
 
                 elementToPlace.children().remove();
-                console.log(data);
+
                 if(data['list'] === null) {
                     // pass
                     // dataToAppend.push('<a href="" class="list-group-item list-group-item-action">검색</a>');

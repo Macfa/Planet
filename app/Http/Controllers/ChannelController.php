@@ -42,8 +42,9 @@ class ChannelController extends Controller
     {
         $userID = auth()->id();
         $user = User::find($userID);
+        $hasCoin = $user->hasCoins()->sum('coin');
 
-        if($user->hasCoins()->sum('coin') < 100) {
+        if($hasCoin < 100) {
             return redirect()->route('home')->with(['msg'=>'코인이 부족합니다.', 'type'=>'warning']);
         } else {
             // set validation rules

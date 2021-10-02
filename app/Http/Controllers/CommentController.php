@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Coin;
 use App\Models\Comment;
 use App\Models\Experience;
+use App\Models\User;
+use App\Notifications\NoticeChannel;
+use App\Notifications\Noticenotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -62,6 +65,10 @@ class CommentController extends Controller
             $experience = new Experience();
             $coin->writeComment($comment);
             $experience->writeComment($comment);
+
+            $postUserID = $result->post->userID;
+            $user = User::find($postUserID);
+            $user->notify(new Noticenotification($result));
 
             return $result;
         } else {
