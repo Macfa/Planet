@@ -39,7 +39,7 @@ class Visit extends Model
             return $this->showHistory();
         }
     }
-    public function showHistory() {
+    public static function showHistory() {
         if(auth()->check() ) {
             $user = User::find(auth()->id());
 

@@ -8,6 +8,8 @@
                 @auth
                     <ul class="category">
                         <div class="category_title">최근 방문한 동아리</div>
+                        <button style="margin:0 30px;" onclick="willRemove();">Unread</button>
+                        <button onclick="location.href='/test'">Coin</button>
                         @forelse ($visits as $visit)
                             <li class="channel_{{ $visit->channelID }}"><a href="{{ route('channel.show', $visit->channelID) }}">{{ $visit->channel->name }}</a></li>
                         @empty
@@ -103,7 +105,7 @@
             var type = $(".tab .on").attr('value');
 
             $.ajax({
-                url: '/mainmenu',
+                url: '/mainMenu',
                 type: 'get',
                 data: {
                     "page": page,
@@ -132,7 +134,7 @@
                                 "created_at_modi": data.result[i].created_at_modi
                             });
                         }
-                        $("#mainMenuItem").tmpl(valueList).insertAfter("#main .wrap .left .list table tbody tr:last-child");
+                        $("#mainMenuItem").tmpl(valueList).insertAfter("#main .main-wrap .left .list table tbody tr:last-child");
                     }
                     $("#main .wrap .left .tab li[class="+type+"]").attr('class', 'on');
                 },
@@ -181,8 +183,8 @@
         $('#main .tab li').removeClass('on');
         $(this).addClass('on');
     });
-    function OpenModal(id) {
-        window.open('/post/'+id);
+    function willRemove() {
+        location.href = "/test2";
     }
     function getSearchCategory(type) {
         $("#searchType").val(type);
@@ -192,7 +194,7 @@
         var channelID = "{{ request()->route('channel') }}";
 
         $.ajax({
-            url: '/mainmenu',
+            url: '/mainMenu',
             type: 'get',
             data: {
                 'type': type,
@@ -200,7 +202,7 @@
             },
             success: function(data) {
                 var valueList = [];
-                $("#main .wrap .left .list table tbody tr").remove();
+                $("#main .main-wrap .left .list table tbody tr").remove();
                 if(data.result.length==0) {
                     // valueList.push("<tr class='none-tr'><td>데이터가 없습니다.</td></tr>");
                     var value = "<tr class='none-tr'><td>데이터가 없습니다.</td></tr>";
@@ -219,7 +221,7 @@
                             "created_at_modi": data.result[i].created_at_modi
                         });
                     }
-                    $("#mainMenuItem").tmpl(valueList).appendTo("#main .wrap .left .list table tbody");
+                    $("#mainMenuItem").tmpl(valueList).appendTo("#main .main-wrap .left .list table tbody");
                 }
                 page = 1;
                 $("#main .wrap .left .tab li[class="+type+"]").attr('class', 'on');

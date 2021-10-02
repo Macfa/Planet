@@ -33,62 +33,21 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $posts = Post::withCount('comments')
-            ->with('channel')
-            ->with('user')
-            ->with('likes')
-            ->orderby('id', 'desc')
-            ->pagination()
-            ->get();
+        $posts = Post::getData();
 
-        $visit = new Visit();
-        $visits = $visit->showHistory();
+        $visits = Visit::showHistory();
         return view('main.index', compact('posts', 'visits'));
     }
-    public function getDataFromScrolling(Request $request) {
-        if($request->ajax()) {
 
-        }
-    }
-
-    public function mainmenu(Request $request) {
+    public function mainMenu(Request $request) {
+//        dd($request->all());
         $type = $request->type;
         $channelID = $request->channelID;
         $page = $request->page;
-
-        if($type==='realtime') {
-            $posts = Post::with('channel')
-                ->with('likes')
-                ->with('user')
-                ->withCount('comments')
-                ->orderby('id', 'desc')
-                ->where(function($query) use ($channelID) {
-                    if($channelID) {
-                        $query->where('channelID', '=', $channelID);
-                    }
-                })
-                ->pagination($page)
-                ->get();
-        } else if($type==='hot') {
-            $posts = Post::with('channel')
-                ->with('likes', function($q) {
-                    $q->orderby('vote', 'desc');
-                })
-                ->withCount('comments')
-                ->with('user')
-                ->where(function($query) use ($channelID) {
-                    if($channelID) {
-                        $query->where('channelID', '=', $channelID);
-                    }
-                })
-                ->pagination($page)
-                ->get();
-        }
-
-        foreach($posts as $idx => $post) {
-            $posts[$idx]['totalVote'] = $post->likes->sum('vote');
-            $posts[$idx]['created_at_modi'] = $post->created_at->diffForHumans();
-        }
+//        $params = $request->only('type', 'channelID', 'page');
+        $posts = Post::mainMenu($type, $channelID, $page);
+//        var_dump($posts);
+//        dd($posts);
 
         return response()->json(['result' => $posts]);
     }
@@ -177,19 +136,21 @@ class HomeController extends Controller
     }
 
     public function test() {
-        $s = new Coin();
-        $result = $s->purchaseStamp();
-        if($result) {
-            return back()->with('success', '처리 됨ㅋ');
-        } else {
-            return back()->with('error', '포인트가 충분하지않아ㅋ');
-        }
+        $userID = auth()->id();
+        $user = User::find($userID);
+        $user->coins()->create([
+            'coin' => 100,
+            'type' => 'test',
+            'userID' => $userID
+        ]);
+
+        return redirect()->back();
     }
 
     public function test2() {
-        $user = User::find(auth()->id());
-        $post = Post::find(1);
+        $posts = Post::willRemove();
 
-        $user->notify(new Alarmnotification($post));
+        $visits = Visit::showHistory();
+        return view('main.index', compact('posts', 'visits'));
     }
 }

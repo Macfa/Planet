@@ -9,7 +9,9 @@ use Illuminate\Notifications\Notification;
 class Noticenotification extends Notification
 {
     use Queueable;
-    private $comment;
+    protected $comment;
+    private $postID; // post
+    private $title; // post
     /**
      * Create a new notification instance.
      *
@@ -18,6 +20,8 @@ class Noticenotification extends Notification
     public function __construct(Comment $comment)
     {
         $this->comment = $comment;
+        $this->title = $this->comment->post->title;
+        $this->postID = $this->comment->postID;
     }
 
     /**
@@ -28,7 +32,7 @@ class Noticenotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return [NoticeChannel::class];
     }
 
     /**
@@ -51,38 +55,36 @@ class Noticenotification extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toArray($notifiable)
+    public function toNoticeNotification($notifiable)
     {
-        return $this->checkExistNoti($notifiable);
+//        dd($notifiable);
+        return [
+            'postID' => $this->postID,
+            'msg' => "'".$this->title."' 게시글에 댓글이 달렸습니다",
+            'count' => 1
+        ];
     }
+    public function toModifyNoticeNotification($originCount)
+    {
+        $tobeCount = $originCount+1;
 
-    public function checkExistNoti($notifiable) {
-        $postID = $this->comment->postID;
-
-        $result = $notifiable->notifications()->where('data->postID', $postID)->first('data');
-        $count = $result['count'] ?? 1;
-//        dd($result->data['msg'], $result->data, $count);
-        $msg = $this->getMessage($postID, $count);
-        return $msg;
+        return [
+            'data->msg' => "'".$this->title."' 게시글에 ".$tobeCount."개의 댓글이 달렸습니다",
+            'data->count' => $tobeCount
+        ];
     }
-
-    public function getMessage($postID, $count) {
-        $postName = $this->comment->post->title;
-//        dd($this);
-        if($count==0) {
-            // 기존에 알림이 존재한다면
-            return [
-                'postID' => $postID,
-                'msg' => $postName. " 게시글에 ".$count."개의 댓글이 달렸습니다.",
-                'count' => $count
-            ];
+    public function getPostID() {
+        return $this->postID;
+    }
+    public function getPostTitle() {
+        return $this->title;
+    }
+    public function checkOwner($notifiable) {
+        $postOwnerID = $this->comment->post->userID;
+        if($postOwnerID == $this->comment->userID) {
+            return true;
         } else {
-            // 신규 알림이라면
-            return [
-                'postID' => $postID,
-                'msg' => $postName." 게시글에 댓글이 달렸습니다",
-                'count' => 1
-            ];
+            return false;
         }
     }
 }

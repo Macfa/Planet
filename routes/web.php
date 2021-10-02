@@ -40,7 +40,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/search', [HomeController::class, 'search'])->name('home.search');
 Route::get('/searchHelper', [HomeController::class, 'searchHelper'])->name('home.search.helper');
 Route::get('/sidebar', [HomeController::class, 'sidebar'])->name('home.sidebar');
-Route::get('/mainmenu', [HomeController::class, 'mainmenu'])->name('home.mainmenu');
+Route::get('/mainMenu', [HomeController::class, 'mainMenu'])->name('home.mainmenu');
 
 // Post's resource
 Route::resource('post', PostController::class);
@@ -60,6 +60,9 @@ Route::post('/channel/favorite', [ChannelController::class, 'favorite']);
 Route::get('/user/{user}/{el?}', [UserController::class,'show'])->name('user.show');
 Route::post('/user/{id}', [UserController::class,'modify'])->name('user.modify');
 Route::get('/user/', [UserController::class,'logout'])->name('user.logout');
+Route::get('/mark', function() {
+    auth()->user()->unreadNotifications->markAsRead();
+});
 
 // Login with APIs
 
