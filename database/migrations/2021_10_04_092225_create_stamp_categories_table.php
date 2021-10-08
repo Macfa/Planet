@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePointsTable extends Migration
+class CreateStampCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreatePointsTable extends Migration
      */
     public function up()
     {
-        Schema::create('points', function (Blueprint $table) {
+        Schema::create('stamp_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('pointable_type', 50);
-            $table->integer('pointable_id');
-            $table->integer('pointTypeID');
-            $table->integer('memberID');
+            $table->string("image"); // 대표이미지
+            $table->string("name", 10); // 명칭
             $table->timestamps();
         });
     }
+
     /**
      * Reverse the migrations.
      *
@@ -29,6 +28,6 @@ class CreatePointsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('points');
+        Schema::dropIfExists('stamp_categories');
     }
 }

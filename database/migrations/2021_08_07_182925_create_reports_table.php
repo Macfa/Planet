@@ -18,7 +18,8 @@ class CreateReportsTable extends Migration
             $table->morphs('reportable');
             $table->integer('type')->nullable();
             $table->string('message', 100)->nullable();
-            $table->bigInteger('userID');
+            $table->bigInteger('userID')->unsigned();
+            $table->foreign("userID")->references("id")->on("users")->onDelete("cascade");
             $table->timestamps();
         });
     }

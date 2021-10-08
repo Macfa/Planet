@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateScrapsTable extends Migration
+class CreateChannelVisitHistoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateScrapsTable extends Migration
      */
     public function up()
     {
-        Schema::create('scraps', function (Blueprint $table) {
+        Schema::create('channel_visit_histories', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('postID')->unsigned();
-            $table->foreign("postID")->references("id")->on("posts")->onDelete("cascade");
+            $table->bigInteger('channelID')->unsigned();
+            $table->foreign("channelID")->references("id")->on("channels")->onDelete("cascade");
             $table->bigInteger('userID')->unsigned();
             $table->foreign("userID")->references("id")->on("users")->onDelete("cascade");
             $table->timestamps();
@@ -30,6 +30,6 @@ class CreateScrapsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('scraps');
+        Schema::dropIfExists('channel_visit_histories');
     }
 }

@@ -5,13 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Visit extends Model
+class ChannelVisitHistory extends Model
 {
     use HasFactory;
-
-    protected $table = "visits";
-    protected $primaryKey = "id";
+    protected $table = "channel_visit_histories";
     protected $guarded = [];
+
 
     public function channel()
     {

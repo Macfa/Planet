@@ -15,10 +15,12 @@ class CreateLikesTable extends Migration
     {
         Schema::create('likes', function (Blueprint $table) {
             $table->id();
-            $table->string('likeable_type', 50);
-            $table->integer('likeable_id');
-            $table->bigInteger('userID');
-            $table->tinyInteger('vote');
+            $table->morphs('likeable');
+//            $table->string('likeable_type', 50);
+//            $table->integer('likeable_id');
+            $table->bigInteger('userID')->unsigned();
+            $table->foreign("userID")->references("id")->on("users")->onDelete("cascade");
+            $table->tinyInteger('like');
             $table->timestamps();
         });
     }

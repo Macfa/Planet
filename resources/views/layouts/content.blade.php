@@ -10,8 +10,8 @@
                         <div class="category_title">최근 방문한 동아리</div>
                         <button style="margin:0 30px;" onclick="willRemove();">Unread</button>
                         <button onclick="location.href='/test'">Coin</button>
-                        @forelse ($visits as $visit)
-                            <li class="channel_{{ $visit->channelID }}"><a href="{{ route('channel.show', $visit->channelID) }}">{{ $visit->channel->name }}</a></li>
+                        @forelse ($channelVisitHistories as $channel)
+                            <li class="channel_{{ $channel->channelID }}"><a href="{{ route('channel.show', $channel->channelID) }}">{{ $channel->channel->name }}</a></li>
                         @empty
                             <li><a href="{{ route('home') }}">방문채널이 없습니다.</a></li>
                         @endforelse
@@ -53,11 +53,19 @@
                                 </td>
                                 <td>
                                     <div class="title">
-                                        <a href="" data-bs-toggle="modal" data-bs-focus="false" data-bs-post-id="{{ $post->id }}" data-bs-target="#open_post_modal">
+                                        <a href="#post-show-{{ $post->id }}" data-bs-toggle="modal" data-bs-focus="false" data-bs-post-id="{{ $post->id }}" data-bs-target="#open_post_modal">
+{{--                                        <a href="/post/{{ $post->id }}" data-bs-toggle="modal" data-bs-focus="false" data-bs-post-id="{{ $post->id }}">--}}
 {{--                                        <a href="javascript:OpenModal({{ $post->id }})">--}}
                                             <p>{{ $post->title }}&nbsp;&nbsp;</p>
                                             <span class="titleSub">[<span class="commentCount">{{ $post->comments_count }}</span>]</span>
-
+                                            <span>
+                                                @foreach($post->stampInPosts as $stamp)
+                                                    <img style="width:27px;" src="{{ $stamp->stamp->image }}" alt="">
+                                                    @if($stamp->count>1)
+                                                        {{ $stamp->count }}
+                                                    @endif
+                                                @endforeach
+                                            </span>
 {{--                                            <span>[{{ $post->comments_count }}]</span>--}}
                                         </a>
                                     </div>
@@ -146,9 +154,16 @@
     </script>
 @endif
 <script>
-
+    $(document).ready(function(){
+        $(window.location.hash).modal('show'); // URL 입력 확인 후 모달 오픈
+        $('a[data-bs-toggle="modal"]').click(function(){
+            console.log($(this).attr('href'));
+            window.location.hash = $(this).attr('href');
+        });
+    });
     var open_post_modal = document.getElementById('open_post_modal')
     open_post_modal.addEventListener('show.bs.modal', function (event) {
+        // event.stopPropagation();
         // Button that triggered the modal
         var button = event.relatedTarget;
         // Extract info from data-bs-* attributes
@@ -171,11 +186,16 @@
             success: function(data) {
                 // modalBody.innerHTML = data;
                 modalBody.html(data);
+                event.stopImmediatePropagation();
+                // event.stopPropagation();
+                // event.preventDefault();
             },
             error: function(err) {
                 console.log(err);
             }
         })
+        // event.stopPropagation();
+        // event.preventDefault();
 
     })
 

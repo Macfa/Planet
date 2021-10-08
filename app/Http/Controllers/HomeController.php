@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Channel;
+use App\Models\ChannelVisitHistory;
 use App\Models\Coin;
 use App\Models\CoinType;
 use App\Models\Favorite;
@@ -10,7 +11,6 @@ use App\Models\Notification;
 use App\Models\PointType;
 use App\Models\Post;
 use App\Models\User;
-use App\Models\Visit;
 use App\Notifications\Alarmnotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -35,8 +35,8 @@ class HomeController extends Controller
     {
         $posts = Post::getData();
 
-        $visits = Visit::showHistory();
-        return view('main.index', compact('posts', 'visits'));
+        $channelVisitHistories = ChannelVisitHistory::showHistory();
+        return view('main.index', compact('posts', 'channelVisitHistories'));
     }
 
     public function mainMenu(Request $request) {
@@ -101,8 +101,8 @@ class HomeController extends Controller
             ->with('likes')
             ->get();
 
-        $visit = new Visit();
-        $visits = $visit->showHistory();
+        // $visit = new Visit();
+        $channelVisitHistories = ChannelVisitHistory::showHistory();
 
         return view('main.search', compact('posts', 'visits', 'searchType'));
     }

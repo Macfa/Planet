@@ -15,8 +15,10 @@ class CreatePostReadHistoriesTable extends Migration
     {
         Schema::create('post_read_histories', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('postID');
-            $table->bigInteger('userID');
+            $table->bigInteger('postID')->unsigned();
+            $table->foreign("postID")->references("id")->on("posts")->onDelete("cascade");
+            $table->bigInteger('userID')->unsigned();
+            $table->foreign("userID")->references("id")->on("users")->onDelete("cascade");
             $table->timestamps();
         });
     }

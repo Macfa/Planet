@@ -337,6 +337,11 @@ textarea[name=content]:focus {
     position: sticky;
     top: 80px;
 }
+.sticky-bottom {
+    position: sticky !important;
+    bottom: 0px;
+    z-index: 2;
+}
 /*@media screen and (max-width: 1440px) {*/
 /*  .wrap {*/
 /*    width: 1276px;*/

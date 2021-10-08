@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ChannelVisitHistory;
 use App\Models\Coin;
 use App\Models\Favorite;
 use App\Models\Post;
@@ -44,8 +45,8 @@ class UserController extends Controller
         }
 
         $user = User::find($user->id);
-        $visit = new Visit();
-        $visits = $visit->showHistory();
+        // $visit = new Visit();
+        $channelVisitHistories = ChannelVisitHistory::showHistory();
 
         $coin = array();
         $coin['totalCoin'] = $user->hasCoins()->sum('coin');
@@ -57,7 +58,7 @@ class UserController extends Controller
         $coin = (object)$coin;
 //        dd($coin);
 
-        return view('user.mypage', compact('posts', 'visits', 'user', 'coin', 'el'));
+        return view('user.mypage', compact('posts', 'channelVisitHistories', 'user', 'coin', 'el'));
     }
 
     public function modify(Request $request, $id) {
