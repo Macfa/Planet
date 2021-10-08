@@ -15,11 +15,11 @@ class Channel extends Model
     public function posts() {
         return $this->hasMany(Post::class, 'id', 'chnnelID');
     }
-    public function favorites() {
-        return $this->hasMany(Favorite::class, 'channelID', 'id');
+    public function channelJoin() {
+        return $this->hasMany(ChannelJoin::class, 'channelID', 'id');
     }
-    public function visits() {
-        return $this->hasMany(Visit::class, 'channelID', 'id');
+    public function channelVisitHistories() {
+        return $this->hasMany(ChannelVisitHistory::class, 'channelID', 'id');
     }
     public function user() {
         return $this->belongsTo(User::class, 'userID');

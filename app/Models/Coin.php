@@ -29,24 +29,24 @@ class Coin extends Model
     }
 
     // Custom Functions
-    public function purchaseStamp() {
-        $user = User::where('id', auth()->id())->first();
-        $totalCoin = $user->coins()->sum('coin');
-        if($totalCoin >= 5) {
-            // purchase
-            $user->coins()->create([
-                'coin'=>-5,
-                'coinable_type'=>'test',
-                'coinable_id'=>1,
-                'userID'=>1,
-                'type'=>'test'
-            ]);
-            return true;
-        } else {
-            // can't purchase
-            return false;
-        }
-    }
+//    public function purchaseStamp() {
+//        $user = User::where('id', auth()->id())->first();
+//        $totalCoin = $user->coins()->sum('coin');
+//        if($totalCoin >= 5) {
+//            // purchase
+//            $user->coins()->create([
+//                'coin'=>-5,
+//                'coinable_type'=>'test',
+//                'coinable_id'=>1,
+//                'userID'=>1,
+//                'type'=>'test'
+//            ]);
+//            return true;
+//        } else {
+//            // can't purchase
+//            return false;
+//        }
+//    }
 
     public function writePost(Post $post) {
         $today = Carbon::now();
@@ -102,6 +102,36 @@ class Coin extends Model
             }
         } else {
             return true;
+        }
+    }
+    public function purchaseStamp(Stamp $stamp, Post $post) {
+        $user = User::find(auth()->id());
+        $price = $stamp->coin;
+        $totalCoin = $user->hasCoins()->sum('coin');
+
+        if($totalCoin >= $price) {
+            $stamp->coins()->create([
+                'type'=>'스탬프구매',
+                'coin'=>-$price,
+                'userID'=>auth()->id()
+            ]);
+            $checkExist = $post->stampInPosts()->where("stampID", $stamp->id)->first();
+            if($checkExist) {
+                $post->stampInPosts()->update([
+                    "count" => $checkExist->count+1
+                ]);
+            } else {
+                $post->stampInPosts()->create([
+                    'postID' => $post->id,
+                    'stampID' => $stamp->id,
+                    'count' => 1,
+                    'userID' => auth()->id()
+                ]);
+            }
+
+            return true;
+        } else {
+            return false;
         }
     }
 }

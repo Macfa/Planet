@@ -31,6 +31,9 @@ class Post extends Model
     public function coins() {
         return $this->morphMany(Coin::class, 'coinable');
     }
+    public function stampInPosts() {
+        return $this->hasMany(StampInPost::class, 'postID', "id");
+    }
     public function experiences() {
         return $this->morphMany(Experience::class, 'experienced');
     }
@@ -61,7 +64,7 @@ class Post extends Model
         $checkExistLike = $this->likes->firstWhere('userID',auth()->id());
 
         if($checkExistLike) {
-            return $checkExistLike->vote;
+            return $checkExistLike->like;
         } else {
             return 0;
         }
@@ -94,6 +97,7 @@ class Post extends Model
     }
     public static function getData() {
         return self::withCount('comments')
+            ->with('stampInPosts.stamp')
             ->orderby('id', 'desc')
             ->pagination()
             ->get();
@@ -123,7 +127,7 @@ class Post extends Model
         } else if($type==='hot') {
             $posts = self::with('channel')
                 ->with('likes', function($q) {
-                    $q->orderby('vote', 'desc');
+                    $q->orderby('like', 'desc');
                 })
                 ->withCount('comments')
                 ->with('user')
@@ -137,7 +141,7 @@ class Post extends Model
         }
 
         foreach($posts as $idx => $post) {
-            $posts[$idx]['totalVote'] = $post->likes->sum('vote');
+            $posts[$idx]['totalLike'] = $post->likes->sum('like');
             $posts[$idx]['created_at_modi'] = $post->created_at->diffForHumans();
         }
         return $posts;

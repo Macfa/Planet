@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->integer("gradeID")->default("1");;
             $table->string('name')->unique();
             $table->string('email')->unique();
-            $table->string('password');
+            $table->string('password')->default(null);
             $table->string('avatar')->nullable();
             $table->enum('isNameChanged', ['Y', 'N'])->default('N');
             $table->string('provider', 20)->nullable();

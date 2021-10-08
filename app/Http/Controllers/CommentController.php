@@ -185,7 +185,7 @@ class CommentController extends Controller
 
         // modify a necessary data
         $comment->updated_at_modi = $comment->updated_at->diffForHumans();
-        $comment->sumOfVotes = $comment->likes->sum('vote');
+        $comment->sumOfLikes = $comment->likes->sum('like');
 //        dd($comment->post());
         $comment->commentCount = $commentCount;
         return $comment;
@@ -195,12 +195,12 @@ class CommentController extends Controller
     {
         // 이력 확인
         $id = $req->input('id');
-        $vote = $req->input('vote');
+        $like = $req->input('like');
 
         // 수정 및 생성
         $comment = Comment::find($id);
         $checkExistValue = $comment->likes()
-            ->where('vote', $vote)
+            ->where('like', $like)
             ->where('userID', auth()->id())
             ->first();
 
@@ -209,14 +209,14 @@ class CommentController extends Controller
         } else {
             $result = $comment->likes()->updateOrCreate(
                 ['userID' => auth()->id()],
-                ['vote' => $vote, 'userID' => auth()->id()]
+                ['like' => $like, 'userID' => auth()->id()]
             );
         }
 
         // 결과
         if ($result) {
-            $totalVote = $comment->likes->sum('vote');
-            return response()->json(['totalVote' => $totalVote, 'vote' => $comment->existCommentLike]);
+            $totalLike = $comment->likes->sum('like');
+            return response()->json(['totalLike' => $totalLike, 'like' => $comment->existCommentLike]);
         }
     }
 }

@@ -19,8 +19,8 @@ class MobileHomeController extends Controller
             ->pagination()
             ->get();
 
-        $visit = new Visit();
-        $visits = $visit->showHistory();
+        // $visit = new Visit();
+        $channelVisitHistories = ChannelVisitHistory::showHistory();
         return view('mobile.main.index', compact('posts', 'visits'));
     }
 }

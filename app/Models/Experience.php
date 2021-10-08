@@ -29,7 +29,7 @@ class Experience extends Model
             // 코인 추가 획득 불가
         } else {
             $post->experiences()->create([
-                'msg'=> '글작성',
+                'message'=> '글작성',
                 'exp'=> 5,
                 'userID'=> auth()->id()
             ]);
@@ -47,7 +47,7 @@ class Experience extends Model
             // 코인 추가 획득 불가
         } else {
             $comment->experiences()->create([
-                'msg'=> '댓글작성',
+                'message'=> '댓글작성',
                 'exp'=> 1,
                 'userID'=> auth()->id()
             ]);

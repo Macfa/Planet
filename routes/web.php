@@ -18,6 +18,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ChannelController;
+use App\Http\Controllers\StampController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -64,8 +65,11 @@ Route::get('/mark', function() {
     auth()->user()->unreadNotifications->markAsRead();
 });
 
-// Login with APIs
+// Stamp's
+Route::get('/stamp', [StampController::class,'getDataFromCategory']);
+Route::post('/stamp/purchase', [StampController::class,'purchase']);
 
+// Login with APIs
 //Route::get('auth/social', 'Auth\LoginController@show')->name('social.login');
 Route::get('auth/social', [LoginController::class,'show'])->name('social.login');
 Route::get('oauth/{driver}', [LoginController::class, 'redirectToProvider'])->name('social.oauth');

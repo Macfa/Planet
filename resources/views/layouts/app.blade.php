@@ -148,7 +148,7 @@
                         <a style="position: relative;" class="" data-bs-toggle="collapse" href="#header-noti" role="button" aria-expanded="false" aria-controls="header-noti"><img src="{{ asset('image/noti_4x.png') }}" alt="noti" />
                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                               {{ auth()->user()->unreadNotifications->count() }}
-                            <span class="visually-hidden">unread messages</span>
+                            </span><span class="visually-hidden">unread messages</span>
                         </a>
                     </li>
                     <li class="header_icon header_icon_clickable"><a class="" data-bs-toggle="collapse" href="#header-list" role="button" aria-expanded="false" aria-controls="header-list"><img src="{{ asset('image/list_4x.png') }}" alt="list" /></a></li>
@@ -188,17 +188,13 @@
             search();
         }, 600 );
     }
-    var myCollapsible = document.getElementById('header-noti')
-    myCollapsible.addEventListener('shown.bs.collapse', function () {
+    var myCollapsible = document.getElementById('header-noti');
+    myCollapsible.addEventListener('show.bs.collapse', function () {
         $.ajax({
             type: "get",
             url: "/mark",
-            error: function(err) {
-                // toastr.warning();
-                // console.log(err);
-            }
         })
-    })
+    });
     function search() {
         var obj = $("input[name=searchText]");
         var word = obj.val();
@@ -229,7 +225,6 @@
                         }
                     });
                 }
-                console.log(dataToAppend);
                 elementToPlace.append(dataToAppend);
 
                 {{--if(data.result=='created') {--}}

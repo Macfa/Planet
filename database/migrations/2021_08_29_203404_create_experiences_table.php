@@ -16,11 +16,10 @@ class CreateExperiencesTable extends Migration
         Schema::create('experiences', function (Blueprint $table) {
             $table->id();
             $table->morphs('experienced'); // Path From
-            $table->string('msg');
+            $table->string('message');
             $table->integer('exp');
-//            $table->integer('userID')->unsigned();
-//            $table->foreign('userID')->references('id')->on('users');
-            $table->bigInteger('userID');
+            $table->bigInteger('userID')->unsigned();
+            $table->foreign("userID")->references("id")->on("users")->onDelete("cascade");
             $table->timestamps();
         });
     }

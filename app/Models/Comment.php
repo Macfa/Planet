@@ -43,7 +43,7 @@ class Comment extends Model
         $checkExistLike = $this->likes->firstWhere('userID',auth()->id());
 
         if($checkExistLike) {
-            return $checkExistLike->vote;
+            return $checkExistLike->like;
         } else {
             return 0;
         }

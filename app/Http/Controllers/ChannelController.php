@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Channel;
+use App\Models\ChannelVisitHistory;
 use App\Models\Favorite;
 use App\Models\Post;
 use App\Models\User;
@@ -73,7 +74,7 @@ class ChannelController extends Controller
 
             // add favorite
             $channel = Channel::findOrFail($created->id);
-            $channel->favorites()->create([
+            $channel->channelJoin()->create([
                 'userID' => $userID,
                 'channelID' => $created->id,
             ]);
@@ -109,16 +110,17 @@ class ChannelController extends Controller
 
         // channel info
         $channel = Channel::where('id', $id)
-            ->withCount('favorites')
+            ->withCount('channelJoin')
             ->get()
             ->first();
 
         // visit info
-        $visit = new Visit();
-        $visits = $visit->addHistory($channel);
+//        $visit = new Visit();
+//        $visits = $visit->addHistory($channel);
+        $channelVisitHistories = ChannelVisitHistory::showHistory();
 //        $visits = $visit->showHistory();
 
-        return view('channel.show', compact('posts', 'channel', 'visits'));
+        return view('channel.show', compact('posts', 'channel', 'channelVisitHistories'));
     }
 
     /**

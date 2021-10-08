@@ -62,8 +62,8 @@ class User extends Authenticatable
         // to be delete !
 //        return $this->hasMany(Favorite::class, 'userID', 'id');
     }
-    public function visits() {
-        return $this->hasMany(Visit::class, 'userID', 'id');
+    public function channelVisitHistories() {
+        return $this->hasMany(ChannelVisitHistory::class, 'userID', 'id');
     }
     public function Comments() {
         return $this->hasMany(Comment::class, 'userID', 'id');
@@ -111,6 +111,14 @@ class User extends Authenticatable
             } else {
                 return false;
             }
+        }
+    }
+    public static function responseToastNotLogged() {
+        $checkLogged = auth()->check();
+
+        if(!$checkLogged) {
+            // if not logged
+            return redirect()->back()->with(['msg' => '로그인이 필요한 기능입니다', 'type' => 'warning']);
         }
     }
 }

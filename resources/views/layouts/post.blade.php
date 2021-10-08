@@ -21,6 +21,14 @@
                 <div class="modal-title flex-0-0-100">
                     <h4>
                         {{ $post->title }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="titleSub">[<span class="commentCount">{{ $post->comments_count }}</span>]</span>
+                        <span>
+                            @foreach($post->stampInPosts as $stamp)
+                                <img style="width:31px;" src="{{ $stamp->stamp->image }}" alt="">
+                                @if($stamp->count>1)
+                                    {{ $stamp->count }}
+                                @endif
+                            @endforeach
+                            </span>
                     </h4>
                 </div>
                 <div class="write-info">
@@ -51,7 +59,7 @@
                                 </li>
                                 <li class="items">
                                     <div class="post-like">
-                                        <p>{{ $post->likes->sum('vote') }}</p>
+                                        <p>{{ $post->likes->sum('like') }}</p>
                                     </div>
                                 </li>
                                 <li class="clickable items">
@@ -177,16 +185,41 @@
 
             <!-- Modal -->
             <div class="modal fade" id="openStampModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog" style="margin-top:250px;">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4>스탬프 목록</h4>
+{{--                            <input type="text" name="searchStamp" />--}}
                         </div>
                         <div class="modal-body">
-                            <ul class="list-group">
-                                <li class="list-group-item">Test 1</li>
-                                <li class="list-group-item">Test 2</li>
-                            </ul>
+                            <nav id="category-header">
+                                @forelse(\App\Models\StampCategory::getAllCategories() as $category)
+                                    <button onclick="selectCategory({{ $category->id }});">
+{{--                                                                                <img style="width:25px;" src="{{ asset($category->image) }}" alt="{{ $category->name }}">--}}
+                                        {{ $category->name }}
+                                    </button>
+                                @empty
+                                    <div>데이터가 없습니다.</div>
+                                @endforelse
+                            </nav>
+                            <div class="category-data">
+                                @forelse(\App\Models\StampGroup::getDataFromCategory(1) as $group)
+                                    <div>
+                                        <div>
+                                            <span>{{ $group->name }}</span>
+                                        </div>
+                                        @forelse($group->stamps as $stamp)
+                                        <div>
+                                            <button onclick="purchaseStamp({{ $stamp->id }}, {{ $post->id }});">
+                                                {{ $stamp->name }}
+                                            </button>
+                                        </div>
+                                        @empty
+                                        @endforelse
+                                    </div>
+                                @empty
+                                @endforelse
+                            </div>
                         </div>
 {{--                        <div class="modal-footer">--}}
 {{--                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>--}}
@@ -198,15 +231,18 @@
             {{--    <script src="{{ asset('js/editorShow.js') }}"></script>--}}
             <script>
                 $("#open_post_modal").scroll(function() {
-                    // if($(window).height() - $("#open_post_modal").scrollTop() <= $("#post").offset().top) {
-                    console.log("scroll value : "+$("#open_post_modal").scrollTop() );
-                    console.log("pageY offset : "+window.pageYOffset);
-                    console.log("post top offset : "+$("#post").get(0).getBoundingClientRect().bottom);
-                    console.log("\n\n");
-                    if($("#open_post_modal").scrollTop() >= $("#post").get(0).getBoundingClientRect().top) {
-                        // loadMoreData(page);
-                        // page++;
-                        // alert('1');
+                    var headerHeight = $("#header").height();
+                    var postOffsetTop = $("#post").offset().top;
+                    if(postOffsetTop - headerHeight <= 0 ) {
+                        var checkExist = $("#post-bot-function").hasClass("sticky-bottom");
+                        if(checkExist === false) {
+                            $("#post-bot-function").addClass("sticky-bottom");
+                        }
+                    } else {
+                        var checkExist = $("#post-bot-function").hasClass("sticky-bottom");
+                        if(checkExist === true) {
+                            $("#post-bot-function").removeClass("sticky-bottom");
+                        }
                     }
                 });
 
@@ -237,30 +273,30 @@
                     }
                     return false;
                 }
-                function voteLikeInPost(id, vote) {
+                function voteLikeInPost(id, like) {
                     $.ajax({
                         url: "/post/voteLikeInPost",
-                        data: { id: id, vote:vote },
+                        data: { id: id, like:like },
                         type: "post",
                         success: function(data) {
                             // console.log(data);
-                            clearVote();
-                            selectVote(data.vote);
-                            $(".post-like").text(data.totalVote);
+                            clearLike();
+                            selectLike(data.like);
+                            $(".post-like").text(data.totalLike);
                         },
                         error: function(err) {
                             alert("추천기능에 문제가 생겨 확인 중입니다.");
                         }
                     });
                 }
-                function clearVote() {
+                function clearLike() {
                     $("#post-downvote, #post-downvote-fix").attr("src", "{{ asset('image/downvote.png') }}");
                     $("#post-upvote, #post-upvote-fix").attr("src", "{{ asset('image/upvote.png') }}");
                 }
-                function selectVote(vote) {
-                    if(vote == 1) {
+                function selectLike(like) {
+                    if(like == 1) {
                         $("#post-upvote, #post-upvote-fix").attr("src", "{{ asset('image/upvote_c.png') }}");
-                    } else if(vote == -1) {
+                    } else if(like == -1) {
                         $("#post-downvote, #post-downvote-fix").attr("src", "{{ asset('image/downvote_c.png') }}");
                     }
                 }
@@ -298,18 +334,40 @@
                         });
                     }
                 }
-
-                function stampPost() {
-                    var options = 'width=500, height=600, top=30, left=30, resizable=no, scrollbars=no, location=no';
-                    // window.open('https://naver.com', '', options);
-                    window.location.assign('https://naver.com', '', options);
-
-                    // 출처: https://mine-it-record.tistory.com/304 [나만의 기록들]
-                    // 출처: https://mine-it-record.tistory.com/304 [나만의 기록들]
-                    // var options = "top=100,left=200,width=200,height=200,centerscreen=yes,resizable=no,scrollbars=yes";
-                    // window.open("https://naver.com", '_blank', options);
+                function selectCategory(categoryID) {
+                    // alert(categoryID);
+                    $.ajax({
+                        url: "/stamp",
+                        data: { categoryID: categoryID },
+                        type: "get",
+                        success: function(data) {
+                            console.log(data);
+                        },
+                        errror: function(err) {
+                            alert("기능에러로 스탬프를 불러오지 못 했습니다.");
+                        }
+                    });
+                }
+                function purchaseStamp(stampID, postID) {
+                    if(confirm('구매하시겠습니까 ?')) {
+                        $.ajax({
+                            url: "/stamp/purchase",
+                            data: {
+                                stampID: stampID,
+                                postID: postID
+                            },
+                            type: "post",
+                            success: function (data) {
+                                console.log(data);
+                            },
+                            errror: function (err) {
+                                alert("기능에러로 스탬프를 불러오지 못 했습니다.");
+                            }
+                        });
+                    }
                 }
             </script>
         </div>
     </div>
-{{--@endsection--}}
+    <script id="stampDataTemplate" type="text/x-jquery-tmpl">
+    </script>

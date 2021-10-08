@@ -110,6 +110,7 @@ class PostController extends Controller
         $userID = auth()->id();
         $post = Post::with('channel')
             ->withCount('comments')
+            ->with('stampInPosts')
             ->with('likes')
             ->with('user')
             ->where('posts.id', '=', $id)
@@ -131,6 +132,7 @@ class PostController extends Controller
                 ['updated_at' => now()]
             );
         }
+//        return view('main.index', compact('post', 'comments'));
         return view('post.show', compact('post', 'comments'));
     }
 
@@ -217,12 +219,12 @@ class PostController extends Controller
     {
         // 이력 확인
         $id = $req->input('id'); //postID
-        $vote = $req->input('vote');
+        $like = $req->input('like');
 
         // 수정 및 생성
         $post = Post::find($id);
         $checkExistValue = $post->likes()
-            ->where('vote', $vote)
+            ->where('like', $like)
             ->where('userID', auth()->id())
             ->first();
 
@@ -231,13 +233,13 @@ class PostController extends Controller
         } else {
             $result = $post->likes()->updateOrCreate(
                 ['userID' => auth()->id()],
-                ['vote' => $vote, 'userID' => auth()->id()]
+                ['like' => $like, 'userID' => auth()->id()]
             );
         }
         // 결과
         if ($result) {
-            $totalVote = $post->likes->sum('vote');
-            return response()->json(['totalVote' => $totalVote, 'vote' => $post->existPostLike]);
+            $totalLike = $post->likes->sum('like');
+            return response()->json(['totalLike' => $totalLike, 'like' => $post->existPostLike]);
         }
     }
 
