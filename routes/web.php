@@ -37,6 +37,7 @@ Route::get('/noti', [\App\Http\Controllers\NoticeNotiController::class, 'test'])
 Route::get('/noti2', [\App\Http\Controllers\NoticeNotiController::class, 'test_2'])->name('test.noti2');
 
 // Main's route
+//Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/search', [HomeController::class, 'search'])->name('home.search');
 Route::get('/searchHelper', [HomeController::class, 'searchHelper'])->name('home.search.helper');

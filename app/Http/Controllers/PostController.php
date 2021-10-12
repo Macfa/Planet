@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Channel;
+use App\Models\ChannelVisitHistory;
 use App\Models\Coin;
 use App\Models\CoinType;
 use App\Models\Comment;
@@ -15,6 +16,13 @@ use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
+    public function home() {
+        $this->index();
+//        $posts = Post::getData();
+//
+//        $channelVisitHistories = ChannelVisitHistory::showHistory();
+//        return view('main.index', compact('posts', 'channelVisitHistories'));
+    }
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +30,10 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::getData();
+
+        $channelVisitHistories = ChannelVisitHistory::showHistory();
+        return view('main.index', compact('posts', 'channelVisitHistories'));
     }
 
     /**
