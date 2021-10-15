@@ -48,7 +48,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css.bak/main/font.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/common/header.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/common/flex.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css.bak/main/common.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/main/common.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main/layout.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main/index.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css.bak/toastr.min.css') }}">
@@ -61,6 +61,7 @@
     <script src="{{ asset('js/jquery-tmpl.js') }}"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script async charset="utf-8" src="//cdn.embedly.com/widgets/platform.js"></script>
+    @stack("javascripts")
     <!-- Fonts -->
     {{-- <link rel="dns-prefetch" href="//fonts.gstatic.com"> --}}
     {{-- <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> --}}
@@ -70,7 +71,7 @@
 </head>
 
 
-<body>
+<body class="custom-scroll">
 <!-- Modal -->
 <div class="modal fade" id="open_post_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div style="width: 80%; max-width: none; top: 53px; margin-top: 0px;" class="modal-dialog">
@@ -78,22 +79,6 @@
         </div>
     </div>
 </div>
-
-{{-- This Section must be delete. it's code for test noti--}}
-{{--    <a href="{{ route('test.noti') }}">--}}
-{{--<div style="height:58px;">--}}
-{{--    test for noti--}}
-{{--</div>--}}
-{{--    </a>--}}
-
-{{--<a href="{{ route('test.noti2') }}">--}}
-{{--    <div style="height:58px;">--}}
-{{--        get noti--}}
-{{--        @if(Session::has('data'))--}}
-{{--            <div>{{ Session::get('data') }}</div>--}}
-{{--            @endif--}}
-{{--    </div>--}}
-{{--</a>--}}
 
 <div id="app" class="wid100">
     <div class="flex-container align-items-center" id="header">
@@ -104,17 +89,26 @@
         </div>
         <div style="flex: 5 5 auto;" class="header-sections header-section-search">
             <form class="row align-items-center" name="mainSearchForm" id="mainSearchForm" action="{{ route('home.search') }}" method="get">
-                 @csrf
+{{--                <input list="searched-list" type="text" name="searchText" onkeydown="searchingCallback(this);" placeholder="검색..." value="{{ Request::input('searchText') }}">--}}
                 <input type="text" name="searchText" onkeydown="searchingCallback(this);" placeholder="검색..." value="{{ Request::input('searchText') }}">
-{{--                <div id="searchRecomment">--}}
-{{--                    <div>--}}
-{{--                        <a href="" class="list-group-item list-group-item-action">Some</a>--}}
-{{--                        <a href="" class="list-group-item list-group-item-action">Some</a>--}}
-{{--                        <a href="" class="list-group-item list-group-item-action">Some</a>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
+{{--                <datalist id="searched-list">--}}
+{{--                    <option oninput="selectSearchItem();" value="Chocolate">--}}
+{{--                    <option value="Coconut">--}}
+{{--                    <option value="Mint">--}}
+{{--                    <option value="Strawberry">--}}
+{{--                    <option value="Vanilla">--}}
+{{--                </datalist>--}}
+                                <div id="header-search">
+{{--                                    <div>--}}
+{{--                                        <a href="" class="list-group-item list-group-item-action">Some</a>--}}
+{{--                                        <a href="" class="list-group-item list-group-item-action">Some</a>--}}
+{{--                                        <a href="" class="list-group-item list-group-item-action">Some</a>--}}
+{{--                                    </div>--}}
+                                </div>
+
                 <input type="hidden" name="searchType" id="searchType" value="a">
                 <button type="submit"></button>
+
             </form>
         </div>
         <div style="flex: 6 6 auto;" class="header-sections">
@@ -168,15 +162,31 @@
 </div>
 
 <script>
+    var timer = null;
     $(document).ready(function () {
-        $('#open_post_modal').on('show.bs.modal', function() {
-            $(document).off('focusin.modal');
-        });
+
         $('#open_post_modal').on('shown.bs.modal', function() {
             $(document).off('focusin.modal');
         });
+        var myCollapsible = document.getElementById('header-noti');
+        if(myCollapsible) {
+            myCollapsible.addEventListener('show.bs.collapse', function () {
+                $.ajax({
+                    type: "get",
+                    url: "/mark",
+                })
+            });
+        }
     });
-    var timer = null;
+
+    var delay = (function(){
+        var timer = 0;
+        return function(callback, ms){
+            clearTimeout (timer);
+            timer = setTimeout(callback, ms);
+        };
+    })();
+
     function searchingCallback() {
         // var timer = null;
 
@@ -188,13 +198,7 @@
             search();
         }, 600 );
     }
-    var myCollapsible = document.getElementById('header-noti');
-    myCollapsible.addEventListener('show.bs.collapse', function () {
-        $.ajax({
-            type: "get",
-            url: "/mark",
-        })
-    });
+
     function search() {
         var obj = $("input[name=searchText]");
         var word = obj.val();
@@ -216,12 +220,11 @@
                     // dataToAppend.push('<a href="" class="list-group-item list-group-item-action">검색</a>');
                 } else {
                     $.each(data['list'], function(idx,val) {
-                        console.log(val);
-                        console.log(idx);
                         if(data['type'] == "channel") {
                             dataToAppend.push('<a href="/channel/'+val['id']+'" class="list-group-item list-group-item-action">'+val['name']+'</a>');
                         } else if(data['type'] == "post") {
                             dataToAppend.push('<a href="/post/'+val['id']+'" class="list-group-item list-group-item-action">'+val['title']+'</a>');
+                            // dataToAppend.push('<a href="/post/'+val['id']+'" class="list-group-item list-group-item-action">'+val['title']+'</a>');
                         }
                     });
                 }
@@ -304,6 +307,12 @@
                 break;
         }
     @endif
+    function notLogged() {
+        // if(!auth()->check()) {
+        toastr.warning("로그인이 필요한 기능입니다");
+        return;
+        // }
+    }
 
 </script>
 </body>

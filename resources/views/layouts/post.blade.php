@@ -1,22 +1,6 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/post/show.css') }}">
     <div class="modal-parent container-fluid">
         <div class="modal-wrap">
-{{--            <div class="modal-top flex-wrap-wrap">--}}
-
-{{--                <div class="modal-title flex-0-0-100">--}}
-{{--                    <h4>--}}
-{{--                        {{ $post->title }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="titleSub">[<span class="commentCount">{{ $post->comments_count }}</span>]</span>--}}
-{{--                    </h4>--}}
-{{--                </div>--}}
-
-{{--                <div class="write-info">--}}
-{{--                    <p><span><a href="{{ route('channel.show', $post->channelID) }}">[{{ $post->channel->name }}]</a></span>&nbsp;온 <a href="{{ route('user.show', 'post') }}">{{ $post->user->name }}</a> / {{ $post->created_at->diffForHumans() }}</p>--}}
-{{--                </div>--}}
-
-{{--                <div class="modal-close">--}}
-{{--                    <img src="{{ asset('image/close.png') }}" alt="닫기" />--}}
-{{--                </div>--}}
-{{--            </div>--}}
             <div class="modal-header flex-wrap-wrap">
                 <div class="modal-title flex-0-0-100">
                     <h4>
@@ -50,7 +34,7 @@
                         <div class="board-etc-function" id="post">
                             <ul>
                                 <li class="clickable items">
-                                    <img id="post-upvote" onclick="voteLikeInPost({{ $post->id }},1)" class="image-sm" alt=""
+                                    <img id="post-upvote" onclick="@if(auth()->check()) voteLikeInPost({{ $post->id }},1) @else notLogged(); @endif" class="image-sm" alt=""
                                          @if($post->existPostLike == 1)
                                              src="{{ asset('image/upvote_c.png') }}" />
                                         @else
@@ -63,7 +47,7 @@
                                     </div>
                                 </li>
                                 <li class="clickable items">
-                                    <img id="post-downvote" onclick="voteLikeInPost({{ $post->id }}, -1)" class="image-sm" alt=""
+                                    <img id="post-downvote" onclick="@if(auth()->check()) voteLikeInPost({{ $post->id }}, -1) @else notLogged(); @endif" class="image-sm" alt=""
                                          @if($post->existPostLike == -1)
                                             src="{{ asset('image/downvote_c.png') }}" />
                                         @else
@@ -85,7 +69,7 @@
                                         <p>공유</p>
                                     </div>
                                 </li>
-                                <li class="clickable items" onclick="scrapPost({{ $post->id }})">
+                                <li class="clickable items" onclick="@if(auth()->check()) scrapPost({{ $post->id }}) @else notLogged(); @endif">
                                     <img class="image-sm" name="scrap" alt=""
                                          @if($post->existPostScrap == 1)
                                              src="{{ asset('image/scrap_c.png') }}" />
@@ -98,7 +82,7 @@
                                     </div>
                                     {{-- <scrap-template></scrap-template> --}}
                                 </li>
-                                <li class="clickable items" onclick="reportPost({{ $post->id }})">
+                                <li class="clickable items" onclick="@if(auth()->check()) reportPost({{ $post->id }}) @else notLogged(); @endif">
                                     <img class="image-sm" alt=""
                                          @if($post->existPostReport == 1)
                                             src="{{ asset('image/report_c.png') }}" />
@@ -126,59 +110,7 @@
                                 @endif
                             </ul>
                         </div>
-
                     @yield('comment')
-
-                    <!-- 하단 기능 -->
-{{--                        <div class="board-bot-function">--}}
-{{--                            <div class="left-function">--}}
-{{--                                <div class="page-arrow">--}}
-{{--                                    <img onclick="voteLikeInPost({{ $post->id }},1)" id="post-upvote-fix" class="image-m" alt="위로"--}}
-{{--                                         @if($post->existPostLike == 1)--}}
-{{--                                             src="{{ asset('image/upvote_c.png') }}" />--}}
-{{--                                        @else--}}
-{{--                                            src="{{ asset('image/upvote.png') }}" />--}}
-{{--                                        @endif--}}
-{{--                                    <span class="post-like">{{ $post->likes->sum('vote') }}</span>--}}
-{{--                                    <img onclick="voteLikeInPost({{ $post->id }},-1)" id="post-downvote-fix" class="image-m" alt="아래로"--}}
-{{--                                         @if($post->existPostLike == -1)--}}
-{{--                                             src="{{ asset('image/downvote_c.png') }}" />--}}
-{{--                                        @else--}}
-{{--                                            src="{{ asset('image/downvote.png') }}" />--}}
-{{--                                        @endif--}}
-{{--                                </div>--}}
-
-{{--                                <img alt="stamp" class="stamp-image image-m" src="{{ asset('image/stamp.png') }}"/>--}}
-{{--                                <img class="favorit-image image-m clickable" id="post-scrap" onclick="scrapPost({{ $post->id }})" alt="favorit"--}}
-{{--                                     @if($post->postScrap == 1)--}}
-{{--                                         src="{{ asset('image/scrap_c.png') }}" />--}}
-{{--                                    @else--}}
-{{--                                        src="{{ asset('image/scrap.png') }}" />--}}
-{{--                                    @endif--}}
-{{--                                <img src="{{ asset('image/message.png') }}" alt="message" class="message-image">--}}
-{{--                            </div>--}}
-
-{{--                            <div class="right-function">--}}
-{{--                                <img src="{{ asset('image/message.png') }}" alt="message" class="message-image">--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-
-                    <!-- 오른쪽 광고배너 -->
-{{--                        <div class="modal-right">--}}
-{{--                            <div class="modal-banner">--}}
-{{--                                <div class="banner-item">--}}
-{{--                                    <h3>광고 배너</h3>--}}
-{{--                                </div>--}}
-
-{{--                                <div class="banner-item">--}}
-{{--                                    <h3>광고 배너</h3>--}}
-{{--                                </div>--}}
-
-{{--                                <div class="banner-item">--}}
-{{--                                    <h3>광고 배너</h3>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
                     </div>
                 </div>
             </div>

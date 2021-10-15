@@ -33,7 +33,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $posts = Post::getData();
+        $posts = Post::getAllData();
 
         $channelVisitHistories = ChannelVisitHistory::showHistory();
         return view('main.index', compact('posts', 'channelVisitHistories'));
@@ -64,7 +64,7 @@ class HomeController extends Controller
         } else if($type==='hot') {
             $posts = Post::with('channel')
                 ->with('likes', function($q) {
-                    $q->orderby('vote', 'desc');
+                    $q->orderby('like', 'desc');
                 })
                 ->with('comments')
                 ->limit(5)
@@ -104,7 +104,7 @@ class HomeController extends Controller
         // $visit = new Visit();
         $channelVisitHistories = ChannelVisitHistory::showHistory();
 
-        return view('main.search', compact('posts', 'visits', 'searchType'));
+        return view('main.search', compact('posts', 'channelVisitHistories', 'searchType'));
     }
 
     public function searchHelper(Request $request) {
@@ -150,7 +150,7 @@ class HomeController extends Controller
     public function test2() {
         $posts = Post::willRemove();
 
-        $visits = Visit::showHistory();
-        return view('main.index', compact('posts', 'visits'));
+        $channelVisitHistories = ChannelVisitHistory::showHistory();
+        return view('main.index', compact('posts', 'channelVisitHistories'));
     }
 }
