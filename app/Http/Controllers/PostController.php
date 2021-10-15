@@ -17,11 +17,9 @@ use Illuminate\Support\Facades\Validator;
 class PostController extends Controller
 {
     public function home() {
-        $this->index();
-//        $posts = Post::getData();
-//
-//        $channelVisitHistories = ChannelVisitHistory::showHistory();
-//        return view('main.index', compact('posts', 'channelVisitHistories'));
+        $posts = Post::getAllData();
+        $channelVisitHistories = ChannelVisitHistory::showHistory();
+        return view('main.index', compact('posts', 'channelVisitHistories'));
     }
     /**
      * Display a listing of the resource.
@@ -30,7 +28,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::getData();
+        $posts = Post::getAllData();
 
         $channelVisitHistories = ChannelVisitHistory::showHistory();
         return view('main.index', compact('posts', 'channelVisitHistories'));

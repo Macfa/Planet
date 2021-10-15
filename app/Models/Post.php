@@ -95,7 +95,7 @@ class Post extends Model
             return 0;
         }
     }
-    public static function getData() {
+    public static function getAllData() {
         return self::withCount('comments')
             ->with('stampInPosts.stamp')
             ->orderby('id', 'desc')

@@ -31,12 +31,7 @@
                 <div class="list">
                     <table>
                         <colgroup>
-                            @if(blank($posts))
-{{--                                <col style="width:100%;">--}}
-{{--                                <col style="width:40px;">--}}
-{{--                                <col style="width:75px;">--}}
-{{--                                <col style="width:100%;">--}}
-                            @else
+                            @if(!blank($posts))
                                 <col style="width:40px;">
                                 <col style="width:75px;">
                                 <col style="width:100%;">
@@ -46,7 +41,7 @@
                             <tr id="post-{{ $post->id }}">
                                 <td>
                                     <!-- 업이면 클래스 up, 다운이면 down -->
-                                    <span class="updown up">{{ $post->likes->sum('vote') }}</span>
+                                    <span class="updown up">{{ $post->likes->sum('like') }}</span>
                                 </td>
                                 <td>
                                     <div class="thum" style="background-image: url({{ $post->image }});"></div>
@@ -54,8 +49,6 @@
                                 <td>
                                     <div class="title">
                                         <a href="#post-show-{{ $post->id }}" data-bs-toggle="modal" data-bs-focus="false" data-bs-post-id="{{ $post->id }}" data-bs-target="#open_post_modal">
-{{--                                        <a href="/post/{{ $post->id }}" data-bs-toggle="modal" data-bs-focus="false" data-bs-post-id="{{ $post->id }}">--}}
-{{--                                        <a href="javascript:OpenModal({{ $post->id }})">--}}
                                             <p>{{ $post->title }}&nbsp;&nbsp;</p>
                                             <span class="titleSub">[<span class="commentCount">{{ $post->comments_count }}</span>]</span>
                                             <span>
@@ -66,7 +59,6 @@
                                                     @endif
                                                 @endforeach
                                             </span>
-{{--                                            <span>[{{ $post->comments_count }}]</span>--}}
                                         </a>
                                     </div>
                                     <div class="user">
@@ -100,11 +92,15 @@
     <script>
         // 무한 스크롤
         var page = 1;
+        var checkRun = false;
 
-        $(window).scroll(function() {
+        $(window).scroll(function(event) {
             if($(window).scrollTop() + $(window).height() >= $(document).height()) {
-                loadMoreData(page);
-                page++;
+                if(checkRun == false) {
+                    checkRun = true;
+                    loadMoreData(page);
+                    page++;
+                }
             }
         });
 
@@ -112,44 +108,51 @@
             var channelID = "{{ request()->route('channel') }}";
             var type = $(".tab .on").attr('value');
 
-            $.ajax({
-                url: '/mainMenu',
-                type: 'get',
-                data: {
-                    "page": page,
-                    'type': type,
-                    'channelID': channelID
-                },
-                success: function(data) {
-                    var valueList = [];
-                    // $("#main .wrap .left .list table tbody tr").remove();
-                    if(data.result.length==0) {
-                        // valueList.push("<tr class='none-tr'><td>데이터가 없습니다.</td></tr>");
-                        // var value = "<tr class='none-tr'><td>데이터가 없습니다.</td></tr>";
-                        // $("#main .wrap .left .list table tbody").html(value);
-                        toastr.info("데이터가 없습니다");
-                    } else {
-                        for(var i=0; i<data.result.length; i++) {
-                            valueList.push({
-                                "totalVote": data.result[i].totalVote,
-                                "postID": data.result[i].id,
-                                "postTitle": data.result[i].title,
-                                "commentCount": data.result[i].comments_count,
-                                "postChannelID": data.result[i].channel.id,
-                                "channelName": data.result[i].channel.name,
-                                "userName": data.result[i].user.name,
-                                "userID": data.result[i].user.id,
-                                "created_at_modi": data.result[i].created_at_modi
-                            });
+                $.ajax({
+                    url: '/mainMenu',
+                    type: 'get',
+                    data: {
+                        "page": page,
+                        'type': type,
+                        'channelID': channelID
+                    },
+                    success: function (data) {
+                        var valueList = [];
+                        if (data.result.length == 0) {
+                            toastr.info("데이터가 없습니다");
+                        } else {
+                            addDataPlaceHolder();
+                            for (var i = 0; i < data.result.length; i++) {
+                                valueList.push({
+                                    "totalVote": data.result[i].totalVote,
+                                    "postID": data.result[i].id,
+                                    "postTitle": data.result[i].title,
+                                    "commentCount": data.result[i].comments_count,
+                                    "postChannelID": data.result[i].channel.id,
+                                    "channelName": data.result[i].channel.name,
+                                    "userName": data.result[i].user.name,
+                                    "userID": data.result[i].user.id,
+                                    "created_at_modi": data.result[i].created_at_modi
+                                });
+                            }
+                            delay(function() {
+                                removeDataPlaceHolder();
+                                $("#mainMenuItem").tmpl(valueList).insertAfter("#main .main-wrap .left .list table tbody tr:last-child");
+                            }, 1500);
                         }
-                        $("#mainMenuItem").tmpl(valueList).insertAfter("#main .main-wrap .left .list table tbody tr:last-child");
+                        // $("#main .wrap .left .tab li[class="+type+"]").attr('class', 'on');
+                    },
+                    error: function (err) {
+                        console.log(err);
                     }
-                    $("#main .wrap .left .tab li[class="+type+"]").attr('class', 'on');
-                },
-                error: function(err) {
-                    console.log(err);
-                }
-            })
+                })
+        }
+        function addDataPlaceHolder() {
+            $("#dataPlaceHolder").tmpl().insertAfter("#main .main-wrap .left .list table tbody tr:last-child");
+        }
+        function removeDataPlaceHolder() {
+            $("#main .main-wrap .left .list table tbody tr:last-child").remove();
+            checkRun = false;
         }
     </script>
 @endif
@@ -230,7 +233,7 @@
                 } else {
                     for(var i=0; i<data.result.length; i++) {
                         valueList.push({
-                            "totalVote": data.result[i].totalVote,
+                            "totalLike": data.result[i].totalLike,
                             "postID": data.result[i].id,
                             "postTitle": data.result[i].title,
                             "commentCount": data.result[i].comments_count,
@@ -255,12 +258,11 @@
 <script id="mainMenuItem" type="text/x-jquery-tmpl">
 <tr id="post-${postID}">
     <td>
-        <span class="updown up">${totalVote}</span>
+        <span class="updown up">${totalLike}</span>
     </td>
     <td><div class="thum"></div></td>
     <td>
         <div class="title">
-            <a href="javascript:OpenModal(${postID});">
             <a href="" data-bs-toggle="modal" data-bs-post-id="${postID}" data-bs-target="#open_post_modal">
             <p>${postTitle}&nbsp;&nbsp;</p>
             <span class="titleSub">[<span class="commentCount">${commentCount}</span>]</span>
@@ -271,6 +273,22 @@
     </td>
 </tr>
 {{--<p><span><a href="{{ route('channel.show', $post->channelID) }}">[{{ $post->channel->name }}]</a></span>온 <a href="{{ route('user.show', ${userName}) }}">${userName}</a> / ${created_at_modi}</p></div>--}}
+</script>
+<script id="dataPlaceHolder" type="text/x-jquery-tmpl">
+<tr>
+    <td>
+        <span class="updown up"></span>
+    </td>
+    <td><div class="thum"></div></td>
+    <td>
+        <div class="title">
+            <p class="placeholder col-6"></p>
+        </div>
+        <div class="user">
+            <p class="placeholder col-4"></p>
+        </div>
+    </td>
+</tr>
 </script>
 @endsection
 
