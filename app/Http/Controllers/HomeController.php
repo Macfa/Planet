@@ -139,7 +139,7 @@ class HomeController extends Controller
         $userID = auth()->id();
         $user = User::find($userID);
         $user->coins()->create([
-            'coin' => 100,
+            'coin' => 500,
             'type' => 'test',
             'userID' => $userID
         ]);

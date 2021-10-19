@@ -26,6 +26,7 @@ class StampController extends Controller
         $stamp = Stamp::find($stampID);
         $post = Post::find($postID);
         $coin = new Coin();
-        $coin->purchaseStamp($stamp,$post);
+//        dd($coin->purchaseStamp($stamp,$post));
+        return $coin->purchaseStamp($stamp,$post);
     }
 }

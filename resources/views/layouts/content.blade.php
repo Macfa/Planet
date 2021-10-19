@@ -124,7 +124,7 @@
                             addDataPlaceHolder();
                             for (var i = 0; i < data.result.length; i++) {
                                 valueList.push({
-                                    "totalVote": data.result[i].totalVote,
+                                    "totalLike": data.result[i].totalLike,
                                     "postID": data.result[i].id,
                                     "postTitle": data.result[i].title,
                                     "commentCount": data.result[i].comments_count,
@@ -164,43 +164,34 @@
             window.location.hash = $(this).attr('href');
         });
     });
-    var open_post_modal = document.getElementById('open_post_modal')
-    open_post_modal.addEventListener('show.bs.modal', function (event) {
-        // event.stopPropagation();
-        // Button that triggered the modal
-        var button = event.relatedTarget;
-        // Extract info from data-bs-* attributes
-        var postID = button.getAttribute('data-bs-post-id');
-        // postID = JSON.parse(post);
+    $(document).on('show.bs.modal', '#open_post_modal', function (event) {
+        if (event.target.id == 'open_post_modal') {
+            var button = event.relatedTarget;
+            var postID = button.getAttribute('data-bs-post-id');
+            var modalBody = $(".modal-content");
 
-        // If necessary, you could initiate an AJAX request here
-        // and then do the updating in a callback.
-        // Update the modal's content.
-        // var modalBody = open_post_modal.querySelector('.modal-content');
-        // heder
-        // document.getElementById()
-        var modalBody = $(".modal-content");
-        $.ajax({
-            url: '/post/'+postID,
-            type: 'get',
-            // data: {
-            //     'type': type,
-            // },
-            success: function(data) {
-                // modalBody.innerHTML = data;
-                modalBody.html(data);
-                event.stopImmediatePropagation();
-                // event.stopPropagation();
-                // event.preventDefault();
-            },
-            error: function(err) {
-                console.log(err);
-            }
-        })
-        // event.stopPropagation();
-        // event.preventDefault();
+            $.ajax({
+                url: '/post/'+postID,
+                type: 'get',
+                success: function(data) {
+                    modalBody.html(data);
+                },
+                error: function(err) {
+                    console.log(err);
+                }
+            })
+        }
+        // else if (event.target.id == 'openStampModal') {
+        //     // do stuff when the outer dialog is hidden.
+        // }
+    });
 
-    })
+    // var open_post_modal = document.getElementById('open_post_modal')
+    // open_post_modal.addEventListener('show.bs.modal', function (event) {
+    //     // event.stopPropagation();
+    //     // Button that triggered the modal
+    //
+    // })
 
     $('#main .tab li').click(function(event){
         $('#main .tab li').removeClass('on');
