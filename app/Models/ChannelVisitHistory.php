@@ -20,7 +20,7 @@ class ChannelVisitHistory extends Model
     {
         return $this->belongsTo(User::class, 'userID', 'id');
     }
-    public function addHistory(Channel $channel) {
+    public static function addHistory(Channel $channel) {
         if(auth()->check()) {
             $channel->channelVisitHistories()->updateOrCreate([
                 'userID' => auth()->id(),
@@ -35,7 +35,7 @@ class ChannelVisitHistory extends Model
                 Visit::where('userID', auth()->id())->orderby('updated_at', 'asc')->limit(1)->delete();
             }
 
-            return $this->showHistory();
+            return self::showHistory();
         }
     }
     public static function showHistory() {

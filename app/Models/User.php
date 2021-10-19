@@ -55,6 +55,9 @@ class User extends Authenticatable
     public function coins() {
         return $this->morphMany(Coin::class, 'coinable');
     }
+    public function channelJoins() {
+        return $this->hasMany(ChannelJoin::class, 'userID', 'id');
+    }
     public function grade() {
         return $this->hasOne(Grade::class, "id", "gradeID");
     }
@@ -64,6 +67,9 @@ class User extends Authenticatable
     }
     public function channelVisitHistories() {
         return $this->hasMany(ChannelVisitHistory::class, 'userID', 'id');
+    }
+    public function channelAdmins() {
+        return $this->hasMany(ChannelAdmin::class, 'userID', 'id');
     }
     public function Comments() {
         return $this->hasMany(Comment::class, 'userID', 'id');

@@ -86,7 +86,10 @@ class UserController extends Controller
             return redirect()->back()->with(['msg'=>'코인이 부족합니다', 'type'=>'error']);
         }
     }
-
+    public function destroy() {
+        dd(Auth::user());
+//        Auth::user()->delete();
+    }
     public function logedIn() {
         if(Auth::check()) {
             return true;

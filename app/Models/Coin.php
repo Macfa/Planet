@@ -116,20 +116,30 @@ class Coin extends Model
                 'userID'=>auth()->id()
             ]);
             $checkExist = $post->stampInPosts()->where("stampID", $stamp->id)->first();
+            $currentCoin = $totalCoin - $price;
+
             if($checkExist) {
+                $toBeCount = $checkExist->count+1;
                 $post->stampInPosts()->update([
-                    "count" => $checkExist->count+1
+                    "count" => $toBeCount
                 ]);
+                $method = "update";
             } else {
+                $toBeCount = 1;
                 $post->stampInPosts()->create([
                     'postID' => $post->id,
                     'stampID' => $stamp->id,
                     'count' => 1,
                     'userID' => auth()->id()
                 ]);
+                $method = "create";
             }
-
-            return true;
+            return [
+                "method" => $method,
+                "currentCoin" => $currentCoin,
+                "image" => $stamp->image,
+                "count" => $toBeCount
+            ];
         } else {
             return false;
         }

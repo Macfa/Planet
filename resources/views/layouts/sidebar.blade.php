@@ -1,8 +1,8 @@
 @section('sidebar')
 <div class="best">
     <ul>
-        <li class="realtime" onclick="clickSidebarMenu('realtime');"><a>실시간</a></li>
-        <li class="hot" onclick="clickSidebarMenu('hot');"><a>인기</a></li>
+        <li class="clickable realtime" onclick="clickSidebarMenu('realtime');"><a>실시간</a></li>
+        <li class="clickable hot" onclick="clickSidebarMenu('hot');"><a>인기</a></li>
     </ul>
     <ol class="sidebar_list">
 {{--            <li><a href="#"><span class="up">111</span><p>아프리카tv</p></a></li>--}}

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Channel;
+use App\Models\ChannelJoin;
 use App\Models\ChannelVisitHistory;
 use App\Models\Favorite;
 use App\Models\Post;
@@ -74,7 +75,7 @@ class ChannelController extends Controller
 
             // add favorite
             $channel = Channel::findOrFail($created->id);
-            $channel->channelJoin()->create([
+            $channel->channelJoins()->create([
                 'userID' => $userID,
                 'channelID' => $created->id,
             ]);
@@ -110,14 +111,14 @@ class ChannelController extends Controller
 
         // channel info
         $channel = Channel::where('id', $id)
-            ->withCount('channelJoin')
-            ->get()
+            ->with('channelJoins')
+            ->with('channelAdmins')
             ->first();
 
         // visit info
 //        $visit = new Visit();
 //        $visits = $visit->addHistory($channel);
-        $channelVisitHistories = ChannelVisitHistory::showHistory();
+        $channelVisitHistories = ChannelVisitHistory::addHistory($channel);
 //        $visits = $visit->showHistory();
 
         return view('channel.show', compact('posts', 'channel', 'channelVisitHistories'));
@@ -184,38 +185,74 @@ class ChannelController extends Controller
         return true;
     }
 
-    public function favorite(Request $req) {
+    public function channelJoin(Request $req) {
         $id = $req->input('id');
 
-        $exist = Favorite::where('channelID', $id)
+        $exist = ChannelJoin::where('channelID', $id)
             ->where('userID', '=', auth()->id())
             ->first();
 
         if($exist != null) {
-            Favorite::where('channelID', $id)
+            ChannelJoin::where('channelID', $id)
                 ->where('userID', auth()->id())
                 ->delete();
 
             $result = array();
             $result['id'] = $id;
             $result['result'] = 'deleted';
+            $result['type'] = 'info';
+            $result['msg'] = '동아리 정상 탈퇴되었습니다';
 
         } else {
-            $created = Favorite::create([
+            $created = ChannelJoin::create([
                 'userID' => auth()->id(),
                 'channelID' => $id
             ]);
 
-            $result = Favorite::where('id', '=', $created->id)
+            $result = ChannelJoin::where('id', '=', $created->id)
                 ->with('channel')
                 ->first();
             $result['result'] = 'created';
+            $result['type'] = 'info';
+            $result['msg'] = '동아리 정상 가입되었습니다';
         }
 
-        $count = Favorite::where('channelID', $id)
+        $count = ChannelJoin::where('channelID', $id)
             ->count();
         $result['totalCount'] = $count;
         return response()->json($result, 200);
+    }
+    public function getUserInChannel($channelID) {
+        // 이미 추가된 경우 제외
+        $data = array();
+        $channel = Channel::with('channelJoins')->doesntHave('channelAdmins')->first();
+
+        if($channel) {
+            foreach($channel->channelJoins as $channelJoin) {
+                $data["name"] = $channelJoin->user->name;
+            }
+            return response()->json($data);
+        } else {
+            $errorData = [
+                "type" => "error",
+                "message" => "추가가능한 유저가 없습니다"
+            ];
+//            return response($errorData, 302);
+//            return redirect()->back()->withErrors();
+        }
+    }
+    public function addChannelAdmin(Request $request) {
+        $name = $request->input("ChannelJoinInput");
+        $channelID = $request->input("channelID");
+
+        if($name) {
+            $user = User::with('channelAdmins')->where('name', $name)->first();
+            $user->channelAdmins()->create([
+                'userID' => $user->id,
+                'channelID' => $channelID
+            ]);
+        }
+        return redirect()->back();
     }
 }
 

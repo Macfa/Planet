@@ -23,11 +23,11 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::domain('m.lanet.co.kr')->group(function () {
-    Route::get('/', [MobileHomeController::class, 'index'])->name('mobile.home');
+    Route::get('/', [HomeController::class, 'index'])->name('mobile.home');
 });
 
 Route::domain('m.localhost')->group(function () {
-    Route::get('/', [MobileHomeController::class, 'index'])->name('mobile.home');
+    Route::get('/', [HomeController::class, 'index'])->name('mobile.home');
 });
 
 // should be deleted route
@@ -56,11 +56,14 @@ Route::post('/comment/voteLikeInComment', [CommentController::class, 'voteLikeIn
 
 // Channel's resource
 Route::resource('channel', ChannelController::class);
-Route::post('/channel/favorite', [ChannelController::class, 'favorite']);
+Route::post('/channel/channelJoin', [ChannelController::class, 'channelJoin']);
+Route::post('/channel/addChannelAdmin', [ChannelController::class, 'addChannelAdmin']);
+Route::get('/channel/getUserInChannel/{channelID}', [ChannelController::class, 'getUserInChannel']);
 
 // User's
 Route::get('/user/{user}/{el?}', [UserController::class,'show'])->name('user.show');
 Route::post('/user/{id}', [UserController::class,'modify'])->name('user.modify');
+Route::delete('/user/{id}', [UserController::class,'destroy'])->name('user.destroy');
 Route::get('/user/', [UserController::class,'logout'])->name('user.logout');
 Route::get('/mark', function() {
     auth()->user()->unreadNotifications->markAsRead();

@@ -13,10 +13,13 @@ class Channel extends Model
     protected $guarded = [];
 
     public function posts() {
-        return $this->hasMany(Post::class, 'id', 'chnnelID');
+        return $this->hasMany(Post::class, 'channelID', 'id');
     }
-    public function channelJoin() {
+    public function channelJoins() {
         return $this->hasMany(ChannelJoin::class, 'channelID', 'id');
+    }
+    public function channelAdmins() {
+        return $this->hasMany(ChannelAdmin::class, 'channelID', 'id');
     }
     public function channelVisitHistories() {
         return $this->hasMany(ChannelVisitHistory::class, 'channelID', 'id');

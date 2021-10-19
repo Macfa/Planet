@@ -72,13 +72,15 @@
 
 
 <body class="custom-scroll">
-<!-- Modal -->
+<!-- Modals -->
 <div class="modal fade" id="open_post_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div style="width: 80%; max-width: none; top: 53px; margin-top: 0px;" class="modal-dialog">
         <div class="modal-content">
         </div>
     </div>
 </div>
+
+
 
 <div id="app" class="wid100">
     <div class="flex-container align-items-center" id="header">
@@ -128,9 +130,8 @@
                     <li class="header_icon"><img src="{{ asset('image/coin_4x.png') }}" alt="coin" /></li>
     {{--                    <li class="header_text ml-0 header_text_align">--}}
                     <li class="header_text header_text_align">
-                        <p>
-                            {{ coin_transform(\App\Models\Coin::where('coins.userID',auth()->id())
-                                ->sum('coin')) }}
+                        <p id="total_coin">
+                            {{ coin_transform() }}
                         </p>
                     </li>
                     <li class="header_icon header_icon_clickable"><a href="/"><img src="{{ asset('image/home_4x.png') }}" alt="home" /></a></li>
