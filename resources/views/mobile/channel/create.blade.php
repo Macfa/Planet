@@ -1,7 +1,7 @@
-{{--@include('layouts.app')--}}
+@include('mobile.layouts.app')
 
-<link rel="stylesheet" type="text/css" href="{{ asset('css/channel/create.css') }}">
-<section id="channel">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/mobile/channel/create.css') }}">
+<section style="width: 100vw; height: calc(var(--vh, 89vh) * 89);" id="channel">
   <div class="wrap">
     <article class="board_box">
       <div class="left">
@@ -17,8 +17,9 @@
                     <div class="sub_box sub_box_line">
                         <span class="menu">이름</span>
                     </div>
-                    <div class="sub_box">
-                        <input type="text" name="name" class="box @error('name') is-invalid @enderror" placeholder="이름을 입력하세요" @if(isset($channel)) value="{{ $channel->name }}" readonly @else value="{{ old('name') }}" @endif >
+                    <div class="sub_box" id="channel_name_input_section">
+{{--                        <span id="checkWordCount">0/20</span>--}}
+                        <input id="channel_name_input" type="text" name="name" class="box @error('name') is-invalid @enderror" placeholder="이름을 입력하세요" @if(isset($channel)) value="{{ $channel->name }}" readonly @else value="{{ old('name') }}" @endif pattern="^[a-zA-Z가-힇0-9]+$" required>
                         @error('name')
 {{--                            <span class="text-danger">{{ $errors->first('name') }}</span>--}}
                             <span class="text-danger">{{ $message }}</span>
@@ -29,8 +30,8 @@
                     <div class="sub_box sub_box_line">
                         <span class="menu">설명</span>
                     </div>
-                    <div class="mt10 sub_box">
-                        <textarea name="description" class="text_box @error('description') is-invalid @enderror" id="" placeholder="내용을 입력하세요">@if(isset($channel)){{ $channel->description }}@else{{ old('description') }}@endif</textarea>
+                    <div class="mt10">
+                        <textarea name="description" class="text_box @error('description') is-invalid @enderror" id="" placeholder="정보를 적어주세요" required>@if(isset($channel)){{ $channel->description }}@else{{ old('description') }}@endif</textarea>
                         @error('description')
 {{--                            <span class="text-danger">{{ $errors->first('description') }}</span>--}}
                             <span class="text-danger">{{ $message }}</span>
@@ -61,18 +62,27 @@
             </form>
         </div>
       </div>
-      <div class="right">
-        <div class="banner banner_above">
-            <span>banner</span>
-        </div>
-        <div class="banner banner_below">
-            <span>banner</span>
-        </div>
-      </div>
+{{--      <div class="right">--}}
+{{--        <div class="banner banner_above">--}}
+{{--            <span>banner</span>--}}
+{{--        </div>--}}
+{{--        <div class="banner banner_below">--}}
+{{--            <span>banner</span>--}}
+{{--        </div>--}}
+{{--      </div>--}}
     </article>
   </div>
 </section>
-</body>
-
-
-</html>
+<script>
+    // $('#channel_name_input').keyup(function (e){
+    //     var content = $(this).val();
+    //
+    //     if (content.length > 20){
+    //         return;
+    //     } else {
+    //         var elem = `<span>${content.length}/20</span>`;
+    //         $("#channel_name_input_section").append(elem);
+    //         console.log(elem);
+    //     }
+    // });
+</script>

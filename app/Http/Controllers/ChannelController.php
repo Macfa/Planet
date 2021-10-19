@@ -11,9 +11,19 @@ use App\Models\User;
 use App\Models\Visit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Jenssegers\Agent\Agent;
 
 class ChannelController extends Controller
 {
+    private Agent $agent;
+
+    public function __construct()
+    {
+        $this->agent = new Agent();
+        if($this->agent->isMobile()) {
+            redirect('http://m.localhost:8000/');
+        }
+    }
     /**
      * Display a listing of the resource.
      *
@@ -31,7 +41,11 @@ class ChannelController extends Controller
      */
     public function create()
     {
-        return view('channel.create');
+        if($this->agent->isMobile()) {
+            return view('mobile.channel.create');
+        } else {
+            return view('channel.create');
+        }
     }
 
     /**
@@ -121,7 +135,11 @@ class ChannelController extends Controller
         $channelVisitHistories = ChannelVisitHistory::addHistory($channel);
 //        $visits = $visit->showHistory();
 
-        return view('channel.show', compact('posts', 'channel', 'channelVisitHistories'));
+        if($this->agent->isMobile()) {
+            return view('mobile.channel.show', compact('posts', 'channel', 'channelVisitHistories'));
+        } else {
+            return view('channel.show', compact('posts', 'channel', 'channelVisitHistories'));
+        }
     }
 
     /**

@@ -71,7 +71,7 @@
             </div>
             <div class="flex_item">
                 <div>{{ number_format($coin->postCoin) }}</div>
-                <p>대자보 등극 게시글 수</p>
+                <p>대자보 등극 수</p>
             </div>
         </div>
         <div class="flex">
@@ -84,21 +84,12 @@
                 <p>베스트 댓글 수</p>
             </div>
         </div>
-{{--            <div class="flex">--}}
-{{--                <li class="flex_item">--}}
-{{--                    <a href="{{ route('channel.edit', $channel->id) }}">수정</a>--}}
-{{--                </li>--}}
-{{--                <li class="flex_item">--}}
-{{--                    <form action="{{ route('channel.destroy', $channel->id) }}" method="post">--}}
-{{--                        @csrf--}}
-{{--                        @method('delete')--}}
-{{--                        <button type="submit">--}}
-{{--                            삭제--}}
-{{--                            --}}{{--                            <a>삭제</a>--}}
-{{--                        </button>--}}
-{{--                    </form>--}}
-{{--                </li>--}}
-{{--            </div>--}}
+        <div class="flex">
+            <div class="flex_item">
+{{--                <a href="{{ route('user.destroy', auth()->id()) }}">삭제</a>--}}
+                <a href="{{ route('user.destroy', auth()->id()) }}">삭제 ( 수정 중 )</a>
+            </div>
+        </div>
     </div>
 </div>
 <div class="link">
@@ -108,7 +99,6 @@
         <li><a href="{{ route('post.create') }}">게시글 작성</a></li>
         <li><a href="{{ route('channel.create') }}">동아리 만들기</a></li>
     </ul>
-</div>
 </div>
 
 <!-- Modal -->

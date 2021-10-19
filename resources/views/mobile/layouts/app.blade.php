@@ -6,7 +6,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0" />
+    <meta name="viewport" content="height=device-height, width=device-width, user-scalable=yes, initial-scale=1.0" />
 
     <meta name="format-detection" content="telephone=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -46,10 +46,11 @@
 
     <link rel="stylesheet" type="text/css" href="{{ asset('css.bak/bootstrap-5.1.0.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css.bak/main/font.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/common/header.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css.bak/main/common.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/main/layout.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/main/index.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/mobile/common/header.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/mobile/common/flex.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/mobile/main/common.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/mobile/main/layout.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/mobile/main/index.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css.bak/toastr.min.css') }}">
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -60,6 +61,7 @@
     <script src="{{ asset('js/jquery-tmpl.js') }}"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script async charset="utf-8" src="//cdn.embedly.com/widgets/platform.js"></script>
+    @stack("javascripts")
     <!-- Fonts -->
     {{-- <link rel="dns-prefetch" href="//fonts.gstatic.com"> --}}
     {{-- <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> --}}
@@ -69,77 +71,71 @@
 </head>
 
 
-<body>
-<!-- Modal -->
-<div style="top: 57px; height: 95%;" class="modal fade" id="open_post_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+<body style="height: calc(var(--vh, 1vh) * 100);">
+<!-- Modals -->
+<div class="modal fade" id="open_post_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div style="top: 53px; margin: 0px 0px;" class="modal-dialog">
         <div class="modal-content">
         </div>
     </div>
 </div>
 
-{{-- This Section must be delete. it's code for test noti--}}
-{{--    <a href="{{ route('test.noti') }}">--}}
-{{--<div style="height:58px;">--}}
-{{--    test for noti--}}
-{{--</div>--}}
-{{--    </a>--}}
-
-{{--<a href="{{ route('test.noti2') }}">--}}
-{{--    <div style="height:58px;">--}}
-{{--        get noti--}}
-{{--        @if(Session::has('data'))--}}
-{{--            <div>{{ Session::get('data') }}</div>--}}
-{{--            @endif--}}
-{{--    </div>--}}
-{{--</a>--}}
-
-<div id="app" class="container-fluid" style="padding: 0;">
-    <div class="row align-items-center" id="header">
-        <div class="col-2"><a href="/"><img src="{{ asset('image/logo.png') }}"></a></div>
-        <div class="cst-input-form col-3 container">
+<div id="app">
+    <div style="height: calc(var(--vh, 8vh) * 8);" class="row flex-justify-space-between" id="header">
+        <div class="header-sections col-3">
+            <a href="/">
+                <img src="{{ asset('image/logo.png') }}">
+            </a>
+        </div>
+        <div class="col-4 header-sections header-section-search">
             <form class="row align-items-center" name="mainSearchForm" id="mainSearchForm" action="{{ route('home.search') }}" method="get">
-                {{-- @csrf --}}
+{{--                <input list="searched-list" type="text" name="searchText" onkeydown="searchingCallback(this);" placeholder="검색..." value="{{ Request::input('searchText') }}">--}}
                 <input type="text" name="searchText" onkeydown="searchingCallback(this);" placeholder="검색..." value="{{ Request::input('searchText') }}">
-{{--                <div id="searchRecomment">--}}
-{{--                    <div>--}}
-{{--                        <a href="" class="list-group-item list-group-item-action">Some</a>--}}
-{{--                        <a href="" class="list-group-item list-group-item-action">Some</a>--}}
-{{--                        <a href="" class="list-group-item list-group-item-action">Some</a>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
+{{--                <datalist id="searched-list">--}}
+{{--                    <option oninput="selectSearchItem();" value="Chocolate">--}}
+{{--                    <option value="Coconut">--}}
+{{--                    <option value="Mint">--}}
+{{--                    <option value="Strawberry">--}}
+{{--                    <option value="Vanilla">--}}
+{{--                </datalist>--}}
+                                <div id="header-search">
+{{--                                    <div>--}}
+{{--                                        <a href="" class="list-group-item list-group-item-action">Some</a>--}}
+{{--                                        <a href="" class="list-group-item list-group-item-action">Some</a>--}}
+{{--                                        <a href="" class="list-group-item list-group-item-action">Some</a>--}}
+{{--                                    </div>--}}
+                                </div>
+
                 <input type="hidden" name="searchType" id="searchType" value="a">
                 <button type="submit"></button>
+
             </form>
         </div>
-        <div class="cst-icon-list col-1 container">
-            <div class="row justify-content-end">
-                @guest
-{{--                    <li class="header_icon"><a href="{{ route('social.oauth', 'google') }}"><img src="{{ asset('image/coin_4x.png') }}" alt="coin" /></a></li>--}}
-                    <li style="padding: 0;" class="header_icon header_icon_clickable"><a href="{{ route('social.oauth', 'google') }}"><img src="{{ asset('image/home_4x.png') }}" alt="home" /></a></li>
-                @endguest
-                @auth
+        <div class="header-sections col-5">
+            @guest
+                <ul class="flex-container flex-justify-content-flex-end">
+                    <li class="login">
+                        <a href="{{ route('social.oauth', 'google') }}">로그인</a>
+                    </li>
+                </ul>
+            @endguest
+            @auth
+                <ul class="row flex-justify-content-flex-end flex-wrap-nowrap">
                     <li class="header_icon"><img src="{{ Auth::user()->avatar }}" alt="img" /></li>
-                    <li class="header_text header_text_align">
-                        <p>{{ Auth::user()->name }}</p>
-                    </li>
-                    <li class="header_icon"><img src="{{ asset('image/coin_4x.png') }}" alt="coin" /></li>
-    {{--                    <li class="header_text ml-0 header_text_align">--}}
-                    <li class="header_text header_text_align">
-                        <p>
-                            {{ coin_transform(\App\Models\Coin::where('coins.userID',auth()->id())
-                                ->sum('coin')) }}
-                        </p>
-                    </li>
-                    <li class="header_icon header_icon_clickable"><a href="/"><img src="{{ asset('image/home_4x.png') }}" alt="home" /></a></li>
                     <li class="header_icon header_icon_clickable"><a class="" data-bs-toggle="collapse" href="#header-mypage" role="button" aria-expanded="false" aria-controls="header-mypage"><img src="{{ asset('image/mypage_4x.png') }}" alt="mypage" /></a></li>
 
 {{--                    <li class="header_icon"><a href="{{ route('user.show', auth()->id()) }}" class="btn btn-primary" data-bs-toggle="collapse" href="#header-mypage" role="button" aria-expanded="false" aria-controls="header-mypage"><img src="{{ asset('image/mypage_4x.png') }}" alt="mypage" /></a></li>--}}
 
-                    <li class="header_icon header_icon_clickable"><a class="" data-bs-toggle="collapse" href="#header-noti" role="button" aria-expanded="false" aria-controls="header-noti"><img src="{{ asset('image/noti_4x.png') }}" alt="noti" /></li></a>
+                    <li class="header_icon header_icon_clickable">
+                        <a style="position: relative;" class="" data-bs-toggle="collapse" href="#header-noti" role="button" aria-expanded="false" aria-controls="header-noti"><img src="{{ asset('image/noti_4x.png') }}" alt="noti" />
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                              {{ auth()->user()->unreadNotifications->count() }}
+                            </span><span class="visually-hidden">unread messages</span>
+                        </a>
+                    </li>
                     <li class="header_icon header_icon_clickable"><a class="" data-bs-toggle="collapse" href="#header-list" role="button" aria-expanded="false" aria-controls="header-list"><img src="{{ asset('image/list_4x.png') }}" alt="list" /></a></li>
-                @endauth
-            </div>
+                </ul>
+            @endauth
         </div>
     </div>
     @auth
@@ -147,14 +143,46 @@
         @include('mobile.layouts.header-collaps')
     </div>
     @endauth
-    <div>
 
-        @yield('mobile.content')
-    </div>
+    @yield('content')
+
 </div>
 
 <script>
+
     var timer = null;
+    $(document).ready(function () {
+
+        $('#open_post_modal').on('shown.bs.modal', function() {
+            $(document).off('focusin.modal');
+        });
+        var myCollapsible = document.getElementById('header-noti');
+        if(myCollapsible) {
+            myCollapsible.addEventListener('show.bs.collapse', function () {
+                $.ajax({
+                    type: "get",
+                    url: "/mark",
+                })
+            });
+        }
+    });
+
+    var delay = (function(){
+        var timer = 0;
+        return function(callback, ms){
+            clearTimeout (timer);
+            timer = setTimeout(callback, ms);
+        };
+    })();
+
+    function setScreenSize() {
+        let vh = window.innerHeight * 0.01;
+
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    setScreenSize();
+    window.addEventListener('resize', () => setScreenSize());
+
     function searchingCallback() {
         // var timer = null;
 
@@ -170,8 +198,7 @@
     function search() {
         var obj = $("input[name=searchText]");
         var word = obj.val();
-        // var word = encodeURI(word);
-        // return;
+
         $.ajax({
             type: "get",
             url: "/searchHelper",
@@ -183,22 +210,20 @@
                 var dataToAppend = [];
 
                 elementToPlace.children().remove();
-                console.log(data);
+
                 if(data['list'] === null) {
                     // pass
                     // dataToAppend.push('<a href="" class="list-group-item list-group-item-action">검색</a>');
                 } else {
                     $.each(data['list'], function(idx,val) {
-                        console.log(val);
-                        console.log(idx);
                         if(data['type'] == "channel") {
                             dataToAppend.push('<a href="/channel/'+val['id']+'" class="list-group-item list-group-item-action">'+val['name']+'</a>');
                         } else if(data['type'] == "post") {
                             dataToAppend.push('<a href="/post/'+val['id']+'" class="list-group-item list-group-item-action">'+val['title']+'</a>');
+                            // dataToAppend.push('<a href="/post/'+val['id']+'" class="list-group-item list-group-item-action">'+val['title']+'</a>');
                         }
                     });
                 }
-                console.log(dataToAppend);
                 elementToPlace.append(dataToAppend);
 
                 {{--if(data.result=='created') {--}}
@@ -278,6 +303,12 @@
                 break;
         }
     @endif
+    function notLogged() {
+        // if(!auth()->check()) {
+        toastr.warning("로그인이 필요한 기능입니다");
+        return;
+        // }
+    }
 
 </script>
 </body>
