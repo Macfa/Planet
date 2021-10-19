@@ -1,27 +1,35 @@
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/post/show.css') }}">
-    <div class="modal-parent container-fluid">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/mobile/post/show.css') }}">
+    <div class="modal-parent wid100">
         <div class="modal-wrap">
-            <div class="modal-top">
-
-                <div class="modal-title">
+            <div class="modal-header flex-wrap-wrap">
+                <div class="modal-title flex-0-0-100">
                     <h4>
                         {{ $post->title }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="titleSub">[<span class="commentCount">{{ $post->comments_count }}</span>]</span>
+                        <span class="stamps">
+                            @foreach($post->stampInPosts as $stampInPost)
+                                <span class="stamp-{{ $stampInPost->stampID }}">
+                                    <img style="width:31px;" src="{{ $stampInPost->stamp->image }}" alt="">
+                                    <span>
+                                        @if($stampInPost->count>1)
+                                                {{ $stampInPost->count }}
+                                        @endif
+                                    </span>
+                                </span>
+                            @endforeach
+                            </span>
                     </h4>
                 </div>
-
                 <div class="write-info">
                     <p><span><a href="{{ route('channel.show', $post->channelID) }}">[{{ $post->channel->name }}]</a></span>&nbsp;온 <a href="{{ route('user.show', 'post') }}">{{ $post->user->name }}</a> / {{ $post->created_at->diffForHumans() }}</p>
                 </div>
-
-                <div class="modal-close">
-                    <img src="{{ asset('image/close.png') }}" alt="닫기" />
-                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+{{--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-image: url({{ asset('image/close.png') }})"></button>--}}
             </div>
 
             <div class="modal-body">
                 <!-- 왼쪽 게시글 내용 -->
                 <div class="modal-left">
-                    <div class="modal-content">
+                    <div>
                         <div class="board-text">
                             {!! $post->content !!}
                         </div>
@@ -30,7 +38,7 @@
                         <div class="board-etc-function" id="post">
                             <ul>
                                 <li class="clickable items">
-                                    <img id="post-upvote" onclick="voteLikeInPost({{ $post->id }},1)" class="image-sm" alt=""
+                                    <img id="post-upvote" onclick="@if(auth()->check()) voteLikeInPost({{ $post->id }},1) @else notLogged(); @endif" class="image-sm" alt=""
                                          @if($post->existPostLike == 1)
                                              src="{{ asset('image/upvote_c.png') }}" />
                                         @else
@@ -39,11 +47,11 @@
                                 </li>
                                 <li class="items">
                                     <div class="post-like">
-                                        <p>{{ $post->likes->sum('vote') }}</p>
+                                        <p>{{ $post->likes->sum('like') }}</p>
                                     </div>
                                 </li>
                                 <li class="clickable items">
-                                    <img id="post-downvote" onclick="voteLikeInPost({{ $post->id }}, -1)" class="image-sm" alt=""
+                                    <img id="post-downvote" onclick="@if(auth()->check()) voteLikeInPost({{ $post->id }}, -1) @else notLogged(); @endif" class="image-sm" alt=""
                                          @if($post->existPostLike == -1)
                                             src="{{ asset('image/downvote_c.png') }}" />
                                         @else
@@ -65,7 +73,7 @@
                                         <p>공유</p>
                                     </div>
                                 </li>
-                                <li class="clickable items" onclick="scrapPost({{ $post->id }})">
+                                <li class="clickable items" onclick="@if(auth()->check()) scrapPost({{ $post->id }}) @else notLogged(); @endif">
                                     <img class="image-sm" name="scrap" alt=""
                                          @if($post->existPostScrap == 1)
                                              src="{{ asset('image/scrap_c.png') }}" />
@@ -78,7 +86,7 @@
                                     </div>
                                     {{-- <scrap-template></scrap-template> --}}
                                 </li>
-                                <li class="clickable items" onclick="reportPost({{ $post->id }})">
+                                <li class="clickable items" onclick="@if(auth()->check()) reportPost({{ $post->id }}) @else notLogged(); @endif">
                                     <img class="image-sm" alt=""
                                          @if($post->existPostReport == 1)
                                             src="{{ asset('image/report_c.png') }}" />
@@ -106,75 +114,81 @@
                                 @endif
                             </ul>
                         </div>
-
                     @yield('comment')
-
-                    <!-- 하단 기능 -->
-{{--                        <div class="board-bot-function">--}}
-{{--                            <div class="left-function">--}}
-{{--                                <div class="page-arrow">--}}
-{{--                                    <img onclick="voteLikeInPost({{ $post->id }},1)" id="post-upvote-fix" class="image-m" alt="위로"--}}
-{{--                                         @if($post->existPostLike == 1)--}}
-{{--                                             src="{{ asset('image/upvote_c.png') }}" />--}}
-{{--                                        @else--}}
-{{--                                            src="{{ asset('image/upvote.png') }}" />--}}
-{{--                                        @endif--}}
-{{--                                    <span class="post-like">{{ $post->likes->sum('vote') }}</span>--}}
-{{--                                    <img onclick="voteLikeInPost({{ $post->id }},-1)" id="post-downvote-fix" class="image-m" alt="아래로"--}}
-{{--                                         @if($post->existPostLike == -1)--}}
-{{--                                             src="{{ asset('image/downvote_c.png') }}" />--}}
-{{--                                        @else--}}
-{{--                                            src="{{ asset('image/downvote.png') }}" />--}}
-{{--                                        @endif--}}
-{{--                                </div>--}}
-
-{{--                                <img alt="stamp" class="stamp-image image-m" src="{{ asset('image/stamp.png') }}"/>--}}
-{{--                                <img class="favorit-image image-m clickable" id="post-scrap" onclick="scrapPost({{ $post->id }})" alt="favorit"--}}
-{{--                                     @if($post->postScrap == 1)--}}
-{{--                                         src="{{ asset('image/scrap_c.png') }}" />--}}
-{{--                                    @else--}}
-{{--                                        src="{{ asset('image/scrap.png') }}" />--}}
-{{--                                    @endif--}}
-{{--                                <img src="{{ asset('image/message.png') }}" alt="message" class="message-image">--}}
-{{--                            </div>--}}
-
-{{--                            <div class="right-function">--}}
-{{--                                <img src="{{ asset('image/message.png') }}" alt="message" class="message-image">--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-
-                    <!-- 오른쪽 광고배너 -->
-{{--                        <div class="modal-right">--}}
-{{--                            <div class="modal-banner">--}}
-{{--                                <div class="banner-item">--}}
-{{--                                    <h3>광고 배너</h3>--}}
-{{--                                </div>--}}
-
-{{--                                <div class="banner-item">--}}
-{{--                                    <h3>광고 배너</h3>--}}
-{{--                                </div>--}}
-
-{{--                                <div class="banner-item">--}}
-{{--                                    <h3>광고 배너</h3>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
                     </div>
                 </div>
             </div>
 
             <!-- Modal -->
             <div class="modal fade" id="openStampModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog" style="margin-top:250px;">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4>스탬프 목록</h4>
+{{--                            <input type="text" name="searchStamp" />--}}
                         </div>
                         <div class="modal-body">
-                            <ul class="list-group">
-                                <li class="list-group-item">Test 1</li>
-                                <li class="list-group-item">Test 2</li>
-                            </ul>
+                            <div class="">
+                                <nav id="category-header" class="flex-container">
+                                    @forelse(\App\Models\StampCategory::getAllCategories() as $category)
+                                        <button class="col" onclick="selectCategory({{ $category->id }});">
+    {{--                                                                                <img style="width:25px;" src="{{ asset($category->image) }}" alt="{{ $category->name }}">--}}
+                                            {{ $category->name }}
+                                        </button>
+                                    @empty
+                                        <div>데이터가 없습니다.</div>
+                                    @endforelse
+                                    <button class="col" onclick="return false;">테스트1</button>
+                                    <button class="col" onclick="return false;">테스트2</button>
+                                    <button class="col" onclick="return false;">테스트3</button>
+                                </nav>
+                                <div id="category-data">
+                                    @forelse(\App\Models\StampGroup::getDataFromCategory(1) as $group)
+                                        <div>
+                                            <div>
+                                                <span id="group-name">{{ $group->name }}</span>
+                                            </div>
+                                            @forelse($group->stamps as $stamp)
+                                            <div>
+                                                <ul class="flex-container">
+                                                    <li class="col">
+                                                        <button onclick="purchaseStamp({{ $stamp->id }}, {{ $post->id }});">
+                                                            <img src="{{ $stamp->image }}" />
+                                                            <span>{{ $stamp->coin }}</span>
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            @empty
+                                            @endforelse
+                                        </div>
+                                    @empty
+                                    @endforelse
+                                    <div>
+                                        <div>
+                                            <span id="group-name">동물</span>
+                                        </div>
+                                            <div>
+                                                <button onclick="return false;">
+                                                    <img src="/image/2_1629657939.gif" />
+                                                    <span>100</span>
+                                                </button>
+                                            </div>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <span id="group-name">고양이</span>
+                                        </div>
+                                            <div>
+                                                <button onclick="return false;">
+                                                    <img src="/image/2_1629657939.gif" />
+                                                    <span>1500</span>
+                                                </button>
+                                            </div>
+                                    </div>
+{{--                                    테스트 영역 끝--}}
+                                </div>
+                            </div>
                         </div>
 {{--                        <div class="modal-footer">--}}
 {{--                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>--}}
@@ -186,15 +200,18 @@
             {{--    <script src="{{ asset('js/editorShow.js') }}"></script>--}}
             <script>
                 $("#open_post_modal").scroll(function() {
-                    // if($(window).height() - $("#open_post_modal").scrollTop() <= $("#post").offset().top) {
-                    console.log("scroll value : "+$("#open_post_modal").scrollTop() );
-                    console.log("pageY offset : "+window.pageYOffset);
-                    console.log("post top offset : "+$("#post").get(0).getBoundingClientRect().bottom);
-                    console.log("\n\n");
-                    if($("#open_post_modal").scrollTop() >= $("#post").get(0).getBoundingClientRect().top) {
-                        // loadMoreData(page);
-                        // page++;
-                        // alert('1');
+                    var headerHeight = $("#header").height();
+                    var postOffsetTop = $("#post").offset().top;
+                    if(postOffsetTop - headerHeight <= 0 ) {
+                        var checkExist = $("#post-bot-function").hasClass("sticky-bottom");
+                        if(checkExist === false) {
+                            $("#post-bot-function").addClass("sticky-bottom");
+                        }
+                    } else {
+                        var checkExist = $("#post-bot-function").hasClass("sticky-bottom");
+                        if(checkExist === true) {
+                            $("#post-bot-function").removeClass("sticky-bottom");
+                        }
                     }
                 });
 
@@ -208,6 +225,11 @@
 
                     element.appendChild( anchor );
                 } );
+
+                // var openStampModal = document.getElementById('openStampModal')
+                // openStampModal.addEventListener('show.bs.modal', function (event) {
+                //     alert(1);
+                // });
 
                 function deletePost(id) {
                     if(confirm('삭제하시겠습니까 ?')) {
@@ -225,30 +247,30 @@
                     }
                     return false;
                 }
-                function voteLikeInPost(id, vote) {
+                function voteLikeInPost(id, like) {
                     $.ajax({
                         url: "/post/voteLikeInPost",
-                        data: { id: id, vote:vote },
+                        data: { id: id, like:like },
                         type: "post",
                         success: function(data) {
                             // console.log(data);
-                            clearVote();
-                            selectVote(data.vote);
-                            $(".post-like").text(data.totalVote);
+                            clearLike();
+                            selectLike(data.like);
+                            $(".post-like").text(data.totalLike);
                         },
                         error: function(err) {
                             alert("추천기능에 문제가 생겨 확인 중입니다.");
                         }
                     });
                 }
-                function clearVote() {
+                function clearLike() {
                     $("#post-downvote, #post-downvote-fix").attr("src", "{{ asset('image/downvote.png') }}");
                     $("#post-upvote, #post-upvote-fix").attr("src", "{{ asset('image/upvote.png') }}");
                 }
-                function selectVote(vote) {
-                    if(vote == 1) {
+                function selectLike(like) {
+                    if(like == 1) {
                         $("#post-upvote, #post-upvote-fix").attr("src", "{{ asset('image/upvote_c.png') }}");
-                    } else if(vote == -1) {
+                    } else if(like == -1) {
                         $("#post-downvote, #post-downvote-fix").attr("src", "{{ asset('image/downvote_c.png') }}");
                     }
                 }
@@ -286,18 +308,76 @@
                         });
                     }
                 }
+                function selectCategory(categoryID) {
+                    // alert(categoryID);
+                    $.ajax({
+                        url: "/stamp",
+                        data: { categoryID: categoryID },
+                        type: "get",
+                        success: function(data) {
+                            var result = {
+                                'groups': data
+                            };
+                            $("#openStampModal #category-data > div").remove();
+                            $("#stampDataTemplate").tmpl(result).appendTo("#openStampModal #category-data");
+                        },
+                        errror: function(err) {
+                            alert("기능에러로 스탬프를 불러오지 못 했습니다.");
+                        }
+                    });
+                }
+                function purchaseStamp(stampID, postID) {
+                    if(confirm('구매하시겠습니까 ?')) {
+                        $.ajax({
+                            url: "/stamp/purchase",
+                            data: {
+                                stampID: stampID,
+                                postID: postID
+                            },
+                            type: "post",
+                            success: function (data) {
+                                console.log(data);
+                                $("#total_coin").text(data.currentCoin);
+                                $("#openStampModal").hide();
+                                if(data.method == "create") {
+                                    $(".modal-title .stamps").append(`<span class="stamp-${stampID}"><img style='width:31px;' src='${data.image}' alt=''><span></span></span>`);
+                                    console.log(`<span class="stamp-${stampID}"><img style='width:31px;' src="${data.image}" alt=''></span>`);
+                                } else if(data.method == "update") {
+                                    $(`.modal-title .stamps span[class="stamp-${stampID}"] span`).text(data.count);
+                                }
+                                console.log(`.modal-title .stamps span[class="stamp-${stampID}"] span`);
+                                console.log(data.count);
 
-                function stampPost() {
-                    var options = 'width=500, height=600, top=30, left=30, resizable=no, scrollbars=no, location=no';
-                    // window.open('https://naver.com', '', options);
-                    window.location.assign('https://naver.com', '', options);
-
-                    // 출처: https://mine-it-record.tistory.com/304 [나만의 기록들]
-                    // 출처: https://mine-it-record.tistory.com/304 [나만의 기록들]
-                    // var options = "top=100,left=200,width=200,height=200,centerscreen=yes,resizable=no,scrollbars=yes";
-                    // window.open("https://naver.com", '_blank', options);
+                                toastr.info("스탬프 정상 구매하였습니다");
+                            },
+                            errror: function (err) {
+                                toastr.warning("기능에러로 스탬프를 불러오지 못 했습니다");
+                            }
+                        });
+                    }
                 }
             </script>
         </div>
     </div>
-{{--@endsection--}}
+    <script id="stampDataTemplate" type="text/x-jquery-tmpl">
+    @{{each groups}}
+{{--    <p>${name}</p>--}}
+        <div>
+            <div>
+                <span id="group-name">${name}</span>
+            </div>
+            @{{each stamps}}
+                <div>
+                    <ul class="flex-container">
+                        <li class="col">
+                            <button onclick="purchaseStamp(${id}, {{ $post->id }});">
+                                <img src="${image}" />
+                                <span>${coin}</span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            @{{/each}}
+        </div>
+    @{{/each}}
+</script>

@@ -1,5 +1,5 @@
 {{--@extends('layouts.app')--}}
 
-@extends('layouts.post')
+@extends('mobile.layouts.post')
 
-@extends('layouts.comment')
+@extends('mobile.layouts.comment')

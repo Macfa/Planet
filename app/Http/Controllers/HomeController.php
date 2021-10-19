@@ -14,17 +14,23 @@ use App\Models\User;
 use App\Notifications\Alarmnotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Jenssegers\Agent\Agent;
 
 class HomeController extends Controller
 {
+    private Agent $agent;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-//    public function __construct()
-//    {
-//    }
+    public function __construct()
+    {
+        $this->agent = new Agent();
+        if($this->agent->isMobile()) {
+            redirect('http://m.localhost:8000/');
+        }
+    }
 
     /**
      * Show the application dashboard.
@@ -36,7 +42,11 @@ class HomeController extends Controller
         $posts = Post::getAllData();
 
         $channelVisitHistories = ChannelVisitHistory::showHistory();
-        return view('main.index', compact('posts', 'channelVisitHistories'));
+        if($this->agent->isMobile()) {
+            return view('mobile.main.index', compact('posts', 'channelVisitHistories'));
+        } else {
+            return view('main.index', compact('posts', 'channelVisitHistories'));
+        }
     }
 
     public function mainMenu(Request $request) {

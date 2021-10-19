@@ -13,9 +13,19 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
+use Jenssegers\Agent\Agent;
 
 class PostController extends Controller
 {
+    private Agent $agent;
+
+    public function __construct()
+    {
+        $this->agent = new Agent();
+        if($this->agent->isMobile()) {
+            redirect('http://m.localhost:8000/');
+        }
+    }
     public function home() {
         $posts = Post::getAllData();
         $channelVisitHistories = ChannelVisitHistory::showHistory();
@@ -44,7 +54,11 @@ class PostController extends Controller
         $fromChannelID = $request->input('channelID');
         $channels = Channel::own()->get();
 
-        return view('post.create', compact('channels', 'fromChannelID'));
+        if($this->agent->isMobile()) {
+            return view('mobile.post.create', compact('channels', 'fromChannelID'));
+        } else {
+            return view('post.create', compact('channels', 'fromChannelID'));
+        }
     }
 
     /**
@@ -142,7 +156,12 @@ class PostController extends Controller
             );
         }
 //        return view('main.index', compact('post', 'comments'));
-        return view('post.show', compact('post', 'comments'));
+//        dd($this->agent->isMobile());
+        if($this->agent->isMobile()) {
+            return view('mobile.post.show', compact('post', 'comments'));
+        } else {
+            return view('post.show', compact('post', 'comments'));
+        }
     }
 
     /**
@@ -156,7 +175,11 @@ class PostController extends Controller
         $post = Post::find($id);
         $channels = Channel::get();
 
-        return view('post.create', compact('channels', 'post'));
+        if($this->agent->isMobile()) {
+            return view('mobile.post.create', compact('channels', 'post'));
+        } else {
+            return view('post.create', compact('channels', 'post'));
+        }
     }
 
     /**

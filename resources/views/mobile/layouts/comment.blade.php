@@ -16,7 +16,7 @@
                 </div>
 
                 <div class="write-btn">
-                    <button type="submit" onclick="checkCommentTypeToProcess('add');">등록</button>
+                    <button type="submit" onclick="@if(auth()->check()) checkCommentTypeToProcess('add'); @else notLogged(); @endif">등록</button>
                 </div>
             </div>
         </div>
@@ -60,10 +60,11 @@
 
                     <div class="comment-info">
                         <ul>
-                            <li>스탬프</li>
-                            <li class="clickable" onclick="checkCommentTypeToAddForm('add', {{ $comment->id }});">댓글</li>
+                            <li data-bs-toggle="modal" data-bs-target="#openStampModal" class="clickable items">스탬프</li>
+{{--                            <li></li>--}}
+                            <li class="clickable" onclick="@if(auth()->check()) checkCommentTypeToAddForm('add', {{ $comment->id }}); @else notLogged(); @endif">댓글</li>
                             <li class="clickable">
-                                <img onclick="voteLikeInComment({{ $comment->id }}, 1)" id="comment-{{ $comment->id }}-upvote" class="image-sm" alt=""
+                                <img onclick="@if(auth()->check()) voteLikeInComment({{ $comment->id }}, 1) @else notLogged(); @endif" id="comment-{{ $comment->id }}-upvote" class="image-sm" alt=""
                                      @if($comment->existCommentLike == 1)
                                          src="{{ asset('image/upvote_c.png') }}" />
                                     @else
@@ -71,10 +72,10 @@
                                     @endif
                             </li>
                             <li>
-                                <span class="comment-like">{{ $comment->likes->sum('vote') }}</span>
+                                <span class="comment-like">{{ $comment->likes->sum('like') }}</span>
                             </li>
                             <li class="clickable">
-                                <img onclick="voteLikeInComment({{ $comment->id }}, -1)" id="comment-{{ $comment->id }}-downvote" class="image-sm" alt=""
+                                <img onclick="@if(auth()->check()) voteLikeInComment({{ $comment->id }}, -1) @else notLogged(); @endif" id="comment-{{ $comment->id }}-downvote" class="image-sm" alt=""
                                      @if($comment->existCommentLike == -1)
                                          src="{{ asset('image/downvote_c.png') }}" />
                                     @else
@@ -98,17 +99,17 @@
 @endforelse
         <!-- 하단 기능 Comment -->
 {{--        <div class="board-bot-function" style="position: sticky; bottom:10px;  background: rgba(252, 252, 252, 1) !important;">--}}
-        <div class="board-bot-function">
+        <div class="board-bot-function" id="post-bot-function">
             <div class="left-function">
                 <div class="page-arrow">
-                    <img onclick="voteLikeInPost({{ $post->id }},1)" id="post-upvote-fix" class="image-m" alt="위로"
+                    <img onclick="@if(auth()->check()) voteLikeInPost({{ $post->id }},1) @else notLogged(); @endif" id="post-upvote-fix" class="image-m clickable" alt="위로"
                          @if($post->existPostLike == 1)
                          src="{{ asset('image/upvote_c.png') }}" />
                     @else
                         src="{{ asset('image/upvote.png') }}" />
                     @endif
-                    <span class="post-like">{{ $post->likes->sum('vote') }}</span>
-                    <img onclick="voteLikeInPost({{ $post->id }},-1)" id="post-downvote-fix" class="image-m" alt="아래로"
+                    <span class="post-like">{{ $post->likes->sum('like') }}</span>
+                    <img onclick="@if(auth()->check()) voteLikeInPost({{ $post->id }},-1) @else notLogged(); @endif" id="post-downvote-fix" class="image-m clickable" alt="아래로"
                          @if($post->existPostLike == -1)
                          src="{{ asset('image/downvote_c.png') }}" />
                     @else
@@ -116,8 +117,8 @@
                     @endif
                 </div>
 
-                <img alt="stamp" class="stamp-image image-m" src="{{ asset('image/stamp.png') }}"/>
-                <img class="favorit-image image-m clickable" id="post-scrap" onclick="scrapPost({{ $post->id }})" alt="favorit"
+                <img alt="stamp" class="stamp-image image-m clickable" src="{{ asset('image/stamp.png') }}"/>
+                <img class="favorit-image image-m clickable" id="post-scrap" onclick="@if(auth()->check()) scrapPost({{ $post->id }}) @else notLogged(); @endif" alt="favorit"
                      @if($post->postScrap == 1)
                      src="{{ asset('image/scrap_c.png') }}" />
                 @else
@@ -135,13 +136,7 @@
 @endif
 
 <script>
-    var delay = (function(){
-        var timer = 0;
-        return function(callback, ms){
-            clearTimeout (timer);
-            timer = setTimeout(callback, ms);
-        };
-    })();
+
 
     // add : 댓글, 대댓글   |   edit : 수정
     function checkCommentTypeToAddForm(commentType, commentID) {
@@ -262,7 +257,7 @@
                             "updated_at_modi": data.updated_at_modi,
                             "group": data.group,
                             "content": data.content,
-                            "sumOfVotes": data.sumOfVotes,
+                            "sumOfLikes": data.sumOfLikes,
                             "postID": data.postID,
                             "avatar": data.user.avatar,
                             "commentCount": data.commentCount,
@@ -321,28 +316,28 @@
         }
         return false;
     }
-    function voteLikeInComment(id, vote, obj) {
+    function voteLikeInComment(id, like, obj) {
         $.ajax({
             url: "/comment/voteLikeInComment",
-            data: { id: id, vote:vote },
+            data: { id: id, like:like },
             type: "post",
             success: function(data) {
                 var el = ".comment-"+id+" .comment-like";
-                commentClearVote(id);
-                commentSelectVote(id, data.vote);
-                $(el).text(data.totalVote);
+                commentClearLike(id);
+                commentSelectLike(id, data.like);
+                $(el).text(data.totalLike);
                 // alert("처리되었습니다.");
             }
         });
     }
-    function commentClearVote(id) {
+    function commentClearLike(id) {
         $(`#comment-${id}-downvote`).attr("src", "{{ asset('image/downvote.png') }}");
         $(`#comment-${id}-upvote`).attr("src", "{{ asset('image/upvote.png') }}");
     }
-    function commentSelectVote(id, vote) {
-        if(vote == 1) {
+    function commentSelectLike(id, like) {
+        if(like == 1) {
             $("#comment-"+id+"-upvote").attr("src", "{{ asset('image/upvote_c.png') }}");
-        } else if(vote == -1) {
+        } else if(like == -1) {
             $("#comment-"+id+"-downvote").attr("src", "{{ asset('image/downvote_c.png') }}");
         }
     }
@@ -382,7 +377,7 @@
                         <li>
                             <img onclick="voteLikeInComment(${id}, 1)" id="comment-${id}-upvote" class="image-sm" alt="" src="{{ asset('image/upvote.png') }}" />
                         </li>
-                        <li><span class="comment-like">${sumOfVotes}</li>
+                        <li><span class="comment-like">${sumOfLikes}</li>
                         <li><img onclick="voteLikeInComment(${id}, -1)" id="comment-${id}-downvote" class="image-sm" alt="" src="{{ asset('image/upvote.png') }}" /></li>
                     </ul>
                 </div>
