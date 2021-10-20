@@ -1,5 +1,5 @@
 @section('content')
-<section style="height: calc(var(--vh, 89vh) * 89); overflow-y: scroll;" id="main">
+<section style="height: calc(var(--vh, 92vh) * 92); overflow-y: scroll;" id="main">
     <div class="main-wrap">
 {{--        <article class="advertising"><a href="#"><img src="../img/test.jpg"></a></article>--}}
 {{--        <article class="board_box">--}}
@@ -86,9 +86,9 @@
         </article>
     </div>
 </section>
-<section style="height: calc(var(--vh, 3vh) * 3);" id="footer" class="">
+<section style="position: sticky; bottom: 0;" id="footer" class="">
     <section class="container-fluid">
-        <nav class="flex-container flex-justify-space-between">
+        <nav style="padding: 8px; text-align: center;" class="flex-container flex-justify-space-between">
             {{--        <li><a href="@if(auth()->check()) {{ route('post.create') }} @else javascript:notLogged(); @endif">게시글 작성</a></li>--}}
             <a href="@if(auth()->check()) {{ route('channel.create') }} @else notLogged(); @endif" class="col">동아리 만들기</a>
             <a href="javascript:$('#main').scrollTop(0);" class="col">맨 위로</a>
