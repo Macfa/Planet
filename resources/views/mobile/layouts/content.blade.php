@@ -86,7 +86,7 @@
         </article>
     </div>
 </section>
-<section style="position: sticky; bottom: 0;" id="footer" class="">
+<section style="position: sticky; bottom: 0; background: rgba(252, 252, 252, 1) !important;" id="footer" class="">
     <section class="container-fluid">
         <nav style="padding: 8px; text-align: center;" class="flex-container flex-justify-space-between">
             {{--        <li><a href="@if(auth()->check()) {{ route('post.create') }} @else javascript:notLogged(); @endif">게시글 작성</a></li>--}}
