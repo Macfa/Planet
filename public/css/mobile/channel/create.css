@@ -10,7 +10,7 @@ input:focus {
 
 /* 메인 */
 #channel .board_box {
-  margin: 30px 0 0;
+  /*margin: 30px 0 0;*/
   overflow: hidden;
 }
 
@@ -31,12 +31,12 @@ input:focus {
 }
 
 #channel .board_box .left div.list .input_box {
-  border: 1px solid #cbc7c7;
+  /*border: 1px solid #cbc7c7;*/
   /*padding: 15px 9px;*/
-  border-radius: 10px;
+  /*border-radius: 10px;*/
 }
 #channel .board_box .left div.list .input_box_title {
-    margin-bottom: 30px;
+    /*margin-bottom: 30px;*/
 }
 #channel .board_box .left div.list .sub_box_line {
     border-bottom: 1px solid #cbc7c7;
@@ -50,7 +50,7 @@ input:focus {
 #channel .board_box .left div.list .box {
   height: 55px;
   width: 100%;
-  border-radius: 10px;
+  /*border-radius: 10px;*/
 }
 
 #channel .board_box .left div.list .box::-moz-placeholder {

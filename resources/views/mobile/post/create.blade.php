@@ -17,7 +17,7 @@
                     <div class="ch_list">
 
                         <div class="input_box input_box_title">
-                            <div class="sub_box sub_box_line">
+                            <div class="sub_box">
                                 <span class="menu">포스트</span>
                                 <select style="float: right;" class="cst_select" name="channelID" id="channelList">
                                     <option value="">등록할 채널을 선택해주세요</option>
@@ -45,7 +45,7 @@
 {{--                                <div style="float: right;" class="select_box">--}}
 {{--                                </div>--}}
                             </div>
-                            <div class="sub_box sub_box_line">
+                            <div class="sub_box_0">
                                 <input type="text" class="box" name="title" @if(old('title')) value="{{ old('title') }}" @elseif(isset($post)) value="{{ $post->title }}" @endif placeholder="이름을 입력하세요">
                                 @error('title')
                                     <span class="text-danger">{{ $message }}</span>
