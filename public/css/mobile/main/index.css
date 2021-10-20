@@ -158,7 +158,7 @@ background-color: #3d5afe;
 #main .board_box .left div.list table tr td div.title a {
   display: block;
   overflow: hidden;
-  padding: 0 0 3px 4px;
+  /*padding: 0 0 3px 4px;*/
   box-sizing: border-box;
 }
 #main .board_box .left div.list table tr td div.title a:visited {

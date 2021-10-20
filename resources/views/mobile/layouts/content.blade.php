@@ -48,8 +48,8 @@
                                 <td>
                                     <div class="title">
                                         <a href="#post-show-{{ $post->id }}" data-bs-toggle="modal" data-bs-focus="false" data-bs-post-id="{{ $post->id }}" data-bs-target="#open_post_modal">
-                                            <p>{{ $post->title }}&nbsp;&nbsp;</p>
-                                            <span class="titleSub">[<span class="commentCount">{{ $post->comments_count }}</span>]</span>
+                                            <p>{{ $post->title }}&nbsp;&nbsp;<span class="titleSub">[<span class="commentCount">{{ $post->comments_count }}</span>]</span></p>
+
                                             <span>
                                                 @foreach($post->stampInPosts as $stamp)
                                                     <img style="width:27px;" src="{{ $stamp->stamp->image }}" alt="">
