@@ -95,7 +95,7 @@
     align-items:center;
     position:relative;
     color:rgba(0, 0, 0, 0.6);
-    margin-right:8px;
+    margin-right:6px;
   }
 
 .modal-parent > .modal-wrap > .modal-body > .modal-left .board-etc-function > ul .items-r {
@@ -574,4 +574,7 @@ table {
 table, td {
     /*border: 1px solid black;*/
 }
-
+#post-bot-function {
+    border-top: 1px solid #888888;
+    padding: 3px 0;
+}

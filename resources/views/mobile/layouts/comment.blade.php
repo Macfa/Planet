@@ -99,10 +99,10 @@
 @endforelse
         <!-- 하단 기능 Comment -->
 {{--        <div class="board-bot-function" style="position: sticky; bottom:10px;  background: rgba(252, 252, 252, 1) !important;">--}}
-        <div class="board-bot-function" id="post-bot-function">
-            <div class="left-function">
+        <div class="flex-container flex-justify-space-between" id="post-bot-function">
+            <div class="left-function flex-container">
                 <div class="page-arrow">
-                    <img onclick="@if(auth()->check()) voteLikeInPost({{ $post->id }},1) @else notLogged(); @endif" id="post-upvote-fix" class="image-m clickable" alt="위로"
+                    <img onclick="@if(auth()->check()) voteLikeInPost({{ $post->id }},1) @else notLogged(); @endif" id="post-upvote-fix" class="image-m clickable m-0" alt="위로"
                          @if($post->existPostLike == 1)
                          src="{{ asset('image/upvote_c.png') }}" />
                     @else
