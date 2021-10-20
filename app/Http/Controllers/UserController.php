@@ -11,9 +11,20 @@ use App\Models\Visit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Jenssegers\Agent\Agent;
 
 class UserController extends Controller
 {
+
+    private Agent $agent;
+
+    public function __construct()
+    {
+        $this->agent = new Agent();
+        if($this->agent->isMobile()) {
+            redirect('http://m.localhost:8000/');
+        }
+    }
     public function show(User $user, $el = 'post') {
 //        $el = 'post';
         if($el == "post") {
@@ -58,7 +69,11 @@ class UserController extends Controller
         $coin = (object)$coin;
 //        dd($coin);
 
-        return view('user.mypage', compact('posts', 'channelVisitHistories', 'user', 'coin', 'el'));
+        if($this->agent->isMobile()) {
+            return view('mobile.user.mypage', compact('posts', 'channelVisitHistories', 'user', 'coin', 'el'));
+        } else {
+            return view('user.mypage', compact('posts', 'channelVisitHistories', 'user', 'coin', 'el'));
+        }
     }
 
     public function modify(Request $request, $id) {

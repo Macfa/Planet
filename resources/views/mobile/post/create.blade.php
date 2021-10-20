@@ -60,11 +60,11 @@
                         </div>
                             <div style="margin-top: 20px;">
                                 <ul class="btn">
-                                    <li><button type="button" onclick="location.href='{{ url('/') }}'">취소</button></li>
+                                    <li><button type="button" class="btn_cancle" onclick="location.href='{{ url('/') }}'">취소</button></li>
                                     @if(isset($post))
-                                        <li><button type="submit" onclick="">수정</button></li>
+                                        <li><button class="btn_enter" type="submit" onclick="">수정</button></li>
                                     @else
-                                        <li><button type="submit" onclick="">등록</button></li>
+                                        <li><button class="btn_enter" type="submit" onclick="">등록</button></li>
                                     @endif
                                 </ul>
                             </div>

@@ -114,7 +114,11 @@ class HomeController extends Controller
         // $visit = new Visit();
         $channelVisitHistories = ChannelVisitHistory::showHistory();
 
-        return view('main.search', compact('posts', 'channelVisitHistories', 'searchType'));
+        if($this->agent->isMobile()) {
+            return view('mobile.main.search', compact('posts', 'channelVisitHistories', 'searchType'));
+        } else {
+            return view('main.search', compact('posts', 'channelVisitHistories', 'searchType'));
+        }
     }
 
     public function searchHelper(Request $request) {

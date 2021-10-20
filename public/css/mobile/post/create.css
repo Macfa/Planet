@@ -161,20 +161,6 @@ input:focus {
   margin: 0;
 }
 
-#channel ul.btn li button {
-  letter-spacing: 2px;
-  color: #fff;
-  background-color: #3d5afe;
-  border-radius: 10px;
-  height: 30px;
-  line-height: 30px;
-  width: 144px;
-  display: inline-block;
-  text-align: center;
-  font-size: 20px;
-  /*border: 3px solid #5a4370;*/
-}
-
 #channel ul.btn li .submit {
   letter-spacing: 2px;
   color: #fff;
