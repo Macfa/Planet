@@ -17,7 +17,7 @@
                     <div class="sub_box">
                         <span class="menu">이름</span>
                     </div>
-                    <div class="sub_box_0" id="channel_name_input_section">
+                    <div class="sub_box_con" id="channel_name_input_section">
 {{--                        <span id="checkWordCount">0/20</span>--}}
                         <input id="channel_name_input" type="text" name="name" class="box @error('name') is-invalid @enderror" placeholder="이름을 입력하세요" @if(isset($channel)) value="{{ $channel->name }}" readonly @else value="{{ old('name') }}" @endif pattern="^[a-zA-Z가-힇0-9]+$" required>
                         @error('name')
@@ -47,14 +47,14 @@
                 </div>
                 <div>
                     <ul class="btn">
-                        <li><button type="button" onclick="location.href='{{ url('/') }}'">취소</button></li>
+                        <li><button class="btn_cancle" type="button" onclick="location.href='{{ url('/') }}'">취소</button></li>
                         {{-- <li><a href="">등록</a></li> --}}
 {{--                        @isset($channel)--}}
                         @if(isset($channel))
-                            <li><button type="submit" class="submit">수정</button></li>
+                            <li><button type="submit" class="btn_enter submit">수정</button></li>
                         @else
                             <li>
-                                <button type="submit" class="submit">등록</button>
+                                <button type="submit" class="btn_enter">등록</button>
                             </li>
                         @endif
                     </ul>
