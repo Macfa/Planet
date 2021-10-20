@@ -2,9 +2,9 @@
     <ul class="tab_title accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
         {{ (isset($channel)) ? $channel->name:'포디엄'  }}
         @if(auth()->id()==$channel->userID)
-            <span style="margin-left: 10px;">
-                <button onclick="location.href='{{ route('channel.edit', $channel->id) }}'" class="sub_text_gray">수정</button>
-                <button onclick="deleteChannel({{ $channel->id }})" class="sub_text_gray">삭제</button>
+            <span style="margin-left: 10%; color: black !important;">
+                <button onclick="location.href='{{ route('channel.edit', $channel->id) }}'" class="">수정</button>
+                <button onclick="deleteChannel({{ $channel->id }})" class="">삭제</button>
             </span>
         @endif
     </ul>
