@@ -67,8 +67,8 @@
 
 <!-- Modal -->
 <div class="modal fade" id="modalModifyUserName" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <form method="post" action="{{ route('user.modify', $user->id) }}">
+    <div class="modal-dialog modal-dialog-centered">
+        <form style="width: 100vw;" method="post" action="{{ route('user.modify', $user->id) }}">
             @csrf
             <div class="modal-content">
                 <div class="modal-header">

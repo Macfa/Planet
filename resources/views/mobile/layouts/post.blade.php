@@ -33,11 +33,11 @@
                         <div class="board-text">
                             {!! $post->content !!}
                         </div>
-
+`
                         <!-- 게시글 기타 기능 -->
                         <div class="board-etc-function" id="post">
                             <ul>
-                                <li class="clickable items">
+                                <li class="clickable items mr-0">
                                     <img id="post-upvote" onclick="@if(auth()->check()) voteLikeInPost({{ $post->id }},1) @else notLogged(); @endif" class="image-sm" alt=""
                                          @if($post->existPostLike == 1)
                                              src="{{ asset('image/upvote_c.png') }}" />

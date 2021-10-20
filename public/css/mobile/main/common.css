@@ -417,15 +417,15 @@ button {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
-.modal:nth-of-type(even) {
-    z-index: 1055 !important;
-}
-.modal-backdrop.show:nth-of-type(even) {
-    z-index: 1054 !important;
-}
-.modal.show:nth-of-type(even) {
-    z-index: 1054 !important;
-}
+/*.modal:nth-of-type(even) {*/
+/*    z-index: 1055 !important;*/
+/*}*/
+/*.modal-backdrop.show:nth-of-type(even) {*/
+/*    z-index: 1054 !important;*/
+/*}*/
+/*.modal.show:nth-of-type(even) {*/
+/*    z-index: 1054 !important;*/
+/*}*/
 
 /* modal style */
 #openStampModal .modal-body #category-header {
