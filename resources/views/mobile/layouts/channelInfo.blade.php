@@ -4,13 +4,13 @@
     <div class="info_detail">
         <p class="description">{{ $channel->description }}</p>
         <div class="flex">
-            <div class="flex_item">
-                <div style="font-size:12px;" class="totalCount">{{ number_format($channel->channelJoins->count()) }}</div>
+            <div class="flex_item fs-12">
+                <div class="totalCount">{{ number_format($channel->channelJoins->count()) }}</div>
                 <p style="font-size:12px;">동아리 인원</p>
             </div>
-            <div class="flex_item">
-                <div style="font-size:14px;">{{ date('Y.m.d', strtotime($channel->created_at)) }}</div>
-                <p style="font-size:14px;">동아리 창단일</p>
+            <div class="flex_item fs-12">
+                <div>{{ date('Y.m.d', strtotime($channel->created_at)) }}</div>
+                <p>동아리 창단일</p>
             </div>
         </div>
         <div class="flex">
@@ -19,14 +19,14 @@
                 <p>관리자</p>
             </div>
         </div>
-        <div class="flex flex-justify-content-flex-end">
+        <div class="flex flex-justify-content-flex-end fs-12">
             <button data-bs-toggle="modal" data-bs-post-id="{{ $channel->id }}" data-bs-target="#open_channel_admin_modal">
 {{--            <button onclick="addSubAdmin({{ $channel->id }});">--}}
                 관리자 추가
             </button>
 {{--            </button>--}}
         </div>
-        <ul id="channelAdminList" onclick="removeChannelAdmin();">
+        <ul class="fs-12" id="channelAdminList" onclick="removeChannelAdmin();">
             @foreach($channel->channelAdmins as $channelAdmin)
                 <li value="{{ $channelAdmin->id }}">{{ $channelAdmin->user->name }}</li>
             @endforeach
