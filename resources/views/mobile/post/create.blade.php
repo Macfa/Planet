@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('mobile.layouts.app')
 
 @section('content')
-<link rel="stylesheet" type="text/css" href="{{ asset('css/post/create.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/mobile/post/create.css') }}">
 
 <section id="channel">
     <div class="wrap">
@@ -13,37 +13,37 @@
                 <form id="form" action="{{ route('post.store') }}" method="POST">
             @endif
                 @csrf
-                <div class="select_box">
-                    <select class="cst_select" name="channelID" id="channelList">
-                        <option value="">등록할 채널을 선택해주세요</option>
-                        @forelse ($channels as $channel)
-                            @if(old('channelID'))
-                                <option value="{{ $channel->id }}" @if(old('channelID')==$channel->id) selected @endif>{{ $channel->name }}</option>
-                            @elseif(isset($post))
-                                @if($post->channelID==$channel->id)
-                                    <option value="{{ $channel->id }}" selected>{{ $channel->name }}</option>
-                                @else
-                                    <option value="{{ $channel->id }}">{{ $channel->name }}</option>
-                                @endif
-                            @else
-                                <option value="{{ $channel->id }}" @if($fromChannelID==$channel->id) selected @endif>{{ $channel->name }}</option>
-                            @endif
-                        @empty
-
-                        @endforelse
-
-                    </select>
-                    @error('channelID')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-
-                </div>
                 <div class="left">
                     <div class="ch_list">
 
                         <div class="input_box input_box_title">
                             <div class="sub_box sub_box_line">
                                 <span class="menu">포스트</span>
+                                <select style="float: right;" class="cst_select" name="channelID" id="channelList">
+                                    <option value="">등록할 채널을 선택해주세요</option>
+                                    @forelse ($channels as $channel)
+                                        @if(old('channelID'))
+                                            <option value="{{ $channel->id }}" @if(old('channelID')==$channel->id) selected @endif>{{ $channel->name }}</option>
+                                        @elseif(isset($post))
+                                            @if($post->channelID==$channel->id)
+                                                <option value="{{ $channel->id }}" selected>{{ $channel->name }}</option>
+                                            @else
+                                                <option value="{{ $channel->id }}">{{ $channel->name }}</option>
+                                            @endif
+                                        @else
+                                            <option value="{{ $channel->id }}" @if($fromChannelID==$channel->id) selected @endif>{{ $channel->name }}</option>
+                                        @endif
+                                    @empty
+
+                                    @endforelse
+
+                                </select>
+                                @error('channelID')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+
+{{--                                <div style="float: right;" class="select_box">--}}
+{{--                                </div>--}}
                             </div>
                             <div class="sub_box sub_box_line">
                                 <input type="text" class="box" name="title" @if(old('title')) value="{{ old('title') }}" @elseif(isset($post)) value="{{ $post->title }}" @endif placeholder="이름을 입력하세요">
@@ -51,7 +51,7 @@
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="sub_box">
+                            <div>
                                 <textarea class="text_box" id="editor" name="content" placeholder="내용을 적어주세요">@if(old('content')){{ old('content') }}@elseif(isset($post)){{ $post->content }} @endif</textarea>
                                 @error('content')
                                     <span class="text-danger">{{ $message }}</span>
@@ -71,14 +71,14 @@
 
                         </div>
                     </div>
-                    <div class="right">
-                        <div class="banner banner_above">
-                            <span>banner</span>
-                        </div>
-                        <div class="banner banner_below">
-                            <span>banner</span>
-                        </div>
-                    </div>
+{{--                    <div class="right">--}}
+{{--                        <div class="banner banner_above">--}}
+{{--                            <span>banner</span>--}}
+{{--                        </div>--}}
+{{--                        <div class="banner banner_below">--}}
+{{--                            <span>banner</span>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
                 </form>
             </article>
         </div>

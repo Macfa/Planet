@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /* 공통 */
 .wrap {
-  width: 1276px;
+  width: 100vw;
   margin: 0 auto;
 }
 
@@ -13,7 +13,13 @@ input:focus {
 #channel .board_box .select_box {
   margin-bottom: 16px;
 }
-
+#channelList {
+    padding: 5px 10px;
+    width: 218px;
+    height: 31px;
+    background: url("/image/sort-down.png") no-repeat 95% 50%;
+    background-size: 15px;
+}
 .cst_select {
   border-radius: 0;
   /* 아이폰 사파리 보더 없애기 */
@@ -24,23 +30,15 @@ input:focus {
   appearance: none;
 }
 
-#channel .board_box .select_box select {
-  padding: 5px 10px;
-  width: 218px;
-  height: 31px;
-  background: url("/image/sort-down.png") no-repeat 95% 50%;
-  background-size: 15px;
-}
-
 /* 메인 */
 #channel .board_box {
-  margin: 40px 0 0;
+  margin: 0 0 0;
   overflow: hidden;
 }
 
 #channel .board_box .left {
-  float: left;
-  width: calc(100% - 216px);
+  /*float: left;*/
+  /*width: calc(100% - 216px);*/
 }
 
 #channel .board_box .left div.ch_list {
@@ -56,9 +54,9 @@ input:focus {
 }
 
 #channel .board_box .left div.ch_list .input_box {
-    border: 1px solid #cbc7c7;
+    /*border: 1px solid #cbc7c7;*/
     /*padding: 15px 9px;*/
-    border-radius: 10px;
+    /*border-radius: 10px;*/
 }
 #channel .board_box .left div.ch_list .input_box_title {
     margin-bottom: 30px;
@@ -202,6 +200,6 @@ input:focus {
 
 @media screen and (max-width: 1440px) {
   .wrap {
-    width: 1276px;
+    /*width: 1276px;*/
   }
 }
