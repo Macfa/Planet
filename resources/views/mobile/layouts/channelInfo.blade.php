@@ -27,11 +27,9 @@
 {{--            </button>--}}
         </div>
         <ul id="channelAdminList" onclick="removeChannelAdmin();">
-            @forelse($channel->channelAdmins as $channelAdmin)
+            @foreach($channel->channelAdmins as $channelAdmin)
                 <li value="{{ $channelAdmin->id }}">{{ $channelAdmin->user->name }}</li>
-            @empty
-                <li value="">서브 관리자가 없습니다</li>
-            @endforelse
+            @endforeach
         </ul>
         @if($channel->userID != auth()->id() && auth()->check())
             <div><a class="d-btn favorite_btn clickable" onclick="addChannelJoin({{ $channel->id }})">동아리 가입</a></div>
