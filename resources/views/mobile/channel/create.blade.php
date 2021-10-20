@@ -14,10 +14,10 @@
                 @endif
                 @csrf
                 <div class="input_box input_box_title">
-                    <div class="sub_box sub_box_line">
+                    <div class="sub_box">
                         <span class="menu">이름</span>
                     </div>
-                    <div class="sub_box" id="channel_name_input_section">
+                    <div class="sub_box_0" id="channel_name_input_section">
 {{--                        <span id="checkWordCount">0/20</span>--}}
                         <input id="channel_name_input" type="text" name="name" class="box @error('name') is-invalid @enderror" placeholder="이름을 입력하세요" @if(isset($channel)) value="{{ $channel->name }}" readonly @else value="{{ old('name') }}" @endif pattern="^[a-zA-Z가-힇0-9]+$" required>
                         @error('name')
@@ -27,10 +27,10 @@
                     </div>
                 </div>
                 <div class="input_box">
-                    <div class="sub_box sub_box_line">
+                    <div class="sub_box">
                         <span class="menu">설명</span>
                     </div>
-                    <div class="mt10">
+                    <div>
                         <textarea name="description" class="text_box @error('description') is-invalid @enderror" id="" placeholder="정보를 적어주세요" required>@if(isset($channel)){{ $channel->description }}@else{{ old('description') }}@endif</textarea>
                         @error('description')
 {{--                            <span class="text-danger">{{ $errors->first('description') }}</span>--}}

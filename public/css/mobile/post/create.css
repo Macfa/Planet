@@ -70,10 +70,13 @@ input:focus {
 #channel .board_box .left div.ch_list .sub_box {
     padding: 15px 9px;
 }
+#channel .board_box .left div.ch_list .sub_box_0 {
+    padding: 0px 0px 15px;
+}
 #channel .board_box .left div.ch_list .box {
     height: 55px;
     width: 1040px;
-    border-radius: 10px;
+    /*border-radius: 10px;*/
 }
 
 
