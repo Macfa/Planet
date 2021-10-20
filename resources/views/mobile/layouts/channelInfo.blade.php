@@ -1,26 +1,16 @@
 @section('info')
 
 <div class="right_sub">
-    <div class="info">
-        동아리 정보
-        <span style="margin-left: 80px;">
-        @if(auth()->id()==$channel->userID)
-            <button onclick="location.href='{{ route('channel.edit', $channel->id) }}'">수정</button>
-            <button onclick="deleteChannel({{ $channel->id }})">삭제</button>
-        @endif
-        </span>
-    </div>
-{{--        {{dd($posts)}}--}}
     <div class="info_detail">
         <p class="description">{{ $channel->description }}</p>
         <div class="flex">
             <div class="flex_item">
-                <div class="totalCount">{{ number_format($channel->channelJoins->count()) }}</div>
-                <p>동아리 인원</p>
+                <div style="font-size:12px;" class="totalCount">{{ number_format($channel->channelJoins->count()) }}</div>
+                <p style="font-size:12px;">동아리 인원</p>
             </div>
             <div class="flex_item">
-                <div>{{ date('Y.m.d', strtotime($channel->created_at)) }}</div>
-                <p>동아리 창단일</p>
+                <div style="font-size:14px;">{{ date('Y.m.d', strtotime($channel->created_at)) }}</div>
+                <p style="font-size:14px;">동아리 창단일</p>
             </div>
         </div>
         <div class="flex">

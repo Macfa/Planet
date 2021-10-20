@@ -442,4 +442,6 @@ button {
 #openStampModal .modal-body #category-data div button {
     width: 50px;
 }
-
+.sub_text_gray {
+    color: #808080;
+}
