@@ -1,7 +1,8 @@
 @section('mobile.content-mainmenu')
     <ul class="tab_title accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
         {{ (isset($channel)) ? $channel->name:'포디엄'  }}
-        @if(auth()->id()==$channel->userID)
+
+        @if(isset($channel) && auth()->id()==$channel->userID)
             <span style="margin-left: 10%; color: black !important;">
                 <button onclick="location.href='{{ route('channel.edit', $channel->id) }}'" class="">수정</button>
                 <button onclick="deleteChannel({{ $channel->id }})" class="">삭제</button>

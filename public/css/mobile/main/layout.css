@@ -282,7 +282,7 @@ input:focus {
 
 #app .board_box .right_sub ul {
   overflow: hidden;
-  border-bottom: 1px solid #b5b5b5;
+  /*border-bottom: 1px solid #b5b5b5;*/
 }
 
 #app .board_box .right_sub .info {
@@ -296,8 +296,8 @@ input:focus {
 }
 
 #app .board_box .right_sub ul li:first-child {
-  border-right: 1px solid #b5b5b5;
-  box-sizing: border-box;
+  /*border-right: 1px solid #b5b5b5;*/
+  /*box-sizing: border-box;*/
 }
 
 #app .board_box .right_sub ul li a {
@@ -420,6 +420,7 @@ Custom
   word-break: break-all;
   padding-bottom: 10px;
   border-bottom: 2px black solid;
+    font-size: 12px;
 }
 
 .right_sub .info_detail .flex {
@@ -431,7 +432,7 @@ Custom
 }
 
 .right_sub .info_detail .flex .flex_item div {
-  font-size: 16px;
+  font-size: 12px;
   line-height: 1.5;
   letter-spacing: 0.32px;
   height: 24px;
@@ -443,7 +444,7 @@ Custom
   line-height: 1.5;
   letter-spacing: 0.32px;
   height: 24px;
-  font-size: 16px;
+  font-size: 12px;
 }
 
 .image-m {

@@ -347,6 +347,9 @@ textarea[name=content]:focus {
 .not-logged-btn {
     opacity: 0.6;
 }
+.fs-12 {
+    font-size: 12px !important;
+}
 /*@media screen and (max-width: 1440px) {*/
 /*  .wrap {*/
 /*    width: 1276px;*/
