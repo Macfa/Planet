@@ -28,7 +28,7 @@ class HomeController extends Controller
     {
         $this->agent = new Agent();
         if($this->agent->isMobile()) {
-            redirect('http://m.localhost:8000/');
+//            redirect('http://m.localhost:8000/');
         }
     }
 

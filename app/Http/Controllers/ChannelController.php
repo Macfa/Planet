@@ -243,7 +243,8 @@ class ChannelController extends Controller
     public function getUserInChannel($channelID) {
         // 이미 추가된 경우 제외
         $data = array();
-        $channel = Channel::with('channelJoins')->doesntHave('channelAdmins')->first();
+        $channel = Channel::with('channelJoins')->first();
+//        var_dump($channel = Channel::with('channelJoins')->doesntHave('channelAdmins')->getQuery());
 
         if($channel) {
             foreach($channel->channelJoins as $channelJoin) {
@@ -271,6 +272,10 @@ class ChannelController extends Controller
             ]);
         }
         return redirect()->back();
+    }
+    function removeChannelAdmin($userID) {
+        $user = User::find($userID);
+//        $user->
     }
 }
 

@@ -45,7 +45,11 @@ Route::get('/sidebar', [HomeController::class, 'sidebar'])->name('home.sidebar')
 Route::get('/mainMenu', [HomeController::class, 'mainMenu'])->name('home.mainmenu');
 
 // Post's resource
-Route::resource('post', PostController::class);
+Route::resource('post', PostController::class)->except([
+    'show'
+]);
+Route::get('/post/show/{post}', [PostController::class, 'show']);
+//Route::get('/post/show/{post}', [HomeController::class, 'index']);
 Route::post('/post/voteLikeInPost', [PostController::class, 'voteLikeInPost']);
 Route::post('/post/reportPost', [PostController::class, 'reportPost']);
 Route::post('/post/scrapPost', [PostController::class, 'scrapPost']);
@@ -59,6 +63,7 @@ Route::resource('channel', ChannelController::class);
 Route::post('/channel/channelJoin', [ChannelController::class, 'channelJoin']);
 Route::post('/channel/addChannelAdmin', [ChannelController::class, 'addChannelAdmin']);
 Route::get('/channel/getUserInChannel/{channelID}', [ChannelController::class, 'getUserInChannel']);
+Route::get('/channel/removeChannelAdmin/{userID}', [ChannelController::class, 'getUserInChannel']);
 
 // User's
 Route::get('/user/{user}/{el?}', [UserController::class,'show'])->name('user.show');

@@ -12,7 +12,7 @@
 
             <div class="form-btn">
                 <div class="reset-btn">
-                    <button type="reset">취소</button>
+                    <button type="button" data-bs-dismiss="modal" aria-label="Close">취소</button>
                 </div>
 
                 <div class="write-btn">

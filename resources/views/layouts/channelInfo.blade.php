@@ -29,6 +29,8 @@
                 <p>관리자</p>
             </div>
         </div>
+
+        @auth
         <div class="flex flex-justify-content-flex-end">
             <button data-bs-toggle="modal" data-bs-post-id="{{ $channel->id }}" data-bs-target="#open_channel_admin_modal">
 {{--            <button onclick="addSubAdmin({{ $channel->id }});">--}}
@@ -36,6 +38,7 @@
             </button>
 {{--            </button>--}}
         </div>
+        @endauth
         <ul id="channelAdminList" onclick="removeChannelAdmin();">
             @forelse($channel->channelAdmins as $channelAdmin)
                 <li value="{{ $channelAdmin->id }}">{{ $channelAdmin->user->name }}</li>
@@ -44,7 +47,9 @@
             @endforelse
         </ul>
         @if($channel->userID != auth()->id())
-            <div><a class="d-btn favorite_btn clickable" onclick="addChannelJoin({{ $channel->id }})">동아리 가입</a></div>
+            @auth
+                <div><a class="d-btn favorite_btn clickable" onclick="addChannelJoin({{ $channel->id }})">동아리 가입</a></div>
+            @endauth
         @endif
     </div>
 </div>
@@ -164,7 +169,20 @@
             }
         })
     }
-    function removeChannelAdmin() {
+    function removeChannelAdmin(id) {
+        if(confirm('해당 관리자를 삭제하시겠습니까 ?')) {
+            $.ajax({
+                type: "DELETE",
+                url: "/channel/removeChannelAdmin/"+id,
+                data:{"userID": id},
+                success: function(data) {
+                    alert("suc");
+                },
+                error: function(err) {
+                    console.log(err);
+                }
+            })
+        }
     }
 </script>
 @endsection
