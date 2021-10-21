@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
 <link rel="stylesheet" type="text/css" href="{{ asset('css/post/create.css') }}">

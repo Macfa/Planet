@@ -45,7 +45,7 @@ class HomeController extends Controller
         if($this->agent->isMobile()) {
             return view('mobile.main.index', compact('posts', 'channelVisitHistories'));
         } else {
-            return view('main.index', compact('posts', 'channelVisitHistories'));
+            return view('layouts.app', compact('posts', 'channelVisitHistories'));
         }
     }
 

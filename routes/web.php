@@ -69,7 +69,7 @@ Route::get('/channel/removeChannelAdmin/{userID}', [ChannelController::class, 'g
 // User's
 Route::get('/user/{user}/{el?}', [UserController::class,'show'])->name('user.show');
 Route::post('/user/{id}', [UserController::class,'modify'])->name('user.modify');
-Route::delete('/user/{id}', [UserController::class,'destroy'])->name('user.destroy');
+Route::delete('/user/{id?}', [UserController::class,'destroy'])->name('user.destroy');
 Route::get('/user/', [UserController::class,'logout'])->name('user.logout');
 Route::get('/mark', function() {
     auth()->user()->unreadNotifications->markAsRead();
