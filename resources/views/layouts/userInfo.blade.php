@@ -87,7 +87,7 @@
         <div class="flex">
             <div class="flex_item">
 {{--                <a href="{{ route('user.destroy', auth()->id()) }}">삭제</a>--}}
-                <a href="{{ route('user.destroy', auth()->id()) }}">삭제 ( 수정 중 )</a>
+                <a href="{{ route('user.destroy', ['id'=>auth()->id()]) }}">삭제 ( 수정 중 )</a>
             </div>
         </div>
     </div>
