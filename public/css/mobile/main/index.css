@@ -101,7 +101,7 @@ background-color: #3d5afe;
 #main .board_box .left ul.tab li.on a:after {
   display: block;
   content: "";
-  background-color: #625777;
+  background-color: #000000;
   height: 1px;
   width: calc(85% - 12px);
   position: absolute;
@@ -355,3 +355,7 @@ textarea[name=content]:focus {
 /*    width: 1276px;*/
 /*  }*/
 /*}*/
+
+.post-title {
+    line-height: 1.9;
+}

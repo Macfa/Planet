@@ -37,18 +37,17 @@
                             @endif
                         </colgroup>
                         @forelse ($posts as $post)
-                            <tr id="post-{{ $post->id }}">
-{{--                                <td>--}}
-                                    <!-- 업이면 클래스 up, 다운이면 down -->
-{{--                                    <span class="updown up">{{ $post->likes->sum('like') }}</span>--}}
-{{--                                </td>--}}
+                            <tr id="post-{{ $post->id }}" class="post-title">
                                 <td>
                                     <div class="thum" style="background-image: url({{ $post->image }});"></div>
                                 </td>
                                 <td>
                                     <div class="title">
                                         <a href="#post-show-{{ $post->id }}" data-bs-toggle="modal" data-bs-focus="false" data-bs-post-id="{{ $post->id }}" data-bs-target="#open_post_modal">
-                                            <p>{{ $post->title }}&nbsp;&nbsp;<span class="titleSub">[<span class="commentCount">{{ $post->comments_count }}</span>]</span></p>
+                                            <p>{{ $post->title }}&nbsp;&nbsp;
+                                                @if($post->comments_count>0)
+                                                    <span class="titleSub">[<span class="commentCount">{{ $post->comments_count }}</span>]</span></p>
+                                                @endif
 
                                             <span>
                                                 @foreach($post->stampInPosts as $stamp)
@@ -61,7 +60,9 @@
                                         </a>
                                     </div>
                                     <div class="user">
-                                        <p><span><a href="{{ route('channel.show', $post->channelID) }}">[{{ $post->channel->name }}]</a></span>온 <a href="{{ route('user.show', ["user" => $post->user] ) }}">{{ $post->user->name }}</a> / {{ $post->created_at->diffForHumans() }}</p></div>
+                                    {{--                                                                                            [동아리명] n분 전 / 사용자 id--}}
+                                        <p><span><a href="{{ route('channel.show', $post->channelID) }}">[{{ $post->channel->name }}]</a></span> {{ $post->created_at->diffForHumans() }} / <a href="{{ route('user.show', ["user" => $post->user] ) }}">{{ $post->user->name }}</a></p></div>
+{{--                                        <p><span><a href="{{ route('channel.show', $post->channelID) }}">[{{ $post->channel->name }}]</a></span>온 <a href="{{ route('user.show', ["user" => $post->user] ) }}">{{ $post->user->name }}</a> / {{ $post->created_at->diffForHumans() }}</p></div>--}}
                                 </td>
                             </tr>
                         @empty
@@ -256,6 +257,40 @@
     }
 </script>
 <script id="mainMenuItem" type="text/x-jquery-tmpl">
+<tr id="post-${postID}">
+    <td>
+        <div class="thum" style="background-image: url(${postImage});"></div>
+    </td>
+    <td>
+        <div class="title">
+            <a href="#post-show-${postID}" data-bs-toggle="modal" data-bs-focus="false" data-bs-post-id="${postID}" data-bs-target="#open_post_modal">
+                <p>${postTitle}&nbsp;&nbsp;<span class="titleSub">[<span class="commentCount">${commentCount}</span>]</span></p>
+
+                <span>
+                ${post}
+                    @{{each post}}
+{{--                        @foreach($post->stampInPosts as $stamp)--}}
+                            <img style="width:27px;" src="${post}" alt="">
+                            @{{post->stampInPosts}}
+                            @if($stamp->count>1)
+                                {{ $stamp->count }}
+                            @endif
+                    @{{/each}}
+                </span>
+            </a>
+        </div>
+        <div class="user">
+            <p><span><a href="{{ route('channel.show', $post->channelID) }}">[{{ $post->channel->name }}]</a></span>온 <a href="{{ route('user.show', ["user" => $post->user] ) }}">{{ $post->user->name }}</a> / {{ $post->created_at->diffForHumans() }}</p>
+        </div>
+    </td>
+</tr>
+{{--            @{{each stamps}}--}}
+{{--                <div>--}}
+{{--                    <ul class="flex-container">--}}
+{{--                        <li class="col">--}}
+{{--                            <button onclick="purchaseStamp(${id}, {{ $post->id }});">--}}
+{{--                                <img src="${image}" />--}}
+////////
 <tr id="post-${postID}">
     <td>
         <span class="updown up">${totalLike}</span>

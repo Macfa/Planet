@@ -1,6 +1,6 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/mobile/post/show.css') }}">
-    <div class="modal-parent wid100">
-        <div class="modal-wrap">
+    <div class="modal-parent wid100" style="height: 100vh; background-color: #888888;">
+        <div class="modal-wrap" style="background-color: #ffffff;">
             <div class="modal-header flex-wrap-wrap">
                 <div class="modal-title flex-0-0-100">
                     <h4>
@@ -45,7 +45,7 @@
                                             src="{{ asset('image/upvote.png') }}" />
                                         @endif
                                 </li>
-                                <li class="items">
+                                <li style="flex: 0 0 5px;" class="items">
                                     <div class="post-like">
                                         <p>{{ $post->likes->sum('like') }}</p>
                                     </div>
@@ -204,8 +204,10 @@
                     var postOffsetTop = $("#post").offset().top;
                     if(postOffsetTop - headerHeight <= 0 ) {
                         var checkExist = $("#post-bot-function").hasClass("sticky-bottom");
+                        // console.log(checkExist);
                         if(checkExist === false) {
                             $("#post-bot-function").addClass("sticky-bottom");
+                            // console.log($("#post-bot-function").className);
                         }
                     } else {
                         var checkExist = $("#post-bot-function").hasClass("sticky-bottom");
