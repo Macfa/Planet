@@ -1,5 +1,13 @@
 @section('mobile.content-mainmenu')
+{{--    <ul class="tab_title accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">--}}
+{{--        {{ (isset($channel)) ? $channel->name:'포디엄'  }}--}}
+
+    @if(isset($channel))
     <ul class="tab_title accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+
+    @else
+        <ul class="tab_title">
+    @endif
         {{ (isset($channel)) ? $channel->name:'포디엄'  }}
 
         @if(isset($channel) && auth()->id()==$channel->userID)

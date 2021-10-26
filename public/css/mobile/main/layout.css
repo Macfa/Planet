@@ -97,6 +97,7 @@ input:focus {
   color: #625777;
   position: relative;
   font-weight: 500;
+    /*background-color: blue;*/
 }
 
 #app .board_box .left ul.tab li.on a:after {

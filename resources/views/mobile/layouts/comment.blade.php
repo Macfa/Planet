@@ -10,7 +10,7 @@
         <div class="comment-input">
             <textarea name="content" id="comment_text"></textarea>
 
-            <div class="form-btn">
+            <div class="form-btn mt10 mb10">
                 <div class="reset-btn">
                     <button type="button" data-bs-dismiss="modal" aria-label="Close">취소</button>
                 </div>
@@ -20,6 +20,7 @@
                 </div>
             </div>
         </div>
+
     </form>
 </div>
 
@@ -34,7 +35,7 @@
     {{--        @if ($comment->depth == 0)--}}
 
     <!-- 댓글 리스트 -->
-        <div class="comment-list comment-{{ $comment->id }}">
+        <div class="mb15 comment-list comment-{{ $comment->id }}">
             <div style="padding-left:{{ $comment->depth*44 }}px;" class="comment-item">
                 <div class="comment-top">
                     <div style="" class="write-info {{ $comment->depth>0 ? 'write-info-line':'' }}">
@@ -43,7 +44,7 @@
                         <p>{{ $comment->updated_at->diffForHumans() }}</p>
 
                         @if(auth()->id()==$comment->userID)
-                            <div class="ml-20 comment-modi-form">
+                            <div class="comment-modi-form">
                                 <button onclick="checkCommentTypeToAddForm('edit', {{ $comment->id }})">
                                     <div class="function-text">
                                         <p>수정</p>
@@ -63,7 +64,7 @@
                             <li data-bs-toggle="modal" data-bs-target="#openStampModal" class="clickable items">스탬프</li>
 {{--                            <li></li>--}}
                             <li class="clickable" onclick="@if(auth()->check()) checkCommentTypeToAddForm('add', {{ $comment->id }}); @else notLogged(); @endif">댓글</li>
-                            <li class="clickable">
+                            <li style="margin-right:0px;" class="clickable">
                                 <img onclick="@if(auth()->check()) voteLikeInComment({{ $comment->id }}, 1) @else notLogged(); @endif" id="comment-{{ $comment->id }}-upvote" class="image-sm" alt=""
                                      @if($comment->existCommentLike == 1)
                                          src="{{ asset('image/upvote_c.png') }}" />
@@ -71,10 +72,10 @@
                                         src="{{ asset('image/upvote.png') }}" />
                                     @endif
                             </li>
-                            <li>
+                            <li class="">
                                 <span class="comment-like">{{ $comment->likes->sum('like') }}</span>
                             </li>
-                            <li class="clickable">
+                            <li style="margin-left:0px;" class="clickable">
                                 <img onclick="@if(auth()->check()) voteLikeInComment({{ $comment->id }}, -1) @else notLogged(); @endif" id="comment-{{ $comment->id }}-downvote" class="image-sm" alt=""
                                      @if($comment->existCommentLike == -1)
                                          src="{{ asset('image/downvote_c.png') }}" />
@@ -98,37 +99,37 @@
         <p>No users</p>
 @endforelse
         <!-- 하단 기능 Comment -->
-{{--        <div class="board-bot-function" style="position: sticky; bottom:10px;  background: rgba(252, 252, 252, 1) !important;">--}}
+{{--        <div class="flex-container board-bot-function justify-content-between" style="position: sticky; top:0px;  background: rgba(252, 252, 252, 1) !important;" id="post-bot-function">--}}
         <div class="flex-container flex-justify-space-between" id="post-bot-function">
             <div class="left-function flex-container">
-                <div class="page-arrow">
-                    <img onclick="@if(auth()->check()) voteLikeInPost({{ $post->id }},1) @else notLogged(); @endif" id="post-upvote-fix" class="image-m clickable m-0" alt="위로"
+{{--                <div class="page-arrow">--}}
+                    <img onclick="@if(auth()->check()) voteLikeInPost({{ $post->id }},1) @else notLogged(); @endif" id="post-upvote-fix" class="image-sm clickable m-0" alt="위로"
                          @if($post->existPostLike == 1)
                          src="{{ asset('image/upvote_c.png') }}" />
                     @else
                         src="{{ asset('image/upvote.png') }}" />
                     @endif
                     <span class="post-like">{{ $post->likes->sum('like') }}</span>
-                    <img onclick="@if(auth()->check()) voteLikeInPost({{ $post->id }},-1) @else notLogged(); @endif" id="post-downvote-fix" class="image-m clickable" alt="아래로"
+                    <img onclick="@if(auth()->check()) voteLikeInPost({{ $post->id }},-1) @else notLogged(); @endif" id="post-downvote-fix" class="image-sm clickable" alt="아래로"
                          @if($post->existPostLike == -1)
                          src="{{ asset('image/downvote_c.png') }}" />
                     @else
                         src="{{ asset('image/downvote.png') }}" />
                     @endif
-                </div>
 
-                <img alt="stamp" class="stamp-image image-m clickable" src="{{ asset('image/stamp.png') }}"/>
-                <img class="favorit-image image-m clickable" id="post-scrap" onclick="@if(auth()->check()) scrapPost({{ $post->id }}) @else notLogged(); @endif" alt="favorit"
+                <img alt="stamp" class="stamp-image image-sm clickable" src="{{ asset('image/stamp.png') }}"/>
+                <img class="favorit-image image-sm clickable" id="post-scrap" onclick="@if(auth()->check()) scrapPost({{ $post->id }}) @else notLogged(); @endif" alt="favorit"
                      @if($post->postScrap == 1)
                      src="{{ asset('image/scrap_c.png') }}" />
                 @else
                     src="{{ asset('image/scrap.png') }}" />
                 @endif
-                <img src="{{ asset('image/message.png') }}" alt="message" class="message-image">
+                <img src="{{ asset('image/message.png') }}" alt="message" class="image-sm">
+{{--                </div>--}}
             </div>
 
             <div class="right-function">
-                <img src="{{ asset('image/message.png') }}" alt="message" class="message-image">
+                <img src="{{ asset('image/message.png') }}" alt="message" class="image-sm">
             </div>
         </div>
     </div>
@@ -349,14 +350,14 @@
         <h4>댓글 보기</h4>
     </div>
     @{{/if}}
-   <div class="comment-list comment-${id}">
+   <div class="mb15 comment-list comment-${id}">
         <div style="padding-left:${depth}px;" class="comment-item">
             <div class="comment-top">
                 <div style="" class="write-info">
                     <img src="${avatar}" alt="닉네임" />
                     <h5 class="nickname">${name}</h5>
                     <p>${updated_at_modi}</p>
-                    <div class="ml-20 comment-modi-form">
+                    <div class="comment-modi-form">
                         <button onclick="checkCommentTypeToAddForm('edit', ${id})">
                             <div class="function-text">
                                 <p>수정</p>
@@ -404,7 +405,7 @@
         id="reply_text"
         >${value}</textarea>
 
-        <div class="form-btn">
+        <div class="form-btn mt10 mb10">
             <div class="reset-btn">
                 <button onclick="cancleForm('${form}', ${commentID})" type="reset">취소</button>
             </div>
@@ -418,3 +419,4 @@
 </div>
 </script>
 @endsection
+

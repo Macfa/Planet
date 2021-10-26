@@ -10,7 +10,7 @@
         <div class="comment-input">
             <textarea name="content" id="comment_text"></textarea>
 
-            <div class="form-btn">
+            <div class="form-btn mt20">
                 <div class="reset-btn">
                     <button type="reset">취소</button>
                 </div>
@@ -30,9 +30,6 @@
     </div>
 
     @forelse ($comments as $comment)
-
-{{--        @if ($comment->depth == 0)--}}
-
         <!-- 댓글 리스트 -->
         <div class="comment-list comment-{{ $comment->id }}">
             <div style="padding-left:{{ $comment->depth*44 }}px;" class="comment-item">
@@ -65,47 +62,6 @@
 
             </div>
         </div>
-
-{{--        @else--}}
-
-{{--        <div class="comment-list comment-{{ $comment->id }}">--}}
-{{--            <div class="comment-item">--}}
-{{--                <div class="reply-list">--}}
-{{--                    <div class="reply-item">--}}
-{{--                        <div class="reply-top">--}}
-{{--                            <div class="write-info">--}}
-{{--                                <img src="{{ asset('image/square-big.png') }}" alt="닉네임" />--}}
-{{--                                <h5 class="nickname">닉네임</h5>--}}
-{{--                                <p>{{ $comment->created_at->diffForHumans() }}</p>--}}
-{{--                            </div>--}}
-
-{{--                            <div class="reply-info">--}}
-{{--                                <ul>--}}
-{{--                                    <li>스탬프</li>--}}
-{{--                                    <li onclick="reply({{ $comment->group }}, {{ $post->id }}, {{ $comment->id }});">댓글</li>--}}
-{{--                                    <li>--}}
-{{--                                        <img onclick="commentLikeVote({{ $comment->id }}, 1)" src="{{ asset('image/square-small.png') }}" alt="" />--}}
-{{--                                        <span class="comment-like">{{ $comment->like }}</span>--}}
-{{--                                    </li>--}}
-{{--                                    <li>--}}
-{{--                                        <img onclick="commentLikeVote({{ $comment->id }}, -1)" src="{{ asset('image/square-small.png') }}" alt="" />--}}
-{{--                                    </li>--}}
-{{--                                </ul>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-
-{{--                        <div class="reply-cont">--}}
-{{--                            <p>--}}
-{{--                                {{ $comment->content }}--}}
-{{--                            </p>--}}
-{{--                        </div>--}}
-{{--                        <!-- 답글 작성 폼 -->--}}
-
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--        @endif--}}
     @empty
     <p>No users</p>
     @endforelse
@@ -146,15 +102,14 @@
                         name="reply_text"
                         id="reply_text"
                         ></textarea>
+                    </div>
+                    <div class="form-btn">
+                        <div class="reset-btn">
+                            <button type="reset">취소</button>
+                        </div>
 
-                        <div class="form-btn">
-                            <div class="reset-btn">
-                                <button type="reset">취소</button>
-                            </div>
-
-                            <div class="write-btn">
-                                <button type="submit">등록</button>
-                            </div>
+                        <div class="write-btn">
+                            <button type="submit">등록</button>
                         </div>
                     </div>
                 </form>

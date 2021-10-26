@@ -87,10 +87,10 @@
                 <img src="{{ asset('image/logo.png') }}">
             </a>
         </div>
-        <div class="col-4 header-sections header-section-search">
-            <form class="row align-items-center" name="mainSearchForm" id="mainSearchForm" action="{{ route('home.search') }}" method="get">
+        <div class="@if(auth()->check()) col-5 @else col-6 @endif header-sections header-section-search">
+            <form class="row align-items-center vertical-md" name="mainSearchForm" id="mainSearchForm" action="{{ route('home.search') }}" method="get">
 {{--                <input list="searched-list" type="text" name="searchText" onkeydown="searchingCallback(this);" placeholder="검색..." value="{{ Request::input('searchText') }}">--}}
-                <input type="text" name="searchText" onkeydown="searchingCallback(this);" placeholder="검색..." value="{{ Request::input('searchText') }}">
+                <input type="text" class="vertical-md" name="searchText" onkeydown="searchingCallback(this);" placeholder="검색..." value="{{ Request::input('searchText') }}">
 {{--                <datalist id="searched-list">--}}
 {{--                    <option oninput="selectSearchItem();" value="Chocolate">--}}
 {{--                    <option value="Coconut">--}}
@@ -111,7 +111,7 @@
 
             </form>
         </div>
-        <div class="header-sections col-5">
+        <div class="header-sections @if(auth()->check()) col-4 @else col-3 @endif">
             @guest
                 <ul class="flex-container flex-justify-content-flex-end">
                     <li class="login">
@@ -127,9 +127,11 @@
 
                     <li class="header_icon header_icon_clickable">
                         <a style="position: relative;" class="" data-bs-toggle="collapse" href="#header-noti" role="button" aria-expanded="false" aria-controls="header-noti"><img src="{{ asset('image/noti_4x.png') }}" alt="noti" />
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                              {{ auth()->user()->unreadNotifications->count() }}
-                            </span><span class="visually-hidden">unread messages</span>
+                            @if(auth()->user()->unreadNotifications->count() > 0)
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                        {{ auth()->user()->unreadNotifications->count() }}
+                                </span><span class="visually-hidden">unread messages</span>
+                            @endif
                         </a>
                     </li>
                     <li class="header_icon header_icon_clickable"><a class="" data-bs-toggle="collapse" href="#header-list" role="button" aria-expanded="false" aria-controls="header-list"><img src="{{ asset('image/list_4x.png') }}" alt="list" /></a></li>
@@ -148,9 +150,37 @@
 </div>
 
 <script>
+    $('body').on('click', function(e){
+        var target = $(e.target);
+        // if(target[0].alt !== "noti") {
+        var targetNoti = $("#header-noti");
+        var targetList = $("#header-list");
 
+        if(targetNoti.hasClass("show")) {
+            targetNoti.toggleClass("show");
+        }
+        // } else if(target[0].alt !== "list") {
+
+        if(targetList.hasClass("show")) {
+            targetList.toggleClass("show");
+        }
+        // }
+        // var $popCallBtn = $tgPoint.hasClass('JS-popup-btn')
+        // var $popArea = $tgPoint.hasClass('popup-box')
+        //
+        // if ( !$popCallBtn && !$popArea ) {
+        //     $('.popup-box').removeClass('view');
+        // }
+    });
     var timer = null;
     $(document).ready(function () {
+        let vh = window.innerHeight * 0.01;
+
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+        window.addEventListener('resize', () => {
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        });
 
         $('#open_post_modal').on('shown.bs.modal', function() {
             $(document).off('focusin.modal');
@@ -181,13 +211,7 @@
     // }
     // setScreenSize();
     // window.addEventListener('resize', () => setScreenSize());
-    let vh = window.innerHeight * 0.01;
 
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-    window.addEventListener('resize', () => {
-        let vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
-    });
 
     function searchingCallback() {
         // var timer = null;
