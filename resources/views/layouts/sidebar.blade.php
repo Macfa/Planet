@@ -26,10 +26,6 @@
     </div>
 </div>
 <script>
-    $('#main .right .best>ul li').click(function(){
-        $('#main .right .best li').removeClass('on');
-        $(this).addClass('on');
-    });
     function clickSidebarMenu(type) {
         $.ajax({
             url: '/sidebar',
@@ -55,6 +51,11 @@
         })
     }
     $(document).ready(function () {
+        $('#main .right .best>ul li').click(function(){
+            $('#main .right .best li').removeClass('on');
+            $(this).addClass('on');
+        });
+
         clickSidebarMenu('realtime');
     })
 </script>

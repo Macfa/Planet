@@ -50,12 +50,13 @@
                                                 @endif
 
                                             <span>
-                                                @foreach($post->stampInPosts as $stamp)
+                                                @forelse($post->stampInPosts as $stamp)
                                                     <img style="width:27px;" src="{{ $stamp->stamp->image }}" alt="">
                                                     @if($stamp->count>1)
                                                         {{ $stamp->count }}
                                                     @endif
-                                                @endforeach
+                                                @empty
+                                                @endforelse
                                             </span>
                                         </a>
                                     </div>
@@ -272,9 +273,9 @@
 {{--                        @foreach($post->stampInPosts as $stamp)--}}
                             <img style="width:27px;" src="${post}" alt="">
                             @{{post->stampInPosts}}
-                            @if($stamp->count>1)
-                                {{ $stamp->count }}
-                            @endif
+{{--                            @if($stamp->count>1)--}}
+{{--                                {{ $stamp->count }}--}}
+{{--                            @endif--}}
                     @{{/each}}
                 </span>
             </a>

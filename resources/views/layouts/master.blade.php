@@ -52,6 +52,14 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main/index.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/toastr.min.css') }}">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-5.1.0.min.js') }}"></script>
+    <script src="{{ asset('js/toastr.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-tmpl.js') }}"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script async charset="utf-8" src="//cdn.embedly.com/widgets/platform.js"></script>
+
     @stack("styles")
 
 
@@ -80,7 +88,7 @@
     @include('partials.header')
 
     <div>
-        @yield('content')
+        @yield('main')
     </div>
 </div>
 
@@ -91,12 +99,7 @@
 @endauth
 @stack("modals")
 
-<script src="{{ asset('js/jquery.js') }}"></script>
-<script src="{{ asset('js/bootstrap-5.1.0.min.js') }}"></script>
-<script src="{{ asset('js/toastr.min.js') }}"></script>
-<script src="{{ asset('js/jquery-tmpl.js') }}"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script async charset="utf-8" src="//cdn.embedly.com/widgets/platform.js"></script>
+
 <script src="{{ asset('js/common.js') }}"></script>
 @stack("scripts")
 

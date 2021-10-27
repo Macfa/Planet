@@ -1,5 +1,3 @@
-  @extends('layouts.master')
-  @extends('layouts.content')
-  @extends('layouts.content-mainmenu')
-{{--  @extends('layouts.post')--}}
-  @extends('layouts.sidebar')
+@extends('layouts.main')
+@extends('layouts.content-mainmenu')
+@extends('layouts.sidebar')
