@@ -33,26 +33,9 @@
     font-size:12px;
     margin-bottom: 5px;
 }
-#main .board_box .left ul.category li {
-  margin: 0 0 0 7px;
-  padding: 0 5px;
-  box-sizing: border-box;
-  border: 1px solid #cbc7c7;
-  border-radius: 10px;
-  float: left;
-background-color: #3d5afe;
-}
 
 #main .board_box .left ul.category li:first-child {
   margin: 0;
-}
-
-#main .board_box .left ul.category li a {
-  box-sizing: border-box;
-  padding: 7px 8px;
-  display: inline-block;
-  font-size: 18px;
-  color: #FFFFFF;
 }
 
 #main .board_box .left ul.category li a img {
