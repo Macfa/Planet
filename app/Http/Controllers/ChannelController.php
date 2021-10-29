@@ -41,6 +41,8 @@ class ChannelController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Channel::class);
+
         if($this->agent->isMobile()) {
             return view('mobile.channel.create');
         } else {
@@ -52,16 +54,17 @@ class ChannelController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        $userID = auth()->id();
-        $user = User::find($userID);
+        $this->authorize('create', Channel::class);
+
+        $user = User::find(auth()->id());
         $hasCoin = $user->hasCoins()->sum('coin');
 
         if($hasCoin < 100) {
-            return redirect()->route('home')->with(['msg'=>'코인이 부족합니다.', 'type'=>'warning']);
+            return response()->redirectTo('/')->with(["status"=>"warning", "message"=>"코인이 부족합니다"]);
         } else {
             // set validation rules
             $rules = [
@@ -84,23 +87,22 @@ class ChannelController extends Controller
             $created = Channel::create([
                 'name' => $request->input('name'),
                 'description' => $request->input('description'),
-                'userID' => $userID
+                'userID' => auth()->id()
             ]);
 
             // add favorite
             $channel = Channel::findOrFail($created->id);
             $channel->channelJoins()->create([
-                'userID' => $userID,
-                'channelID' => $created->id,
+                'userID' => auth()->id(),
             ]);
 
             $user->coins()->create([
                 "type" => "동아리생성",
                 "coin" => -100,
-                'userID' => $userID
+                'userID' => auth()->id(),
             ]);
 
-            return redirect()->route('channel.show', $created->id)->with(['msg'=>'동아리가 생성되었습니다.', 'type'=>'info']);
+            return redirect()->route('channel.show', $created->id)->with(["status"=>"success", "message"=>"생성되었습니다"]);
         }
         // return back()->withInput();
 

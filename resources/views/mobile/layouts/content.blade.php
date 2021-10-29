@@ -68,7 +68,7 @@
                                     </div>
                                     <div class="user">
                                     {{--                                                                                            [동아리명] n분 전 / 사용자 id--}}
-                                        <p><span><a href="{{ route('channel.show', $post->channelID) }}">[{{ $post->channel->name }}]</a></span> {{ $post->created_at->diffForHumans() }} / <a href="{{ route('user.show', ["user" => $post->user] ) }}">{{ $post->user->name }}</a></p></div>
+                                        <p><span><a href="{{ route('channel.show', $post->channelID) }}">[ {{ $post->channel->name }} ]</a></span> {{ $post->created_at->diffForHumans() }} / <a href="{{ route('user.show', ["user" => $post->user] ) }}">{{ $post->user->name }}</a></p></div>
 {{--                                        <p><span><a href="{{ route('channel.show', $post->channelID) }}">[{{ $post->channel->name }}]</a></span>온 <a href="{{ route('user.show', ["user" => $post->user] ) }}">{{ $post->user->name }}</a> / {{ $post->created_at->diffForHumans() }}</p></div>--}}
                                 </td>
                             </tr>
@@ -240,6 +240,7 @@
                     $("#main .wrap .left .list table tbody").html(value);
                 } else {
                     for(var i=0; i<data.result.length; i++) {
+                        console.log(data.result[i]);
                         valueList.push({
                             "totalLike": data.result[i].totalLike,
                             "postID": data.result[i].id,
@@ -249,6 +250,7 @@
                             "channelName": data.result[i].channel.name,
                             "userName": data.result[i].user.name,
                             "userID": data.result[i].user.id,
+                            "stampInPosts": data.result[i].stamp_in_posts,
                             "created_at_modi": data.result[i].created_at_modi
                         });
                     }
@@ -264,57 +266,36 @@
     }
 </script>
 <script id="mainMenuItem" type="text/x-jquery-tmpl">
-{{--<tr id="post-${postID}">--}}
-{{--    <td>--}}
-{{--        <div class="thum" style="background-image: url(${postImage});"></div>--}}
-{{--    </td>--}}
-{{--    <td>--}}
-{{--        <div class="title">--}}
-{{--            <a href="#post-show-${postID}" data-bs-toggle="modal" data-bs-focus="false" data-bs-post-id="${postID}" data-bs-target="#open_post_modal">--}}
-{{--                <p>${postTitle}&nbsp;&nbsp;<span class="titleSub">[<span class="commentCount">${commentCount}</span>]</span></p>--}}
-
-{{--                <span>--}}
-{{--                ${post}--}}
-{{--                    @{{each post}}--}}
+<tr id="post-${postID}">
+    <td>
+        <div class="thum" style="background-image: url(${postImage});"></div>
+    </td>
+    <td>
+        <div class="title">
+            <a href="#post-show-${postID}" data-bs-toggle="modal" data-bs-focus="false" data-bs-post-id="${postID}" data-bs-target="#open_post_modal">
+                <p>${postTitle}&nbsp;&nbsp;
+                    @{{if commentCount > 0}}
+                        <span class="titleSub">[<span class="commentCount">${commentCount}</span>]</span>
+                    @{{/if}}
+                </p>
+                <span>
+                    @{{each(i,stamp) stampInPosts}}
+                    ${stamp.id}
 {{--                        @foreach($post->stampInPosts as $stamp)--}}
-{{--                            <img style="width:27px;" src="${post}" alt="">--}}
-{{--                            @{{post->stampInPosts}}--}}
+                            <img style="width:27px;" src="${stamp.image}" alt="">
+{{--                            ${stamp.name}--}}
 {{--                            @if($stamp->count>1)--}}
 {{--                                {{ $stamp->count }}--}}
 {{--                            @endif--}}
-{{--                    @{{/each}}--}}
-{{--                </span>--}}
-{{--            </a>--}}
-{{--        </div>--}}
-{{--        <div class="user">--}}
-{{--            <p><span><a href="{{ route('channel.show', $post->channelID) }}">[{{ $post->channel->name }}]</a></span>온 <a href="{{ route('user.show', ["user" => $post->user] ) }}">{{ $post->user->name }}</a> / {{ $post->created_at->diffForHumans() }}</p>--}}
-{{--        </div>--}}
-{{--    </td>--}}
-{{--</tr>--}}
-{{--            @{{each stamps}}--}}
-{{--                <div>--}}
-{{--                    <ul class="flex-container">--}}
-{{--                        <li class="col">--}}
-{{--                            <button onclick="purchaseStamp(${id}, {{ $post->id }});">--}}
-{{--                                <img src="${image}" />--}}
-{{--////////--}}
-<tr id="post-${postID}">
-    <td>
-        <span class="updown up">${totalLike}</span>
-    </td>
-    <td><div class="thum"></div></td>
-    <td>
-        <div class="title">
-            <a href="" data-bs-toggle="modal" data-bs-post-id="${postID}" data-bs-target="#open_post_modal">
-            <p>${postTitle}&nbsp;&nbsp;</p>
-            <span class="titleSub">[<span class="commentCount">${commentCount}</span>]</span>
+                    @{{/each}}
+                </span>
             </a>
         </div>
         <div class="user">
-            <p><span><a href="/channel/${postChannelID}">[${channelName}]</a></span>온 <a href="/user/${userID}">${userName}</a> / ${created_at_modi}</p></div>
+            <p><span><a href="/channel/${postChannelID}">[ ${channelName} ]</a></span> ${created_at_modi} / <a href="/user/${userID}">${userName}</a></p></div>
+        </div>
     </td>
 </tr>
-{{--<p><span><a href="{{ route('channel.show', $post->channelID) }}">[{{ $post->channel->name }}]</a></span>온 <a href="{{ route('user.show', ${userName}) }}">${userName}</a> / ${created_at_modi}</p></div>--}}
 </script>
 <script id="dataPlaceHolder" type="text/x-jquery-tmpl">
 <tr>

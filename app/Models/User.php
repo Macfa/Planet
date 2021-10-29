@@ -48,7 +48,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function Posts() {
+    public function posts() {
 //        return $this->hasMany(Post::class, 'id');
         return $this->hasMany(Post::class, 'userID', 'id');
     }
@@ -61,7 +61,7 @@ class User extends Authenticatable
     public function grade() {
         return $this->hasOne(Grade::class, "id", "gradeID");
     }
-    public function Favorites() {
+    public function favorites() {
         // to be delete !
 //        return $this->hasMany(Favorite::class, 'userID', 'id');
     }
@@ -71,10 +71,10 @@ class User extends Authenticatable
     public function channelAdmins() {
         return $this->hasMany(ChannelAdmin::class, 'userID', 'id');
     }
-    public function Comments() {
+    public function comments() {
         return $this->hasMany(Comment::class, 'userID', 'id');
     }
-    public function Channels() {
+    public function channels() {
         return $this->hasMany(Channel::class, 'userID', 'id');
     }
     public function reports() {

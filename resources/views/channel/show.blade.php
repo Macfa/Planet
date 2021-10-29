@@ -1,4 +1,3 @@
-  @extends('layouts.master')
-  @extends('layouts.content')
+  @extends('layouts.main')
   @extends('layouts.content-mainmenu')
   @extends('layouts.channelInfo')

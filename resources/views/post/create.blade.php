@@ -1,40 +1,27 @@
 @extends('layouts.master')
 
-@section('content')
+@section('main')
 <link rel="stylesheet" type="text/css" href="{{ asset('css/post/create.css') }}">
 
 <section id="channel">
     <div class="wrap">
         <article class="board_box">
-            @if(isset($post))
-                <form id="form" action="{{ route('post.update', $post->id) }}" method="POST">
-                @method('PUT')
-            @else
-                <form id="form" action="{{ route('post.store') }}" method="POST">
-            @endif
+            <form id="form" action="{{ route('post.store') }}" method="POST">
                 @csrf
-                <div class="select_box">
-                    <select class="cst_select" name="channelID" id="channelList">
+                <div class="select_box d-flex">
+                    <select class="cst_select is-invalid" name="channelID" id="channelList">
                         <option value="">등록할 채널을 선택해주세요</option>
-                        @forelse ($channels as $channel)
-                            @if(old('channelID'))
-                                <option value="{{ $channel->id }}" @if(old('channelID')==$channel->id) selected @endif>{{ $channel->name }}</option>
-                            @elseif(isset($post))
-                                @if($post->channelID==$channel->id)
-                                    <option value="{{ $channel->id }}" selected>{{ $channel->name }}</option>
-                                @else
-                                    <option value="{{ $channel->id }}">{{ $channel->name }}</option>
-                                @endif
-                            @else
-                                <option value="{{ $channel->id }}" @if($fromChannelID==$channel->id) selected @endif>{{ $channel->name }}</option>
-                            @endif
-                        @empty
-
-                        @endforelse
+                        @foreach ($user->channels as $channel)
+                            <option value="{{ $channel->id }}"
+                                @if($fromChannelID == $channel->id) selected
+                                @elseif(old('channelID')==$channel->id) selected @endif>
+                                {{ $channel->name }}
+                            </option>
+                        @endforeach
 
                     </select>
                     @error('channelID')
-                        <span class="text-danger">{{ $message }}</span>
+                        <div class="ml-2 invalid-feedback">{{ $message }}</div>
                     @enderror
 
                 </div>
@@ -46,26 +33,22 @@
                                 <span class="menu">포스트</span>
                             </div>
                             <div class="sub_box sub_box_line">
-                                <input type="text" class="box" name="title" @if(old('title')) value="{{ old('title') }}" @elseif(isset($post)) value="{{ $post->title }}" @endif placeholder="이름을 입력하세요">
+                                <input type="text" class="box is-invalid" name="title" value="{{ ($post->title) ?? old('title') }}" placeholder="이름을 입력하세요">
                                 @error('title')
-                                    <span class="text-danger">{{ $message }}</span>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="sub_box">
-                                <textarea class="text_box" id="editor" name="content" placeholder="내용을 적어주세요">@if(old('content')){{ old('content') }}@elseif(isset($post)){{ $post->content }} @endif</textarea>
+                                <textarea class="text_box is-invalid" id="editor" name="content" placeholder="내용을 적어주세요">{{ ($post->content) ?? old('content') }}</textarea>
                                 @error('content')
-                                    <span class="text-danger">{{ $message }}</span>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
                             <div style="margin-top: 20px;">
                                 <ul class="btn">
-                                    <li><button type="button" onclick="location.href='{{ url('/') }}'">취소</button></li>
-                                    @if(isset($post))
-                                        <li><button type="submit" onclick="">수정</button></li>
-                                    @else
-                                        <li><button type="submit" onclick="">등록</button></li>
-                                    @endif
+                                    <li><button type="button" class="btn_cancle" onclick="location.href='{{ url('/') }}'">취소</button></li>
+                                    <li><button type="submit" class="btn_enter" onclick="">등록</button></li>
                                 </ul>
                             </div>
 
@@ -84,6 +67,7 @@
         </div>
     </section>
 
+@push('scripts')
 <script src="{{ asset('js/ckeditor.js') }}"></script>
 <script>
     ClassicEditor.create( document.querySelector( '#editor' ), {
@@ -117,4 +101,5 @@
     //     }
     // }
 </script>
+@endpush
 @endsection

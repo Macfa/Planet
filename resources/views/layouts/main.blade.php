@@ -51,7 +51,9 @@
                                     <div class="title">
                                         <a href="#post-show-{{ $post->id }}" data-bs-toggle="modal" data-bs-focus="false" data-bs-post-id="{{ $post->id }}" data-bs-target="#open_post_modal">
                                             <p>{{ $post->title }}&nbsp;&nbsp;</p>
-                                            <span class="titleSub">[<span class="commentCount">{{ $post->comments_count }}</span>]</span>
+                                            @if($post->comments_count>0)
+                                                <span class="titleSub">[<span class="commentCount">{{ $post->comments_count }}</span>]</span></p>
+                                            @endif
                                             <span>
                                                 @foreach($post->stampInPosts as $stamp)
                                                     <img style="width:27px;" src="{{ $stamp->stamp->image }}" alt="">
@@ -63,7 +65,7 @@
                                         </a>
                                     </div>
                                     <div class="user">
-                                        <p><span><a href="{{ route('channel.show', $post->channelID) }}">[{{ $post->channel->name }}]</a></span>온 <a href="{{ route('user.show', ["user" => $post->user] ) }}">{{ $post->user->name }}</a> / {{ $post->created_at->diffForHumans() }}</p></div>
+                                        <p><span><a href="{{ route('channel.show', $post->channelID) }}">[ {{ $post->channel->name }} ]</a></span> {{ $post->created_at->diffForHumans() }} / <a href="{{ route('user.show', ["user" => $post->user] ) }}">{{ $post->user->name }}</a></p></div>
                                 </td>
                             </tr>
                         @empty
@@ -84,3 +86,42 @@
 </section>
 @endsection
 
+@push('scripts')
+    <script src="{{ asset('js/main.js') }}"></script>
+    <script id="mainMenuItem" type="text/x-jquery-tmpl">
+    <tr id="post-${postID}">
+        <td>
+            <span class="updown up">${totalLike}</span>
+        </td>
+        <td><div class="thum"></div></td>
+        <td>
+            <div class="title">
+                <a href="" data-bs-toggle="modal" data-bs-post-id="${postID}" data-bs-target="#open_post_modal">
+                <p>${postTitle}&nbsp;&nbsp;</p>
+                @{{if commentCount > 0}}
+                    <span class="titleSub">[<span class="commentCount">${commentCount}</span>]</span>
+                @{{/if}}
+                </a>
+            </div>
+            <div class="user">
+                <p><span><a href="/channel/${postChannelID}">[ ${channelName} ]</a></span> ${created_at_modi} / <a href="/user/${userID}">${userName}</a></p></div>
+        </td>
+    </tr>
+    </script>
+    <script id="dataPlaceHolder" type="text/x-jquery-tmpl">
+    <tr>
+        <td>
+            <span class="updown up"></span>
+        </td>
+        <td><div class="thum"></div></td>
+        <td>
+            <div class="title">
+                <p class="placeholder col-6"></p>
+            </div>
+            <div class="user">
+                <p class="placeholder col-4"></p>
+            </div>
+        </td>
+    </tr>
+    </script>
+@endpush

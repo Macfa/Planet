@@ -140,21 +140,3 @@ function notLogged() {
 //         })
 // })()
 
-// @if(Session::has('msg'))
-// var type = "{{ Session::get('type', 'info') }}";
-// switch(type){
-//     case 'info':
-//         toastr.info("{{ Session::get('msg') }}");
-//         break;
-//
-//     case 'warning':
-//         toastr.warning("{{ Session::get('msg') }}");
-//         break;
-//     case 'success':
-//         toastr.success("{{ Session::get('msg') }}");
-//         break;
-//     case 'error':
-//         toastr.error("{{ Session::get('msg') }}");
-//         break;
-// }
-// @endif

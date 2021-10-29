@@ -1,4 +1,4 @@
-@section('info')
+@section('sidebar')
 
 <div class="right_sub">
     <div class="info">

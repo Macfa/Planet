@@ -44,6 +44,9 @@
 
 
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-5.1.0.min.css') }}">
+{{--    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">--}}
+{{--    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-responsive.min.css') }}">--}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main/font.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/common/header.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/common/flex.css') }}">
@@ -51,13 +54,14 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main/layout.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main/index.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/toastr.min.css') }}">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.min.css') }}">
 
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/bootstrap-5.1.0.min.js') }}"></script>
+{{--    <script src="{{ asset('js/bootstrap.min.js') }}"></script>--}}
     <script src="{{ asset('js/toastr.min.js') }}"></script>
     <script src="{{ asset('js/jquery-tmpl.js') }}"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
     <script async charset="utf-8" src="//cdn.embedly.com/widgets/platform.js"></script>
 
     @stack("styles")
@@ -74,6 +78,40 @@
 
 
 <body>
+
+{{--@if(session::has('errors'))--}}
+{{--    toastr.error("{{Session::get('errors')->first()}}");--}}
+{{--@endif--}}
+{{--@if(session('error') || session('success'))--}}
+{{--    <div class="alert alert-success alert-dismissible">--}}
+{{--        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>--}}
+{{--        <h5><i class="icon fas fa-ban"></i> Success!</h5>--}}
+{{--        {{ session('success') }}--}}
+{{--    </div>--}}
+{{--@endif--}}
+{{--@if(session('status'))--}}
+{{--    <script>toastr.</script>--}}
+{{--@endif--}}
+@if(session('status'))
+    <script>
+    var status = "{{ session('status') }}";
+    switch(status){
+        case 'info':
+        toastr.info("{{ session('message') }}");
+        break;
+        case 'warning':
+        toastr.warning("{{ session('message') }}");
+        break;
+        case 'success':
+        toastr.success("{{ session('message') }}");
+        break;
+        case 'error':
+        toastr.error("{{ session('message') }}");
+        break;
+    }
+    </script>
+@endif
+
 <!-- Modals -->
 <div class="modal fade" id="open_post_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div style="width: 80%; max-width: none; top: 53px; margin-top: 0px;" class="modal-dialog">

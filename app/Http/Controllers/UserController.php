@@ -72,7 +72,7 @@ class UserController extends Controller
         if($this->agent->isMobile()) {
             return view('mobile.user.mypage', compact('posts', 'channelVisitHistories', 'user', 'coin', 'el'));
         } else {
-            return view('user.mypage', compact('posts', 'channelVisitHistories', 'user', 'coin', 'el'));
+            return view('user.show', compact('posts', 'channelVisitHistories', 'user', 'coin', 'el'));
         }
     }
 

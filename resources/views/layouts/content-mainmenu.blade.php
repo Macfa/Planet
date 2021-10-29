@@ -1,6 +1,6 @@
 @section('content-mainmenu')
     <ul class="tab_title">
-        {{ (isset($channel)) ? $channel->name:'포디엄'  }}
+        {{ (isset($channel)) ? $channel->name:'포디엄' }}
     </ul>
     <ul class="tab">
         <li class="on clickable realtime" value="realtime" onclick="clickMainMenu('realtime');"><a>실시간</a></li>

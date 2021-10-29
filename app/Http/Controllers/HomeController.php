@@ -50,9 +50,12 @@ class HomeController extends Controller
     }
 
     public function mainMenu(Request $request) {
+        $channelID = $request->route('channel');
+//        $channelID = request()->route('channel');
+//        dd($channelID);
 //        dd($request->all());
         $type = $request->type;
-        $channelID = $request->channelID;
+//        $channelID = $request->channelID;
         $page = $request->page;
 //        $params = $request->only('type', 'channelID', 'page');
         $posts = Post::mainMenu($type, $channelID, $page);

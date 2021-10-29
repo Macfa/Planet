@@ -96,15 +96,14 @@ class Post extends Model
         }
     }
     public static function getAllData() {
-        return self::withCount('comments')
-            ->with('stampInPosts.stamp')
-            ->orderby('id', 'desc')
+        return self::orderby('id', 'desc')
             ->pagination()
             ->get();
+//        withCount('comments')
+//            ->with('stampInPosts.stamp')
     }
     public static function willRemove() {
-        return self::withCount('comments')
-            ->doesntHave('postReadHistories')
+        return self::doesntHave('postReadHistories')
             ->orderby('id', 'desc')
             ->pagination()
             ->get();
@@ -115,6 +114,7 @@ class Post extends Model
             $posts = self::with('channel')
                 ->with('likes')
                 ->with('user')
+                ->with('stampInPosts')
                 ->withCount('comments')
                 ->orderby('id', 'desc')
                 ->where(function($query) use ($channelID) {
@@ -131,6 +131,7 @@ class Post extends Model
                 })
                 ->withCount('comments')
                 ->with('user')
+                ->with('stampInPosts')
                 ->where(function($query) use ($channelID) {
                     if($channelID) {
                         $query->where('channelID', '=', $channelID);

@@ -10,6 +10,7 @@ use App\Models\Comment;
 use App\Models\Experience;
 use App\Models\Like;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
@@ -51,13 +52,20 @@ class PostController extends Controller
      */
     public function create(Request $request)
     {
-        $fromChannelID = $request->input('channelID');
-        $channels = Channel::own()->get();
+        $this->authorize('create', Post::class);
+
+        $user = User::find(auth()->id());
+//        $fromChannelID = $request->input('channelID');
+        $prevUrl = url()->previous();
+        $prevUrlArr = explode('/', $prevUrl);
+        $fromChannelID = end($prevUrlArr);
+
+//        $channels = Channel::own()->get();
 
         if($this->agent->isMobile()) {
-            return view('mobile.post.create', compact('channels', 'fromChannelID'));
+            return view('mobile.post.create', compact('user', 'fromChannelID'));
         } else {
-            return view('post.create', compact('channels', 'fromChannelID'));
+            return view('post.create', compact('user', 'fromChannelID'));
         }
     }
 
@@ -69,6 +77,8 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Post::class);
+
         // set validation rules
         $rules = [
             'channelID' => 'required',
@@ -92,7 +102,7 @@ class PostController extends Controller
 
         if($matchSubject == []) {
             // 이미지 소스를 추출하지못했다면
-            $mainImageUrl = '/image/thum.jpg';
+            $mainImageUrl = null;
         } else {
             // 첫번째 이미지 소스를 대표이미지로 지정
             $mainImageUrl = $matchSubject[0];
@@ -119,7 +129,7 @@ class PostController extends Controller
         $experience->writePost($post);
 
         $redirect = $request->input('channelID');
-        return redirect()->route('channel.show', $redirect);
+        return redirect()->route('channel.show', $redirect)->with(["status"=>"success", "message"=>"생성되었습니다"]);
     }
 
     /**
