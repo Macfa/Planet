@@ -59,7 +59,7 @@ class Noticenotification extends Notification
     {
 //        dd($notifiable);
         return [
-            'postID' => $this->postID,
+            'post_id' => $this->postID,
             'msg' => "'".$this->title."' 게시글에 댓글이 달렸습니다",
             'count' => 1
         ];

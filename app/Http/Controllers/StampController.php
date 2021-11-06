@@ -21,7 +21,7 @@ class StampController extends Controller
         return StampGroup::getDataFromCategory($categoryID);
     }
     public function purchase(Request $request) {
-        $stampID = $request->input("stampID");
+        $stampID = $request->input("stamp_id");
         $postID = $request->input("postID");
         $stamp = Stamp::find($stampID);
         $post = Post::find($postID);

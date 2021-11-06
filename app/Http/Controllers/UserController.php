@@ -28,29 +28,29 @@ class UserController extends Controller
     public function show(User $user, $el = 'post') {
 //        $el = 'post';
         if($el == "post") {
-            $posts = Post::with('channel')
-                ->with('user')
-                ->with('likes')
-                ->withCount('comments')
-                ->where('userID', $user->id)
+            $posts = Post::where('user_id', $user->id)
+//                ->with('user')
+//                ->with('likes')
+//                ->withCount('comments')
                 ->get();
         } elseif($el == "comment") {
-            $posts = Post::where('comments.userID', $user->id)
-                ->join('comments', 'posts.id', '=', 'comments.postID')
-                ->with('user')
-                ->with('likes')
-                ->withCount('comments')
+            $posts = Post::where('user_id', $user->id)
+//            $posts = Post::where('comments.userID', $user->id)
+//                ->join('comments', 'posts.id', '=', 'comments.postID')
+//                ->with('user')
+//                ->with('likes')
+//                ->withCount('comments')
                 ->get();
         } elseif($el == "scrap") {
-            $posts = Post::join('users', 'users.id', '=', 'posts.userID')
+            $posts = Post::join('users', 'users.id', '=', 'posts.user_id')
                 ->leftJoin('scraps', function($join) {
-                    $join->on('users.id', '=', 'scraps.userID');
-                    $join->on('posts.id', '=', 'scraps.postID');
+                    $join->on('users.id', '=', 'scraps.user_id');
+                    $join->on('posts.id', '=', 'scraps.user_id');
                 })
-                ->with('channel')
-                ->with('likes')
-                ->withCount('comments')
-                ->where('scraps.userID', $user->id)
+//                ->with('channel')
+//                ->with('likes')
+//                ->withCount('comments')
+                ->where('scraps.user_id', $user->id)
                 ->get();
             //                ('scraps', 'users.id', '=', 'scraps.userID')
         }

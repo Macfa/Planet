@@ -57,7 +57,7 @@ class HomeController extends Controller
         $type = $request->type;
 //        $channelID = $request->channelID;
         $page = $request->page;
-//        $params = $request->only('type', 'channelID', 'page');
+//        $params = $request->only('type', 'channel_id', 'page');
         $posts = Post::mainMenu($type, $channelID, $page);
 //        var_dump($posts);
 //        dd($posts);
@@ -108,10 +108,10 @@ class HomeController extends Controller
                     $q->where('content', 'like', $searchContent);
                 }
             })
-            ->withCount('comments')
-            ->with('channel')
-            ->with('user')
-            ->with('likes')
+//            ->withCount('comments')
+//            ->with('channel')
+//            ->with('user')
+//            ->with('likes')
             ->get();
 
         // $visit = new Visit();
@@ -158,7 +158,7 @@ class HomeController extends Controller
         $user->coins()->create([
             'coin' => 500,
             'type' => 'test',
-            'userID' => $userID
+            'user_id' => $userID
         ]);
 
         return redirect()->back();

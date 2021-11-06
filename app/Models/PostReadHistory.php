@@ -14,6 +14,6 @@ class PostReadHistory extends Model
     protected $guarded = [];
 
     public function post() {
-        return $this->belongsTo(Post::class, 'postID', 'id');
+        return $this->belongsTo(Post::class, 'post_id', 'id');
     }
 }

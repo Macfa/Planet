@@ -49,10 +49,10 @@
                                 </td>
                                 <td>
                                     <div class="title">
-                                        <a href="#post-show-{{ $post->id }}" data-bs-toggle="modal" data-bs-focus="false" data-bs-post-id="{{ $post->id }}" data-bs-target="#open_post_modal">
+                                        <a href="#post-show-{{ $post->id }}" data-bs-toggle="modal" data-bs-focus="false" data-bs-post-id="{{ $post->id }}" data-bs-channel-id="{{ $post->channel->id }}" data-bs-target="#open_post_modal">
                                             <p>{{ $post->title }}&nbsp;&nbsp;</p>
-                                            @if($post->comments_count>0)
-                                                <span class="titleSub">[<span class="commentCount">{{ $post->comments_count }}</span>]</span></p>
+                                            @if($post->comments->count() > 0)
+                                                <span class="titleSub">[<span class="commentCount">{{ $post->comments->count() }}</span>]</span></p>
                                             @endif
                                             <span>
                                                 @foreach($post->stampInPosts as $stamp)
@@ -65,7 +65,7 @@
                                         </a>
                                     </div>
                                     <div class="user">
-                                        <p><span><a href="{{ route('channel.show', $post->channelID) }}">[ {{ $post->channel->name }} ]</a></span> {{ $post->created_at->diffForHumans() }} / <a href="{{ route('user.show', ["user" => $post->user] ) }}">{{ $post->user->name }}</a></p></div>
+                                        <p><span><a href="{{ route('channel.show', $post->channel_id) }}">[ {{ $post->channel->name }} ]</a></span> {{ $post->created_at->diffForHumans() }} / <a href="{{ route('user.show', ["user" => $post->user] ) }}">{{ $post->user->name }}</a></p></div>
                                 </td>
                             </tr>
                         @empty
@@ -124,4 +124,7 @@
         </td>
     </tr>
     </script>
+@endpush
+@push('styles')
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/post/show.css') }}">
 @endpush

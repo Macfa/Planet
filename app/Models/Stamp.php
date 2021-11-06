@@ -15,7 +15,7 @@ class Stamp extends Model
         return $this->morphMany(Coin::class, 'coinable');
     }
     public function stampInPosts() {
-        return $this->hasMany(StampInPost::class, 'stampID', 'id');
+        return $this->hasMany(StampInPost::class, 'stamp_id', 'id');
     }
     public function getStamps($categoryID) {
         if($categoryID == 1) {

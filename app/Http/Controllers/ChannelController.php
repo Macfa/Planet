@@ -87,19 +87,19 @@ class ChannelController extends Controller
             $created = Channel::create([
                 'name' => $request->input('name'),
                 'description' => $request->input('description'),
-                'userID' => auth()->id()
+                'user_id' => auth()->id()
             ]);
 
             // add favorite
             $channel = Channel::findOrFail($created->id);
             $channel->channelJoins()->create([
-                'userID' => auth()->id(),
+                'user_id' => auth()->id(),
             ]);
 
             $user->coins()->create([
                 "type" => "동아리생성",
                 "coin" => -100,
-                'userID' => auth()->id(),
+                'user_id' => auth()->id(),
             ]);
 
             return redirect()->route('channel.show', $created->id)->with(["status"=>"success", "message"=>"생성되었습니다"]);
@@ -114,19 +114,19 @@ class ChannelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Channel $channel)
     {
         // get all of posts with channels
         $posts = Post::with('channel')
             ->withCount('comments')
             ->with('user')
             ->with('likes')
-            ->where("posts.channelID",$id)
+            ->where("posts.channel_id",$channel->id)
             ->orderby('id', 'desc')
             ->get();
 
         // channel info
-        $channel = Channel::where('id', $id)
+        $channel = Channel::where('id', $channel->id)
             ->with('channelJoins')
             ->with('channelAdmins')
             ->first();
@@ -208,13 +208,13 @@ class ChannelController extends Controller
     public function channelJoin(Request $req) {
         $id = $req->input('id');
 
-        $exist = ChannelJoin::where('channelID', $id)
-            ->where('userID', '=', auth()->id())
+        $exist = ChannelJoin::where('channel_id', $id)
+            ->where('user_id', '=', auth()->id())
             ->first();
 
         if($exist != null) {
-            ChannelJoin::where('channelID', $id)
-                ->where('userID', auth()->id())
+            ChannelJoin::where('channel_id', $id)
+                ->where('user_id', auth()->id())
                 ->delete();
 
             $result = array();
@@ -225,8 +225,8 @@ class ChannelController extends Controller
 
         } else {
             $created = ChannelJoin::create([
-                'userID' => auth()->id(),
-                'channelID' => $id
+                'user_id' => auth()->id(),
+                'channel_id' => $id
             ]);
 
             $result = ChannelJoin::where('id', '=', $created->id)
@@ -237,7 +237,7 @@ class ChannelController extends Controller
             $result['msg'] = '동아리 정상 가입되었습니다';
         }
 
-        $count = ChannelJoin::where('channelID', $id)
+        $count = ChannelJoin::where('channel_id', $id)
             ->count();
         $result['totalCount'] = $count;
         return response()->json($result, 200);
@@ -269,8 +269,8 @@ class ChannelController extends Controller
         if($name) {
             $user = User::with('channelAdmins')->where('name', $name)->first();
             $user->channelAdmins()->create([
-                'userID' => $user->id,
-                'channelID' => $channelID
+                'user_id' => $user->id,
+                'channel_id' => $channelID
             ]);
         }
         return redirect()->back();

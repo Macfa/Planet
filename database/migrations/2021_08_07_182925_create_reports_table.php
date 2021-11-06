@@ -16,10 +16,9 @@ class CreateReportsTable extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
             $table->morphs('reportable');
-            $table->integer('type')->nullable();
-            $table->string('message', 100)->nullable();
-            $table->bigInteger('userID')->unsigned();
-            $table->foreign("userID")->references("id")->on("users")->onDelete("cascade");
+            $table->string('message', 255)->nullable();
+            $table->bigInteger("user_id")->unsigned();
+            $table->foreign("user_id")->references("id")->on("users");
             $table->timestamps();
         });
     }

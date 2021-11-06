@@ -18,8 +18,8 @@ class CreateLikesTable extends Migration
             $table->morphs('likeable');
 //            $table->string('likeable_type', 50);
 //            $table->integer('likeable_id');
-            $table->bigInteger('userID')->unsigned();
-            $table->foreign("userID")->references("id")->on("users")->onDelete("cascade");
+            $table->bigInteger("user_id")->unsigned();
+            $table->foreign("user_id")->references("id")->on("users");
             $table->tinyInteger('like');
             $table->timestamps();
         });

@@ -62,7 +62,7 @@
                                         </a>
                                     </div>
                                     <div class="user">
-                                        <p><span><a href="{{ route('channel.show', $post->channelID) }}">[{{ $post->channel->name }}]</a></span>온 <a href="{{ route('user.show', ["user" => $post->user] ) }}">{{ $post->user->name }}</a> / {{ $post->created_at->diffForHumans() }}</p></div>
+                                        <p><span><a href="{{ route('channel.show', $post->channel_id) }}">[{{ $post->channel->name }}]</a></span>온 <a href="{{ route('user.show', ["user" => $post->user] ) }}">{{ $post->user->name }}</a> / {{ $post->created_at->diffForHumans() }}</p></div>
                                 </td>
                             </tr>
                         @empty
@@ -114,7 +114,7 @@
                     data: {
                         "page": page,
                         'type': type,
-                        'channelID': channelID
+                        'channel_id': channelID
                     },
                     success: function (data) {
                         var valueList = [];
@@ -131,7 +131,7 @@
                                     "postChannelID": data.result[i].channel.id,
                                     "channelName": data.result[i].channel.name,
                                     "userName": data.result[i].user.name,
-                                    "userID": data.result[i].user.id,
+                                    "user_id": data.result[i].user.id,
                                     "created_at_modi": data.result[i].created_at_modi
                                 });
                             }
@@ -212,7 +212,7 @@
             type: 'get',
             data: {
                 'type': type,
-                'channelID': channelID
+                'channel_id': channelID
             },
             success: function(data) {
                 var valueList = [];
@@ -231,7 +231,7 @@
                             "postChannelID": data.result[i].channel.id,
                             "channelName": data.result[i].channel.name,
                             "userName": data.result[i].user.name,
-                            "userID": data.result[i].user.id,
+                            "user_id": data.result[i].user.id,
                             "created_at_modi": data.result[i].created_at_modi
                         });
                     }
@@ -263,7 +263,7 @@
             <p><span><a href="/channel/${postChannelID}">[${channelName}]</a></span>온 <a href="/user/${userID}">${userName}</a> / ${created_at_modi}</p></div>
     </td>
 </tr>
-{{--<p><span><a href="{{ route('channel.show', $post->channelID) }}">[{{ $post->channel->name }}]</a></span>온 <a href="{{ route('user.show', ${userName}) }}">${userName}</a> / ${created_at_modi}</p></div>--}}
+{{--<p><span><a href="{{ route('channel.show', $post->channel_id) }}">[{{ $post->channel->name }}]</a></span>온 <a href="{{ route('user.show', ${userName}) }}">${userName}</a> / ${created_at_modi}</p></div>--}}
 </script>
 <script id="dataPlaceHolder" type="text/x-jquery-tmpl">
 <tr>

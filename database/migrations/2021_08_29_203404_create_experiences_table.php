@@ -18,8 +18,8 @@ class CreateExperiencesTable extends Migration
             $table->morphs('experienced'); // Path From
             $table->string('message');
             $table->integer('exp');
-            $table->bigInteger('userID')->unsigned();
-            $table->foreign("userID")->references("id")->on("users")->onDelete("cascade");
+            $table->bigInteger("user_id")->unsigned();
+            $table->foreign("user_id")->references("id")->on("users");
             $table->timestamps();
         });
     }

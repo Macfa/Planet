@@ -13,9 +13,9 @@ class ChannelAdmin extends Model
     protected $guarded = [];
 
     public function user() {
-        return $this->belongsTo(User::class, 'userID');
+        return $this->belongsTo(User::class, 'user_id');
     }
     public function channel() {
-        return $this->belongsTo(Channel::class, 'channelID');
+        return $this->belongsTo(Channel::class, 'channel_id');
     }
 }

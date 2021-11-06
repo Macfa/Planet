@@ -55,7 +55,7 @@ class PostController extends Controller
         $this->authorize('create', Post::class);
 
         $user = User::find(auth()->id());
-//        $fromChannelID = $request->input('channelID');
+//        $fromChannelID = $request->input('channel_id');
         $prevUrl = url()->previous();
         $prevUrlArr = explode('/', $prevUrl);
         $fromChannelID = end($prevUrlArr);
@@ -81,7 +81,7 @@ class PostController extends Controller
 
         // set validation rules
         $rules = [
-            'channelID' => 'required',
+            'channel_id' => 'required',
             'title' => 'required|max:200',
             'content' => 'required|min:1',
         ];
@@ -110,11 +110,11 @@ class PostController extends Controller
 
 
         $id = Post::create([
-            'channelID' => $request->input('channelID'),
+            'channel_id' => $request->input('channel_id'),
             'image' => $mainImageUrl,
             'title' => $request->input('title'),
             'content' => $content,
-            'userID' => auth()->id()
+            'user_id' => auth()->id()
         ])->id;
 
 
@@ -128,7 +128,7 @@ class PostController extends Controller
         $coin->writePost($post);
         $experience->writePost($post);
 
-        $redirect = $request->input('channelID');
+        $redirect = $request->input('channel_id');
         return redirect()->route('channel.show', $redirect)->with(["status"=>"success", "message"=>"생성되었습니다"]);
     }
 
@@ -140,38 +140,44 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $userID = auth()->id();
-        $post = Post::with('channel')
-            ->withCount('comments')
-            ->with('stampInPosts')
-            ->with('likes')
-            ->with('user')
-            ->where('posts.id', '=', $id)
-//            ->get()
-            ->first();
+        $posts = Post::getAllData();
 
-        $comments = Comment::where('postID', '=', $id)
-            ->with('user')
-            ->with('likes')
-            ->orderBy('group', 'desc')
-            ->orderBy('order', 'asc')
-            ->orderBy('depth', 'asc')
-            ->get();
-
-        if($userID) {
-            // 게시글 열람이력을 추가한다
-            $post->postReadHistories()->updateOrCreate(
-                ["userID" => $userID],
-                ['updated_at' => now()]
-            );
-        }
-//        return view('main.index', compact('post', 'comments'));
-//        dd($this->agent->isMobile());
+        $channelVisitHistories = ChannelVisitHistory::showHistory();
         if($this->agent->isMobile()) {
-            return view('mobile.post.show', compact('post', 'comments'));
+            return view('mobile.main.index', compact('posts', 'channelVisitHistories'));
         } else {
-            return view('post.show', compact('post', 'comments'));
+            return view('main.index', compact('posts', 'channelVisitHistories'));
         }
+//        $userID = auth()->id();
+//        $post = Post::with('channel')
+//            ->withCount('comments')
+//            ->with('stampInPosts')
+//            ->with('likes')
+//            ->with('user')
+//            ->where('posts.id', '=', $id)
+////            ->get()
+//            ->first();
+//
+//        $comments = Comment::where('post_id', '=', $id)
+//            ->with('user')
+//            ->with('likes')
+//            ->orderBy('group', 'desc')
+//            ->orderBy('order', 'asc')
+//            ->orderBy('depth', 'asc')
+//            ->get();
+//
+//        if($userID) {
+//            // 게시글 열람이력을 추가한다
+//            $post->postReadHistories()->updateOrCreate(
+//                ["user_id" => $userID],
+//                ['updated_at' => now()]
+//            );
+//        }
+//        if($this->agent->isMobile()) {
+//            return view('mobile.post.show', compact('post', 'comments'));
+//        } else {
+//            return view('post.show', compact('post', 'comments'));
+//        }
     }
 
     /**
@@ -186,9 +192,9 @@ class PostController extends Controller
         $channels = Channel::get();
 
         if($this->agent->isMobile()) {
-            return view('mobile.post.create', compact('channels', 'post'));
+            return view('mobile.post.edit', compact('channels', 'post'));
         } else {
-            return view('post.create', compact('channels', 'post'));
+            return view('post.edit', compact('channels', 'post'));
         }
     }
 
@@ -203,7 +209,7 @@ class PostController extends Controller
     {
         // set validation rules
         $rules = [
-            'channelID' => 'required',
+            'channel_id' => 'required',
             'title' => 'min:1|required|max:200',
             'content' => 'min:1|required',
         ];
@@ -235,7 +241,7 @@ class PostController extends Controller
             ->update([
                 'image'=>$mainImageUrl,
                 'title'=>$request->title,
-                'channelID'=>$request->channelID,
+                'channel_id'=>$request->channelID,
                 'content'=>$content
             ]);
 
@@ -256,7 +262,40 @@ class PostController extends Controller
 //        return redirect()->route('home', '',302);
         return true;
     }
+    public function getPostData($id) {
+        $userID = auth()->id();
+//        $post = Post::with('channel')
+//            ->withCount('comments')
+//            ->with('stampInPosts')
+//            ->with('likes')
+//            ->with('user')
+        $post = Post::where('posts.id', '=', $id)
+//            ->get()
+            ->first();
 
+        $comments = Comment::where('post_id', '=', $id)
+//            ->with('user')
+//            ->with('likes')
+            ->orderBy('group', 'desc')
+            ->orderBy('order', 'asc')
+            ->orderBy('depth', 'asc')
+            ->get();
+
+        if($userID) {
+            // 게시글 열람이력을 추가한다
+            $post->postReadHistories()->updateOrCreate(
+                ["user_id" => $userID],
+                ['updated_at' => now()]
+            );
+        }
+//        return view('main.index', compact('post', 'comments'));
+//        dd($this->agent->isMobile());
+        if($this->agent->isMobile()) {
+            return view('mobile.post.show', compact('post', 'comments'));
+        } else {
+            return view('post.show', compact('post', 'comments'));
+        }
+    }
     public function voteLikeInPost(Request $req)
     {
         // 이력 확인
@@ -267,15 +306,15 @@ class PostController extends Controller
         $post = Post::find($id);
         $checkExistValue = $post->likes()
             ->where('like', $like)
-            ->where('userID', auth()->id())
+            ->where('user_id', auth()->id())
             ->first();
 
         if ($checkExistValue != null) {
             $result = $checkExistValue->delete(); // get bool
         } else {
             $result = $post->likes()->updateOrCreate(
-                ['userID' => auth()->id()],
-                ['like' => $like, 'userID' => auth()->id()]
+                ['user_id' => auth()->id()],
+                ['like' => $like, 'user_id' => auth()->id()]
             );
         }
         // 결과
@@ -289,7 +328,7 @@ class PostController extends Controller
         $postID = $req->id;
         $post = Post::find($postID);
         $post->report()->create([
-            'userID' => $post->userID,
+            'user_id' => $post->userID,
             'message' => 'test'
         ]);
     }
@@ -297,14 +336,14 @@ class PostController extends Controller
         $postID = $req->id;
         $post = Post::find($postID);
 
-        $checkExistScrap = $post->scrap()->where('userID', auth()->id())->first();
+        $checkExistScrap = $post->scrap()->where('user_id', auth()->id())->first();
 
         if($checkExistScrap != null) {
             $checkExistScrap->delete();
             $result = "delete";
         } else {
             $post->scrap()->create([
-                'userID' => auth()->id()
+                'user_id' => auth()->id()
             ]);
             $result = "insert";
         }

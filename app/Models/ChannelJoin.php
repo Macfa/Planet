@@ -13,9 +13,9 @@ class ChannelJoin extends Model
     protected $guarded = [];
 
     public function channel() {
-        return $this->belongsTo(Channel::class, 'channelID');
+        return $this->belongsTo(Channel::class, 'channel_id');
     }
     public function user() {
-        return $this->belongsTo(User::class, 'userID');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

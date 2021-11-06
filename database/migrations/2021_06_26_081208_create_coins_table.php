@@ -16,12 +16,10 @@ class CreateCoinsTable extends Migration
         Schema::create('coins', function (Blueprint $table) {
             $table->id();
             $table->morphs('coinable');
-//            $table->string('coinable_type', 50);
-//            $table->integer('coinable_id');
             $table->string('type', 50);
             $table->integer('coin');
-            $table->bigInteger('userID')->unsigned();
-            $table->foreign("userID")->references("id")->on("users")->onDelete("cascade");
+            $table->bigInteger("user_id")->unsigned();
+            $table->foreign("user_id")->references("id")->on("users");
             $table->timestamps();
         });
     }
@@ -34,8 +32,8 @@ class CreateCoinsTable extends Migration
 //            $table->integer('coinable_id');
 //            $table->string('action');
 //            $table->integer('coin');
-//            $table->integer('userID')->unsigned();
-//            $table->foreign('userID')->references('id')->on('users')->onDelete('cascade');
+//            $table->integer("user_id")->unsigned();
+//            $table->foreign("user_id")->references('id')->on('users')->onDelete('cascade');
 //            $table->timestamps();
 //        });
 //    }

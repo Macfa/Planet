@@ -15,7 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->integer("gradeID")->default("1");;
+            $table->integer("grade_id")->default("1");;
             $table->string('name')->unique();
             $table->string('email')->unique();
             $table->string('password')->default(null);
@@ -27,6 +27,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
 
+            $table->index('id');
         });
     }
 

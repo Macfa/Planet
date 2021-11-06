@@ -13,11 +13,11 @@ class Favorite extends Model
     protected $guarded = [];
 
     public function channel() {
-        return $this->belongsTo(Channel::class, 'channelID', 'id');
+        return $this->belongsTo(Channel::class, 'channel_id', 'id');
     }
 
     // public function comments() {
-    //     return $this->hasMany(Comment::class, 'postID');
+    //     return $this->hasMany(Comment::class, 'post_id');
     // }
     public function user() {
         return $this->belongsTo(User::class, 'memberID', 'id');

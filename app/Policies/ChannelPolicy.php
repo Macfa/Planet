@@ -54,7 +54,8 @@ class ChannelPolicy
      */
     public function update(User $user, Channel $channel)
     {
-        //
+        // To add Gate
+        return $user->id === $channel->userID;
     }
 
     /**
@@ -66,7 +67,7 @@ class ChannelPolicy
      */
     public function delete(User $user, Channel $channel)
     {
-        //
+        return $user->id === $channel->userID;
     }
 
     /**

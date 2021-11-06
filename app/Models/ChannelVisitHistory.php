@@ -14,25 +14,25 @@ class ChannelVisitHistory extends Model
 
     public function channel()
     {
-        return $this->belongsTo(Channel::class, 'channelID', 'id');
+        return $this->belongsTo(Channel::class, 'channel_id', 'id');
     }
     public function user()
     {
-        return $this->belongsTo(User::class, 'userID', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
     public static function addHistory(Channel $channel) {
         if(auth()->check()) {
             $channel->channelVisitHistories()->updateOrCreate([
-                'userID' => auth()->id(),
-                'channelID' => $channel->id
+                'user_id' => auth()->id(),
+                'channel_id' => $channel->id
             ], [
                 'updated_at' => now()
             ]);
 
-            $totalCount = Visit::where('userID', auth()->id())->count();
+            $totalCount = Visit::where('user_id', auth()->id())->count();
             // 최대 5개의 방문이력만 허용
             if($totalCount >= 5) {
-                Visit::where('userID', auth()->id())->orderby('updated_at', 'asc')->limit(1)->delete();
+                Visit::where('user_id', auth()->id())->orderby('updated_at', 'asc')->limit(1)->delete();
             }
 
             return self::showHistory();

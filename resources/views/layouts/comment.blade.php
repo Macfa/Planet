@@ -98,7 +98,6 @@
         <p>No users</p>
 @endforelse
         <!-- 하단 기능 Comment -->
-{{--        <div class="board-bot-function" style="position: sticky; bottom:10px;  background: rgba(252, 252, 252, 1) !important;">--}}
         <div class="board-bot-function" id="post-bot-function">
             <div class="left-function">
                 <div class="page-arrow">

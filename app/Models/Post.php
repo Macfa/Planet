@@ -16,14 +16,14 @@ class Post extends Model
     private $count = 10;
 
     public function channel() {
-        return $this->belongsTo(Channel::class, 'channelID', 'id');
+        return $this->belongsTo(Channel::class, 'channel_id', 'id');
     }
 
     public function comments() {
-        return $this->hasMany(Comment::class, 'postID');
+        return $this->hasMany(Comment::class, 'post_id');
     }
     public function user() {
-        return $this->belongsTo(User::class, 'userID', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
     public function likes() {
         return $this->morphMany(Like::class, 'likeable');
@@ -32,7 +32,7 @@ class Post extends Model
         return $this->morphMany(Coin::class, 'coinable');
     }
     public function stampInPosts() {
-        return $this->hasMany(StampInPost::class, 'postID', "id");
+        return $this->hasMany(StampInPost::class, 'post_id', "id");
     }
     public function experiences() {
         return $this->morphMany(Experience::class, 'experienced');
@@ -44,14 +44,14 @@ class Post extends Model
         return $this->morphOne(Report::class, 'reportable');
     }
     public function scrap() {
-        return $this->hasOne(Scrap::class, 'postID', 'id');
+        return $this->hasOne(Scrap::class, 'post_id', 'id');
     }
     public function hasPostReadHistories() {
         $userID = auth()->id();
-        return $this->hasMany(PostReadHistory::class, 'postID')->where('userID', $userID);
+        return $this->hasMany(PostReadHistory::class, 'post_id')->where('user_id', $userID);
     }
     public function postReadHistories() {
-        return $this->hasMany(PostReadHistory::class, 'postID');
+        return $this->hasMany(PostReadHistory::class, 'post_id');
     }
 
     // Custom Functions
@@ -61,7 +61,7 @@ class Post extends Model
         return $query->skip($skip)->take($this->count);
     }
     public function getExistPostLikeAttribute() {
-        $checkExistLike = $this->likes->firstWhere('userID',auth()->id());
+        $checkExistLike = $this->likes->firstWhere('user_id',auth()->id());
 
         if($checkExistLike) {
             return $checkExistLike->like;
@@ -71,10 +71,10 @@ class Post extends Model
     }
     public function getExistPostScrapAttribute() {
         if($this->scrap) {
-            $checkExistScrap = $this->scrap->where('userID', auth()->id());
+            $checkExistScrap = $this->scrap->where('user_id', auth()->id());
 
             if($checkExistScrap) {
-                return $checkExistScrap->where('userID', auth()->id())->count();
+                return $checkExistScrap->where('user_id', auth()->id())->count();
             } else {
                 return 0;
             }
@@ -87,7 +87,7 @@ class Post extends Model
             $checkExistReport = $this->report;
 
             if($checkExistReport) {
-                return $checkExistReport->where('userID', auth()->id())->count();
+                return $checkExistReport->where('user_id', auth()->id())->count();
             } else {
                 return 0;
             }
@@ -119,7 +119,7 @@ class Post extends Model
                 ->orderby('id', 'desc')
                 ->where(function($query) use ($channelID) {
                     if($channelID) {
-                        $query->where('channelID', '=', $channelID);
+                        $query->where('channel_id', '=', $channelID);
                     }
                 })
                 ->pagination($page)
@@ -134,7 +134,7 @@ class Post extends Model
                 ->with('stampInPosts')
                 ->where(function($query) use ($channelID) {
                     if($channelID) {
-                        $query->where('channelID', '=', $channelID);
+                        $query->where('channel_id', '=', $channelID);
                     }
                 })
                 ->pagination($page)

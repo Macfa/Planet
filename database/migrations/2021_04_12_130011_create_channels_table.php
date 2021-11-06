@@ -18,9 +18,12 @@ class CreateChannelsTable extends Migration
             $table->string('name', 100);
             $table->string('image', 20)->nullable();
             $table->string('description', 255);
-            $table->bigInteger('userID')->unsigned();
-            $table->foreign("userID")->references("id")->on("users")->onDelete("cascade");
+            $table->bigInteger('user_id')->unsigned();
+            $table->foreign("user_id")->references("id")->on("users");
             $table->timestamps();
+
+            $table->index('id');
+            $table->index('user_id');
         });
     }
 

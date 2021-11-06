@@ -31,7 +31,7 @@ class Experience extends Model
             $post->experiences()->create([
                 'message'=> '글작성',
                 'exp'=> 5,
-                'userID'=> auth()->id()
+                'user_id'=> auth()->id()
             ]);
             $this->checkUserGrade();
             // 코인 추가 획득
@@ -49,7 +49,7 @@ class Experience extends Model
             $comment->experiences()->create([
                 'message'=> '댓글작성',
                 'exp'=> 1,
-                'userID'=> auth()->id()
+                'user_id'=> auth()->id()
             ]);
             $this->checkUserGrade();
             // 코인 추가 획득

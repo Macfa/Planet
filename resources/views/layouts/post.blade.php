@@ -1,4 +1,4 @@
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/post/show.css') }}">
+
     <div class="modal-parent container-fluid">
         <div class="modal-wrap">
             <div class="modal-header flex-wrap-wrap">
@@ -20,7 +20,7 @@
                     </h4>
                 </div>
                 <div class="write-info">
-                    <p><span><a href="{{ route('channel.show', $post->channelID) }}">[{{ $post->channel->name }}]</a></span>&nbsp;온 <a href="{{ route('user.show', 'post') }}">{{ $post->user->name }}</a> / {{ $post->created_at->diffForHumans() }}</p>
+                    <p><span><a href="{{ route('channel.show', $post->channel_id) }}">[{{ $post->channel->name }}]</a></span>&nbsp;온 <a href="{{ route('user.show', 'post') }}">{{ $post->user->name }}</a> / {{ $post->created_at->diffForHumans() }}</p>
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 {{--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-image: url({{ asset('image/close.png') }})"></button>--}}
@@ -115,6 +115,38 @@
                             </ul>
                         </div>
                     @yield('comment')
+{{--                        <div class="board-bot-function" id="post-bot-function">--}}
+{{--                            <div class="left-function">--}}
+{{--                                <div class="page-arrow">--}}
+{{--                                    <img onclick="@if(auth()->check()) voteLikeInPost({{ $post->id }},1) @else notLogged(); @endif" id="post-upvote-fix" class="image-m clickable" alt="위로"--}}
+{{--                                         @if($post->existPostLike == 1)--}}
+{{--                                         src="{{ asset('image/upvote_c.png') }}" />--}}
+{{--                                    @else--}}
+{{--                                        src="{{ asset('image/upvote.png') }}" />--}}
+{{--                                    @endif--}}
+{{--                                    <span class="post-like">{{ $post->likes->sum('like') }}</span>--}}
+{{--                                    <img onclick="@if(auth()->check()) voteLikeInPost({{ $post->id }},-1) @else notLogged(); @endif" id="post-downvote-fix" class="image-m clickable" alt="아래로"--}}
+{{--                                         @if($post->existPostLike == -1)--}}
+{{--                                         src="{{ asset('image/downvote_c.png') }}" />--}}
+{{--                                    @else--}}
+{{--                                        src="{{ asset('image/downvote.png') }}" />--}}
+{{--                                    @endif--}}
+{{--                                </div>--}}
+
+{{--                                <img alt="stamp" class="stamp-image image-m clickable" src="{{ asset('image/stamp.png') }}"/>--}}
+{{--                                <img class="favorit-image image-m clickable" id="post-scrap" onclick="@if(auth()->check()) scrapPost({{ $post->id }}) @else notLogged(); @endif" alt="favorit"--}}
+{{--                                     @if($post->postScrap == 1)--}}
+{{--                                     src="{{ asset('image/scrap_c.png') }}" />--}}
+{{--                                @else--}}
+{{--                                    src="{{ asset('image/scrap.png') }}" />--}}
+{{--                                @endif--}}
+{{--                                <img src="{{ asset('image/message.png') }}" alt="message" class="message-image">--}}
+{{--                            </div>--}}
+
+{{--                            <div class="right-function">--}}
+{{--                                <img src="{{ asset('image/message.png') }}" alt="message" class="message-image">--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
                     </div>
                 </div>
             </div>
@@ -381,3 +413,4 @@
         </div>
     @{{/each}}
 </script>
+

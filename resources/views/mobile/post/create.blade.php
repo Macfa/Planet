@@ -22,10 +22,10 @@
                                 <select style="float: right;" class="cst_select" name="channelID" id="channelList">
                                     <option value="">등록할 채널을 선택해주세요</option>
                                     @forelse ($user->channels as $channel)
-                                        @if(old('channelID'))
-                                            <option value="{{ $channel->id }}" @if(old('channelID')==$channel->id) selected @endif>{{ $channel->name }}</option>
+                                        @if(old('channel_id'))
+                                            <option value="{{ $channel->id }}" @if(old('channel_id')==$channel->id) selected @endif>{{ $channel->name }}</option>
                                         @elseif(isset($post))
-                                            @if($post->channelID==$channel->id)
+                                            @if($post->channel_id==$channel->id)
                                                 <option value="{{ $channel->id }}" selected>{{ $channel->name }}</option>
                                             @else
                                                 <option value="{{ $channel->id }}">{{ $channel->name }}</option>
@@ -38,7 +38,7 @@
                                     @endforelse
 
                                 </select>
-                                @error('channelID')
+                                @error('channel_id')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
 

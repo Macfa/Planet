@@ -13,25 +13,25 @@ class Channel extends Model
     protected $guarded = [];
 
     public function posts() {
-        return $this->hasMany(Post::class, 'channelID', 'id');
+        return $this->hasMany(Post::class, 'channel_id', 'id');
     }
     public function channelJoins() {
-        return $this->hasMany(ChannelJoin::class, 'channelID', 'id');
+        return $this->hasMany(ChannelJoin::class, 'channel_id', 'id');
     }
     public function channelAdmins() {
-        return $this->hasMany(ChannelAdmin::class, 'channelID', 'id');
+        return $this->hasMany(ChannelAdmin::class, 'channel_id', 'id');
     }
     public function channelVisitHistories() {
-        return $this->hasMany(ChannelVisitHistory::class, 'channelID', 'id');
+        return $this->hasMany(ChannelVisitHistory::class, 'channel_id', 'id');
     }
     public function user() {
-        return $this->belongsTo(User::class, 'userID');
+        return $this->belongsTo(User::class, 'user_id');
     }
     public function reports() {
         return $this->morphMany(Report::class, 'reportable');
     }
     public function scopeOwn($query)
     {
-        return $query->where('userID', auth()->id());
+        return $query->where('user_id', auth()->id());
     }
 }

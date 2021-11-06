@@ -14,13 +14,13 @@
                         @foreach ($user->channels as $channel)
                             <option value="{{ $channel->id }}"
                                 @if($fromChannelID == $channel->id) selected
-                                @elseif(old('channelID')==$channel->id) selected @endif>
+                                @elseif(old('channel_id')==$channel->id) selected @endif>
                                 {{ $channel->name }}
                             </option>
                         @endforeach
 
                     </select>
-                    @error('channelID')
+                    @error('channel_id')
                         <div class="ml-2 invalid-feedback">{{ $message }}</div>
                     @enderror
 

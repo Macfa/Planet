@@ -15,10 +15,10 @@ class CreateChannelVisitHistoriesTable extends Migration
     {
         Schema::create('channel_visit_histories', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('channelID')->unsigned();
-            $table->foreign("channelID")->references("id")->on("channels")->onDelete("cascade");
-            $table->bigInteger('userID')->unsigned();
-            $table->foreign("userID")->references("id")->on("users")->onDelete("cascade");
+            $table->bigInteger('channel_id')->unsigned();
+            $table->foreign("channel_id")->references("id")->on("channels");
+            $table->bigInteger("user_id")->unsigned();
+            $table->foreign("user_id")->references("id")->on("users");
             $table->timestamps();
         });
     }

@@ -50,44 +50,44 @@ class User extends Authenticatable
 
     public function posts() {
 //        return $this->hasMany(Post::class, 'id');
-        return $this->hasMany(Post::class, 'userID', 'id');
+        return $this->hasMany(Post::class, 'user_id', 'id');
     }
     public function coins() {
         return $this->morphMany(Coin::class, 'coinable');
     }
     public function channelJoins() {
-        return $this->hasMany(ChannelJoin::class, 'userID', 'id');
+        return $this->hasMany(ChannelJoin::class, 'user_id', 'id');
     }
     public function grade() {
-        return $this->hasOne(Grade::class, "id", "gradeID");
+        return $this->hasOne(Grade::class, "id", "grade_id");
     }
     public function favorites() {
         // to be delete !
-//        return $this->hasMany(Favorite::class, 'userID', 'id');
+//        return $this->hasMany(Favorite::class, 'user_id', 'id');
     }
     public function channelVisitHistories() {
-        return $this->hasMany(ChannelVisitHistory::class, 'userID', 'id');
+        return $this->hasMany(ChannelVisitHistory::class, 'user_id', 'id');
     }
     public function channelAdmins() {
-        return $this->hasMany(ChannelAdmin::class, 'userID', 'id');
+        return $this->hasMany(ChannelAdmin::class, 'user_id', 'id');
     }
     public function comments() {
-        return $this->hasMany(Comment::class, 'userID', 'id');
+        return $this->hasMany(Comment::class, 'user_id', 'id');
     }
     public function channels() {
-        return $this->hasMany(Channel::class, 'userID', 'id');
+        return $this->hasMany(Channel::class, 'user_id', 'id');
     }
     public function reports() {
         return $this->morphMany(Report::class, 'reportable');
     }
     public function scrap() {
-        return $this->hasMany(Scrap::class, 'userID', 'id');
+        return $this->hasMany(Scrap::class, 'user_id', 'id');
     }
     public function hasCoins() {
-        return $this->hasMany(Coin::class, 'userID', 'id');
+        return $this->hasMany(Coin::class, 'user_id', 'id');
     }
     public function hasExperiences() {
-        return $this->hasMany(Experience::class, "userID", "id");
+        return $this->hasMany(Experience::class, "user_id", "id");
     }
 
     // Custom Functions...

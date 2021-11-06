@@ -1,13 +1,15 @@
 @section('sidebar')
 
 <div class="right_sub">
-    <div class="info">
+    <div class="info d-flex justify-content-between">
         동아리 정보
-        <span style="margin-left: 80px;">
-        @if(auth()->id()==$channel->userID)
-            <button onclick="location.href='{{ route('channel.edit', $channel->id) }}'">수정</button>
-            <button onclick="deleteChannel({{ $channel->id }})">삭제</button>
-        @endif
+        <span>
+            @can('update', $channel)
+                <button class="mr-2" onclick="location.href='{{ route('channel.edit', $channel->id) }}'">수정</button>
+            @endcan
+            @can('delete', $channel)
+                <button class="mr-2" onclick="deleteChannel({{ $channel->id }})">삭제</button>
+            @endcan
         </span>
     </div>
 {{--        {{dd($posts)}}--}}
@@ -29,28 +31,24 @@
                 <p>관리자</p>
             </div>
         </div>
-
-        @auth
-        <div class="flex flex-justify-content-flex-end">
-            <button data-bs-toggle="modal" data-bs-post-id="{{ $channel->id }}" data-bs-target="#open_channel_admin_modal">
-{{--            <button onclick="addSubAdmin({{ $channel->id }});">--}}
+{{--        change to policy of channel admin--}}
+        @if(auth()->id() == $channel->userID)
+        <div class="d-flex justify-content-end">
+            <button class="fs-12 p-gray" data-bs-toggle="modal" data-bs-post-id="{{ $channel->id }}" data-bs-target="#open_channel_admin_modal">
                 관리자 추가
             </button>
-{{--            </button>--}}
         </div>
         @endauth
-        <ul id="channelAdminList" onclick="removeChannelAdmin();">
-            @forelse($channel->channelAdmins as $channelAdmin)
+        <div style="font-size: 12px;" class="">조교들 명단</div>
+        <div id="channelAdminList" class="d-flex justify-content-between" onclick="removeChannelAdmin();">
+            @foreach($channel->channelAdmins as $channelAdmin)
                 <li value="{{ $channelAdmin->id }}">{{ $channelAdmin->user->name }}</li>
-            @empty
-                <li value="">서브 관리자가 없습니다</li>
-            @endforelse
-        </ul>
-        @if($channel->userID != auth()->id())
-            @auth
-                <div><a class="d-btn favorite_btn clickable" onclick="addChannelJoin({{ $channel->id }})">동아리 가입</a></div>
-            @endauth
-        @endif
+                <button class="mr-3">삭제</button>
+            @endforeach
+        </div>
+        @can('create', \App\Models\Channel::class)
+            <div class="mt-4"><a class="d-btn favorite_btn clickable" onclick="addChannelJoin({{ $channel->id }})">동아리 가입</a></div>
+        @endcan
     </div>
 </div>
 <div class="sidebar-sticky">
@@ -174,7 +172,7 @@
             $.ajax({
                 type: "DELETE",
                 url: "/channel/removeChannelAdmin/"+id,
-                data:{"userID": id},
+                data:{"user_id": id},
                 success: function(data) {
                     alert("suc");
                 },

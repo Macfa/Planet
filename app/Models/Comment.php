@@ -13,10 +13,10 @@ class Comment extends Model
     protected $guarded = [];
 
     public function post() {
-        return $this->belongsTo(Post::class, 'postID', 'id');
+        return $this->belongsTo(Post::class, 'post_id', 'id');
     }
     public function user() {
-        return $this->belongsTo(User::class, 'userID', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
     public function likes() {
         return $this->morphMany(Like::class, 'likeable');
@@ -35,12 +35,12 @@ class Comment extends Model
 //    }
     public function scrap()
     {
-        return $this->hasOne('App\Models\Scrap', 'postID', 'id');
+        return $this->hasOne('App\Models\Scrap', 'post_id', 'id');
     }
 
     // Custom Function
     public function getExistCommentLikeAttribute() {
-        $checkExistLike = $this->likes->firstWhere('userID',auth()->id());
+        $checkExistLike = $this->likes->firstWhere('user_id',auth()->id());
 
         if($checkExistLike) {
             return $checkExistLike->like;

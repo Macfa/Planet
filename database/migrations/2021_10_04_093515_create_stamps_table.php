@@ -15,9 +15,9 @@ class CreateStampsTable extends Migration
     {
         Schema::create('stamps', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger("groupID")->unsigned();
-            $table->foreign("groupID")->references("id")->on("stamp_groups")->onDelete("cascade");
-            $table->string("name", 10);
+            $table->bigInteger("category_group_id")->unsigned();
+            $table->foreign("category_group_id")->references("id")->on("stamp_groups")->onDelete("cascade");
+            $table->string("name", 30);
             $table->string("image");
             $table->integer("coin");
             $table->string("abbr", 20); // 약어

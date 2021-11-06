@@ -22,7 +22,7 @@ class Coin extends Model
     }
 
     public function user() {
-        return $this->belongsTo(User::class, 'id', 'userID');
+        return $this->belongsTo(User::class, 'id', 'user_id');
     }
     public function coinType() {
         return $this->belongsTo(CoinType::class, 'coinTypeID', 'id');
@@ -38,7 +38,7 @@ class Coin extends Model
 //                'coin'=>-5,
 //                'coinable_type'=>'test',
 //                'coinable_id'=>1,
-//                'userID'=>1,
+//                'user_id'=>1,
 //                'type'=>'test'
 //            ]);
 //            return true;
@@ -61,7 +61,7 @@ class Coin extends Model
             $post->coins()->create([
                 'type'=> '글작성',
                 'coin'=> 5,
-                'userID'=> auth()->id()
+                'user_id'=> auth()->id()
             ]);
             // 코인 추가 획득
         }
@@ -78,7 +78,7 @@ class Coin extends Model
             $comment->coins()->create([
                 'type'=> '댓글작성',
                 'coin'=> 1,
-                'userID'=> auth()->id()
+                'user_id'=> auth()->id()
             ]);
             // 코인 추가 획득
         }
@@ -94,7 +94,7 @@ class Coin extends Model
                 $user->coins()->create([
                     'type'=>'아이디변경',
                     'coin'=>-100,
-                    'userID'=>auth()->id()
+                    'user_id'=>auth()->id()
                 ]);
                 return true;
             } else {
@@ -113,9 +113,9 @@ class Coin extends Model
             $stamp->coins()->create([
                 'type'=>'스탬프구매',
                 'coin'=>-$price,
-                'userID'=>auth()->id()
+                'user_id'=>auth()->id()
             ]);
-            $checkExist = $post->stampInPosts()->where("stampID", $stamp->id)->first();
+            $checkExist = $post->stampInPosts()->where("stamp_id", $stamp->id)->first();
             $currentCoin = $totalCoin - $price;
 
             if($checkExist) {
@@ -127,10 +127,10 @@ class Coin extends Model
             } else {
                 $toBeCount = 1;
                 $post->stampInPosts()->create([
-                    'postID' => $post->id,
-                    'stampID' => $stamp->id,
+                    'post_id' => $post->id,
+                    'stamp_id' => $stamp->id,
                     'count' => 1,
-                    'userID' => auth()->id()
+                    'user_id' => auth()->id()
                 ]);
                 $method = "create";
             }

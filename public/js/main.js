@@ -22,7 +22,7 @@ function loadMoreData(page) {
         data: {
             "page": page,
             'type': type,
-            'channelID': channelID
+            'channel_id': channelID
         },
         success: function (data) {
             var valueList = [];
@@ -39,7 +39,7 @@ function loadMoreData(page) {
                         "postChannelID": data.result[i].channel.id,
                         "channelName": data.result[i].channel.name,
                         "userName": data.result[i].user.name,
-                        "userID": data.result[i].user.id,
+                        "user_id": data.result[i].user.id,
                         "created_at_modi": data.result[i].created_at_modi
                     });
                 }
@@ -64,22 +64,45 @@ function removeDataPlaceHolder() {
 }
 
 $(document).ready(function(){
-    $(window.location.hash).modal('show'); // URL 입력 확인 후 모달 오픈
-    $('a[data-bs-toggle="modal"]').click(function(){
-        console.log($(this).attr('href'));
-        window.location.hash = $(this).attr('href');
+    // $(window.location.hash).modal('show'); // URL 입력 확인 후 모달 오픈
+    $(window).on('popstate', function(e) {
+        if(e.type == "popstate") {
+            var modalState = $("#open_post_modal").hasClass('show');
+            if(modalState) {
+                $("#open_post_modal").modal("hide");
+            } else {
+            }
+        }
     });
 });
-$(document).on('show.bs.modal', '#open_post_modal', function (event) {
+// $(document).on('show.bs.modal', '#open_post_modal', function (event) {
+$("#open_post_modal").on('hide.bs.modal', function(event) {
+    if(history.state == "modal") {
+        history.back();
+    }
+});
+$("#open_post_modal").on('show.bs.modal', function(event) {
     if (event.target.id == 'open_post_modal') {
         var button = event.relatedTarget;
+        // var button = event.currentTarget;
+
+        // console.log(button.getAttribute('data-bs-post-id'));
         var postID = button.getAttribute('data-bs-post-id');
+        var channelID = button.getAttribute('data-bs-channel-id');
         var modalBody = $(".modal-content");
+        // console.log(history);
+        if(history.state == null) {
+            var urlPath = "/channel/"+channelID+"/post/"+postID;
+        } else {
+            var urlPath = location.href;
+        }
+
 
         $.ajax({
-            url: '/post/'+postID,
+            url: '/post/getPostData/'+postID,
             type: 'get',
             success: function(data) {
+                history.pushState('modal', 'modal', urlPath);
                 modalBody.html(data);
             },
             error: function(err) {
@@ -119,7 +142,7 @@ function clickMainMenu(type) {
         type: 'get',
         data: {
             'type': type,
-            // 'channelID': channelID
+            // 'channel_id': channelID
         },
         success: function(data) {
             var valueList = [];
@@ -138,7 +161,7 @@ function clickMainMenu(type) {
                         "postChannelID": data.result[i].channel.id,
                         "channelName": data.result[i].channel.name,
                         "userName": data.result[i].user.name,
-                        "userID": data.result[i].user.id,
+                        "user_id": data.result[i].user.id,
                         "created_at_modi": data.result[i].created_at_modi
                     });
                 }

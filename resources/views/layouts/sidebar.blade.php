@@ -16,9 +16,9 @@
             <li><a href="{{ route('channel.create') }}">동아리 만들기</a></li>
         </ul>
     </div>
-    <div>
-        <button class="btn btn-primary" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">맨 위로</button>
-    </div>
+</div>
+<div style="position: sticky; top: calc(100vh - 8px); transform: translateY(-100%);">
+    <button class="btn btn-primary" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">맨 위로</button>
 </div>
 <script>
     function clickSidebarMenu(type) {

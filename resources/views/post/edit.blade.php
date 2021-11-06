@@ -14,13 +14,13 @@
                                 <option value="">등록할 채널을 선택해주세요</option>
                                 @foreach ($user->channels as $channel)
                                     <option value="{{ $channel->id }}"
-                                        @if($post->channelID == $channel->id) selected
-                                        @elseif(old('channelID')==$channel->id) selected @endif>
+                                        @if($post->channel_id == $channel->id) selected
+                                        @elseif(old('channel_id')==$channel->id) selected @endif>
                                         {{ $channel->name }}
                                     </option>
                                 @endforeach
                             </select>
-                            @error('channelID')
+                            @error('channel_id')
                                 <div class="ml-2 invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>

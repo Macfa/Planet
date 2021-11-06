@@ -135,10 +135,10 @@ class CommentController extends Controller
     public function storeComment(Request $req) {
         // 댓글
         $created = Comment::create([
-            'postID' => $req->input('postID'),
-            'group' => $req->input('postID'),
+            'post_id' => $req->input('post_id'),
+            'group' => $req->input('post_id'),
             'content' => $req->input('content'),
-            'userID' => auth()->id()
+            'user_id' => auth()->id()
         ]);
 
         if($created->exists) {
@@ -163,12 +163,12 @@ class CommentController extends Controller
             ->increment('order', 1);
 
         $created = Comment::create([
-            'postID' => $thatComment['postID'],
+            'post_id' => $thatComment['post_id'],
             'group' => $thatComment['group'],
             'content' => $req->input('content'),
             'depth' => $thatComment['depth']+1,
             'order' => $thatComment['order']+1,
-            'userID' => auth()->id()
+            'user_id' => auth()->id()
         ]);
         if($created->exists) {
             return $created->id;
@@ -180,7 +180,7 @@ class CommentController extends Controller
         $comment = Comment::with('user')
             ->with('likes')
             ->find($id);
-        $commentCount = Comment::where('postID', $comment->postID)
+        $commentCount = Comment::where('post_id', $comment->postID)
             ->count();
 
         // modify a necessary data
@@ -201,15 +201,15 @@ class CommentController extends Controller
         $comment = Comment::find($id);
         $checkExistValue = $comment->likes()
             ->where('like', $like)
-            ->where('userID', auth()->id())
+            ->where('user_id', auth()->id())
             ->first();
 
         if ($checkExistValue != null) {
             $result = $checkExistValue->delete(); // get bool
         } else {
             $result = $comment->likes()->updateOrCreate(
-                ['userID' => auth()->id()],
-                ['like' => $like, 'userID' => auth()->id()]
+                ['user_id' => auth()->id()],
+                ['like' => $like, 'user_id' => auth()->id()]
             );
         }
 

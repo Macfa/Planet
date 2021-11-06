@@ -12,9 +12,9 @@ class StampInPost extends Model
     protected $guarded = [];
 
     public function post() {
-        return $this->belongsTo(Post::class, 'id', 'postID');
+        return $this->belongsTo(Post::class, 'id', 'post_id');
     }
     public function stamp() {
-        return $this->belongsTo(Stamp::class, "stampID");
+        return $this->belongsTo(Stamp::class, "stamp_id");
     }
 }
