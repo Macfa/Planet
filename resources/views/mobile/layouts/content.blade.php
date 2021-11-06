@@ -11,9 +11,9 @@
 
                     <div class="category_title">최근 방문한 동아리</div>
                     <ul class="category flex-container">
-                        @forelse ($channelVisitHistories as $channel)
-                            <li class="channel_{{ $channel->channelID }}">
-                                <a href="{{ route('channel.show', $channel->channelID) }}">{{ $channel->channel->name }}</a>
+                        @forelse ($channelVisitHistories as $history)
+                            <li class="channel_{{ $history->channelID }}">
+                                <a href="{{ route('channel.show', $history->channel_id) }}">{{ $history->channel->name }}</a>
                                 @if($loop->remaining)
                                     &nbsp;/&nbsp;
                                 @endif

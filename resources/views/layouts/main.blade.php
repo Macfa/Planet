@@ -10,8 +10,8 @@
                         <div class="category_title">최근 방문한 동아리</div>
                         <button style="margin:0 30px;" onclick="willRemove();">Unread</button>
                         <button onclick="location.href='/test'">Coin</button>
-                        @forelse ($channelVisitHistories as $channel)
-                            <li class="channel_{{ $channel->channelID }}"><a href="{{ route('channel.show', $channel->channelID) }}">{{ $channel->channel->name }}</a></li>
+                        @forelse ($channelVisitHistories as $history)
+                            <li class="channel_{{ $history->channel_id }}"><a href="{{ route('channel.show', $history->channel_id) }}">{{ $history->channel->name }}</a></li>
                         @empty
                             <li><a href="{{ route('home') }}">방문채널이 없습니다.</a></li>
                         @endforelse
