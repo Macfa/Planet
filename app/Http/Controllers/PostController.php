@@ -29,7 +29,7 @@ class PostController extends Controller
     }
     public function home() {
         $posts = Post::getAllData();
-        $channelVisitHistories = ChannelVisitHistory::showHistory();
+//        $channelVisitHistories = ChannelVisitHistory::showHistory();
         return view('main.index', compact('posts', 'channelVisitHistories'));
     }
     /**
@@ -41,7 +41,7 @@ class PostController extends Controller
     {
         $posts = Post::getAllData();
 
-        $channelVisitHistories = ChannelVisitHistory::showHistory();
+//        $channelVisitHistories = ChannelVisitHistory::showHistory();
         return view('main.index', compact('posts', 'channelVisitHistories'));
     }
 
@@ -142,7 +142,7 @@ class PostController extends Controller
     {
         $posts = Post::getAllData();
 
-        $channelVisitHistories = ChannelVisitHistory::showHistory();
+//        $channelVisitHistories = ChannelVisitHistory::showHistory();
         if($this->agent->isMobile()) {
             return view('mobile.main.index', compact('posts', 'channelVisitHistories'));
         } else {
