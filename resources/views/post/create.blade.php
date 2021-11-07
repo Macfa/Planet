@@ -9,7 +9,7 @@
             <form id="form" action="{{ route('post.store') }}" method="POST">
                 @csrf
                 <div class="select_box d-flex">
-                    <select class="cst_select is-invalid" name="channelID" id="channelList">
+                    <select class="cst_select is-invalid" name="channel_id" id="channelList">
                         <option value="">등록할 채널을 선택해주세요</option>
                         @foreach ($user->channels as $channel)
                             <option value="{{ $channel->id }}"

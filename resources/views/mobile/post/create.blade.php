@@ -19,7 +19,7 @@
                         <div class="input_box input_box_title">
                             <div class="sub_box">
                                 <span class="menu">포스트</span>
-                                <select style="float: right;" class="cst_select" name="channelID" id="channelList">
+                                <select style="float: right;" class="cst_select" name="channel_id" id="channelList">
                                     <option value="">등록할 채널을 선택해주세요</option>
                                     @forelse ($user->channels as $channel)
                                         @if(old('channel_id'))

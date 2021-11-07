@@ -87,7 +87,7 @@ class PostController extends Controller
         ];
 
         $messages = [
-            'channelID.required' => '채널을 선택해주세요.',
+            'channel_id.required' => '채널을 선택해주세요.',
             'title.required' => '제목을 입력해주세요.',
             'content.required' => '내용을 입력해주세요.',
             'max' => '제목은 최대 255 글자 이하입니다.',
