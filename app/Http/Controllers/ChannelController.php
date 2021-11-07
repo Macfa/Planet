@@ -131,7 +131,7 @@ class ChannelController extends Controller
             ->with('channelAdmins')
             ->first();
 
-//        $channelVisitHistories = ChannelVisitHistory::addHistory($channel);
+        $channelVisitHistories = ChannelVisitHistory::addHistory($channel);
 
         if($this->agent->isMobile()) {
             return view('mobile.channel.show', compact('posts', 'channel', 'channelVisitHistories'));

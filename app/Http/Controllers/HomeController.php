@@ -41,7 +41,7 @@ class HomeController extends Controller
     {
         $posts = Post::getAllData();
 
-//        $channelVisitHistories = ChannelVisitHistory::showHistory();
+        $channelVisitHistories = ChannelVisitHistory::showHistory();
         if($this->agent->isMobile()) {
             return view('mobile.main.index', compact('posts', 'channelVisitHistories'));
         } else {
@@ -115,7 +115,7 @@ class HomeController extends Controller
             ->get();
 
         // $visit = new Visit();
-//        $channelVisitHistories = ChannelVisitHistory::showHistory();
+        $channelVisitHistories = ChannelVisitHistory::showHistory();
 
         if($this->agent->isMobile()) {
             return view('mobile.main.search', compact('posts', 'channelVisitHistories', 'searchType'));
@@ -167,7 +167,7 @@ class HomeController extends Controller
     public function test2() {
         $posts = Post::willRemove();
 
-//        $channelVisitHistories = ChannelVisitHistory::showHistory();
+        $channelVisitHistories = ChannelVisitHistory::showHistory();
         return view('main.index', compact('posts', 'channelVisitHistories'));
     }
 }

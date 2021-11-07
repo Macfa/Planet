@@ -29,10 +29,10 @@ class ChannelVisitHistory extends Model
                 'updated_at' => now()
             ]);
 
-            $totalCount = Visit::where('user_id', auth()->id())->count();
+            $totalCount = ChannelVisitHistory::where('user_id', auth()->id())->count();
             // 최대 5개의 방문이력만 허용
             if($totalCount >= 5) {
-                Visit::where('user_id', auth()->id())->orderby('updated_at', 'asc')->limit(1)->delete();
+                ChannelVisitHistory::where('user_id', auth()->id())->orderby('updated_at', 'asc')->limit(1)->delete();
             }
 
             return self::showHistory();

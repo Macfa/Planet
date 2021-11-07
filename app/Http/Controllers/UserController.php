@@ -57,7 +57,7 @@ class UserController extends Controller
 
         $user = User::find($user->id);
         // $visit = new Visit();
-//        $channelVisitHistories = ChannelVisitHistory::showHistory();
+        $channelVisitHistories = ChannelVisitHistory::showHistory();
 
         $coin = array();
         $coin['totalCoin'] = $user->hasCoins()->sum('coin');
