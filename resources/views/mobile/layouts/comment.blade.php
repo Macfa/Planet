@@ -2,7 +2,7 @@
 <!-- 댓글 작성 폼 -->
 <div class="comment-write-form">
     <form method="POST" onSubmit="return false;" id="comment-form">
-        <input type="hidden" name="postID" value="{{ $post->id }}">
+        <input type="hidden" name="post_id" value="{{ $post->id }}">
         <div class="form-title">
             <h5>댓글 쓰기</h5>
         </div>

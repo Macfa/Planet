@@ -27,7 +27,7 @@ function loadMoreData(page) {
         success: function (data) {
             var valueList = [];
             if (data.result.length == 0) {
-                alert("데이터가 없습니다");
+                // alert("데이터가 없습니다");
             } else {
                 addDataPlaceHolder();
                 for (var i = 0; i < data.result.length; i++) {
@@ -102,8 +102,8 @@ $("#open_post_modal").on('show.bs.modal', function(event) {
             url: '/post/getPostData/'+postID,
             type: 'get',
             success: function(data) {
-                history.pushState('modal', 'modal', urlPath);
                 modalBody.html(data);
+                history.pushState('modal', 'modal', urlPath);
             },
             error: function(err) {
                 console.log(err);

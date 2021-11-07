@@ -47,8 +47,8 @@ class Post extends Model
         return $this->hasOne(Scrap::class, 'post_id', 'id');
     }
     public function hasPostReadHistories() {
-        $userID = auth()->id();
-        return $this->hasMany(PostReadHistory::class, 'post_id')->where('user_id', $userID);
+        $user_id = auth()->id();
+        return $this->hasMany(PostReadHistory::class, 'post_id')->where('user_id', $user_id);
     }
     public function postReadHistories() {
         return $this->hasMany(PostReadHistory::class, 'post_id');

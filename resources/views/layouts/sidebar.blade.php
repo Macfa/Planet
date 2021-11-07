@@ -1,8 +1,8 @@
 @section('sidebar')
 <div class="best">
     <ul>
-        <li class="clickable realtime" onclick="clickSidebarMenu('realtime');"><a>실시간</a></li>
-        <li class="clickable hot" onclick="clickSidebarMenu('hot');"><a>인기</a></li>
+        <li class="clickable realtime" onclick="clickSidebarMenu('realtime');"><a>인기</a></li>
+        <li class="clickable hot" onclick="clickSidebarMenu('hot');"><a>화제</a></li>
     </ul>
     <ol class="sidebar_list">
     </ol>
@@ -17,9 +17,9 @@
         </ul>
     </div>
 </div>
-<div style="position: sticky; top: calc(100vh - 8px); transform: translateY(-100%);">
-    <button class="btn btn-primary" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">맨 위로</button>
-</div>
+{{--<div style="position: sticky; top: calc(100vh - 8px); transform: translateY(-100%);">--}}
+{{--    <button class="btn btn-primary" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">맨 위로</button>--}}
+{{--</div>--}}
 <script>
     function clickSidebarMenu(type) {
         $.ajax({

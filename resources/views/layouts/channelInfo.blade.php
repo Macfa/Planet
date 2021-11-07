@@ -60,9 +60,9 @@
             <li><a href="@if(auth()->check()) {{ route('channel.create') }} @else javascript:notLogged(); @endif">동아리 만들기</a></li>
         </ul>
     </div>
-    <div>
-        <button class="btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">맨 위로</button>
-    </div>
+{{--    <div>--}}
+{{--        <button class="btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">맨 위로</button>--}}
+{{--    </div>--}}
 </div>
 <div class="modal fade" data-bs-channel-id="{{ $channel->id }}" id="open_channel_admin_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">

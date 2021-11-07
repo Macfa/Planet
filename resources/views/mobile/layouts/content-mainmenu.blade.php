@@ -10,7 +10,7 @@
     @endif
         {{ (isset($channel)) ? $channel->name:'포디엄'  }}
 
-        @if(isset($channel) && auth()->id()==$channel->userID)
+        @if(isset($channel) && auth()->id()==$channel->user_id)
             <span style="margin-left: 10%; color: black !important;">
                 <button onclick="location.href='{{ route('channel.edit', $channel->id) }}'" class="">수정</button>
                 <button onclick="deleteChannel({{ $channel->id }})" class="">삭제</button>
@@ -23,8 +23,8 @@
         </div>
     </div>
     <ul class="tab">
-        <li class="on clickable realtime" value="realtime" onclick="clickMainMenu('realtime');"><a>실시간</a></li>
-        <li class="clickable hot" value="hot" onclick="clickMainMenu('hot');"><a>인기</a></li>
+        <li class="on clickable realtime" value="realtime" onclick="clickMainMenu('realtime');"><a>인기</a></li>
+        <li class="clickable hot" value="hot" onclick="clickMainMenu('hot');"><a>화제</a></li>
     </ul>
 @endsection
 

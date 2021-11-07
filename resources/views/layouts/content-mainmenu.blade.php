@@ -3,8 +3,8 @@
         {{ (isset($channel)) ? $channel->name:'포디엄' }}
     </ul>
     <ul class="tab">
-        <li class="on clickable realtime" value="realtime" onclick="clickMainMenu('realtime');"><a>실시간</a></li>
-        <li class="clickable hot" value="hot" onclick="clickMainMenu('hot');"><a>인기</a></li>
+        <li class="on clickable realtime" value="realtime" onclick="clickMainMenu('realtime');"><a>인기</a></li>
+        <li class="clickable hot" value="hot" onclick="clickMainMenu('hot');"><a>화제</a></li>
     </ul>
 @endsection
 

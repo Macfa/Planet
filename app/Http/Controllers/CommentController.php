@@ -66,7 +66,7 @@ class CommentController extends Controller
             $coin->writeComment($comment);
             $experience->writeComment($comment);
 
-            $postUserID = $result->post->userID;
+            $postUserID = $result->post->user_id;
             $user = User::find($postUserID);
             $user->notify(new Noticenotification($result));
 
