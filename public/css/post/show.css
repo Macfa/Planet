@@ -364,7 +364,7 @@
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .reply-form .form-btn > .reset-btn button {
     background-color:#fff;
     color:#5a4e70;
-    border:5px solid #5a4e70;
+    border:5px solid #3d5afe;
     margin-right:10px;
 
   }
@@ -577,3 +577,47 @@ table, td {
     /*border: 1px solid black;*/
 }
 
+.modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .reply-form {
+    padding-left:44px;
+}
+
+.modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .reply-form .reply-input {
+    position:relative;
+}
+
+.modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .reply-form textarea {
+    font-size:14px;
+    border-radius:15px;
+    border:1px solid rgba(0, 0, 0, 0.6);
+    resize:none;
+    width:100%;
+    height:106px;
+}
+
+.modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .reply-form .form-btn {
+    position:absolute;
+    right:20px;
+    bottom:10px;
+    display:flex;
+}
+
+.modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .reply-form .form-btn  button {
+    border-radius:15px;
+    height:35px;
+    width:68px;
+    font-size:14px;
+}
+
+.modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .reply-form .form-btn > .reset-btn button {
+    background-color:#fff;
+    color:#5a4e70;
+    border:5px solid #3d5afe;
+    margin-right:10px;
+
+}
+
+.modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .reply-form .form-btn > .write-btn button {
+    background-color:#3d5afe;
+    color:#fff;
+    border:0;
+}

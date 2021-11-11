@@ -12,7 +12,7 @@
             @endcan
         </span>
     </div>
-{{--        {{dd($posts)}}--}}
+
     <div class="info_detail">
         <p class="description">{{ $channel->description }}</p>
         <div class="flex">
@@ -51,13 +51,14 @@
         @endcan
     </div>
 </div>
-<div class="sidebar-sticky">
-    <div class="link">
+<div class="sidebar-sticky link">
+    <div class="link_sub">
         <p>사람들과 얘기하고 싶었던 주제로 나만의 몽드를 만들어 보세요.</p>
         <p>어쩌면 마음이 맞는 친구를 찾을지도 모릅니다.</p>
         <ul>
-            <li><a href="@if(auth()->check()) {{ route('post.create') }} @else javascript:notLogged(); @endif">게시글 작성</a></li>
-            <li><a href="@if(auth()->check()) {{ route('channel.create') }} @else javascript:notLogged(); @endif">동아리 만들기</a></li>
+{{--            <div class="mt-4"><a class="d-btn favorite_btn clickable" onclick="addChannelJoin({{ $channel->id }})">동아리 가입</a></div>--}}
+            <li><a class="d-btn favorite_btn clickable" href="@if(auth()->check()) {{ route('post.create') }} @else javascript:notLogged(); @endif">게시글 작성</a></li>
+            <li><a class="d-btn favorite_btn clickable" href="@if(auth()->check()) {{ route('channel.create') }} @else javascript:notLogged(); @endif">동아리 만들기</a></li>
         </ul>
     </div>
 {{--    <div>--}}

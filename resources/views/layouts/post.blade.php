@@ -361,7 +361,6 @@
                             url: "/post/"+postID+"/scrap",
                             type: "post",
                             success: function(data) {
-                                console.log(data);
                                 if(data.result == "insert") {
                                     $("#post-scrap").attr("src", "{{ asset('image/scrap_c.png') }}");
                                     alert("스크랩되었습니다");

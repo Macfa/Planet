@@ -88,7 +88,7 @@
                     </table>
                 </div>
             </div>
-            <div class="right col-3">
+            <div class="right col-3 pr-4 pl-4">
                 @yield('sidebar')
             </div>
         </article>

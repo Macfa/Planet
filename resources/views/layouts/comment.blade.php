@@ -35,7 +35,7 @@
 
     <!-- 댓글 리스트 -->
         <div class="comment-list comment-{{ $comment->id }}">
-            <div style="padding-left:{{ $comment->depth*44 }}px;" class="comment-item">
+            <div style="padding-left:{{ ($comment->depth <= 4) ? $comment->depth*44 : 4*44 }}px;" class="comment-item">
                 <div class="comment-top">
                     <div style="" class="write-info {{ $comment->depth>0 ? 'write-info-line':'' }}">
                         <img src="{{ $comment->user->avatar }}" alt="닉네임" />
@@ -213,7 +213,8 @@
                 "form": "add"
             };
 
-            $("#replyWriteForm").tmpl(templateValues).appendTo(`.comment-${commentID} .comment-item`);
+            // $("#replyWriteForm").tmpl(templateValues).appendTo(`.comment-${commentID} .comment-item`);
+            $("#replyWriteForm").tmpl(templateValues).appendTo(`.comment-${commentID}`);
         } else if(status == "hide") {
             $(`.comment-${commentID} .reply-form`).remove();
         }
@@ -241,9 +242,9 @@
 
         // 댓글, 대댓글 구분
         if(commentID) {
-            data = $(`.comment-${commentID} .reply-form form`).serialize();
+            data = $(`#open_post_modal .comment-${commentID} .reply-form form`).serialize();
         } else {
-            data = $("#comment-form").serialize();
+            data = $("#open_post_modal #comment-form").serialize();
         }
 
         // 생성, 수정 구분
@@ -267,7 +268,7 @@
                     } else if(form == "add") { // 신규 댓글 생성 로직
                         var templateValues = {
                             "id": data.id,
-                            "depth": data.depth*44,
+                            "depth": (data.depth <= 4) ? data.depth*44 : 4*44,
                             "updated_at_modi": data.updated_at_modi,
                             "group": data.group,
                             "content": data.content,
@@ -416,7 +417,7 @@
 @{{/if}}
 </script>
 <script id="replyWriteForm" type="text/x-jquery-tmpl">
-<div class="reply-form">
+<div class="reply-form mb-3">
     <form method="post" onSubmit="return false;" id="comment-form-${commentID}">
     <input type="hidden" name="id" value="${commentID}">
     <div class="reply-input">
