@@ -6140,7 +6140,10 @@ a.close.disabled {
 .toast-body {
   padding: 0.75rem;
 }
-
+.sub_text {
+    font-size: 12px;
+    color: #666;
+}
 
 @media (min-width: 576px) {
   .modal-dialog {

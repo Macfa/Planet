@@ -47,8 +47,8 @@
         /*font-weight:400;*/
     }
   .modal-parent > .modal-wrap > .modal-header > .write-info > p {
-    font-size:14px;
-    color:#CBC7C7;
+    /*font-size:14px;*/
+    /*color:#CBC7C7;*/
   }
 
   .modal-parent > .modal-wrap > .modal-header > .write-info > p > span {
@@ -306,7 +306,7 @@
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .reply-list > .reply-item .reply-top > .reply-info > ul > li  {
     font-size:9px;
     vertical-align:middle;
-    margin-left:12px;
+    margin-left:10px;
   }
 
 .write-info .comment-modi-form > button > div.function-text > p {

@@ -60,9 +60,19 @@
 
                     <div class="comment-info">
                         <ul>
-                            <li data-bs-toggle="modal" data-bs-target="#openStampModal" class="clickable items">스탬프</li>
+                            @auth
+                            <li data-bs-toggle="modal" data-bs-target="#openStampModal" class="clickable">스탬프</li>
+                            @endauth
+                            @guest
+                                    <li onclick="notLogged();" class="clickable">스탬프</li>
+                            @endguest
 {{--                            <li></li>--}}
-                            <li class="clickable" onclick="checkCommentTypeToAddForm('add', {{ $comment->id }});">댓글</li>
+                            @auth
+                                <li class="clickable" onclick="checkCommentTypeToAddForm('add', {{ $comment->id }});">댓글</li>
+                            @endauth
+                            @guest
+                                <li class="clickable" onclick="notLogged();">댓글</li>
+                            @endguest
                             <li class="clickable">
                                 <img onclick="voteLikeInComment({{ $comment->id }}, 1)" id="comment-{{ $comment->id }}-upvote" class="image-sm" alt=""
                                      @if($comment->existCommentLike == 1)
@@ -115,8 +125,12 @@
                         src="{{ asset('image/downvote.png') }}" />
                     @endif
                 </div>
-
-                <img alt="stamp" data-bs-toggle="modal" data-bs-target="#openStampModal" class="mr-2 stamp-image image-m clickable" src="{{ asset('image/stamp.png') }}"/>
+                @auth
+                    <img alt="stamp" data-bs-toggle="modal" data-bs-target="#openStampModal" class="mr-2 stamp-image image-m clickable" src="{{ asset('image/stamp.png') }}"/>
+                @endauth
+                @guest
+                    <img alt="stamp" onclick="notLogged()" class="mr-2 stamp-image image-m clickable" src="{{ asset('image/stamp.png') }}"/>
+                @endguest
                 <img class="mr-2 favorit-image image-m clickable" id="post-scrap" onclick="scrapPost({{ $post->id }})" alt="favorit"
                      @if($post->postScrap == 1)
                      src="{{ asset('image/scrap_c.png') }}" />
@@ -318,8 +332,8 @@
     }
     function voteLikeInComment(id, like, obj) {
         $.ajax({
-            url: "/comment/voteLikeInComment",
-            data: { id: id, like:like },
+            url: "/comment/"+id+"/like",
+            data: { like:like },
             type: "post",
             success: function(data) {
                 var el = ".comment-"+id+" .comment-like";
@@ -327,6 +341,13 @@
                 commentSelectLike(id, data.like);
                 $(el).text(data.totalLike);
                 // alert("처리되었습니다.");
+            },
+            error: function(err) {
+                if(err.status === 401) {
+                    alert("로그인이 필요한 기능입니다");
+                } else {
+                    alert("문제가 생겨 확인 중입니다")
+                }
             }
         });
     }

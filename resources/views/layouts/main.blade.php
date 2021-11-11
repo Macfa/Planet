@@ -44,7 +44,15 @@
                             <tr id="post-{{ $post->id }}">
                                 <td>
                                     <!-- 업이면 클래스 up, 다운이면 down -->
-                                    <span class="updown up">{{ $post->likes->sum('like') }}</span>
+                                    <span class="post-like-main
+                                    @if($post->likes->sum('like') > 0)
+                                        updown up
+                                        @elseif($post->likes->sum('like') < 0)
+                                        updown down
+                                        @else
+                                        updown dash
+                                        @endif
+                                    ">{{ $post->likes->sum('like') }}</span>
                                 </td>
                                 <td>
                                     <div class="thum" style="background-image: url({{ $post->image }});"></div>
@@ -93,7 +101,15 @@
     <script id="mainMenuItem" type="text/x-jquery-tmpl">
     <tr id="post-${postID}">
         <td>
-            <span class="updown up">${totalLike}</span>
+            <span class="
+            @{{if totalLike > 0}}
+            updown up
+            @{{else totalLike < 0}}
+            updown down
+            @{{else}}
+            updown dash
+            @{{/if}}
+            ">${totalLike}</span>
         </td>
         <td><div class="thum"></div></td>
         <td>
@@ -113,7 +129,7 @@
     <script id="dataPlaceHolder" type="text/x-jquery-tmpl">
     <tr>
         <td>
-            <span class="updown up"></span>
+            <span class="updown dash"></span>
         </td>
         <td><div class="thum"></div></td>
         <td>

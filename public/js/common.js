@@ -28,6 +28,10 @@ $(document).ready(function () {
     $('#open_post_modal').on('shown.bs.modal', function() {
         $(document).off('focusin.modal');
     });
+    $("#header .header_icon_clickable a").click(function(){
+        $('.multi-collapse').collapse('hide');
+    });
+
     var myCollapsible = document.getElementById('header-noti');
     if(myCollapsible) {
         myCollapsible.addEventListener('show.bs.collapse', function () {

@@ -118,7 +118,7 @@
 
 @auth
     @include('modals.header-noti')
-    @include('modals.header-mypage')
+{{--    @include('modals.header-mypage')--}}
     @include('modals.header-list')
 @endauth
 @stack("modals")

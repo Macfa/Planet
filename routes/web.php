@@ -60,16 +60,18 @@ Route::resource('post', PostController::class);
 //Route::get('/post/show/{post}', [HomeController::class, 'index']);
 
 
+Route::post('/comment/{comment}/like', [CommentController::class, 'like']);
 // Comments resource
 Route::resource('comment', CommentController::class);
-Route::post('/comment/voteLikeInComment', [CommentController::class, 'voteLikeInComment']);
+//Route::post('/post/{post}/like', [PostController::class, 'like']);
+
 
 // Channel's resource
-Route::resource('channel', ChannelController::class);
 Route::post('/channel/channelJoin', [ChannelController::class, 'channelJoin']);
 Route::post('/channel/addChannelAdmin', [ChannelController::class, 'addChannelAdmin']);
 Route::get('/channel/getUserInChannel/{channelID}', [ChannelController::class, 'getUserInChannel']);
 Route::get('/channel/removeChannelAdmin/{userID}', [ChannelController::class, 'getUserInChannel']);
+Route::resource('channel', ChannelController::class);
 
 // Post resource in Channel
 Route::prefix('/channel/{channel}')->group(function () {

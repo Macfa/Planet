@@ -26,7 +26,7 @@
         @endguest
         @auth
             <ul class="d-flex flex-justify-content-flex-end flex-wrap-nowrap">
-                <li class="mr-2 header_icon"><a href="/"><img src="{{ auth()->user()->avatar }}" alt="img" /></a></li>
+                <li class="mr-2 header_icon"><a href="{{ route('user.show', auth()->id()) }}"><img src="{{ auth()->user()->avatar }}" alt="img" /></a></li>
                 <li class="mr-3 header_text header_text_align">
                     <p>{{ Auth::user()->name }}</p>
                 </li>
@@ -43,7 +43,7 @@
                 {{--                    <li class="header_icon"><a href="{{ route('user.show', auth()->id()) }}" class="btn btn-primary" data-bs-toggle="collapse" href="#header-mypage" role="button" aria-expanded="false" aria-controls="header-mypage"><img src="{{ asset('image/mypage_4x.png') }}" alt="mypage" /></a></li>--}}
 
                 <li class="mr-2 header_icon header_icon_clickable">
-                    <a style="position: relative;" class="" data-bs-toggle="collapse" data-bs-target=".multi-collapse" role="button" aria-expanded="false" aria-controls="header-noti header-list"><img src="{{ asset('image/noti_4x.png') }}" alt="noti" />
+                    <a style="position: relative;" class="" data-bs-toggle="collapse" data-bs-target="#header-noti" role="button" aria-expanded="false" aria-controls="header-noti"><img src="{{ asset('image/noti_4x.png') }}" alt="noti" />
                         @empty(auth()->user()->unreadNotifications)
                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                 {{ auth()->user()->unreadNotifications->count() }}
@@ -51,7 +51,7 @@
                         @endempty
                     </a>
                 </li>
-                <li class="header_icon header_icon_clickable"><a class="" data-bs-toggle="collapse" data-bs-target=".multi-collapse" role="button" aria-expanded="false" aria-controls="header-list header-noti"><img src="{{ asset('image/list_4x.png') }}" alt="list" /></a></li>
+                <li class="header_icon header_icon_clickable"><a class="" data-bs-toggle="collapse" data-bs-target="#header-list" role="button" aria-expanded="false" aria-controls="header-list"><img src="{{ asset('image/list_4x.png') }}" alt="list" /></a></li>
             </ul>
         @endauth
     </div>

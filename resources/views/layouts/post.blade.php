@@ -4,14 +4,14 @@
             <div class="modal-header flex-wrap-wrap">
                 <div class="modal-title flex-0-0-100">
                     <h4>
-                        {{ $post->title }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="titleSub">[<span class="commentCount">{{ $post->comments_count }}</span>]</span>
+                        {{ $post->title }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="titleSub">[<span class="commentCount">{{ $post->comments->count() }}</span>]</span>
                         <span class="stamps">
                             @foreach($post->stampInPosts as $stampInPost)
                                 <span class="stamp-{{ $stampInPost->stampID }}">
                                     <img style="width:31px;" src="{{ $stampInPost->stamp->image }}" alt="">
                                     <span>
-                                        @if($stampInPost->count>1)
-                                                {{ $stampInPost->count }}
+                                        @if($stampInPost->count() > 1)
+                                                {{ $stampInPost->count() }}
                                         @endif
                                     </span>
                                 </span>
@@ -20,7 +20,8 @@
                     </h4>
                 </div>
                 <div class="write-info">
-                    <p><span><a href="{{ route('channel.show', $post->channel_id) }}">[{{ $post->channel->name }}]</a></span>&nbsp;온 <a href="{{ route('user.show', 'post') }}">{{ $post->user->name }}</a> / {{ $post->created_at->diffForHumans() }}</p>
+{{--                    <p><span><a href="{{ route('channel.show', $post->channel_id) }}">[{{ $post->channel->name }}]</a></span>&nbsp;온 <a href="{{ route('user.show', 'post') }}">{{ $post->user->name }}</a> / {{ $post->created_at->diffForHumans() }}</p>--}}
+                    <p class="sub_text"><span><a href="{{ route('channel.show', $post->channel_id) }}">[&nbsp;{{ $post->channel->name }}&nbsp;]&nbsp;</a></span> {{ $post->created_at->diffForHumans() }} / <a href="{{ route('user.show', ["user" => $post->user] ) }}">{{ $post->user->name }}</a></p>
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 {{--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-image: url({{ asset('image/close.png') }})"></button>--}}
@@ -77,14 +78,24 @@
                                         @endif
                                 </li>
                                 <!-- Button trigger modal -->
-                                <li data-bs-toggle="modal" data-bs-target="#openStampModal" class="clickable items">
+                                @auth
+                                    <li data-bs-toggle="modal" data-bs-target="#openStampModal" class="clickable items">
+                                @endauth
+                                @guest
+                                    <li onclick="notLogged()" class="clickable items">
+                                @endguest
                                     <img src="{{ asset('image/stamp.png') }}" class="image-sm" alt="" />
 
                                     <div class="function-text">
                                         <p>스탬프</p>
                                     </div>
                                 </li>
-                                <li class="clickable items">
+                                @auth
+                                    <li class="clickable items">
+                                @endauth
+                                @guest
+                                    <li onclick="notLogged()" class="clickable items">
+                                @endguest
                                     <img src="{{ asset('image/share.png') }}" class="image-sm" alt="" />
 
                                     <div class="function-text">
@@ -293,12 +304,13 @@
                         type: "post",
                         success: function(data) {
                             // console.log(data);
-                            clearLike();
-                            selectLike(data.like);
+                            clearLike(id);
+                            selectLike(data.like, id, data.totalLike);
                             $(".post-like").text(data.totalLike);
+                            $(`#post-${id} .post-like-main`).text(data.totalLike);
                         },
                         error: function(err) {
-                            if(err.status == 401) {
+                            if(err.status === 401) {
                                 alert(err.responseText);
                             } else {
                                 alert("문제가 생겨 확인 중입니다")
@@ -306,15 +318,24 @@
                         }
                     });
                 }
-                function clearLike() {
+                function clearLike(id) {
                     $("#post-downvote, #post-downvote-fix").attr("src", "{{ asset('image/downvote.png') }}");
                     $("#post-upvote, #post-upvote-fix").attr("src", "{{ asset('image/upvote.png') }}");
+                    $(`#post-${id} .post-like-main`).attr('class', 'post-like-main updown dash');
                 }
-                function selectLike(like) {
+                function selectLike(like, id, totalLike) {
                     if(like == 1) {
                         $("#post-upvote, #post-upvote-fix").attr("src", "{{ asset('image/upvote_c.png') }}");
                     } else if(like == -1) {
                         $("#post-downvote, #post-downvote-fix").attr("src", "{{ asset('image/downvote_c.png') }}");
+                    }
+
+                    if(like != 0) {
+                        if(totalLike > 0) {
+                            $(`#post-${id} .post-like-main`).attr('class', 'post-like-main updown up');
+                        } else if(totalLike < 0) {
+                            $(`#post-${id} .post-like-main`).attr('class', 'post-like-main updown down');
+                        }
                     }
                 }
                 function reportPost(postID) {
@@ -340,6 +361,7 @@
                             url: "/post/"+postID+"/scrap",
                             type: "post",
                             success: function(data) {
+                                console.log(data);
                                 if(data.result == "insert") {
                                     $("#post-scrap").attr("src", "{{ asset('image/scrap_c.png') }}");
                                     alert("스크랩되었습니다");

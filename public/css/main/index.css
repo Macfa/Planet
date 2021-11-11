@@ -140,7 +140,13 @@ background-color: #3d5afe;
   background-image: url("/image/icon_down.png");
   color: #0008f9;
 }
-
+#main .board_box .left div.list table tr td span.dash {
+    background-image: url("/image/upvote.png");
+    background-size: 26px 28px;
+    background-position: 50% 0;
+    background-repeat: no-repeat;
+    color: #000000;
+}
 #main .board_box .left div.list table tr td div.thum {
   width: 70px;
   height: 50px;

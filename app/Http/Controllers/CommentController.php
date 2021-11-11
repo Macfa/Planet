@@ -191,14 +191,17 @@ class CommentController extends Controller
         return $comment;
     }
 
-    public function voteLikeInComment(Request $req)
+    public function like(Comment $comment)
     {
+        if(!auth()->check()) {
+            return response("로그인이 필요한 기능입니다", 401);
+        }
+
         // 이력 확인
-        $id = $req->input('id');
-        $like = $req->input('like');
+        $like = request()->input('like');
 
         // 수정 및 생성
-        $comment = Comment::find($id);
+//        $comment = Comment::find($id);
         $checkExistValue = $comment->likes()
             ->where('like', $like)
             ->where('user_id', auth()->id())
@@ -216,7 +219,9 @@ class CommentController extends Controller
         // 결과
         if ($result) {
             $totalLike = $comment->likes->sum('like');
-            return response()->json(['totalLike' => $totalLike, 'like' => $comment->existCommentLike]);
+            return response(['totalLike' => $totalLike, 'like' => $comment->existCommentLike], 200);
+        } else {
+            return response('', 500);
         }
     }
 }

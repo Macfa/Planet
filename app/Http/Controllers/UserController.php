@@ -45,7 +45,7 @@ class UserController extends Controller
             $posts = Post::join('users', 'users.id', '=', 'posts.user_id')
                 ->leftJoin('scraps', function($join) {
                     $join->on('users.id', '=', 'scraps.user_id');
-                    $join->on('posts.id', '=', 'scraps.user_id');
+                    $join->on('posts.id', '=', 'scraps.post_id');
                 })
 //                ->with('channel')
 //                ->with('likes')
