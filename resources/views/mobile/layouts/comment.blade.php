@@ -43,7 +43,7 @@
                         <h5 class="nickname">{{ $comment->user->name }}</h5>
                         <p>{{ $comment->updated_at->diffForHumans() }}</p>
 
-                        @if(auth()->id()==$comment->userID)
+                        @if(auth()->id()==$comment->user_id)
                             <div class="comment-modi-form">
                                 <button onclick="checkCommentTypeToAddForm('edit', {{ $comment->id }})">
                                     <div class="function-text">

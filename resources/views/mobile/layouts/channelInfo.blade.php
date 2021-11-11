@@ -31,7 +31,7 @@
                 <li value="{{ $channelAdmin->id }}">{{ $channelAdmin->user->name }}</li>
             @endforeach
         </ul>
-        @if($channel->userID != auth()->id() && auth()->check())
+        @if($channel->user_id != auth()->id() && auth()->check())
             <div><a class="d-btn favorite_btn clickable" onclick="addChannelJoin({{ $channel->id }})">동아리 가입</a></div>
         @endif
     </div>

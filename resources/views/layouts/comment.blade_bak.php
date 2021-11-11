@@ -42,7 +42,7 @@
                         <h5 class="nickname">{{ $comment->user->name }}</h5>
                         <p>{{ $comment->updated_at->diffForHumans() }}</p>
 
-                        @if(auth()->id()==$comment->userID)
+                        @if(auth()->id()==$comment->user_id)
                             <div class="ml-20 comment-modi-form">
                                 <button onclick="editComment({{ $comment->id }})">
                                     <div class="function-text">

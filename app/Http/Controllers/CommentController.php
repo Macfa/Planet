@@ -41,7 +41,7 @@ class CommentController extends Controller
      */
     public function store(Request $request) {
         if(auth()->id() == null) {
-            return response()->json(['reason'=>'login'], 401);
+            abort(401);
         }
         $id = $request->input('id'); // 그룹 아이디
 
@@ -180,7 +180,7 @@ class CommentController extends Controller
         $comment = Comment::with('user')
             ->with('likes')
             ->find($id);
-        $commentCount = Comment::where('post_id', $comment->postID)
+        $commentCount = Comment::where('post_id', $comment->post_id)
             ->count();
 
         // modify a necessary data

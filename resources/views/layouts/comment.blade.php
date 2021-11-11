@@ -16,7 +16,7 @@
                 </div>
 
                 <div class="write-btn">
-                    <button type="submit" onclick="@if(auth()->check()) checkCommentTypeToProcess('add'); @else notLogged(); @endif">등록</button>
+                    <button type="submit" onclick="checkCommentTypeToProcess('add');">등록</button>
                 </div>
             </div>
         </div>
@@ -42,7 +42,7 @@
                         <h5 class="nickname">{{ $comment->user->name }}</h5>
                         <p>{{ $comment->updated_at->diffForHumans() }}</p>
 
-                        @if(auth()->id()==$comment->userID)
+                        @if(auth()->id()==$comment->user_id)
                             <div class="ml-20 comment-modi-form">
                                 <button onclick="checkCommentTypeToAddForm('edit', {{ $comment->id }})">
                                     <div class="function-text">
@@ -62,9 +62,9 @@
                         <ul>
                             <li data-bs-toggle="modal" data-bs-target="#openStampModal" class="clickable items">스탬프</li>
 {{--                            <li></li>--}}
-                            <li class="clickable" onclick="@if(auth()->check()) checkCommentTypeToAddForm('add', {{ $comment->id }}); @else notLogged(); @endif">댓글</li>
+                            <li class="clickable" onclick="checkCommentTypeToAddForm('add', {{ $comment->id }});">댓글</li>
                             <li class="clickable">
-                                <img onclick="@if(auth()->check()) voteLikeInComment({{ $comment->id }}, 1) @else notLogged(); @endif" id="comment-{{ $comment->id }}-upvote" class="image-sm" alt=""
+                                <img onclick="voteLikeInComment({{ $comment->id }}, 1)" id="comment-{{ $comment->id }}-upvote" class="image-sm" alt=""
                                      @if($comment->existCommentLike == 1)
                                          src="{{ asset('image/upvote_c.png') }}" />
                                     @else
@@ -75,7 +75,7 @@
                                 <span class="comment-like">{{ $comment->likes->sum('like') }}</span>
                             </li>
                             <li class="clickable">
-                                <img onclick="@if(auth()->check()) voteLikeInComment({{ $comment->id }}, -1) @else notLogged(); @endif" id="comment-{{ $comment->id }}-downvote" class="image-sm" alt=""
+                                <img onclick="voteLikeInComment({{ $comment->id }}, -1)" id="comment-{{ $comment->id }}-downvote" class="image-sm" alt=""
                                      @if($comment->existCommentLike == -1)
                                          src="{{ asset('image/downvote_c.png') }}" />
                                     @else
@@ -100,15 +100,15 @@
         <!-- 하단 기능 Comment -->
         <div class="board-bot-function" id="post-bot-function">
             <div class="left-function">
-                <div class="page-arrow">
-                    <img onclick="@if(auth()->check()) voteLikeInPost({{ $post->id }},1) @else notLogged(); @endif" id="post-upvote-fix" class="image-m clickable" alt="위로"
+                <div class="page-arrow mr-2">
+                    <img onclick="voteLikeInPost({{ $post->id }},1)" id="post-upvote-fix" class="image-m clickable" alt="위로"
                          @if($post->existPostLike == 1)
                          src="{{ asset('image/upvote_c.png') }}" />
                     @else
                         src="{{ asset('image/upvote.png') }}" />
                     @endif
-                    <span class="post-like">{{ $post->likes->sum('like') }}</span>
-                    <img onclick="@if(auth()->check()) voteLikeInPost({{ $post->id }},-1) @else notLogged(); @endif" id="post-downvote-fix" class="image-m clickable" alt="아래로"
+                    <span style="width: 20px; " class="text-center post-like">{{ $post->likes->sum('like') }}</span>
+                    <img onclick="voteLikeInPost({{ $post->id }},-1)" id="post-downvote-fix" class="image-m clickable" alt="아래로"
                          @if($post->existPostLike == -1)
                          src="{{ asset('image/downvote_c.png') }}" />
                     @else
@@ -116,14 +116,14 @@
                     @endif
                 </div>
 
-                <img alt="stamp" class="stamp-image image-m clickable" src="{{ asset('image/stamp.png') }}"/>
-                <img class="favorit-image image-m clickable" id="post-scrap" onclick="@if(auth()->check()) scrapPost({{ $post->id }}) @else notLogged(); @endif" alt="favorit"
+                <img alt="stamp" data-bs-toggle="modal" data-bs-target="#openStampModal" class="mr-2 stamp-image image-m clickable" src="{{ asset('image/stamp.png') }}"/>
+                <img class="mr-2 favorit-image image-m clickable" id="post-scrap" onclick="scrapPost({{ $post->id }})" alt="favorit"
                      @if($post->postScrap == 1)
                      src="{{ asset('image/scrap_c.png') }}" />
                 @else
                     src="{{ asset('image/scrap.png') }}" />
                 @endif
-                <img src="{{ asset('image/message.png') }}" alt="message" class="message-image">
+                <a href="javascript:$('#open_post_modal').scrollTop({top:0});"><img src="{{ asset('image/message.png') }}" alt="message" class="message-image"></a>
             </div>
 
             <div class="right-function">
@@ -246,6 +246,7 @@
                 data: data,
                 type: type,
                 success: function(data) {
+                    console.log(data);
                     if(form == "edit") { // 기존 댓글 업데이트 로직
                         $(`.comment-${commentID} .comment-cont p`).html(data.content);
                         toggleEditForm('hide', commentID);
@@ -257,7 +258,7 @@
                             "group": data.group,
                             "content": data.content,
                             "sumOfLikes": data.sumOfLikes,
-                            "postID": data.postID,
+                            "post_id": data.post_id,
                             "avatar": data.user.avatar,
                             "commentCount": data.commentCount,
                             "name": data.user.name
@@ -272,7 +273,7 @@
                                 $("#replyForm").tmpl(templateValues).insertAfter(".section-title");
                             }
                         }
-                        $(`#post-${data.postID} .commentCount, #open_post_modal .commentCount`).text(data.commentCount);
+                        $(`#post-${data.post_id} .commentCount, #open_post_modal .commentCount`).text(data.commentCount);
                         if(commentID) {
                             cancleForm('add', commentID);
                         } else {

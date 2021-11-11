@@ -36,6 +36,8 @@ class ChannelVisitHistory extends Model
             }
 
             return self::showHistory();
+        } else {
+            return [];
         }
     }
     public static function showHistory() {
@@ -43,6 +45,8 @@ class ChannelVisitHistory extends Model
             $user = User::find(auth()->id());
 
             return $user->channelVisitHistories()->orderby('updated_at', 'desc')->get();
+        } else {
+            return [];
         }
     }
 }

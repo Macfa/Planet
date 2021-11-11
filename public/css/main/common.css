@@ -441,3 +441,6 @@ button {
 #openStampModal .modal-body #category-data div button {
     width: 50px;
 }
+.header-list-icon {
+    width: 25px;
+}

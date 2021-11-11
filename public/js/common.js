@@ -78,6 +78,7 @@ function searchingCallback() {
 function search() {
     var obj = $("input[name=searchText]");
     var word = obj.val();
+    var dataToAppend = [];
 
     $.ajax({
         type: "get",
@@ -86,25 +87,20 @@ function search() {
             'searchText': word
         },
         success: function(data) {
-            var elementToPlace = $("#header-search");
-            var dataToAppend = [];
+            var elementToPlace = $("#searched-list");
 
-            elementToPlace.children().remove();
-
-            if(data['list'] === null) {
-                // pass
-                // dataToAppend.push('<a href="" class="list-group-item list-group-item-action">검색</a>');
-            } else {
+            if(data['list']) {
                 $.each(data['list'], function(idx,val) {
-                    if(data['type'] == "channel") {
-                        dataToAppend.push('<a href="/channel/'+val['id']+'" class="list-group-item list-group-item-action">'+val['name']+'</a>');
-                    } else if(data['type'] == "post") {
-                        dataToAppend.push('<a href="/post/'+val['id']+'" class="list-group-item list-group-item-action">'+val['title']+'</a>');
-                        // dataToAppend.push('<a href="/post/'+val['id']+'" class="list-group-item list-group-item-action">'+val['title']+'</a>');
+                    if(data['type'] === "channel") {
+                        dataToAppend.push('<option label="in channel">'+val['name']+'</option>');
+                    } else if(data['type'] === "post") {
+                        dataToAppend.push('<option label="in post">'+val['title']+'</option>');
                     }
                 });
+                    // alert(1);
+                elementToPlace.children().remove();
+                elementToPlace.html(dataToAppend);
             }
-            elementToPlace.append(dataToAppend);
         },
         error: function(err) {
             // console.log(err);
@@ -115,7 +111,8 @@ function search() {
 
 function notLogged() {
     // if(!auth()->check()) {
-    toastr.warning("로그인이 필요한 기능입니다");
+    // toastr.warning("로그인이 필요한 기능입니다");
+    alert("로그인이 필요한 기능입니다");
     return;
     // }
 }

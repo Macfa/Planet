@@ -78,43 +78,29 @@
 
 
 <body>
-
-{{--@if(session::has('errors'))--}}
-{{--    toastr.error("{{Session::get('errors')->first()}}");--}}
-{{--@endif--}}
-{{--@if(session('error') || session('success'))--}}
-{{--    <div class="alert alert-success alert-dismissible">--}}
-{{--        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>--}}
-{{--        <h5><i class="icon fas fa-ban"></i> Success!</h5>--}}
-{{--        {{ session('success') }}--}}
-{{--    </div>--}}
-{{--@endif--}}
 {{--@if(session('status'))--}}
-{{--    <script>toastr.</script>--}}
+{{--    <script>--}}
+{{--    var status = "{{ session('status') }}";--}}
+{{--    switch(status){--}}
+{{--        case 'info':--}}
+{{--        toastr.info("{{ session('message') }}");--}}
+{{--        break;--}}
+{{--        case 'warning':--}}
+{{--        toastr.warning("{{ session('message') }}");--}}
+{{--        break;--}}
+{{--        case 'success':--}}
+{{--        toastr.success("{{ session('message') }}");--}}
+{{--        break;--}}
+{{--        case 'error':--}}
+{{--        toastr.error("{{ session('message') }}");--}}
+{{--        break;--}}
+{{--    }--}}
+{{--    </script>--}}
 {{--@endif--}}
-@if(session('status'))
-    <script>
-    var status = "{{ session('status') }}";
-    switch(status){
-        case 'info':
-        toastr.info("{{ session('message') }}");
-        break;
-        case 'warning':
-        toastr.warning("{{ session('message') }}");
-        break;
-        case 'success':
-        toastr.success("{{ session('message') }}");
-        break;
-        case 'error':
-        toastr.error("{{ session('message') }}");
-        break;
-    }
-    </script>
-@endif
 
 <!-- Modals -->
 <div class="modal fade" id="open_post_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div style="width: 80%; max-width: none; top: 53px; margin-top: 0px;" class="modal-dialog">
+    <div style="width: 80%; max-width: none; top: 53px; margin-top: 0px; height: calc(100% - 53px);" class="modal-dialog">
         <div class="modal-content">
         </div>
     </div>

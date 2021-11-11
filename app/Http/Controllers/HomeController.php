@@ -51,6 +51,8 @@ class HomeController extends Controller
 
     public function mainMenu(Request $request) {
         $channelID = $request->route('channel');
+//        $channelID = $request->route();
+//        dd($channelID, $request);
 //        $channelID = request()->route('channel');
 //        dd($channelID);
 //        dd($request->all());
@@ -138,6 +140,7 @@ class HomeController extends Controller
                 ->select('image', 'name', 'id')
                 ->get();
             $type = "channel";
+            return response(["list" => $expectChannel, "type" => $type], 200);
         } else {
             // 키워드 없는 게시글 검색.
             $toSearchText = '%'.$searchText.'%';
@@ -147,9 +150,11 @@ class HomeController extends Controller
                 ->select('title', 'id')
                 ->get();
             $type = "post";
+            return response(["list" => $expectChannel, "type" => $type], 200);
         }
 
-        return ["list" => $expectChannel, "type" => $type];
+//        return ["list" => $expectChannel, "type" => $type];
+//        return response(["list" => $expectChannel, "type" => $type], 200);
     }
 
     public function test() {

@@ -20,6 +20,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\StampController;
 use App\Http\Controllers\UserController;
+use App\Models\Channel;
+use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 
 Route::domain('m.lanet.co.kr')->group(function () {
@@ -38,17 +40,17 @@ Route::get('/noti2', [\App\Http\Controllers\NoticeNotiController::class, 'test_2
 
 // Main's route
 //Route::get('/', [PostController::class, 'index'])->name('home');
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('/search', [HomeController::class, 'search'])->name('home.search');
 Route::get('/searchHelper', [HomeController::class, 'searchHelper'])->name('home.search.helper');
 Route::get('/sidebar', [HomeController::class, 'sidebar'])->name('home.sidebar');
 Route::get('/mainMenu', [HomeController::class, 'mainMenu'])->name('home.mainmenu');
 
 
-Route::get('/post/getPostData/{id}', [PostController::class, 'getPostData']);
-Route::post('/post/voteLikeInPost', [PostController::class, 'voteLikeInPost']);
-Route::post('/post/reportPost', [PostController::class, 'reportPost']);
-Route::post('/post/scrapPost', [PostController::class, 'scrapPost']);
+//Route::get('/post/getPostData/{post}', [PostController::class, 'getPostData']);
+Route::post('/post/{post}/like', [PostController::class, 'like']);
+Route::post('/post/{post}/report', [PostController::class, 'report']);
+Route::post('/post/{post}/scrap', [PostController::class, 'scrap']);
 // Post's resource
 Route::resource('post', PostController::class);
 //Route::resource('post', PostController::class)->except([
@@ -71,6 +73,7 @@ Route::get('/channel/removeChannelAdmin/{userID}', [ChannelController::class, 'g
 
 // Post resource in Channel
 Route::prefix('/channel/{channel}')->group(function () {
+//    Route::get('/post/{post}', [PostController::class, 'show']);
     Route::get('/post/{post}', [PostController::class, 'show']);
 });
 // User's

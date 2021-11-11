@@ -17,7 +17,18 @@
     padding: 0 0 0 31px;
     box-sizing: border-box;
 }
-
+#header .header-section-search input[type=text]:focus {
+    /*background-color: #293;*/
+}
+/*input::-webkit-calendar-picker-indicator {*/
+/*    display: none;*/
+/*}*/
+/*input:invalid::-webkit-calendar-picker-indicator {*/
+/*    display: none;*/
+/*}*/
+input::-webkit-calendar-picker-indicator {
+    opacity: 0;
+}
 #header .header-section-search input[type=text]::-moz-placeholder {
     color: #cbc7c7;
 }

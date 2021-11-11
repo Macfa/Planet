@@ -32,7 +32,7 @@
             </div>
         </div>
 {{--        change to policy of channel admin--}}
-        @if(auth()->id() == $channel->userID)
+        @if(auth()->id() == $channel->user_id)
         <div class="d-flex justify-content-end">
             <button class="fs-12 p-gray" data-bs-toggle="modal" data-bs-post-id="{{ $channel->id }}" data-bs-target="#open_channel_admin_modal">
                 관리자 추가

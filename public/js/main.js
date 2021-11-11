@@ -2,27 +2,48 @@
 var page = 1;
 var checkRun = false;
 
-$(window).scroll(function(event) {
-    if($(window).scrollTop() + $(window).height() >= $(document).height()) {
-        if(checkRun == false) {
-            checkRun = true;
-            loadMoreData(page);
-            page++;
+$(document).ready(function(){
+    // $(window.location.hash).modal('show'); // URL 입력 확인 후 모달 오픈
+    $(window).on('popstate', function(e) {
+        if(e.type == "popstate") {
+            var modalState = $("#open_post_modal").hasClass('show');
+            if(modalState) {
+                $("#open_post_modal").modal("hide");
+            } else {
+            }
         }
-    }
+    });
+
+    $(window).scroll(function(event) {
+        if($(window).scrollTop() + $(window).height() >= $(document).height()) {
+            if(checkRun == false) {
+                checkRun = true;
+                loadMoreData(page);
+                page++;
+            }
+        }
+    });
+
+    $('#main .right .best>ul li').click(function(){
+        $('#main .right .best li').removeClass('on');
+        $(this).addClass('on');
+    });
+
+    // clickSidebarMenu('realtime');
+    $('#main .right .best > ul .realtime').click();
+
 });
 
 function loadMoreData(page) {
-    var channelID = "{{ request()->route('channel') }}";
+    // var channel_id = "{{ request()->route('channel') }}";
     var type = $(".tab .on").attr('value');
-
+    // alert(channel_id);
     $.ajax({
         url: '/mainMenu',
         type: 'get',
         data: {
             "page": page,
             'type': type,
-            'channel_id': channelID
         },
         success: function (data) {
             var valueList = [];
@@ -63,18 +84,6 @@ function removeDataPlaceHolder() {
     checkRun = false;
 }
 
-$(document).ready(function(){
-    // $(window.location.hash).modal('show'); // URL 입력 확인 후 모달 오픈
-    $(window).on('popstate', function(e) {
-        if(e.type == "popstate") {
-            var modalState = $("#open_post_modal").hasClass('show');
-            if(modalState) {
-                $("#open_post_modal").modal("hide");
-            } else {
-            }
-        }
-    });
-});
 // $(document).on('show.bs.modal', '#open_post_modal', function (event) {
 $("#open_post_modal").on('hide.bs.modal', function(event) {
     if(history.state == "modal") {
@@ -92,14 +101,15 @@ $("#open_post_modal").on('show.bs.modal', function(event) {
         var modalBody = $(".modal-content");
         // console.log(history);
         if(history.state == null) {
-            var urlPath = "/channel/"+channelID+"/post/"+postID;
+            // var urlPath = "/channel/"+channelID+"/post/"+postID;
+            var urlPath = "/post/"+postID;
         } else {
             var urlPath = location.href;
         }
 
 
         $.ajax({
-            url: '/post/getPostData/'+postID,
+            url: '/post/'+postID,
             type: 'get',
             success: function(data) {
                 modalBody.html(data);

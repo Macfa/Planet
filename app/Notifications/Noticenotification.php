@@ -80,8 +80,8 @@ class Noticenotification extends Notification
         return $this->title;
     }
     public function checkOwner($notifiable) {
-        $postOwnerID = $this->comment->post->userID;
-        if($postOwnerID == $this->comment->userID) {
+        $postOwnerID = $this->comment->post->user_id;
+        if($postOwnerID == $this->comment->user_id) {
             return true;
         } else {
             return false;

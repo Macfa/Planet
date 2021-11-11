@@ -73,6 +73,8 @@
     /*overflow:hidden;*/
     border-top-left-radius:20px;
     border-top-right-radius:20px;
+      border-bottom-left-radius:20px;
+      border-bottom-right-radius:20px;
   }
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left .board-text {
@@ -84,20 +86,20 @@
     line-height:29px;
   }
 
-  .modal-parent > .modal-wrap > .modal-body > .modal-left .board-etc-function > ul {
+  .modal-parent > .modal-wrap > .modal-body > .modal-left ul {
     display:flex;
     align-items:center;
   }
 
-  .modal-parent > .modal-wrap > .modal-body > .modal-left .board-etc-function > ul > li.items {
+  .modal-parent > .modal-wrap > .modal-body > .modal-left ul > li.items {
     display:flex;
     align-items:center;
     position:relative;
     color:rgba(0, 0, 0, 0.6);
-    margin-right:16px;
+    margin-right:10px;
   }
 
-.modal-parent > .modal-wrap > .modal-body > .modal-left .board-etc-function > ul .items-r {
+.modal-parent > .modal-wrap > .modal-body > .modal-left .items-r {
     display:flex;
     /*align-items:center;*/
     position:relative;
@@ -106,10 +108,10 @@
     /*margin-left: auto;*/
     font-size: 12px;
 }
-  .modal-parent > .modal-wrap > .modal-body > .modal-left .board-etc-function > ul > li > .function-text {
+  .modal-parent > .modal-wrap > .modal-body > .modal-left ul > li > .function-text {
     margin-left:8px;
   }
-.modal-parent > .modal-wrap > .modal-body > .modal-left .board-etc-function > ul > li > .function-text > p {
+.modal-parent > .modal-wrap > .modal-body > .modal-left ul > li > .function-text > p {
     font-size: 12px;
 }
   .modal-parent > .modal-wrap > .modal-body > .modal-left .board-etc-function > ul > li > .function-sub {
@@ -147,6 +149,7 @@
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-write-form {
     margin-top:25px;
+      margin-bottom: 40px;
   }
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-write-form .form-title {
@@ -213,7 +216,7 @@
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent {
     position:relative;
-    margin-top:40px;
+    /*margin-top:40px;*/
   }
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .section-title {

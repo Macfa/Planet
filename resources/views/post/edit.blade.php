@@ -46,7 +46,7 @@
                             </div>
                             <div style="margin-top: 20px;">
                                 <ul class="btn">
-                                    <li><button type="button" class="btn_cancle" onclick="location.href='{{ url('/') }}'">취소</button></li>
+                                    <li><button type="button" class="btn_cancle" onclick="history.back();">취소</button></li>
                                     <li><button type="submit" class="btn_enter" onclick="">수정</button></li>
                                 </ul>
                             </div>

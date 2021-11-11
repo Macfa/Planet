@@ -46,7 +46,7 @@
                 </div>
                 <div>
                     <ul class="btn">
-                        <li><button type="button" class="btn_cancle" onclick="location.href='{{ url('/') }}'">취소</button></li>
+                        <li><button type="button" class="btn_cancle" onclick="history.back();">취소</button></li>
                         {{-- <li><a href="">등록</a></li> --}}
 {{--                        @isset($channel)--}}
                         @if(isset($channel))

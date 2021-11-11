@@ -5,18 +5,20 @@
     <div class="main-wrap">
         <article class="board_box row">
             <div class="left col-9">
-                @auth
+                <button style="margin:0 30px;" onclick="willRemove();">Unread</button>
+                <button onclick="location.href='/test'">Coin</button>
                     <ul class="category">
                         <div class="category_title">최근 방문한 동아리</div>
-                        <button style="margin:0 30px;" onclick="willRemove();">Unread</button>
-                        <button onclick="location.href='/test'">Coin</button>
-                        @forelse ($channelVisitHistories as $history)
-                            <li class="channel_{{ $history->channel_id }}"><a href="{{ route('channel.show', $history->channel_id) }}">{{ $history->channel->name }}</a></li>
-                        @empty
-                            <li><a href="{{ route('home') }}">방문채널이 없습니다.</a></li>
-                        @endforelse
+
+{{--                        @auth--}}
+                            @forelse($channelVisitHistories as $history)
+                                <li class="channel_{{ $history->channel_id }}"><a href="{{ route('channel.show', $history->channel_id) }}">{{ $history->channel->name }}</a></li>
+                            @empty
+                                <li><a href="{{ route('home') }}">방문채널이 없습니다.</a></li>
+                            @endforelse
+{{--                        @endauth--}}
                     </ul>
-                @endauth
+
 
                 @hasSection('content-mainmenu')
                     @yield('content-mainmenu')

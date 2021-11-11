@@ -45,14 +45,5 @@
             }
         })
     }
-    $(document).ready(function () {
-        $('#main .right .best>ul li').click(function(){
-            $('#main .right .best li').removeClass('on');
-            $(this).addClass('on');
-        });
-
-        // clickSidebarMenu('realtime');
-        $('#main .right .best > ul .realtime').click();
-    })
 </script>
 @endsection

@@ -98,7 +98,7 @@
                                         <p>신고</p>
                                     </div>
                                 </li>
-                                @if(auth()->id()==$post->userID)
+                                @if(auth()->id()==$post->user_id)
                                     <div class="ml-a items-r">
                                         <li class="clickable items-r" onclick="location.href='{{ route('post.edit', $post->id) }}'">
                                             <div class="function-text">

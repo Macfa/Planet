@@ -1,5 +1,5 @@
 
-    <div class="modal-parent container-fluid">
+    <div class="modal-parent container-fluid flex-grow-1">
         <div class="modal-wrap">
             <div class="modal-header flex-wrap-wrap">
                 <div class="modal-title flex-0-0-100">
@@ -34,24 +34,42 @@
                             {!! $post->content !!}
                         </div>
 
-                        <!-- 게시글 기타 기능 -->
+                        <div class="board-etc-function">
+                            <!-- 게시글 기타 기능 -->
+                            @if(auth()->id()==$post->user_id)
+                                <div class="ml-a items-r justify-content-end">
+                                    <li class="clickable items-r" onclick="location.href='{{ route('post.edit', $post->id) }}'">
+                                        <div class="function-text">
+                                            <p>수정</p>
+                                        </div>
+                                    </li>
+                                    <li class="clickable " onclick="deletePost({{ $post->id }})">
+                                        <div class="function-text">
+                                            <p>삭제</p>
+                                        </div>
+                                    </li>
+                                </div>
+                            @endif
+                        </div>
+
                         <div class="board-etc-function" id="post">
                             <ul>
                                 <li class="clickable items">
-                                    <img id="post-upvote" onclick="@if(auth()->check()) voteLikeInPost({{ $post->id }},1) @else notLogged(); @endif" class="image-sm" alt=""
+                                    <img id="post-upvote" onclick="voteLikeInPost({{ $post->id }},1);" class="image-sm" alt=""
+{{--                                    <img id="post-upvote" onclick="voteLikeInPost({{ $post->id }},1)" class="image-sm" alt=""--}}
                                          @if($post->existPostLike == 1)
                                              src="{{ asset('image/upvote_c.png') }}" />
                                         @else
                                             src="{{ asset('image/upvote.png') }}" />
                                         @endif
                                 </li>
-                                <li class="items">
+                                <li class="items justify-content-center">
                                     <div class="post-like">
                                         <p>{{ $post->likes->sum('like') }}</p>
                                     </div>
                                 </li>
                                 <li class="clickable items">
-                                    <img id="post-downvote" onclick="@if(auth()->check()) voteLikeInPost({{ $post->id }}, -1) @else notLogged(); @endif" class="image-sm" alt=""
+                                    <img id="post-downvote" onclick="voteLikeInPost({{ $post->id }}, -1)" class="image-sm" alt=""
                                          @if($post->existPostLike == -1)
                                             src="{{ asset('image/downvote_c.png') }}" />
                                         @else
@@ -73,7 +91,7 @@
                                         <p>공유</p>
                                     </div>
                                 </li>
-                                <li class="clickable items" onclick="@if(auth()->check()) scrapPost({{ $post->id }}) @else notLogged(); @endif">
+                                <li class="clickable items" onclick="scrapPost({{ $post->id }});">
                                     <img class="image-sm" name="scrap" alt=""
                                          @if($post->existPostScrap == 1)
                                              src="{{ asset('image/scrap_c.png') }}" />
@@ -86,7 +104,7 @@
                                     </div>
                                     {{-- <scrap-template></scrap-template> --}}
                                 </li>
-                                <li class="clickable items" onclick="@if(auth()->check()) reportPost({{ $post->id }}) @else notLogged(); @endif">
+                                <li class="clickable items" onclick="reportPost({{ $post->id }})">
                                     <img class="image-sm" alt=""
                                          @if($post->existPostReport == 1)
                                             src="{{ asset('image/report_c.png') }}" />
@@ -98,20 +116,6 @@
                                         <p>신고</p>
                                     </div>
                                 </li>
-                                @if(auth()->id()==$post->userID)
-                                    <div class="ml-a items-r">
-                                        <li class="clickable items-r" onclick="location.href='{{ route('post.edit', $post->id) }}'">
-                                            <div class="function-text">
-                                                <p>수정</p>
-                                            </div>
-                                        </li>
-                                        <li class="clickable " onclick="deletePost({{ $post->id }})">
-                                            <div class="function-text">
-                                                <p>삭제</p>
-                                            </div>
-                                        </li>
-                                    </div>
-                                @endif
                             </ul>
                         </div>
                     @yield('comment')
@@ -262,7 +266,10 @@
                 // openStampModal.addEventListener('show.bs.modal', function (event) {
                 //     alert(1);
                 // });
-
+                // $.fn.modal.defaults.maxHeight = function(){
+                    // subtract the height of the modal header and footer
+                    // return $(window).height() - 165;
+                // }
                 function deletePost(id) {
                     if(confirm('삭제하시겠습니까 ?')) {
                         $.ajax({
@@ -281,8 +288,8 @@
                 }
                 function voteLikeInPost(id, like) {
                     $.ajax({
-                        url: "/post/voteLikeInPost",
-                        data: { id: id, like:like },
+                        url: "/post/"+id+"/like",
+                        data: { like:like },
                         type: "post",
                         success: function(data) {
                             // console.log(data);
@@ -291,7 +298,11 @@
                             $(".post-like").text(data.totalLike);
                         },
                         error: function(err) {
-                            alert("추천기능에 문제가 생겨 확인 중입니다.");
+                            if(err.status == 401) {
+                                alert(err.responseText);
+                            } else {
+                                alert("문제가 생겨 확인 중입니다")
+                            }
                         }
                     });
                 }
@@ -308,22 +319,25 @@
                 }
                 function reportPost(postID) {
                     $.ajax({
-                        url: "/post/reportPost",
-                        data: { id: postID },
+                        url: "/post/"+postID+"/report",
                         type: "post",
                         success: function(data) {
-                            alert("신고되었습니다");
+                            console.log(data);
+                            alert(data.responseText);
                         },
-                        errror: function(err) {
-                            alert("기능에러로 신고되지 않았습니다.");
+                        error: function(err) {
+                            if(err.status == 401) {
+                                alert(err.responseText);
+                            } else {
+                                alert("문제가 생겨 확인 중입니다")
+                            }
                         }
                     });
                 }
                 function scrapPost(postID) {
                     if(confirm('스크랩하시겠습니까?\n기존에 스크랩을 했었다면 스크랩이 삭제됩니다')) {
                         $.ajax({
-                            url: "/post/scrapPost",
-                            data: { id: postID },
+                            url: "/post/"+postID+"/scrap",
                             type: "post",
                             success: function(data) {
                                 if(data.result == "insert") {
@@ -334,8 +348,12 @@
                                     alert("스크랩이 삭제되었습니다");
                                 }
                             },
-                            errror: function(err) {
-                                alert("기능에러로 스크랩되지 않았습니다.");
+                            error: function(err) {
+                                if(err.status == 401) {
+                                    alert(err.responseText);
+                                } else {
+                                    alert("문제가 생겨 확인 중입니다")
+                                }
                             }
                         });
                     }

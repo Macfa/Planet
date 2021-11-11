@@ -5,7 +5,7 @@
 {{--        <article class="board_box">--}}
         <article class="board_box">
             <div class="left">
-                @auth
+{{--                @auth--}}
                     <button style="margin:0 30px;" onclick="willRemove();">Unread</button>
                     <button onclick="location.href='/test'">Coin</button>
 
@@ -22,7 +22,7 @@
                             <li><a href="{{ route('home') }}">방문채널이 없습니다.</a></li>
                         @endforelse
                     </ul>
-                @endauth
+{{--                @endauth--}}
 
                 {{-- search, user.show, content  --}}
                 @hasSection('mobile.content-mainmenu')
@@ -51,8 +51,8 @@
                                     <div class="title">
                                         <a href="#post-show-{{ $post->id }}" data-bs-toggle="modal" data-bs-focus="false" data-bs-post-id="{{ $post->id }}" data-bs-channel-id="{{ $post->channel->id }}" data-bs-target="#open_post_modal">
                                             <p>{{ $post->title }}&nbsp;&nbsp;
-                                                @if($post->comments_count>0)
-                                                    <span class="titleSub">[<span class="commentCount">{{ $post->comments_count }}</span>]</span></p>
+                                                @if($post->comments->count() > 0)
+                                                    <span class="titleSub">[<span class="commentCount">{{ $post->comments->count() }}</span>]</span></p>
                                                 @endif
 
                                             <span>
@@ -122,7 +122,7 @@
         });
 
         function loadMoreData(page) {
-            var channelID = "{{ request()->route('channel') }}";
+{{--            var channelID = "{{ request()->route('channel') }}";--}}
             var type = $(".tab .on").attr('value');
 
                 $.ajax({
@@ -131,7 +131,7 @@
                     data: {
                         "page": page,
                         'type': type,
-                        'channel_id': channelID
+                        // 'channel_id': channelID
                     },
                     success: function (data) {
                         var valueList = [];
@@ -142,10 +142,10 @@
                             for (var i = 0; i < data.result.length; i++) {
                                 valueList.push({
                                     "totalLike": data.result[i].totalLike,
-                                    "postID": data.result[i].id,
+                                    "post_id": data.result[i].id,
                                     "postTitle": data.result[i].title,
                                     "commentCount": data.result[i].comments_count,
-                                    "postChannelID": data.result[i].channel.id,
+                                    "channel_id": data.result[i].channel.id,
                                     "channelName": data.result[i].channel.name,
                                     "userName": data.result[i].user.name,
                                     "user_id": data.result[i].user.id,
@@ -181,6 +181,9 @@
                 if(modalState) {
                     $("#open_post_modal").modal("hide");
                 } else {
+                    var urlPath = location.pathname.split("/");
+                    var getPostId = urlPath[urlPath.length-1];
+                    $(`#post-${getPostId} .title a`).children().click();
                 }
             }
 
@@ -200,18 +203,19 @@
     $(document).on('show.bs.modal', '#open_post_modal', function (event) {
         if (event.target.id == 'open_post_modal') {
             var button = event.relatedTarget;
-            var postID = button.getAttribute('data-bs-post-id');
+            var post_id = button.getAttribute('data-bs-post-id');
             var channelID = button.getAttribute('data-bs-channel-id');
             var modalBody = $(".modal-content");
 
             if(history.state == null) {
-                var urlPath = "/channel/"+channelID+"/post/"+postID;
+                // var urlPath = "/channel/"+channelID+"/post/"+post_id;
+                var urlPath = "/post/"+post_id;
             } else {
                 var urlPath = location.href;
             }
 
             $.ajax({
-                url: '/post/getPostData/'+postID,
+                url: '/post/'+post_id,
                 type: 'get',
                 success: function(data) {
                     history.pushState('modal', 'modal', urlPath);
@@ -267,10 +271,10 @@
                         console.log(data.result[i]);
                         valueList.push({
                             "totalLike": data.result[i].totalLike,
-                            "postID": data.result[i].id,
+                            "post_id": data.result[i].id,
                             "postTitle": data.result[i].title,
                             "commentCount": data.result[i].comments_count,
-                            "postChannelID": data.result[i].channel.id,
+                            "channel_id": data.result[i].channel.id,
                             "channelName": data.result[i].channel.name,
                             "userName": data.result[i].user.name,
                             "user_id": data.result[i].user.id,
@@ -290,13 +294,17 @@
     }
 </script>
 <script id="mainMenuItem" type="text/x-jquery-tmpl">
-<tr id="post-${postID}">
+{{--        <a href="#post-show-{{ $post->id }}" data-bs-toggle="modal" data-bs-focus="false" data-bs-post-id="{{ $post->id }}" data-bs-channel-id="{{ $post->channel->id }}" data-bs-target="#open_post_modal">--}}
+{{--            <p>{{ $post->title }}&nbsp;&nbsp;--}}
+{{--                @if($post->comments->count() > 0)--}}
+{{--<span class="titleSub">[<span class="commentCount">{{ $post->comments->count() }}</span>]</span></p>--}}
+<tr id="post-${post_id}" class="post-title">
     <td>
         <div class="thum" style="background-image: url(${postImage});"></div>
     </td>
     <td>
         <div class="title">
-            <a href="#post-show-${postID}" data-bs-toggle="modal" data-bs-focus="false" data-bs-post-id="${postID}" data-bs-target="#open_post_modal">
+            <a href="#post-show-${post_id}" data-bs-toggle="modal" data-bs-focus="false" data-bs-post-id="${post_id}" data-bs-channel-id="${channel_id}" data-bs-target="#open_post_modal">
                 <p>${postTitle}&nbsp;&nbsp;
                     @{{if commentCount > 0}}
                         <span class="titleSub">[<span class="commentCount">${commentCount}</span>]</span>
@@ -316,7 +324,7 @@
             </a>
         </div>
         <div class="user">
-            <p><span><a href="/channel/${postChannelID}">[ ${channelName} ]</a></span> ${created_at_modi} / <a href="/user/${userID}">${userName}</a></p></div>
+            <p><span><a href="/channel/${channel_id}">[ ${channelName} ]</a></span> ${created_at_modi} / <a href="/user/${userID}">${userName}</a></p></div>
         </div>
     </td>
 </tr>
