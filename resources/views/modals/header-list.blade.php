@@ -7,7 +7,7 @@
 {{--</div>--}}
 
 {{--<div class="collapse" id="header-list" style="z-index:1055; position:absolute; width:100vw;">--}}
-<div class="collapse multi-collapse" id="header-list" style="z-index:2000; position:fixed; right:2%; top:6.5%; width:30%">
+<div class="collapse multi-collapse" id="header-list" style="z-index:2000; position:fixed; right:0%; top:6.5%; width:20%">
     <div class="list-group" style="border-radius: 1rem;">
         <!--name-->
 {{--        <a class="flex-container disabled list-group-item list-group-item-action"><img src="{{ asset('image/scrap_c.png') }}" alt="" class="header-list-icon"><p>{{ auth()->user()->name }} ( {{ auth()->user()->grade->name }} )</p></a>--}}
