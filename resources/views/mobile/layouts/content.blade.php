@@ -50,9 +50,9 @@
                                 <td>
                                     <div class="title">
                                         <a href="#post-show-{{ $post->id }}" data-bs-toggle="modal" data-bs-focus="false" data-bs-post-id="{{ $post->id }}" data-bs-channel-id="{{ $post->channel->id }}" data-bs-target="#open_post_modal">
-                                            <p>{{ $post->title }}&nbsp;&nbsp;
+                                            <p>{{ $post->title }}&nbsp;&nbsp;</p>
                                                 @if($post->comments->count() > 0)
-                                                    <span class="titleSub">[<span class="commentCount">{{ $post->comments->count() }}</span>]</span></p>
+                                                    <span class="titleSub">[&nbsp;<span class="commentCount">{{ $post->comments->count() }}</span>&nbsp;]</span>
                                                 @endif
 
                                             <span>
@@ -111,18 +111,8 @@
         var page = 1;
         var checkRun = false;
 
-        $(window).scroll(function(event) {
-            if($(window).scrollTop() + $(window).height() >= $(document).height()) {
-                if(checkRun == false) {
-                    checkRun = true;
-                    loadMoreData(page);
-                    page++;
-                }
-            }
-        });
-
         function loadMoreData(page) {
-{{--            var channelID = "{{ request()->route('channel') }}";--}}
+            var channelID = "{{ request()->route('channel.id') }}";
             var type = $(".tab .on").attr('value');
 
                 $.ajax({
@@ -131,12 +121,12 @@
                     data: {
                         "page": page,
                         'type': type,
-                        // 'channel_id': channelID
+                        'channelID': channelID
                     },
                     success: function (data) {
                         var valueList = [];
                         if (data.result.length == 0) {
-                            toastr.info("데이터가 없습니다");
+                            // toastr.info("데이터가 없습니다");
                         } else {
                             addDataPlaceHolder();
                             for (var i = 0; i < data.result.length; i++) {
@@ -145,7 +135,7 @@
                                     "post_id": data.result[i].id,
                                     "postTitle": data.result[i].title,
                                     "commentCount": data.result[i].comments_count,
-                                    "channel_id": data.result[i].channel.id,
+                                    "postChannelID": data.result[i].channel.id,
                                     "channelName": data.result[i].channel.name,
                                     "userName": data.result[i].user.name,
                                     "user_id": data.result[i].user.id,
@@ -188,6 +178,20 @@
             }
 
         });
+
+        $(window).scroll(function(event) {
+            console.log(event);
+            console.log($(window).scrollTop());
+            console.log($(window).height());
+            console.log($(document).height());
+            if($(window).scrollTop() + $(window).height() >= $(document).height()) {
+                if(checkRun == false) {
+                    checkRun = true;
+                    loadMoreData(page);
+                    page++;
+                }
+            }
+        });
         // $(window.location.hash).modal('show'); // URL 입력 확인 후 모달 오픈
         // $('a[data-bs-toggle="modal"]').click(function(){
         //     console.log($(this).attr('href'));
@@ -200,11 +204,11 @@
             history.back();
         }
     });
-    $(document).on('show.bs.modal', '#open_post_modal', function (event) {
+    $("#open_post_modal").on('show.bs.modal', function(event) {
         if (event.target.id == 'open_post_modal') {
             var button = event.relatedTarget;
             var post_id = button.getAttribute('data-bs-post-id');
-            var channelID = button.getAttribute('data-bs-channel-id');
+            // var channelID = button.getAttribute('data-bs-channel-id');
             var modalBody = $(".modal-content");
 
             if(history.state == null) {
@@ -218,8 +222,8 @@
                 url: '/post/'+post_id,
                 type: 'get',
                 success: function(data) {
-                    history.pushState('modal', 'modal', urlPath);
                     modalBody.html(data);
+                    history.pushState('modal', 'modal', urlPath);
                 },
                 error: function(err) {
                     console.log(err);
@@ -250,14 +254,14 @@
         $("#mainSearchForm").submit();
     }
     function clickMainMenu(type) {
-        var channelID = "{{ request()->route('channel') }}";
+        var channelID = "{{ request()->route('channel.id') }}";
 
         $.ajax({
             url: '/mainMenu',
             type: 'get',
             data: {
                 'type': type,
-                'channel_id': channelID
+                'channelID': channelID
             },
             success: function(data) {
                 var valueList = [];
@@ -268,7 +272,7 @@
                     $("#main .wrap .left .list table tbody").html(value);
                 } else {
                     for(var i=0; i<data.result.length; i++) {
-                        console.log(data.result[i]);
+                        // console.log(data.result[i]);
                         valueList.push({
                             "totalLike": data.result[i].totalLike,
                             "post_id": data.result[i].id,
@@ -294,37 +298,27 @@
     }
 </script>
 <script id="mainMenuItem" type="text/x-jquery-tmpl">
-{{--        <a href="#post-show-{{ $post->id }}" data-bs-toggle="modal" data-bs-focus="false" data-bs-post-id="{{ $post->id }}" data-bs-channel-id="{{ $post->channel->id }}" data-bs-target="#open_post_modal">--}}
-{{--            <p>{{ $post->title }}&nbsp;&nbsp;--}}
-{{--                @if($post->comments->count() > 0)--}}
-{{--<span class="titleSub">[<span class="commentCount">{{ $post->comments->count() }}</span>]</span></p>--}}
 <tr id="post-${post_id}" class="post-title">
     <td>
         <div class="thum" style="background-image: url(${postImage});"></div>
     </td>
     <td>
         <div class="title">
-            <a href="#post-show-${post_id}" data-bs-toggle="modal" data-bs-focus="false" data-bs-post-id="${post_id}" data-bs-channel-id="${channel_id}" data-bs-target="#open_post_modal">
-                <p>${postTitle}&nbsp;&nbsp;
-                    @{{if commentCount > 0}}
-                        <span class="titleSub">[<span class="commentCount">${commentCount}</span>]</span>
-                    @{{/if}}
-                </p>
-                <span>
-                    @{{each(i,stamp) stampInPosts}}
-                    ${stamp.id}
-{{--                        @foreach($post->stampInPosts as $stamp)--}}
-                            <img style="width:27px;" src="${stamp.image}" alt="">
-{{--                            ${stamp.name}--}}
-{{--                            @if($stamp->count>1)--}}
-{{--                                {{ $stamp->count }}--}}
-{{--                            @endif--}}
-                    @{{/each}}
-                </span>
+            <a href="#post-show-${post_id}" data-bs-toggle="modal" data-bs-focus="false" data-bs-post-id="${post_id}" data-bs-channel-id="${postChannelID}" data-bs-target="#open_post_modal">
+                <p>${postTitle}&nbsp;&nbsp;</p>
+                @{{if commentCount > 0}}
+                    <span class="titleSub">[&nbsp;<span class="commentCount">${commentCount}</span>&nbsp;]</span>
+                @{{/if}}
+{{--                <span>--}}
+{{--                    @{{each(i,stamp) stampInPosts}}--}}
+{{--                    ${stamp.id}--}}
+{{--                            <img style="width:27px;" src="${stamp.image}" alt="">--}}
+{{--                    @{{/each}}--}}
+{{--                </span>--}}
             </a>
         </div>
         <div class="user">
-            <p><span><a href="/channel/${channel_id}">[ ${channelName} ]</a></span> ${created_at_modi} / <a href="/user/${userID}">${userName}</a></p></div>
+            <p><span><a href="/channel/${postChannelID}">[ ${channelName} ]</a></span> ${created_at_modi} / <a href="/user/${userID}">${userName}</a></p></div>
         </div>
     </td>
 </tr>

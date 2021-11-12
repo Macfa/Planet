@@ -249,15 +249,18 @@
                 $("#open_post_modal").scroll(function() {
                     var headerHeight = $("#header").height();
                     var postOffsetTop = $("#post").offset().top;
+
                     if(postOffsetTop - headerHeight <= 0 ) {
                         var checkExist = $("#post-bot-function").hasClass("sticky-bottom");
                         if(checkExist === false) {
                             $("#post-bot-function").addClass("sticky-bottom");
+                            $("#post-bot-function").removeClass("d-none");
                         }
                     } else {
                         var checkExist = $("#post-bot-function").hasClass("sticky-bottom");
                         if(checkExist === true) {
                             $("#post-bot-function").removeClass("sticky-bottom");
+                            $("#post-bot-function").addClass("d-none");
                         }
                     }
                 });
@@ -343,7 +346,6 @@
                         url: "/post/"+postID+"/report",
                         type: "post",
                         success: function(data) {
-                            console.log(data);
                             alert(data.responseText);
                         },
                         error: function(err) {

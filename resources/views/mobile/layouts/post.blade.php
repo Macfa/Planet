@@ -4,14 +4,14 @@
             <div class="modal-header flex-wrap-wrap">
                 <div class="modal-title flex-0-0-100">
                     <h4>
-                        {{ $post->title }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="titleSub">[<span class="commentCount">{{ $post->comments_count }}</span>]</span>
+                        {{ $post->title }}&nbsp;&nbsp;<span class="titleSub">[&nbsp;<span class="commentCount">{{ $post->comments->count() }}</span>&nbsp;]</span>
                         <span class="stamps">
                             @foreach($post->stampInPosts as $stampInPost)
                                 <span class="stamp-{{ $stampInPost->stampID }}">
                                     <img style="width:31px;" src="{{ $stampInPost->stamp->image }}" alt="">
                                     <span>
-                                        @if($stampInPost->count>1)
-                                                {{ $stampInPost->count }}
+                                        @if($stampInPost->count() > 1)
+                                            {{ $stampInPost->count() }}
                                         @endif
                                     </span>
                                 </span>
@@ -20,7 +20,7 @@
                     </h4>
                 </div>
                 <div class="write-info">
-                    <p><span><a href="{{ route('channel.show', $post->channel_id) }}">[{{ $post->channel->name }}]</a></span>&nbsp;온 <a href="{{ route('user.show', 'post') }}">{{ $post->user->name }}</a> / {{ $post->created_at->diffForHumans() }}</p>
+                    <p class="sub_text"><span><a href="{{ route('channel.show', $post->channel_id) }}">[&nbsp;{{ $post->channel->name }}&nbsp;]&nbsp;</a></span> {{ $post->created_at->diffForHumans() }} / <a href="{{ route('user.show', ["user" => $post->user] ) }}">{{ $post->user->name }}</a></p>
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 {{--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-image: url({{ asset('image/close.png') }})"></button>--}}
@@ -34,6 +34,24 @@
                             {!! $post->content !!}
                         </div>
 `
+                        <div class="board-etc-function">
+                            <!-- 게시글 기타 기능 -->
+                            @if(auth()->id()==$post->user_id)
+                                <div class="ml-a items-r justify-content-end">
+                                    <li class="clickable items-r" onclick="location.href='{{ route('post.edit', $post->id) }}'">
+                                        <div class="function-text">
+                                            <p>수정</p>
+                                        </div>
+                                    </li>
+                                    <li class="clickable " onclick="deletePost({{ $post->id }})">
+                                        <div class="function-text">
+                                            <p>삭제</p>
+                                        </div>
+                                    </li>
+                                </div>
+                            @endif
+                        </div>
+
                         <!-- 게시글 기타 기능 -->
                         <div class="board-etc-function" id="post">
                             <ul>
@@ -59,27 +77,37 @@
                                         @endif
                                 </li>
                                 <!-- Button trigger modal -->
-                                <li data-bs-toggle="modal" data-bs-target="#openStampModal" class="clickable items">
-                                    <img src="{{ asset('image/stamp.png') }}" class="image-sm" alt="" />
+                                @auth
+                                    <li data-bs-toggle="modal" data-bs-target="#openStampModal" class="clickable items">
+                                @endauth
+                                @guest
+                                    <li onclick="notLogged()" class="clickable items">
+                                @endguest
+                                    <img src="{{ asset('image/stamp_c.png') }}" class="image-sm" alt="" />
 
                                     <div class="function-text">
                                         <p>스탬프</p>
                                     </div>
                                 </li>
-                                <li class="clickable items">
-                                    <img src="{{ asset('image/share.png') }}" class="image-sm" alt="" />
+                                @auth
+                                    <li class="clickable items">
+                                @endauth
+                                @guest
+                                    <li onclick="notLogged()" class="clickable items">
+                                @endguest
+                                    <img src="{{ asset('image/share_c.png') }}" class="image-sm" alt="" />
 
                                     <div class="function-text">
                                         <p>공유</p>
                                     </div>
                                 </li>
                                 <li class="clickable items" onclick="@if(auth()->check()) scrapPost({{ $post->id }}) @else notLogged(); @endif">
-                                    <img class="image-sm" name="scrap" alt=""
-                                         @if($post->existPostScrap == 1)
-                                             src="{{ asset('image/scrap_c.png') }}" />
-                                        @else
-                                             src="{{ asset('image/scrap.png') }}" />
-                                        @endif
+                                    <img class="image-sm" name="scrap" alt="" src="{{ asset('image/scrap_c.png') }}" />
+{{--                                         @if($post->existPostScrap == 1)--}}
+{{--                                             src="{{ asset('image/scrap_c.png') }}" />--}}
+{{--                                        @else--}}
+{{--                                             src="{{ asset('image/scrap.png') }}" />--}}
+{{--                                        @endif--}}
 
                                     <div class="function-text">
                                         <p>스크랩</p>
@@ -98,20 +126,6 @@
                                         <p>신고</p>
                                     </div>
                                 </li>
-                                @if(auth()->id()==$post->user_id)
-                                    <div class="ml-a items-r">
-                                        <li class="clickable items-r" onclick="location.href='{{ route('post.edit', $post->id) }}'">
-                                            <div class="function-text">
-                                                <p>수정</p>
-                                            </div>
-                                        </li>
-                                        <li class="clickable " onclick="deletePost({{ $post->id }})">
-                                            <div class="function-text">
-                                                <p>삭제</p>
-                                            </div>
-                                        </li>
-                                    </div>
-                                @endif
                             </ul>
                         </div>
                     @yield('comment')
@@ -202,17 +216,20 @@
                 $("#open_post_modal").scroll(function() {
                     var headerHeight = $("#header").height();
                     var postOffsetTop = $("#post").offset().top;
+
                     if(postOffsetTop - headerHeight <= 0 ) {
                         var checkExist = $("#post-bot-function").hasClass("sticky-bottom");
                         // console.log(checkExist);
                         if(checkExist === false) {
                             $("#post-bot-function").addClass("sticky-bottom");
+                            $("#post-bot-function").removeClass("d-none");
                             // console.log($("#post-bot-function").className);
                         }
                     } else {
                         var checkExist = $("#post-bot-function").hasClass("sticky-bottom");
                         if(checkExist === true) {
                             $("#post-bot-function").removeClass("sticky-bottom");
+                            $("#post-bot-function").addClass("d-none");
                         }
                     }
                 });
@@ -251,8 +268,8 @@
                 }
                 function voteLikeInPost(id, like) {
                     $.ajax({
-                        url: "/post/voteLikeInPost",
-                        data: { id: id, like:like },
+                        url: "/post/"+id+"/like",
+                        data: { like:like },
                         type: "post",
                         success: function(data) {
                             // console.log(data);
@@ -261,7 +278,11 @@
                             $(".post-like").text(data.totalLike);
                         },
                         error: function(err) {
-                            alert("추천기능에 문제가 생겨 확인 중입니다.");
+                            if(err.status === 401) {
+                                alert(err.responseText);
+                            } else {
+                                alert("문제가 생겨 확인 중입니다")
+                            }
                         }
                     });
                 }
@@ -278,22 +299,24 @@
                 }
                 function reportPost(postID) {
                     $.ajax({
-                        url: "/post/reportPost",
-                        data: { id: postID },
+                        url: "/post/"+postID+"/report",
                         type: "post",
                         success: function(data) {
-                            alert("신고되었습니다");
+                            alert(data.responseText);
                         },
                         errror: function(err) {
-                            alert("기능에러로 신고되지 않았습니다.");
+                            if(err.status == 401) {
+                                alert(err.responseText);
+                            } else {
+                                alert("문제가 생겨 확인 중입니다")
+                            }
                         }
                     });
                 }
                 function scrapPost(postID) {
                     if(confirm('스크랩하시겠습니까?\n기존에 스크랩을 했었다면 스크랩이 삭제됩니다')) {
                         $.ajax({
-                            url: "/post/scrapPost",
-                            data: { id: postID },
+                            url: "/post/"+postID+"/scrap",
                             type: "post",
                             success: function(data) {
                                 if(data.result == "insert") {
@@ -305,7 +328,11 @@
                                 }
                             },
                             errror: function(err) {
-                                alert("기능에러로 스크랩되지 않았습니다.");
+                                if(err.status == 401) {
+                                    alert(err.responseText);
+                                } else {
+                                    alert("문제가 생겨 확인 중입니다")
+                                }
                             }
                         });
                     }

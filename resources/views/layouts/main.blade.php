@@ -196,7 +196,7 @@
 
                 // console.log(button.getAttribute('data-bs-post-id'));
                 var postID = button.getAttribute('data-bs-post-id');
-                var channelID = button.getAttribute('data-bs-channel-id');
+                // var channelID = button.getAttribute('data-bs-channel-id');
                 var modalBody = $(".modal-content");
                 // console.log(history);
                 if(history.state == null) {
@@ -273,6 +273,7 @@
                                 "channelName": data.result[i].channel.name,
                                 "userName": data.result[i].user.name,
                                 "user_id": data.result[i].user.id,
+                                "stampInPosts": data.result[i].stamp_in_posts,
                                 "created_at_modi": data.result[i].created_at_modi
                             });
                         }
@@ -304,11 +305,11 @@
         <td><div class="thum"></div></td>
         <td>
             <div class="title">
-                <a href="" data-bs-toggle="modal" data-bs-post-id="${postID}" data-bs-target="#open_post_modal">
-                <p>${postTitle}&nbsp;&nbsp;</p>
-                @{{if commentCount > 0}}
-                    <span class="titleSub">[<span class="commentCount">${commentCount}</span>]</span>
-                @{{/if}}
+                <a href="#post-show-${post_id}" data-bs-toggle="modal" data-bs-post-id="${postID}" data-bs-channel-id="${channel_id}" data-bs-target="#open_post_modal">
+                    <p>${postTitle}&nbsp;&nbsp;</p>
+                    @{{if commentCount > 0}}
+                        <span class="titleSub">[&nbsp;<span class="commentCount">${commentCount}</span>&nbsp;]</span>
+                    @{{/if}}
                 </a>
             </div>
             <div class="user">

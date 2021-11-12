@@ -31,8 +31,6 @@
     </div>
 
 @forelse ($comments as $comment)
-    {{--        @if ($comment->depth == 0)--}}
-
     <!-- 댓글 리스트 -->
         <div class="comment-list comment-{{ $comment->id }}">
             <div style="padding-left:{{ ($comment->depth <= 4) ? $comment->depth*44 : 4*44 }}px;" class="comment-item">
@@ -108,7 +106,7 @@
         <p>No users</p>
 @endforelse
         <!-- 하단 기능 Comment -->
-        <div class="board-bot-function" id="post-bot-function">
+        <div class="board-bot-function d-none" id="post-bot-function">
             <div class="left-function">
                 <div class="page-arrow mr-3">
                     <img onclick="voteLikeInPost({{ $post->id }},1)" id="post-upvote-fix" class="image-m clickable" alt="위로"
@@ -171,7 +169,7 @@
     }
     function toggleEditForm(status, commentID) {
         var el = $(`.comment-info, .comment-modi-form, .comment-cont`, `.comment-${commentID}`);
-        if(status == "show") {
+        if(status === "show") {
             el.hide();
 
             // var value = escapeHTML($(`.comment-${commentID} .comment-cont p`).html());
@@ -182,7 +180,7 @@
             };
 
             $("#replyWriteForm").tmpl(templateValues).appendTo(`.comment-${commentID} .comment-item`);
-        } else if(status == "hide") {
+        } else if(status === "hide") {
             $(`.comment-${commentID} .reply-form`).remove();
             el.show();
         }
@@ -202,7 +200,7 @@
         }
     }
     function toggleAddForm(status, commentID) {
-        if(status == "show") {
+        if(status === "show") {
             var templateValues = {
                 "commentID": commentID,
                 "value": "",
@@ -211,22 +209,22 @@
 
             // $("#replyWriteForm").tmpl(templateValues).appendTo(`.comment-${commentID} .comment-item`);
             $("#replyWriteForm").tmpl(templateValues).appendTo(`.comment-${commentID}`);
-        } else if(status == "hide") {
+        } else if(status === "hide") {
             $(`.comment-${commentID} .reply-form`).remove();
         }
     }
     function cancleForm(form, commentID) {
-        if(form == "edit") {
+        if(form === "edit") {
             toggleEditForm("hide", commentID);
-        } else if(form == "add") {
+        } else if(form === "add") {
             toggleAddForm("hide", commentID);
         }
     }
     function checkCommentTypeToProcess(form, commentID) {
         // make it one
-        if(form == "add") {
+        if(form === "add") {
             addComment(form, commentID);
-        } else if(form == "edit") {
+        } else if(form === "edit") {
             addComment(form, commentID);
         }
     }
@@ -257,7 +255,6 @@
                 data: data,
                 type: type,
                 success: function(data) {
-                    console.log(data);
                     if(form == "edit") { // 기존 댓글 업데이트 로직
                         $(`.comment-${commentID} .comment-cont p`).html(data.content);
                         toggleEditForm('hide', commentID);
@@ -296,12 +293,11 @@
 
                 },
                 error: function(err) {
-                    if(err.responseJSON.reason == 'login') {
+                    if(err.status === 401) {
                         alert("로그인이 필요한 기능입니다.");
                     } else {
                         alert("댓글이 저장되지않았습니다\n관리자에게 문의해주세요.");
                     }
-                    console.log(err);
                 }
             })
         }, 300);
@@ -353,9 +349,9 @@
         $(`#comment-${id}-upvote`).attr("src", "{{ asset('image/upvote.png') }}");
     }
     function commentSelectLike(id, like) {
-        if(like == 1) {
+        if(like === 1) {
             $("#comment-"+id+"-upvote").attr("src", "{{ asset('image/upvote_c.png') }}");
-        } else if(like == -1) {
+        } else if(like === -1) {
             $("#comment-"+id+"-downvote").attr("src", "{{ asset('image/downvote_c.png') }}");
         }
     }

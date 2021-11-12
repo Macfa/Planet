@@ -39,11 +39,11 @@
     font-weight:400;
   }
 .modal-parent > .modal-wrap > .modal-header > .modal-title h4 .titleSub {
-    font-size:23px;
+    font-size:24px;
     /*font-weight:400;*/
 }
     .modal-parent > .modal-wrap > .modal-header > .modal-title h4 .titleSub .commentCount {
-        font-size:21px;
+        font-size:24px;
         /*font-weight:400;*/
     }
   .modal-parent > .modal-wrap > .modal-header > .write-info > p {
@@ -75,7 +75,15 @@
     /*border-top-left-radius:20px;*/
     /*border-top-right-radius:20px;*/
   }
-
+.modal-parent > .modal-wrap > .modal-body > .modal-left .items-r {
+    display:flex;
+    /*align-items:center;*/
+    position:relative;
+    color:rgba(0, 0, 0, 0.6);
+    margin-right:16px;
+    /*margin-left: auto;*/
+    font-size: 12px;
+}
   .modal-parent > .modal-wrap > .modal-body > .modal-left .board-text {
     margin: 10px 10px 100px;
   }
@@ -95,7 +103,7 @@
     align-items:center;
     position:relative;
     color:rgba(0, 0, 0, 0.6);
-    margin-right:6px;
+    margin-right:10px;
   }
 
 .modal-parent > .modal-wrap > .modal-body > .modal-left .board-etc-function > ul .items-r {
@@ -311,7 +319,7 @@
   }
 
 .write-info .comment-modi-form > button > div.function-text > p {
-    font-size:9px;
+    font-size:12px;
     vertical-align:middle;
     margin-left:12px;
 }
@@ -443,7 +451,7 @@
 
   .left-function > * {
     /*flex: 0 0 60%;*/
-      margin-left: 8px;
+      margin-left: 12px;
   }
   .right-function > img {
       margin-right: 8px;
@@ -575,6 +583,42 @@ table, td {
 #post-bot-function {
     border-top: 1px solid #888888;
     padding: 3px 0;
+}
+.modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .reply-form textarea {
+    font-size:14px;
+    border-radius:15px;
+    border:1px solid rgba(0, 0, 0, 0.6);
+    resize:none;
+    width:100%;
+    height:106px;
+}
+.modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .reply-form .form-btn {
+    /*position:absolute;*/
+    position:relative;
+    right:20px;
+    bottom:10px;
+    display:flex;
+}
+
+.modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .reply-form .form-btn  button {
+    border-radius:15px;
+    height:35px;
+    width:68px;
+    font-size:14px;
+}
+
+.modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .reply-form .form-btn > .reset-btn button {
+    background-color:#fff;
+    color:#5a4e70;
+    border:5px solid #3d5afe;
+    margin-right:10px;
+
+}
+
+.modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .reply-form .form-btn > .write-btn button {
+    background-color:#3d5afe;
+    color:#fff;
+    border:0;
 }
 
 /*.right-function {*/

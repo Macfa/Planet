@@ -335,7 +335,7 @@
     @endif
     function notLogged() {
         // if(!auth()->check()) {
-        toastr.warning("로그인이 필요한 기능입니다");
+        alert("로그인이 필요한 기능입니다");
         return;
         // }
     }

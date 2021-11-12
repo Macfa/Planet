@@ -12,8 +12,14 @@
         <p>사람들과 얘기하고 싶었던 주제로 나만의 몽드를 만들어 보세요.</p>
         <p>어쩌면 마음이 맞는 친구를 찾을지도 모릅니다.</p>
         <ul>
-            <li><a href="{{ route('post.create') }}">게시글 작성</a></li>
-            <li><a href="{{ route('channel.create') }}">동아리 만들기</a></li>
+            @auth
+                <li><a href="{{ route('post.create') }}">게시글 작성</a></li>
+                <li><a href="{{ route('channel.create') }}">동아리 만들기</a></li>
+            @endauth
+            @guest
+                <li><a href="javascript:notLogged();">게시글 작성</a></li>
+                <li><a href="javascript:notLogged();">동아리 만들기</a></li>
+            @endguest
         </ul>
     </div>
 </div>

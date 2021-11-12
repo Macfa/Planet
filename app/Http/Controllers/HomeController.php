@@ -51,9 +51,9 @@ class HomeController extends Controller
 
     public function mainMenu(Request $request) {
         $channelID = $request->input("channelID");
-        $type = $request->type;
+        $type = $request->input("type");
 //        $channelID = $request->channelID;
-        $page = $request->page;
+        $page = $request->input("page");
 //        var_dump($channelID);
 //        $params = $request->only('type', 'channel_id', 'page');
         $posts = Post::mainMenu($type, $channelID, $page);

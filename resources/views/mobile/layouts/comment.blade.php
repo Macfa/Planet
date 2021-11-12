@@ -16,7 +16,7 @@
                 </div>
 
                 <div class="write-btn">
-                    <button type="submit" onclick="@if(auth()->check()) checkCommentTypeToProcess('add'); @else notLogged(); @endif">등록</button>
+                    <button type="submit" onclick="checkCommentTypeToProcess('add');">등록</button>
                 </div>
             </div>
         </div>
@@ -32,8 +32,6 @@
     </div>
 
 @forelse ($comments as $comment)
-    {{--        @if ($comment->depth == 0)--}}
-
     <!-- 댓글 리스트 -->
         <div class="mb15 comment-list comment-{{ $comment->id }}">
             <div style="padding-left:{{ $comment->depth*44 }}px;" class="comment-item">
@@ -61,10 +59,15 @@
 
                     <div class="comment-info">
                         <ul>
-                            <li data-bs-toggle="modal" data-bs-target="#openStampModal" class="clickable items">스탬프</li>
+                            @auth
+                                <li data-bs-toggle="modal" data-bs-target="#openStampModal" class="clickable">스탬프</li>
+                            @endauth
+                            @guest
+                                <li onclick="notLogged();" class="clickable">스탬프</li>
+                            @endguest
 {{--                            <li></li>--}}
                             <li class="clickable" onclick="@if(auth()->check()) checkCommentTypeToAddForm('add', {{ $comment->id }}); @else notLogged(); @endif">댓글</li>
-                            <li style="margin-right:0px;" class="clickable">
+                            <li class="clickable">
                                 <img onclick="@if(auth()->check()) voteLikeInComment({{ $comment->id }}, 1) @else notLogged(); @endif" id="comment-{{ $comment->id }}-upvote" class="image-sm" alt=""
                                      @if($comment->existCommentLike == 1)
                                          src="{{ asset('image/upvote_c.png') }}" />
@@ -72,7 +75,7 @@
                                         src="{{ asset('image/upvote.png') }}" />
                                     @endif
                             </li>
-                            <li class="">
+                            <li>
                                 <span class="comment-like">{{ $comment->likes->sum('like') }}</span>
                             </li>
                             <li style="margin-left:0px;" class="clickable">
@@ -163,7 +166,7 @@
     }
     function toggleEditForm(status, commentID) {
         var el = $(`.comment-info, .comment-modi-form, .comment-cont`, `.comment-${commentID}`);
-        if(status == "show") {
+        if(status === "show") {
             el.hide();
 
             // var value = escapeHTML($(`.comment-${commentID} .comment-cont p`).html());
@@ -174,7 +177,7 @@
             };
 
             $("#replyWriteForm").tmpl(templateValues).appendTo(`.comment-${commentID} .comment-item`);
-        } else if(status == "hide") {
+        } else if(status === "hide") {
             $(`.comment-${commentID} .reply-form`).remove();
             el.show();
         }
@@ -194,30 +197,31 @@
         }
     }
     function toggleAddForm(status, commentID) {
-        if(status == "show") {
+        if(status === "show") {
             var templateValues = {
                 "commentID": commentID,
                 "value": "",
                 "form": "add"
             };
 
-            $("#replyWriteForm").tmpl(templateValues).appendTo(`.comment-${commentID} .comment-item`);
-        } else if(status == "hide") {
+            // $("#replyWriteForm").tmpl(templateValues).appendTo(`.comment-${commentID} .comment-item`);
+            $("#replyWriteForm").tmpl(templateValues).appendTo(`.comment-${commentID}`);
+        } else if(status === "hide") {
             $(`.comment-${commentID} .reply-form`).remove();
         }
     }
     function cancleForm(form, commentID) {
-        if(form == "edit") {
+        if(form === "edit") {
             toggleEditForm("hide", commentID);
-        } else if(form == "add") {
+        } else if(form === "add") {
             toggleAddForm("hide", commentID);
         }
     }
     function checkCommentTypeToProcess(form, commentID) {
         // make it one
-        if(form == "add") {
+        if(form === "add") {
             addComment(form, commentID);
-        } else if(form == "edit") {
+        } else if(form === "edit") {
             addComment(form, commentID);
         }
     }
@@ -229,9 +233,11 @@
 
         // 댓글, 대댓글 구분
         if(commentID) {
-            data = $(`.comment-${commentID} .reply-form form`).serialize();
+            // data = $(`.comment-${commentID} .reply-form form`).serialize();
+            data = $(`#open_post_modal .comment-${commentID} .reply-form form`).serialize();
         } else {
-            data = $("#comment-form").serialize();
+            // data = $("#comment-form").serialize();
+            data = $("#open_post_modal #comment-form").serialize();
         }
 
         // 생성, 수정 구분
@@ -254,7 +260,7 @@
                     } else if(form == "add") { // 신규 댓글 생성 로직
                         var templateValues = {
                             "id": data.id,
-                            "depth": data.depth*44,
+                            "depth": (data.depth <= 2) ? data.depth*44 : 2*44,
                             "updated_at_modi": data.updated_at_modi,
                             "group": data.group,
                             "content": data.content,
@@ -286,12 +292,11 @@
 
                 },
                 error: function(err) {
-                    if(err.responseJSON.reason == 'login') {
+                    if(err.status === 401) {
                         alert("로그인이 필요한 기능입니다.");
                     } else {
                         alert("댓글이 저장되지않았습니다\n관리자에게 문의해주세요.");
                     }
-                    console.log(err);
                 }
             })
         }, 300);
@@ -319,8 +324,8 @@
     }
     function voteLikeInComment(id, like, obj) {
         $.ajax({
-            url: "/comment/voteLikeInComment",
-            data: { id: id, like:like },
+            url: "/comment/"+id+"/like",
+            data: { like:like },
             type: "post",
             success: function(data) {
                 var el = ".comment-"+id+" .comment-like";
@@ -328,6 +333,13 @@
                 commentSelectLike(id, data.like);
                 $(el).text(data.totalLike);
                 // alert("처리되었습니다.");
+            },
+            error: function(err) {
+                if(err.status === 401) {
+                    alert("로그인이 필요한 기능입니다");
+                } else {
+                    alert("문제가 생겨 확인 중입니다")
+                }
             }
         });
     }
@@ -336,9 +348,9 @@
         $(`#comment-${id}-upvote`).attr("src", "{{ asset('image/upvote.png') }}");
     }
     function commentSelectLike(id, like) {
-        if(like == 1) {
+        if(like === 1) {
             $("#comment-"+id+"-upvote").attr("src", "{{ asset('image/upvote_c.png') }}");
-        } else if(like == -1) {
+        } else if(like === -1) {
             $("#comment-"+id+"-downvote").attr("src", "{{ asset('image/downvote_c.png') }}");
         }
     }
@@ -396,7 +408,7 @@
 @{{/if}}
 </script>
 <script id="replyWriteForm" type="text/x-jquery-tmpl">
-<div class="reply-form">
+<div class="reply-form mb-3">
     <form method="post" onSubmit="return false;" id="comment-form-${commentID}">
     <input type="hidden" name="id" value="${commentID}">
     <div class="reply-input">
@@ -405,7 +417,7 @@
         id="reply_text"
         >${value}</textarea>
 
-        <div class="form-btn mt10 mb10">
+        <div class="form-btn mt20 mb10 justify-content-end">
             <div class="reset-btn">
                 <button onclick="cancleForm('${form}', ${commentID})" type="reset">취소</button>
             </div>
