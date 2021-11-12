@@ -9,13 +9,11 @@
                 <button onclick="location.href='/test'">Coin</button>
                     <ul class="category">
                         <div class="category_title">최근 방문한 동아리</div>
-
+                        <li><a href="{{ route('home') }}">포디엄</a></li>
 {{--                        @auth--}}
-                            @forelse($channelVisitHistories as $history)
+                            @foreach($channelVisitHistories as $history)
                                 <li class="channel_{{ $history->channel_id }}"><a href="{{ route('channel.show', $history->channel_id) }}">{{ $history->channel->name }}</a></li>
-                            @empty
-                                <li><a href="{{ route('home') }}">포디엄</a></li>
-                            @endforelse
+                            @endforeach
 {{--                        @endauth--}}
                     </ul>
 
