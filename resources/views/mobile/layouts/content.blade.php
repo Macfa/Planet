@@ -19,7 +19,7 @@
                                 @endif
                             </li>
                         @empty
-                            <li><a href="{{ route('home') }}">방문채널이 없습니다.</a></li>
+                            <li><a href="{{ route('home') }}">포디엄</a></li>
                         @endforelse
                     </ul>
 {{--                @endauth--}}

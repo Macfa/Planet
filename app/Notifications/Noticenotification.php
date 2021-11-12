@@ -10,7 +10,7 @@ class Noticenotification extends Notification
 {
     use Queueable;
     protected $comment;
-    private $postID; // post
+    private $post_id; // post
     private $title; // post
     /**
      * Create a new notification instance.
@@ -21,7 +21,7 @@ class Noticenotification extends Notification
     {
         $this->comment = $comment;
         $this->title = $this->comment->post->title;
-        $this->postID = $this->comment->postID;
+        $this->post_id = $this->comment->post_id;
     }
 
     /**
@@ -59,7 +59,7 @@ class Noticenotification extends Notification
     {
 //        dd($notifiable);
         return [
-            'post_id' => $this->postID,
+            'post_id' => $this->post_id,
             'msg' => "'".$this->title."' 게시글에 댓글이 달렸습니다",
             'count' => 1
         ];
@@ -74,7 +74,7 @@ class Noticenotification extends Notification
         ];
     }
     public function getPostID() {
-        return $this->postID;
+        return $this->post_id;
     }
     public function getPostTitle() {
         return $this->title;

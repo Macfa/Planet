@@ -405,7 +405,7 @@ button {
 
 .cst_sp_g_12 {
     font-size:12px;
-    color:#CBC7C7;
+    color:#808080 !important;
 }
 /* chrome */
 .custom-scroll::-webkit-scrollbar {

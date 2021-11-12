@@ -34,12 +34,12 @@ class UserController extends Controller
 //                ->withCount('comments')
                 ->get();
         } elseif($el == "comment") {
-            $posts = Post::where('user_id', $user->id)
-//            $posts = Post::where('comments.userID', $user->id)
-//                ->join('comments', 'posts.id', '=', 'comments.postID')
-//                ->with('user')
-//                ->with('likes')
-//                ->withCount('comments')
+            $posts = Post::join('comments', 'posts.id', '=', 'comments.post_id')
+                ->where('comments.user_id', $user->id)
+                ->with('user')
+                ->with('likes')
+                ->withCount('comments')
+//                ->groupBy('posts.id')
                 ->get();
         } elseif($el == "scrap") {
             $posts = Post::join('users', 'users.id', '=', 'posts.user_id')

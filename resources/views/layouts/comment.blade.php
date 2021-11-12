@@ -110,7 +110,7 @@
         <!-- 하단 기능 Comment -->
         <div class="board-bot-function" id="post-bot-function">
             <div class="left-function">
-                <div class="page-arrow mr-2">
+                <div class="page-arrow mr-3">
                     <img onclick="voteLikeInPost({{ $post->id }},1)" id="post-upvote-fix" class="image-m clickable" alt="위로"
                          @if($post->existPostLike == 1)
                          src="{{ asset('image/upvote_c.png') }}" />
@@ -126,17 +126,13 @@
                     @endif
                 </div>
                 @auth
-                    <img alt="stamp" data-bs-toggle="modal" data-bs-target="#openStampModal" class="mr-2 stamp-image image-m clickable" src="{{ asset('image/stamp.png') }}"/>
+                    <img alt="stamp" data-bs-toggle="modal" data-bs-target="#openStampModal" class="mr-3 stamp-image image-m clickable" src="{{ asset('image/stamp_c.png') }}"/>
                 @endauth
                 @guest
-                    <img alt="stamp" onclick="notLogged()" class="mr-2 stamp-image image-m clickable" src="{{ asset('image/stamp.png') }}"/>
+                    <img alt="stamp" onclick="notLogged()" class="mr-3 stamp-image image-m clickable" src="{{ asset('image/stamp_c.png') }}"/>
                 @endguest
-                <img class="mr-2 favorit-image image-m clickable" id="post-scrap" onclick="scrapPost({{ $post->id }})" alt="favorit"
-                     @if($post->postScrap == 1)
-                     src="{{ asset('image/scrap_c.png') }}" />
-                @else
-                    src="{{ asset('image/scrap.png') }}" />
-                @endif
+                <img src="{{ asset('image/share_c.png') }}" class="mr-3 clickable image-m" alt="" />
+                <img class="mr-3 favorit-image image-m clickable" id="post-scrap" onclick="scrapPost({{ $post->id }})" alt="favorit" src="{{ asset('image/scrap_c.png') }}" />
                 <a href="javascript:$('#open_post_modal').scrollTop({top:0});"><img src="{{ asset('image/message.png') }}" alt="message" class="message-image"></a>
             </div>
 

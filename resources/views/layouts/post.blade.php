@@ -4,7 +4,7 @@
             <div class="modal-header flex-wrap-wrap">
                 <div class="modal-title flex-0-0-100">
                     <h4>
-                        {{ $post->title }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="titleSub">[<span class="commentCount">{{ $post->comments->count() }}</span>]</span>
+                        {{ $post->title }}&nbsp;&nbsp;<span class="titleSub">[&nbsp;<span class="commentCount">{{ $post->comments->count() }}</span>&nbsp;]</span>
                         <span class="stamps">
                             @foreach($post->stampInPosts as $stampInPost)
                                 <span class="stamp-{{ $stampInPost->stampID }}">
@@ -84,7 +84,7 @@
                                 @guest
                                     <li onclick="notLogged()" class="clickable items">
                                 @endguest
-                                    <img src="{{ asset('image/stamp.png') }}" class="image-sm" alt="" />
+                                    <img src="{{ asset('image/stamp_c.png') }}" class="image-sm" alt="" />
 
                                     <div class="function-text">
                                         <p>스탬프</p>
@@ -96,19 +96,19 @@
                                 @guest
                                     <li onclick="notLogged()" class="clickable items">
                                 @endguest
-                                    <img src="{{ asset('image/share.png') }}" class="image-sm" alt="" />
+                                    <img src="{{ asset('image/share_c.png') }}" class="image-sm" alt="" />
 
                                     <div class="function-text">
                                         <p>공유</p>
                                     </div>
                                 </li>
                                 <li class="clickable items" onclick="scrapPost({{ $post->id }});">
-                                    <img class="image-sm" name="scrap" alt=""
-                                         @if($post->existPostScrap == 1)
-                                             src="{{ asset('image/scrap_c.png') }}" />
-                                        @else
-                                             src="{{ asset('image/scrap.png') }}" />
-                                        @endif
+                                    <img class="image-sm" name="scrap" alt="" src="{{ asset('image/scrap_c.png') }}" />
+{{--                                         @if($post->existPostScrap == 1)--}}
+{{--                                             src="{{ asset('image/scrap_c.png') }}" />--}}
+{{--                                        @else--}}
+{{--                                             src="{{ asset('image/scrap.png') }}" />--}}
+{{--                                        @endif--}}
 
                                     <div class="function-text">
                                         <p>스크랩</p>

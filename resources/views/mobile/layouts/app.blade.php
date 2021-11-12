@@ -81,13 +81,13 @@
 </div>
 
 <div id="app">
-    <div style="width: 100vw; height: calc(var(--vh, 8vh) * 8);" class="row flex-justify-space-between" id="header">
+    <div style="width: 100vw; height: calc(var(--vh, 8vh) * 8);" class="row flex-justify-space-between align-self-center" id="header">
         <div class="header-sections col-3">
             <a href="/">
                 <img src="{{ asset('image/logo.png') }}">
             </a>
         </div>
-        <div class="@if(auth()->check()) col-5 @else col-6 @endif header-sections header-section-search">
+        <div class="@if(auth()->check()) col-5 @else col-6 @endif header-sections header-section-search align-self-center">
             <form class="row align-items-center vertical-md" name="mainSearchForm" id="mainSearchForm" action="{{ route('home.search') }}" method="get">
 {{--                <input list="searched-list" type="text" name="searchText" onkeydown="searchingCallback(this);" placeholder="검색..." value="{{ Request::input('searchText') }}">--}}
                 <input type="text" class="vertical-md" name="searchText" onkeydown="searchingCallback(this);" placeholder="검색..." value="{{ Request::input('searchText') }}">
@@ -111,7 +111,7 @@
 
             </form>
         </div>
-        <div class="header-sections @if(auth()->check()) col-4 @else col-3 @endif">
+        <div class="align-self-center header-sections @if(auth()->check()) col-4 @else col-3 @endif">
             @guest
                 <ul class="flex-container flex-justify-content-flex-end">
                     <li class="login">
