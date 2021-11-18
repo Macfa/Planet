@@ -7,10 +7,10 @@
       <div class="left">
         <div class="list">
                 @if(isset($channel))
-                    <form action="{{ route('channel.update', $channel->id) }}" method="POST">
+                    <form action="{{ route('channel.update', $channel->id) }}" method="POST" name="searchForm" onsubmit="return checkValue();">
                     @method('PUT')
                 @else
-                    <form action="{{ route('channel.store') }}" method="POST">
+                    <form action="{{ route('channel.store') }}" method="POST" name="searchForm" onsubmit="return checkValue();">
                 @endif
                 @csrf
                 <div class="input_box input_box_title">
@@ -78,3 +78,20 @@
 @push('styles')
     <link rel="stylesheet" type="text/css" href="{{ asset('css/channel/create.css') }}">
 @endpush
+<script>
+    function checkValue()
+    {
+        let form = document.searchForm;
+
+        if(!(form.name.value.length >= 2 && form.name.value.length < 100))
+        {
+            alert("이름은 2자 이상, 100자 미만입니다");
+            return false;
+        }
+        if(!(form.description.value.length >= 2 && form.description.value.length < 255))
+        {
+            alert("설명은 2자 이상, 255자 미만입니다");
+            return false;
+        }
+    }
+</script>

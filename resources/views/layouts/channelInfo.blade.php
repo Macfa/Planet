@@ -12,7 +12,6 @@
             @endcan
         </span>
     </div>
-
     <div class="info_detail">
         <p class="description">{{ $channel->description }}</p>
         <div class="flex">
@@ -32,23 +31,27 @@
             </div>
         </div>
 {{--        change to policy of channel admin--}}
-        @if(auth()->id() == $channel->user_id)
-        <div class="d-flex justify-content-end">
-            <button class="fs-12 p-gray" data-bs-toggle="modal" data-bs-post-id="{{ $channel->id }}" data-bs-target="#open_channel_admin_modal">
-                관리자 추가
-            </button>
-        </div>
+{{--        @if(auth()->id() == $channel->user_id)--}}
+{{--        <div class="d-flex justify-content-end">--}}
+{{--            <button class="fs-12 p-gray" data-bs-toggle="modal" data-bs-post-id="{{ $channel->id }}" data-bs-target="#open_channel_admin_modal">--}}
+{{--                관리자 추가--}}
+{{--            </button>--}}
+{{--        </div>--}}
+{{--        @endauth--}}
+{{--        <div style="font-size: 12px;" class="">조교들 명단</div>--}}
+{{--        <div id="channelAdminList" class="d-flex justify-content-between" onclick="removeChannelAdmin();">--}}
+{{--            @foreach($channel->channelAdmins as $channelAdmin)--}}
+{{--                <li value="{{ $channelAdmin->id }}">{{ $channelAdmin->user->name }}</li>--}}
+{{--                <button class="mr-3">삭제</button>--}}
+{{--            @endforeach--}}
+{{--        </div>--}}
+        @auth
+            @if($channel->channelJoins->count()>0 && $channel->user_id != auth()->id())
+                <div class="mt-4 channel_join"><a class="d-btn favorite_btn clickable" onclick="addChannelJoin({{ $channel->id }})">동아리 탈퇴</a></div>
+            @elseif($channel->user_id != auth()->id())
+                <div class="mt-4 channel_join"><a class="d-btn favorite_btn clickable" onclick="addChannelJoin({{ $channel->id }})">동아리 가입</a></div>
+            @endif
         @endauth
-        <div style="font-size: 12px;" class="">조교들 명단</div>
-        <div id="channelAdminList" class="d-flex justify-content-between" onclick="removeChannelAdmin();">
-            @foreach($channel->channelAdmins as $channelAdmin)
-                <li value="{{ $channelAdmin->id }}">{{ $channelAdmin->user->name }}</li>
-                <button class="mr-3">삭제</button>
-            @endforeach
-        </div>
-        @can('create', \App\Models\Channel::class)
-            <div class="mt-4"><a class="d-btn favorite_btn clickable" onclick="addChannelJoin({{ $channel->id }})">동아리 가입</a></div>
-        @endcan
     </div>
 </div>
 <div class="sidebar-sticky link">
@@ -157,9 +160,11 @@
 {{--                    var url = '{{ route('channel.show', ":id") }}';--}}
 //                     url = url.replace(':id', data.channelID);
                     // $('.category').append('<li class="channel_'+data.channel.id+'"><a href="'+url+'">'+data.channel.name+'</a></li>');
+                    $(".channel_join > a").text("동아리 탈퇴");
                     $('.totalCount').text(data.totalCount);
                 } else if(data.result=='deleted') {
                     // $('.category li.channel_'+data.id).remove();
+                    $(".channel_join > a").text("동아리 가입");
                     $('.totalCount').text(data.totalCount);
                 }
             },

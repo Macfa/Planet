@@ -34,7 +34,7 @@
 @forelse ($comments as $comment)
     <!-- 댓글 리스트 -->
         <div class="mb15 comment-list comment-{{ $comment->id }}">
-            <div style="padding-left:{{ $comment->depth*44 }}px;" class="comment-item">
+            <div style="padding-left:{{ $comment->depth*22 }}px;" class="comment-item">
                 <div class="comment-top">
                     <div style="" class="write-info {{ $comment->depth>0 ? 'write-info-line':'' }}">
                         <img src="{{ $comment->user->avatar }}" alt="닉네임" />
@@ -103,7 +103,7 @@
 @endforelse
         <!-- 하단 기능 Comment -->
 {{--        <div class="flex-container board-bot-function justify-content-between" style="position: sticky; top:0px;  background: rgba(252, 252, 252, 1) !important;" id="post-bot-function">--}}
-        <div class="flex-container flex-justify-space-between" id="post-bot-function">
+        <div class="d-none flex-container flex-justify-space-between" id="post-bot-function">
             <div class="left-function flex-container">
 {{--                <div class="page-arrow">--}}
                     <img onclick="@if(auth()->check()) voteLikeInPost({{ $post->id }},1) @else notLogged(); @endif" id="post-upvote-fix" class="image-sm clickable m-0" alt="위로"
@@ -127,7 +127,7 @@
                 @else
                     src="{{ asset('image/scrap.png') }}" />
                 @endif
-                <img src="{{ asset('image/message.png') }}" alt="message" class="image-sm">
+                <a href="javascript:$('#post').get(0).scrollIntoView( {behavior: 'smooth' })"><img src="{{ asset('image/message.png') }}" alt="message" class="message-image"></a>
 {{--                </div>--}}
             </div>
 
@@ -260,7 +260,7 @@
                     } else if(form == "add") { // 신규 댓글 생성 로직
                         var templateValues = {
                             "id": data.id,
-                            "depth": (data.depth <= 2) ? data.depth*44 : 2*44,
+                            "depth": (data.depth <= 2) ? data.depth*22 : 2*22,
                             "updated_at_modi": data.updated_at_modi,
                             "group": data.group,
                             "content": data.content,
@@ -385,13 +385,13 @@
 
                 <div class="comment-info">
                     <ul>
-                        <li>스탬프</li>
-                        <li onclick="checkCommentTypeToAddForm('add', ${id});">댓글</li>
-                        <li>
+                        <li class="clickable">스탬프</li>
+                        <li class="clickable" onclick="checkCommentTypeToAddForm('add', ${id});">댓글</li>
+                        <li class="clickable">
                             <img onclick="voteLikeInComment(${id}, 1)" id="comment-${id}-upvote" class="image-sm" alt="" src="{{ asset('image/upvote.png') }}" />
                         </li>
-                        <li><span class="comment-like">${sumOfLikes}</li>
-                        <li><img onclick="voteLikeInComment(${id}, -1)" id="comment-${id}-downvote" class="image-sm" alt="" src="{{ asset('image/upvote.png') }}" /></li>
+                        <li class="clickable"><span class="comment-like">${sumOfLikes}</li>
+                        <li class="clickable"><img onclick="voteLikeInComment(${id}, -1)" id="comment-${id}-downvote" class="image-sm" alt="" src="{{ asset('image/upvote.png') }}" /></li>
                     </ul>
                 </div>
             </div>

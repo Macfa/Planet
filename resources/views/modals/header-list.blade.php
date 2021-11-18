@@ -9,31 +9,27 @@
 {{--<div class="collapse" id="header-list" style="z-index:1055; position:absolute; width:100vw;">--}}
 <div class="collapse multi-collapse" id="header-list" style="z-index:2000; position:fixed; right:0%; top:6.5%; width:20%">
     <div class="list-group" style="border-radius: 1rem;">
-        <!--name-->
-{{--        <a class="flex-container disabled list-group-item list-group-item-action"><img src="{{ asset('image/scrap_c.png') }}" alt="" class="header-list-icon"><p>{{ auth()->user()->name }} ( {{ auth()->user()->grade->name }} )</p></a>--}}
-        <!--coin-->
-{{--        <a class="flex-container disabled list-group-item list-group-item-action"><img src="{{ asset('image/scrap_c.png') }}" alt="" class="header-list-icon"><p>{{ coin_transform() }} Coin</p></a>--}}
-        <!--mypage-->
-        <a href="{{ route('user.show', ['user'=>auth()->id(), 'el'=>'post']) }}" class="flex-container list-group-item list-group-item-action"><img src="{{ asset('image/scrap_c.png') }}" alt="" class="header-list-icon"><p>마이 페이지</p></a>
+        <a href="{{ route('user.show', ['user'=>auth()->id(), 'el'=>'post']) }}" class="fw-bold flex-container list-group-item list-group-item-action"><p>마이 페이지</p></a>
         <!--Channels-->
         <div class="accordion list-group-item list-group-item-action" id="accordionExample">
             <div class="">
                 <div class="accordion-header">
 
-                    <button class="flex-container" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_channelJoins" aria-expanded="true" aria-controls="collapseOne">
-                        <img src="{{ asset('image/scrap_c.png') }}" alt="" class="header-list-icon">
+                    <button class="fw-bold flex-container" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_channelJoins" aria-expanded="true" aria-controls="collapseOne">
                         내 동아리
                     </button>
                 </div>
             </div>
         </div>
         <div id="collapse_channelJoins" class="accordion-collapse collapse accordion show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-            {{--            <div class="accordion-body">--}}
-            @foreach(auth()->user()->channelJoins as $joined)
-                <a style="padding-left: 30px;" href="{{ route('channel.show', $joined->channel->id) }}" class="flex-container list-group-item list-group-item-action"><img src="{{ asset('image/scrap_c.png') }}" alt="" class="header-list-icon"><p>{{ $joined->channel->name }}</p></a>
+            @foreach(auth()->user()->channelJoins()->limit(10)->get() as $joined)
+{{--                <a style="padding-left: 30px;" href="{{ route('channel.show', $joined->channel->id) }}" class="flex-container list-group-item list-group-item-action"><img src="{{ asset('image/scrap_c.png') }}" alt="" class="header-list-icon"><p>{{ $joined->channel->name }}</p></a>--}}
+                <a style="padding-left: 30px;" href="{{ route('channel.show', $joined->channel->id) }}" class="flex-container list-group-item list-group-item-action"><p>{{ $joined->channel->name }}</p></a>
+                @if($loop->index === 9)
+                    <a>더보기</a>
+                @endif
             @endforeach
-            {{--            </div>--}}
         </div>
-        <a href="{{ route('user.logout') }}" class="flex-container list-group-item list-group-item-action"><img src="{{ asset('image/scrap_c.png') }}" alt="" class="header-list-icon"><p>로그아웃</p></a>
+        <a href="{{ route('user.logout') }}" class="fw-bold flex-container list-group-item list-group-item-action"><p>로그아웃</p></a>
     </div>
 </div>

@@ -33,7 +33,6 @@
                         <div class="board-text">
                             {!! $post->content !!}
                         </div>
-`
                         <div class="board-etc-function">
                             <!-- 게시글 기타 기능 -->
                             @if(auth()->id()==$post->user_id)

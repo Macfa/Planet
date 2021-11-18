@@ -78,6 +78,9 @@
 
 
 <body>
+{{--{{ dd(\Illuminate\Support\Facades\Session::has('msg')) }}--}}
+
+
 {{--@if(session('status'))--}}
 {{--    <script>--}}
 {{--    var status = "{{ session('status') }}";--}}
@@ -123,6 +126,10 @@
 @endauth
 @stack("modals")
 
+
+@if(Session::has('msg'))
+    <script>alert("{{ Session::get('msg') }}");</script>
+@endif
 
 <script src="{{ asset('js/common.js') }}"></script>
 @stack("scripts")

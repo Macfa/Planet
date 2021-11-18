@@ -149,6 +149,10 @@
 
 </div>
 
+@if(Session::has('msg'))
+    alert("{{ Session::get('msg') }}");
+@endif
+
 <script>
     $('body').on('click', function(e){
         var target = $(e.target);
@@ -299,40 +303,6 @@
             })
     })()
 
-    toastr.options = {
-        "closeButton": true,
-        "newestOnTop": true,
-        "positionClass": "toast-top-center",
-        "preventDuplicates": true,
-        "onclick": null,
-        "showDuration": "300",
-        "hideDuration": "300",
-        "timeOut": "1500",
-        "extendedTimeOut": "1000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-    }
-
-    @if(Session::has('msg'))
-        var type = "{{ Session::get('type', 'info') }}";
-        switch(type){
-            case 'info':
-                toastr.info("{{ Session::get('msg') }}");
-                break;
-
-            case 'warning':
-                toastr.warning("{{ Session::get('msg') }}");
-                break;
-            case 'success':
-                toastr.success("{{ Session::get('msg') }}");
-                break;
-            case 'error':
-                toastr.error("{{ Session::get('msg') }}");
-                break;
-        }
-    @endif
     function notLogged() {
         // if(!auth()->check()) {
         alert("로그인이 필요한 기능입니다");

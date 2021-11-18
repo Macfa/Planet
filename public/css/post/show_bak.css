@@ -83,7 +83,7 @@
 
   .modal-parent > .modal-wrap > .modal-body {
     background-color:#3d5afe;
-    display:flex;
+    /*display:flex;*/
   }
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left {

@@ -195,6 +195,8 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $post = Post::find($id);
+        $this->authorize('update',$post);
         // set validation rules
         $rules = [
             'channel_id' => 'required',
@@ -203,7 +205,7 @@ class PostController extends Controller
         ];
 
         $messages = [
-            'channelID.required' => '채널을 선택해주세요.',
+            'channel_id.required' => '채널을 선택해주세요.',
             'title.required' => '제목을 입력해주세요.',
             'content.required' => '내용을 입력해주세요.',
             'title.max' => '제목은 최대 255 글자 이하입니다.',
@@ -229,7 +231,7 @@ class PostController extends Controller
             ->update([
                 'image'=>$mainImageUrl,
                 'title'=>$request->title,
-                'channel_id'=>$request->channelID,
+                'channel_id'=>$request->channel_id,
                 'content'=>$content
             ]);
 
@@ -247,8 +249,8 @@ class PostController extends Controller
         Post::where('id', $id)
             ->delete();
 
-//        return redirect()->route('home', '',302);
-        return true;
+        return response();
+//        return true;
     }
     public function like(Post $post)
     {

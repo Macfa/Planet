@@ -4,22 +4,6 @@ $.ajaxSetup({
     }
 });
 
-toastr.options = {
-    "closeButton": true,
-    "newestOnTop": true,
-    "positionClass": "toast-top-center",
-    "preventDuplicates": true,
-    "onclick": null,
-    "showDuration": "300",
-    "hideDuration": "300",
-    "timeOut": "1500",
-    "extendedTimeOut": "1000",
-    "showEasing": "swing",
-    "hideEasing": "linear",
-    "showMethod": "fadeIn",
-    "hideMethod": "fadeOut"
-}
-
 var timer = null;
 
 

@@ -126,8 +126,9 @@ class Post extends Model
                 ->get();
         } else if($type==='hot') {
             $posts = self::with('channel')
+//                ->with('likes')
                 ->with('likes', function($q) {
-                    $q->orderby('like', 'desc');
+                    $q->orderBy('like', 'desc');
                 })
                 ->withCount('comments')
                 ->with('user')
@@ -137,6 +138,17 @@ class Post extends Model
                         $query->where('channel_id', '=', $channelID);
                     }
                 })
+//                ->orderBy('likes.like', 'desc')
+                ->pagination($page)
+                ->get();
+        } else if($type==="scrap") {
+            $posts = self::with('channel')
+                ->with('likes')
+                ->with('user')
+                ->with('stampInPosts')
+                ->withCount('comments')
+                ->orderby('id', 'desc')
+                ->join("scraps", "posts.id", "=", "scraps.post_id")
                 ->pagination($page)
                 ->get();
         }

@@ -42,14 +42,14 @@ class UserController extends Controller
 //                ->groupBy('posts.id')
                 ->get();
         } elseif($el == "scrap") {
-            $posts = Post::join('users', 'users.id', '=', 'posts.user_id')
-                ->leftJoin('scraps', function($join) {
-                    $join->on('users.id', '=', 'scraps.user_id');
+//            $posts = Post::join('users', 'users.id', '=', 'posts.user _id')
+            $posts = Post::leftJoin('scraps', function($join) {
+//                    $join->on('users.id', '=', 'scraps.user_id');
                     $join->on('posts.id', '=', 'scraps.post_id');
                 })
-//                ->with('channel')
-//                ->with('likes')
-//                ->withCount('comments')
+                ->with('channel')
+                ->with('likes')
+                ->withCount('comments')
                 ->where('scraps.user_id', $user->id)
                 ->get();
             //                ('scraps', 'users.id', '=', 'scraps.userID')

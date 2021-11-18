@@ -357,6 +357,22 @@ textarea[name=content]:focus {
 .not-logged-btn {
     opacity: 0.6;
 }
+.channel-history div a {
+    word-wrap: normal;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 15px;
+}
+.channel-history div {
+    flex: 0 1 18%;
+    /*width: 50px;*/
+    padding: 5px;
+    text-align: center;
+    word-wrap: normal;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
 /*@media screen and (max-width: 1440px) {*/
 /*  .wrap {*/
 /*    width: 1276px;*/

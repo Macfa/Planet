@@ -9,12 +9,19 @@
                 <button onclick="location.href='/test'">Coin</button>
                     <ul class="category">
                         <div class="category_title">최근 방문한 동아리</div>
-                        <li><a href="{{ route('home') }}">포디엄</a></li>
-{{--                        @auth--}}
-                            @foreach($channelVisitHistories as $history)
-                                <li class="channel_{{ $history->channel_id }}"><a href="{{ route('channel.show', $history->channel_id) }}">{{ $history->channel->name }}</a></li>
-                            @endforeach
-{{--                        @endauth--}}
+{{--                        <ul class="channel-history d-flex flex-nowrap justify-content-between align-items-center">--}}
+                        <ul class="channel-history d-flex flex-nowrap align-items-center">
+                            <div><a href="{{ route('home') }}">포디엄</a></div>
+    {{--                        @auth--}}
+                                @foreach($channelVisitHistories as $history)
+                                    <div>
+{{--                                        <li class="channel_{{ $history->channel_id }}">--}}
+                                            <a href="{{ route('channel.show', $history->channel_id) }}">{{ $history->channel->name }}</a>
+{{--                                        </li>--}}
+                                    </div>
+                                @endforeach
+    {{--                        @endauth--}}
+                        </ul>
                     </ul>
 
 
@@ -160,7 +167,8 @@
                                 "channelName": data.result[i].channel.name,
                                 "userName": data.result[i].user.name,
                                 "user_id": data.result[i].user.id,
-                                "created_at_modi": data.result[i].created_at_modi
+                                "created_at_modi": data.result[i].created_at_modi,
+                                "postImage": data.result[i].image,
                             });
                         }
                         delay(function() {
@@ -274,7 +282,8 @@
                                 "userName": data.result[i].user.name,
                                 "user_id": data.result[i].user.id,
                                 "stampInPosts": data.result[i].stamp_in_posts,
-                                "created_at_modi": data.result[i].created_at_modi
+                                "created_at_modi": data.result[i].created_at_modi,
+                                "postImage": data.result[i].image,
                             });
                         }
                         $("#mainMenuItem").tmpl(valueList).appendTo("#main .main-wrap .left .list table tbody");

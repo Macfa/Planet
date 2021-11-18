@@ -64,7 +64,7 @@ class ChannelController extends Controller
         $hasCoin = $user->hasCoins()->sum('coin');
 
         if($hasCoin < 100) {
-            return response()->redirectTo('/')->with(["status"=>"warning", "message"=>"코인이 부족합니다"]);
+            return response()->redirectTo('/')->with(["status"=>"warning", "msg"=>"코인이 부족합니다"]);
         } else {
             // set validation rules
             $rules = [
@@ -91,10 +91,10 @@ class ChannelController extends Controller
             ]);
 
             // add favorite
-            $channel = Channel::findOrFail($created->id);
-            $channel->channelJoins()->create([
-                'user_id' => auth()->id(),
-            ]);
+//            $channel = Channel::findOrFail($created->id);
+//            $channel->channelJoins()->create([
+//                'user_id' => auth()->id(),
+//            ]);
 
             $user->coins()->create([
                 "type" => "동아리생성",

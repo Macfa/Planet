@@ -10,17 +10,19 @@
                     <button onclick="location.href='/test'">Coin</button>
 
                     <div class="category_title">최근 방문한 동아리</div>
-                    <ul class="category flex-container">
-                        @forelse ($channelVisitHistories as $history)
-                            <li class="channel_{{ $history->channelID }}">
-                                <a href="{{ route('channel.show', $history->channel_id) }}">{{ $history->channel->name }}</a>
+                    <ul class="category flex-container flex-nowrap channel-history justify-content-start align-items-center">
+                        <div><a href="/">포디엄</a></div>
+                        @foreach ($channelVisitHistories as $history)
+                            @if($loop->first)
+                                <span>/</span>
+                            @endif
+{{--                            <li style="flex: 1 1 20%; text-overflow: ellipsis;" class="history_channel_{{ $history->channel_id }}">--}}
+                                <div><a href="{{ route('channel.show', $history->channel_id) }}">{{ $history->channel->name }}</a></div>
                                 @if($loop->remaining)
-                                    &nbsp;/&nbsp;
+                                    <span>/</span>
                                 @endif
-                            </li>
-                        @empty
-                            <li><a href="{{ route('home') }}">포디엄</a></li>
-                        @endforelse
+{{--                            </li>--}}
+                        @endforeach
                     </ul>
 {{--                @endauth--}}
 
@@ -139,7 +141,8 @@
                                     "channelName": data.result[i].channel.name,
                                     "userName": data.result[i].user.name,
                                     "user_id": data.result[i].user.id,
-                                    "created_at_modi": data.result[i].created_at_modi
+                                    "created_at_modi": data.result[i].created_at_modi,
+                                    "postImage": data.result[i].image,
                                 });
                             }
                             delay(function() {
@@ -278,12 +281,13 @@
                             "post_id": data.result[i].id,
                             "postTitle": data.result[i].title,
                             "commentCount": data.result[i].comments_count,
-                            "channel_id": data.result[i].channel.id,
+                            "postChannelID": data.result[i].channel.id,
                             "channelName": data.result[i].channel.name,
                             "userName": data.result[i].user.name,
                             "user_id": data.result[i].user.id,
                             "stampInPosts": data.result[i].stamp_in_posts,
-                            "created_at_modi": data.result[i].created_at_modi
+                            "created_at_modi": data.result[i].created_at_modi,
+                            "postImage": data.result[i].image,
                         });
                     }
                     $("#mainMenuItem").tmpl(valueList).appendTo("#main .main-wrap .left .list table tbody");

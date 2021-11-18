@@ -6,7 +6,7 @@
 <section id="channel">
     <div class="wrap">
         <article class="board_box">
-            <form id="form" action="{{ route('post.store') }}" method="POST">
+            <form id="form" action="{{ route('post.store') }}" name="searchForm" method="POST" onsubmit="return checkValue();">
                 @csrf
                 <div class="select_box d-flex">
                     <select class="cst_select is-invalid" name="channel_id" id="channelList">
@@ -70,6 +70,26 @@
 @push('scripts')
 <script src="{{ asset('js/ckeditor.js') }}"></script>
 <script>
+    function checkValue()
+    {
+        let form = document.searchForm;
+
+        if(form.channel_id.value === '')
+        {
+            alert("채널을 선택해주세요");
+            return false;
+        }
+        if(!(form.title.value.length >= 2 && form.title.value.length < 100))
+        {
+            alert("이름은 2자 이상, 100자 미만입니다");
+            return false;
+        }
+        if(!(form.content.value.length >= 2 && form.content.value.length < 255))
+        {
+            alert("내용은 2자 이상, 255자 미만입니다");
+            return false;
+        }
+    }
     ClassicEditor.create( document.querySelector( '#editor' ), {
         simpleUpload: {
             // The URL that the images are uploaded to.

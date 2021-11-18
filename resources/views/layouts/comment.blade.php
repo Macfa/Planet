@@ -32,115 +32,114 @@
 
 @forelse ($comments as $comment)
     <!-- 댓글 리스트 -->
-        <div class="comment-list comment-{{ $comment->id }}">
-            <div style="padding-left:{{ ($comment->depth <= 4) ? $comment->depth*44 : 4*44 }}px;" class="comment-item">
-                <div class="comment-top">
-                    <div style="" class="write-info {{ $comment->depth>0 ? 'write-info-line':'' }}">
-                        <img src="{{ $comment->user->avatar }}" alt="닉네임" />
-                        <h5 class="nickname">{{ $comment->user->name }}</h5>
-                        <p>{{ $comment->updated_at->diffForHumans() }}</p>
+    <div class="comment-list comment-{{ $comment->id }}">
+        <div style="padding-left:{{ ($comment->depth <= 4) ? $comment->depth*22 : 4*22 }}px;" class="comment-item">
+            <div class="comment-top">
+                <div style="" class="write-info {{ $comment->depth>0 ? 'write-info-line':'' }}">
+                    <img src="{{ $comment->user->avatar }}" alt="닉네임" />
+                    <h5 class="nickname">{{ $comment->user->name }}</h5>
+                    <p>{{ $comment->updated_at->diffForHumans() }}</p>
 
-                        @if(auth()->id()==$comment->user_id)
-                            <div class="ml-20 comment-modi-form">
-                                <button onclick="checkCommentTypeToAddForm('edit', {{ $comment->id }})">
-                                    <div class="function-text">
-                                        <p>수정</p>
-                                    </div>
-                                </button>
-                                <button onclick="deleteComment({{ $comment->id }})">
-                                    <div class="function-text">
-                                        <p>삭제</p>
-                                    </div>
-                                </button>
-                            </div>
-                        @endif
-                    </div>
+                    @if(auth()->id()==$comment->user_id)
+                        <div class="ml-20 comment-modi-form">
+                            <button onclick="checkCommentTypeToAddForm('edit', {{ $comment->id }})">
+                                <div class="function-text">
+                                    <p>수정</p>
+                                </div>
+                            </button>
+                            <button onclick="deleteComment({{ $comment->id }})">
+                                <div class="function-text">
+                                    <p>삭제</p>
+                                </div>
+                            </button>
+                        </div>
+                    @endif
+                </div>
 
-                    <div class="comment-info">
-                        <ul>
-                            @auth
-                            <li data-bs-toggle="modal" data-bs-target="#openStampModal" class="clickable">스탬프</li>
-                            @endauth
-                            @guest
-                                    <li onclick="notLogged();" class="clickable">스탬프</li>
-                            @endguest
+                <div class="comment-info">
+                    <ul>
+                        @auth
+                        <li data-bs-toggle="modal" data-bs-target="#openStampModal" class="clickable">스탬프</li>
+                        @endauth
+                        @guest
+                                <li onclick="notLogged();" class="clickable">스탬프</li>
+                        @endguest
 {{--                            <li></li>--}}
-                            @auth
-                                <li class="clickable" onclick="checkCommentTypeToAddForm('add', {{ $comment->id }});">댓글</li>
-                            @endauth
-                            @guest
-                                <li class="clickable" onclick="notLogged();">댓글</li>
-                            @endguest
-                            <li class="clickable">
-                                <img onclick="voteLikeInComment({{ $comment->id }}, 1)" id="comment-{{ $comment->id }}-upvote" class="image-sm" alt=""
-                                     @if($comment->existCommentLike == 1)
-                                         src="{{ asset('image/upvote_c.png') }}" />
-                                    @else
-                                        src="{{ asset('image/upvote.png') }}" />
-                                    @endif
-                            </li>
-                            <li>
-                                <span class="comment-like">{{ $comment->likes->sum('like') }}</span>
-                            </li>
-                            <li class="clickable">
-                                <img onclick="voteLikeInComment({{ $comment->id }}, -1)" id="comment-{{ $comment->id }}-downvote" class="image-sm" alt=""
-                                     @if($comment->existCommentLike == -1)
-                                         src="{{ asset('image/downvote_c.png') }}" />
-                                    @else
-                                        src="{{ asset('image/downvote.png') }}" />
-                                    @endif
-                            </li>
+                        @auth
+                            <li class="clickable" onclick="checkCommentTypeToAddForm('add', {{ $comment->id }});">댓글</li>
+                        @endauth
+                        @guest
+                            <li class="clickable" onclick="notLogged();">댓글</li>
+                        @endguest
+                        <li class="clickable">
+                            <img onclick="voteLikeInComment({{ $comment->id }}, 1)" id="comment-{{ $comment->id }}-upvote" class="image-sm" alt=""
+                                 @if($comment->existCommentLike == 1)
+                                     src="{{ asset('image/upvote_c.png') }}" />
+                                @else
+                                    src="{{ asset('image/upvote.png') }}" />
+                                @endif
+                        </li>
+                        <li>
+                            <span class="comment-like">{{ $comment->likes->sum('like') }}</span>
+                        </li>
+                        <li class="clickable">
+                            <img onclick="voteLikeInComment({{ $comment->id }}, -1)" id="comment-{{ $comment->id }}-downvote" class="image-sm" alt=""
+                                 @if($comment->existCommentLike == -1)
+                                     src="{{ asset('image/downvote_c.png') }}" />
+                                @else
+                                    src="{{ asset('image/downvote.png') }}" />
+                                @endif
+                        </li>
 
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="comment-cont">
-                    <p>
-                        {!! $comment->content !!}
-                    </p>
+                    </ul>
                 </div>
             </div>
-        </div>
-    @empty
-        <p>No users</p>
-@endforelse
-        <!-- 하단 기능 Comment -->
-        <div class="board-bot-function d-none" id="post-bot-function">
-            <div class="left-function">
-                <div class="page-arrow mr-3">
-                    <img onclick="voteLikeInPost({{ $post->id }},1)" id="post-upvote-fix" class="image-m clickable" alt="위로"
-                         @if($post->existPostLike == 1)
-                         src="{{ asset('image/upvote_c.png') }}" />
-                    @else
-                        src="{{ asset('image/upvote.png') }}" />
-                    @endif
-                    <span style="width: 20px; " class="text-center post-like">{{ $post->likes->sum('like') }}</span>
-                    <img onclick="voteLikeInPost({{ $post->id }},-1)" id="post-downvote-fix" class="image-m clickable" alt="아래로"
-                         @if($post->existPostLike == -1)
-                         src="{{ asset('image/downvote_c.png') }}" />
-                    @else
-                        src="{{ asset('image/downvote.png') }}" />
-                    @endif
-                </div>
-                @auth
-                    <img alt="stamp" data-bs-toggle="modal" data-bs-target="#openStampModal" class="mr-3 stamp-image image-m clickable" src="{{ asset('image/stamp_c.png') }}"/>
-                @endauth
-                @guest
-                    <img alt="stamp" onclick="notLogged()" class="mr-3 stamp-image image-m clickable" src="{{ asset('image/stamp_c.png') }}"/>
-                @endguest
-                <img src="{{ asset('image/share_c.png') }}" class="mr-3 clickable image-m" alt="" />
-                <img class="mr-3 favorit-image image-m clickable" id="post-scrap" onclick="scrapPost({{ $post->id }})" alt="favorit" src="{{ asset('image/scrap_c.png') }}" />
-                <a href="javascript:$('#open_post_modal').scrollTop({top:0});"><img src="{{ asset('image/message.png') }}" alt="message" class="message-image"></a>
-            </div>
 
-            <div class="right-function">
-                <img src="{{ asset('image/message.png') }}" alt="message" class="message-image">
+            <div class="comment-cont">
+                <p>
+                    {!! $comment->content !!}
+                </p>
             </div>
         </div>
     </div>
+    @empty
+    <p>No users</p>
+@endforelse
 </div>
 @endif
+<!-- 하단 기능 Comment -->
+<div class="board-bot-function d-none" id="post-bot-function">
+    <div class="left-function">
+        <div class="page-arrow mr-3">
+            <img onclick="voteLikeInPost({{ $post->id }},1)" id="post-upvote-fix" class="image-m clickable" alt="위로"
+                 @if($post->existPostLike == 1)
+                 src="{{ asset('image/upvote_c.png') }}" />
+            @else
+                src="{{ asset('image/upvote.png') }}" />
+            @endif
+            <span style="width: 20px; " class="text-center post-like">{{ $post->likes->sum('like') }}</span>
+            <img onclick="voteLikeInPost({{ $post->id }},-1)" id="post-downvote-fix" class="image-m clickable" alt="아래로"
+                 @if($post->existPostLike == -1)
+                 src="{{ asset('image/downvote_c.png') }}" />
+            @else
+                src="{{ asset('image/downvote.png') }}" />
+            @endif
+        </div>
+        @auth
+            <img alt="stamp" data-bs-toggle="modal" data-bs-target="#openStampModal" class="mr-3 stamp-image image-m clickable" src="{{ asset('image/stamp_c.png') }}"/>
+        @endauth
+        @guest
+            <img alt="stamp" onclick="notLogged()" class="mr-3 stamp-image image-m clickable" src="{{ asset('image/stamp_c.png') }}"/>
+        @endguest
+        <img src="{{ asset('image/share_c.png') }}" class="mr-3 clickable image-m" alt="" />
+        <img class="mr-3 favorit-image image-m clickable" id="post-scrap" onclick="scrapPost({{ $post->id }})" alt="favorit" src="{{ asset('image/scrap_c.png') }}" />
+        <a href="javascript:$('#post').get(0).scrollIntoView( {behavior: 'smooth' })"><img src="{{ asset('image/message.png') }}" alt="message" class="message-image"></a>
+    </div>
+
+    <div class="right-function">
+        <img src="{{ asset('image/message.png') }}" alt="message" class="message-image">
+    </div>
+</div>
 
 <script>
 
@@ -261,7 +260,7 @@
                     } else if(form == "add") { // 신규 댓글 생성 로직
                         var templateValues = {
                             "id": data.id,
-                            "depth": (data.depth <= 4) ? data.depth*44 : 4*44,
+                            "depth": (data.depth <= 4) ? data.depth*22 : 4*22,
                             "updated_at_modi": data.updated_at_modi,
                             "group": data.group,
                             "content": data.content,
@@ -386,13 +385,13 @@
 
                 <div class="comment-info">
                     <ul>
-                        <li>스탬프</li>
-                        <li onclick="checkCommentTypeToAddForm('add', ${id});">댓글</li>
-                        <li>
+                        <li class="clickable">스탬프</li>
+                        <li class="clickable" onclick="checkCommentTypeToAddForm('add', ${id});">댓글</li>
+                        <li class="clickable">
                             <img onclick="voteLikeInComment(${id}, 1)" id="comment-${id}-upvote" class="image-sm" alt="" src="{{ asset('image/upvote.png') }}" />
                         </li>
-                        <li><span class="comment-like">${sumOfLikes}</li>
-                        <li><img onclick="voteLikeInComment(${id}, -1)" id="comment-${id}-downvote" class="image-sm" alt="" src="{{ asset('image/upvote.png') }}" /></li>
+                        <li class="clickable"><span class="comment-like">${sumOfLikes}</li>
+                        <li class="clickable"><img onclick="voteLikeInComment(${id}, -1)" id="comment-${id}-downvote" class="image-sm" alt="" src="{{ asset('image/upvote.png') }}" /></li>
                     </ul>
                 </div>
             </div>

@@ -19,21 +19,25 @@
                 <p>관리자</p>
             </div>
         </div>
-        <div class="flex flex-justify-content-flex-end fs-12">
-            <button data-bs-toggle="modal" data-bs-post-id="{{ $channel->id }}" data-bs-target="#open_channel_admin_modal">
-{{--            <button onclick="addSubAdmin({{ $channel->id }});">--}}
-                관리자 추가
-            </button>
-{{--            </button>--}}
-        </div>
-        <ul class="fs-12" id="channelAdminList" onclick="removeChannelAdmin();">
-            @foreach($channel->channelAdmins as $channelAdmin)
-                <li value="{{ $channelAdmin->id }}">{{ $channelAdmin->user->name }}</li>
-            @endforeach
-        </ul>
-        @if($channel->user_id != auth()->id() && auth()->check())
-            <div><a class="d-btn favorite_btn clickable" onclick="addChannelJoin({{ $channel->id }})">동아리 가입</a></div>
-        @endif
+{{--        <div class="flex fs-12 mt10">--}}
+{{--            <div style="margin-left: 50%;" class="flex_item">--}}
+{{--                <button data-bs-toggle="modal" data-bs-post-id="{{ $channel->id }}" data-bs-target="#open_channel_admin_modal">--}}
+{{--                    관리자 추가--}}
+{{--                </button>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--        <ul class="fs-12" id="channelAdminList" onclick="removeChannelAdmin();">--}}
+{{--            @foreach($channel->channelAdmins as $channelAdmin)--}}
+{{--                <li value="{{ $channelAdmin->id }}">{{ $channelAdmin->user->name }}</li>--}}
+{{--            @endforeach--}}
+{{--        </ul>--}}
+        @auth
+            @if($channel->channelJoins->count()>0 && $channel->user_id != auth()->id())
+                <div class="mt-4 channel_join"><a class="d-btn favorite_btn clickable" onclick="addChannelJoin({{ $channel->id }})">동아리 탈퇴</a></div>
+            @elseif($channel->user_id != auth()->id())
+                <div class="mt-4 channel_join"><a class="d-btn favorite_btn clickable" onclick="addChannelJoin({{ $channel->id }})">동아리 가입</a></div>
+            @endif
+        @endauth
     </div>
 </div>
 
@@ -101,9 +105,11 @@
 {{--                    var url = '{{ route('channel.show', ":id") }}';--}}
 //                     url = url.replace(':id', data.channelID);
                     // $('.category').append('<li class="channel_'+data.channel.id+'"><a href="'+url+'">'+data.channel.name+'</a></li>');
+                    $(".channel_join > a").text("동아리 탈퇴");
                     $('.totalCount').text(data.totalCount);
                 } else if(data.result=='deleted') {
                     // $('.category li.channel_'+data.id).remove();
+                    $(".channel_join > a").text("동아리 가입");
                     $('.totalCount').text(data.totalCount);
                 }
             },

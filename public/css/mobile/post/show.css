@@ -59,7 +59,7 @@
   .modal-parent > .modal-wrap > .modal-body {
     /*background-color:#3d5afe;*/
     padding: 0;
-    display:flex;
+    /*display:flex;*/
   }
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left {
