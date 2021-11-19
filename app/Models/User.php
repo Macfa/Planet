@@ -89,6 +89,15 @@ class User extends Authenticatable
     public function hasExperiences() {
         return $this->hasMany(Experience::class, "user_id", "id");
     }
+    public function allChannels() {
+        $joins = $this->hasMany(ChannelJoin::class, 'user_id', 'id')
+            ->join('channels', 'channel_joins.channel_id', '=', 'channels.id')
+            ->get();
+        $channels = $this->hasMany(Channel::class, 'user_id', 'id')->get();
+        $vals = $joins->merge($channels);
+//        dd($vals);
+        return $vals;
+    }
 
     // Custom Functions...
     public function setSetNameAttribute($name) {

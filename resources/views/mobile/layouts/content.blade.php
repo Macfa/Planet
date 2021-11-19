@@ -169,14 +169,17 @@
 <script>
     $(document).ready(function(){
         $(window).on('popstate', function(e) {
-            if(e.type == "popstate") {
+            if(e.type === "popstate") {
                 var modalState = $("#open_post_modal").hasClass('show');
                 if(modalState) {
                     $("#open_post_modal").modal("hide");
                 } else {
-                    var urlPath = location.pathname.split("/");
-                    var getPostId = urlPath[urlPath.length-1];
-                    $(`#post-${getPostId} .title a`).children().click();
+                    let url = window.location.href;
+                    var tmpPostID = url.split('/').pop();
+                    if($.isNumeric(tmpPostID))
+                    {
+                        $(`#post-${tmpPostID} .title a`).get(0).click();
+                    }
                 }
             }
 

@@ -2,7 +2,7 @@
 
 @section('main')
 <link rel="stylesheet" type="text/css" href="{{ asset('css/post/create.css') }}">
-
+{{--{{ dd($user->allChannels()) }}--}}
 <section id="channel">
     <div class="wrap">
         <article class="board_box">
@@ -11,7 +11,7 @@
                 <div class="select_box d-flex">
                     <select class="cst_select is-invalid" name="channel_id" id="channelList">
                         <option value="">등록할 채널을 선택해주세요</option>
-                        @foreach ($user->channels as $channel)
+                        @foreach ($user->allChannels() as $channel)
                             <option value="{{ $channel->id }}"
                                 @if($fromChannelID == $channel->id) selected
                                 @elseif(old('channel_id')==$channel->id) selected @endif>

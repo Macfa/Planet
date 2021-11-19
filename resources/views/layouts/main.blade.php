@@ -110,11 +110,19 @@
         $(document).ready(function(){
             // $(window.location.hash).modal('show'); // URL 입력 확인 후 모달 오픈
             $(window).on('popstate', function(e) {
-                if(e.type == "popstate") {
+                if(e.type === "popstate") {
                     var modalState = $("#open_post_modal").hasClass('show');
+
                     if(modalState) {
                         $("#open_post_modal").modal("hide");
                     } else {
+{{--                        alert("{{ request()->segment() }}");--}}
+                        let url = window.location.href;
+                        var tmpPostID = url.split('/').pop();
+                        if($.isNumeric(tmpPostID))
+                        {
+                            $(`#post-${tmpPostID} .title a`).get(0).click();
+                        }
                     }
                 }
             });

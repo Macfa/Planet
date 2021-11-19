@@ -264,17 +264,44 @@
                         }
                     }
                 });
+                $(document).ready(function () {
+                    //adjust modal body sizes
+                    var fit_modal_body;
 
-                document.querySelectorAll( 'oembed[url]' ).forEach( element => {
-                    // Create the <a href="..." class="embedly-card"></a> element that Embedly uses
-                    // to discover the media.
-                    const anchor = document.createElement( 'a' );
+                    fit_modal_body = function(modal) {
+                        console.log(modal);
+                        var body, bodypaddings, header, headerheight, height, modalheight;
+                        header = $(".modal-header:nth-of-type(1)", modal);
+                        // footer = $(".modal-footer", modal);
+                        body = $(".modal-body", modal);
+                        console.log(header);
+                        console.log(body);
+                        modalheight = parseInt(modal.css("height"));
+                        headerheight = parseInt(header.css("height")) + parseInt(header.css("padding-top")) + parseInt(header.css("padding-bottom"));
+                        // footerheight = parseInt(footer.css("height")) + parseInt(footer.css("padding-top")) + parseInt(footer.css("padding-bottom"));
+                        bodypaddings = parseInt(body.css("padding-top")) + parseInt(body.css("padding-bottom"));
+                        // height = $(window).height() - headerheight - footerheight - bodypaddings - 150;
+                        height = $(window).height() - headerheight - bodypaddings - 150;
+                        return body.css({"max-height": "" + height + "px", 'height':'auto'});
+                    };
 
-                    anchor.setAttribute( 'href', element.getAttribute( 'url' ) );
-                    anchor.className = 'embedly-card';
+                    fit_modal_body($("#open_post_modal"));
+                    $(window).resize(function() {
+                        return fit_modal_body($("#open_post_modal"));
+                    });
 
-                    element.appendChild( anchor );
-                } );
+                    document.querySelectorAll( 'oembed[url]' ).forEach( element => {
+                        // Create the <a href="..." class="embedly-card"></a> element that Embedly uses
+                        // to discover the media.
+                        const anchor = document.createElement( 'a' );
+
+                        anchor.setAttribute( 'href', element.getAttribute( 'url' ) );
+                        anchor.className = 'embedly-card';
+
+                        element.appendChild( anchor );
+                    } );
+                });
+
 
                 // var openStampModal = document.getElementById('openStampModal')
                 // openStampModal.addEventListener('show.bs.modal', function (event) {

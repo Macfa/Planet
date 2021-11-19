@@ -21,7 +21,7 @@
                                 <span class="menu">포스트</span>
                                 <select style="float: right;" class="cst_select" name="channel_id" id="channelList">
                                     <option value="">등록할 채널을 선택해주세요</option>
-                                    @forelse ($user->channels as $channel)
+                                    @forelse ($user->allChannels() as $channel)
                                         @if(old('channel_id'))
                                             <option value="{{ $channel->id }}" @if(old('channel_id')==$channel->id) selected @endif>{{ $channel->name }}</option>
                                         @elseif(isset($post))
