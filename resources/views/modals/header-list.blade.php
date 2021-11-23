@@ -11,20 +11,13 @@
     <div class="list-group" style="border-radius: 1rem;">
         <a href="{{ route('user.show', ['user'=>auth()->id(), 'el'=>'post']) }}" class="fw-bold flex-container list-group-item list-group-item-action"><p>마이 페이지</p></a>
         <!--Channels-->
-        <div class="accordion list-group-item list-group-item-action" id="accordionExample">
-            <div class="">
-                <div class="accordion-header">
 
-                    <button class="fw-bold flex-container" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_channelJoins" aria-expanded="true" aria-controls="collapseOne">
-                        내 동아리
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div id="collapse_channelJoins" class="accordion-collapse collapse accordion show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-            @foreach(auth()->user()->channelJoins()->limit(10)->get() as $joined)
+        <a href="" class="fw-bold flex-container list-group-item list-group-item-action">내 동아리</a>
+
+        <div id="collapse_channelJoins">
+            @foreach(auth()->user()->allChannels() as $joined)
 {{--                <a style="padding-left: 30px;" href="{{ route('channel.show', $joined->channel->id) }}" class="flex-container list-group-item list-group-item-action"><img src="{{ asset('image/scrap_c.png') }}" alt="" class="header-list-icon"><p>{{ $joined->channel->name }}</p></a>--}}
-                <a style="padding-left: 30px;" href="{{ route('channel.show', $joined->channel->id) }}" class="flex-container list-group-item list-group-item-action"><p>{{ $joined->channel->name }}</p></a>
+                <a style="padding-left: 30px;" href="{{ route('channel.show', $joined->id) }}" class="flex-container list-group-item list-group-item-action"><p>{{ $joined->name }}</p></a>
                 @if($loop->index === 9)
                     <a>더보기</a>
                 @endif

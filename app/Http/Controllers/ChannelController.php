@@ -68,15 +68,15 @@ class ChannelController extends Controller
         } else {
             // set validation rules
             $rules = [
-                'name' => 'required|unique:channels|max:100|min:2',
-                'description' => 'required|max:255|min:2',
+                'name' => 'required|unique:channels|max:100',
+                'description' => 'required|max:255',
             ];
 
             $messages = [
                 'name.required' => '동방명을 입력해주세요.',
                 'description.required' => '동방 소개란을 입력해주세요.',
-                'name.min' => '동방명은 최소 2 글자 이상입니다.',
-                'description.min' => '동방 소개란은 최소 2 글자 이상입니다.',
+//                'name.min' => '동방명은 최소 2 글자 이상입니다.',
+//                'description.min' => '동방 소개란은 최소 2 글자 이상입니다.',
                 'name.max' => '동방명은 최대 255 글자 이하입니다.',
                 'description.max' => '동방 소개란은 최대 255 글자 이하입니다.',
                 'name.unique' => '동방명이 이미 사용 중입니다.'

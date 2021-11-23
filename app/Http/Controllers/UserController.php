@@ -29,9 +29,10 @@ class UserController extends Controller
 //        $el = 'post';
         if($el == "post") {
             $posts = Post::where('user_id', $user->id)
-//                ->with('user')
-//                ->with('likes')
-//                ->withCount('comments')
+                ->with('user')
+                ->with('likes')
+                ->withCount('comments')
+                ->orderby("id", "desc")
                 ->get();
         } elseif($el == "comment") {
             $posts = Post::join('comments', 'posts.id', '=', 'comments.post_id')
@@ -40,6 +41,7 @@ class UserController extends Controller
                 ->with('likes')
                 ->withCount('comments')
 //                ->groupBy('posts.id')
+                ->orderby("id", "desc")
                 ->get();
         } elseif($el == "scrap") {
 //            $posts = Post::join('users', 'users.id', '=', 'posts.user _id')
@@ -51,6 +53,7 @@ class UserController extends Controller
                 ->with('likes')
                 ->withCount('comments')
                 ->where('scraps.user_id', $user->id)
+                ->orderby("id", "desc")
                 ->get();
             //                ('scraps', 'users.id', '=', 'scraps.userID')
         }

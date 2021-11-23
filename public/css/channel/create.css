@@ -1,8 +1,8 @@
 @charset "UTF-8";
 /* 공통 */
-.wrap {
-  width: 1276px;
-  margin: 0 auto;
+.channel_wrap {
+  width: 80%;
+  margin: 30px auto 0;
 }
 
 input:focus {
@@ -16,8 +16,8 @@ input:focus {
 }
 
 #channel .board_box .left {
-  float: left;
-  width: calc(100% - 216px);
+  /*float: left;*/
+  /*width: calc(100% - 216px);*/
 }
 
 #channel .board_box .left div.list {
@@ -50,7 +50,7 @@ input:focus {
 }
 #channel .board_box .left div.list .box {
   height: 55px;
-  width: 1028px;
+  width: 100%;
   border-radius: 10px;
 }
 
@@ -86,9 +86,9 @@ input:focus {
 }
 
 #channel .board_box .right {
-  width: 189px;
-  float: right;
-  margin: 0 0 0 22px;
+  /*width: 189px;*/
+  /*float: right;*/
+  /*margin: 0 0 0 22px;*/
 }
 
 #channel .board_box .banner {
@@ -102,7 +102,7 @@ input:focus {
 
 /* 하단 버튼 */
 #channel .point {
-  margin: 10px 20px 10px 896px;
+  margin: 10px 20px 10px 540px;
 }
 
 #channel .point .point_box {

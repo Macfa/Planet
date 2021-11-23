@@ -158,6 +158,7 @@
     margin-top:25px;
       border-bottom: 1px solid black;
       padding: 15px 15px 10px;
+      margin-bottom: 20px;
   }
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-write-form .form-title {
@@ -183,8 +184,9 @@
   }
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-write-form .form-btn {
-    display:flex;
-      justify-content: flex-end;
+      margin-top: 20px;
+    /*display:flex;*/
+    /*  justify-content: flex-end;*/
   }
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-write-form .form-btn  button {
@@ -223,6 +225,8 @@
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent {
     position:relative;
     margin-top:40px;
+      padding-top: 20px;
+      border-top: 1px solid #888;
   }
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .section-title {
@@ -271,7 +275,7 @@
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .reply-list > .reply-item .reply-top  {
     display:flex;
     justify-content:space-between;
-    margin-bottom:4px;
+    margin-bottom:6px;
     align-items:center;
   }
 
@@ -360,8 +364,8 @@
     /*position:absolute;*/
     /*right:20px;*/
     /*bottom:10px;*/
-    display:flex;
-      justify-content: flex-end;
+    /*display:flex;*/
+    /*  justify-content: flex-end;*/
   }
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .reply-form .form-btn  button {
@@ -578,7 +582,7 @@ table {
     border-collapse: collapse;
 }
 table, td {
-    /*border: 1px solid black;*/.modal-parent > .modal-wrap > .modal-body > .modal-left .comment-write-form .form-btn
+    /*border: 1px solid black;*/
 }
 #post-bot-function {
     border-top: 1px solid #888888;
@@ -594,10 +598,10 @@ table, td {
 }
 .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .reply-form .form-btn {
     /*position:absolute;*/
-    position:relative;
-    right:20px;
-    bottom:10px;
-    display:flex;
+    /*position:relative;*/
+    /*right:20px;*/
+    /*bottom:10px;*/
+    /*display:flex;*/
 }
 
 .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .reply-form .form-btn  button {

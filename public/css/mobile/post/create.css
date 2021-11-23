@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /* 공통 */
-.wrap {
-  width: 100vw;
+.post_wrap {
+  width: 80%;
   margin: 0 auto;
 }
 
@@ -75,7 +75,7 @@ input:focus {
 }
 #channel .board_box .left div.ch_list .box {
     height: 55px;
-    width: 1040px;
+    width: 100%;
     /*border-radius: 10px;*/
 }
 
@@ -113,9 +113,9 @@ input:focus {
 }
 
 #channel .board_box .right {
-  width: 189px;
-  float: right;
-  margin: 0 0 0 22px;
+  /*width: 189px;*/
+  /*float: right;*/
+  /*margin: 0 0 0 22px;*/
 }
 
 #channel .board_box .banner {

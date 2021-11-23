@@ -10,7 +10,7 @@
         <div class="comment-input">
             <textarea name="content" id="comment_text"></textarea>
 
-            <div class="form-btn mt10 mb10">
+            <div class="form-btn mt10 mb10 d-flex justify-content-end">
                 <div class="reset-btn">
                     <button type="button" data-bs-dismiss="modal" aria-label="Close">취소</button>
                 </div>
@@ -23,7 +23,9 @@
 
     </form>
 </div>
+<div>
 
+</div>
 @if(!blank($comments))
 <!-- 댓글 -->
 <div class="comment-list-parent" id="comment">
@@ -417,7 +419,7 @@
         id="reply_text"
         >${value}</textarea>
 
-        <div class="form-btn mt20 mb10 justify-content-end">
+        <div class="form-btn d-flex mt-1 mb10 justify-content-end">
             <div class="reset-btn">
                 <button onclick="cancleForm('${form}', ${commentID})" type="reset">취소</button>
             </div>

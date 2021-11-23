@@ -4,62 +4,84 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('css/post/create.css') }}">
 {{--{{ dd($user->allChannels()) }}--}}
 <section id="channel">
-    <div class="wrap">
+    <div class="post_wrap">
         <article class="board_box">
             <form id="form" action="{{ route('post.store') }}" name="searchForm" method="POST" onsubmit="return checkValue();">
                 @csrf
-                <div class="select_box d-flex">
-                    <select class="cst_select is-invalid" name="channel_id" id="channelList">
-                        <option value="">등록할 채널을 선택해주세요</option>
-                        @foreach ($user->allChannels() as $channel)
-                            <option value="{{ $channel->id }}"
-                                @if($fromChannelID == $channel->id) selected
-                                @elseif(old('channel_id')==$channel->id) selected @endif>
-                                {{ $channel->name }}
-                            </option>
-                        @endforeach
+{{--                <div>--}}
+{{--                    <div class="select_box d-flex">--}}
+{{--                        <select class="cst_select is-invalid" name="channel_id" id="channelList">--}}
+{{--                            <option value="">등록할 채널을 선택해주세요</option>--}}
+{{--                            @foreach ($user->allChannels() as $channel)--}}
+{{--                                <option value="{{ $channel->id }}"--}}
+{{--                                    @if($fromChannelID == $channel->id) selected--}}
+{{--                                    @elseif(old('channel_id')==$channel->id) selected @endif>--}}
+{{--                                    {{ $channel->name }}--}}
+{{--                                </option>--}}
+{{--                            @endforeach--}}
 
-                    </select>
-                    @error('channel_id')
-                        <div class="ml-2 invalid-feedback">{{ $message }}</div>
-                    @enderror
+{{--                        </select>--}}
+{{--                        @error('channel_id')--}}
+{{--                            <div class="ml-2 invalid-feedback">{{ $message }}</div>--}}
+{{--                        @enderror--}}
 
-                </div>
-                <div class="left">
-                    <div class="ch_list">
+{{--                    </div>--}}
+{{--                </div>--}}
+                <div class="d-flex">
+                    <div class="left col-9">
+                        <div class="ch_list">
+                            <div>
+                                <div class="select_box d-flex">
+                                    <select class="cst_select is-invalid" name="channel_id" id="channelList">
+                                        <option value="">등록할 채널을 선택해주세요</option>
+                                        @foreach ($user->allChannels() as $channel)
+                                            <option value="{{ $channel->id }}"
+                                                    @if($fromChannelID == $channel->id) selected
+                                                    @elseif(old('channel_id')==$channel->id) selected @endif>
+                                                {{ $channel->name }}
+                                            </option>
+                                        @endforeach
 
-                        <div class="input_box input_box_title">
-                            <div class="sub_box sub_box_line">
-                                <span class="menu">포스트</span>
+                                    </select>
+                                    @error('channel_id')
+                                    <div class="ml-2 invalid-feedback">{{ $message }}</div>
+                                    @enderror
+
+                                </div>
                             </div>
-                            <div class="sub_box sub_box_line">
-                                <input type="text" class="box is-invalid" name="title" value="{{ ($post->title) ?? old('title') }}" placeholder="이름을 입력하세요">
-                                @error('title')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                            <div class="input_box input_box_title">
+                                <div class="sub_box sub_box_line">
+                                    <span class="menu">포스트</span>
+                                </div>
+                                <div class="sub_box sub_box_line">
+                                    <input type="text" class="box is-invalid" name="title" value="{{ ($post->title) ?? old('title') }}" placeholder="이름을 입력하세요">
+                                    @error('title')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="sub_box">
+                                    <textarea class="text_box is-invalid" id="editor" name="content" placeholder="내용을 적어주세요">{{ ($post->content) ?? old('content') }}</textarea>
+                                    @error('content')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
-                            <div class="sub_box">
-                                <textarea class="text_box is-invalid" id="editor" name="content" placeholder="내용을 적어주세요">{{ ($post->content) ?? old('content') }}</textarea>
-                                @error('content')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                <div style="margin-top: 20px;">
+                                    <ul class="btn">
+                                        <li><button type="button" class="btn_cancle" onclick="location.href='{{ url('/') }}'">취소</button></li>
+                                        <li><button type="submit" class="btn_enter" onclick="">등록</button></li>
+                                    </ul>
+                                </div>
+
                             </div>
                         </div>
-                            <div style="margin-top: 20px;">
-                                <ul class="btn">
-                                    <li><button type="button" class="btn_cancle" onclick="location.href='{{ url('/') }}'">취소</button></li>
-                                    <li><button type="submit" class="btn_enter" onclick="">등록</button></li>
-                                </ul>
+                        <div class="right col-3 pl-4">
+                            <div class="banner banner_above">
+                                <span>banner</span>
                             </div>
-
-                        </div>
-                    </div>
-                    <div class="right">
-                        <div class="banner banner_above">
-                            <span>banner</span>
-                        </div>
-                        <div class="banner banner_below">
-                            <span>banner</span>
+                            <div class="banner banner_below">
+                                <span>banner</span>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -79,14 +101,14 @@
             alert("채널을 선택해주세요");
             return false;
         }
-        if(!(form.title.value.length >= 2 && form.title.value.length < 100))
+        if(form.title.value === "" || form.title.value.length > 20)
         {
-            alert("이름은 2자 이상, 100자 미만입니다");
+            alert("이름을 입력해주세요 ( 20자 이하 )");
             return false;
         }
-        if(!(form.content.value.length >= 2 && form.content.value.length < 255))
+        if(form.content.value === "")
         {
-            alert("내용은 2자 이상, 255자 미만입니다");
+            alert("내용을 입력해주세요");
             return false;
         }
     }

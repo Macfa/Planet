@@ -4,13 +4,13 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('css/mobile/post/create.css') }}">
 
 <section id="channel">
-    <div class="wrap">
+    <div class="post_wrap">
         <article class="board_box">
             @if(isset($post))
-                <form id="form" action="{{ route('post.update', $post->id) }}" method="POST">
+                <form id="form" action="{{ route('post.update', $post->id) }}" method="POST" name="searchForm" onsubmit="return checkValue();">
                 @method('PUT')
             @else
-                <form id="form" action="{{ route('post.store') }}" method="POST">
+                <form id="form" action="{{ route('post.store') }}" method="POST" name="searchForm" onsubmit="return checkValue();">
             @endif
                 @csrf
                 <div class="left">
@@ -86,6 +86,26 @@
 
 <script src="{{ asset('js/ckeditor.js') }}"></script>
 <script>
+    function checkValue()
+    {
+        let form = document.searchForm;
+
+        if(form.channel_id.value === '')
+        {
+            alert("채널을 선택해주세요");
+            return false;
+        }
+        if(form.title.value === "" || form.title.value.length > 20)
+        {
+            alert("이름을 입력해주세요 ( 20자 이하 )");
+            return false;
+        }
+        if(form.content.value === "")
+        {
+            alert("내용을 입력해주세요");
+            return false;
+        }
+    }
     ClassicEditor.create( document.querySelector( '#editor' ), {
         simpleUpload: {
             // The URL that the images are uploaded to.

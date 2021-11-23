@@ -3,7 +3,7 @@
 @section('main')
 <section id="main">
     <div class="main-wrap">
-        <article class="board_box row">
+        <article class="board_box d-flex">
             <div class="left col-9">
                 <button style="margin:0 30px;" onclick="willRemove();">Unread</button>
                 <button onclick="location.href='/test'">Coin</button>
@@ -60,7 +60,8 @@
                                     ">{{ $post->likes->sum('like') }}</span>
                                 </td>
                                 <td>
-                                    <div class="thum" style="background-image: url({{ $post->image }});"></div>
+{{--                                    <div class="thum" style="background-image: url({{ $post->image }});"></div>--}}
+                                    <div class="thum"></div>
                                 </td>
                                 <td>
                                     <div class="title">
@@ -215,6 +216,8 @@
                 // var channelID = button.getAttribute('data-bs-channel-id');
                 var modalBody = $(".modal-content");
                 // console.log(history);
+                $(document).off('focusin.modal');
+                $.fn.modal.Constructor.prototype.enforceFocus = function () {};
                 if(history.state == null) {
                     // var urlPath = "/channel/"+channelID+"/post/"+postID;
                     var urlPath = "/post/"+postID;
@@ -224,7 +227,7 @@
 
 
                 $.ajax({
-                    url: '/post/'+postID,
+                    url: '/post/'+postID+"/get",
                     type: 'get',
                     success: function(data) {
                         modalBody.html(data);

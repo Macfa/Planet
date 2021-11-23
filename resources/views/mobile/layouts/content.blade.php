@@ -47,7 +47,7 @@
                         @forelse ($posts as $post)
                             <tr id="post-{{ $post->id }}" class="post-title">
                                 <td>
-                                    <div class="thum" style="background-image: url({{ $post->image }});"></div>
+                                    <div class="thum"></div>
                                 </td>
                                 <td>
                                     <div class="title">

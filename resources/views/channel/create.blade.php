@@ -2,9 +2,10 @@
 
 @section('main')
 <section id="channel">
-  <div class="wrap">
-    <article class="board_box">
-      <div class="left">
+  <div class="channel_wrap">
+    <article class="board_box d-flex">
+      <div class="left col-9">
+        <div class="page_info mb30"><h2>동아리 만들기</h2></div>
         <div class="list">
                 @if(isset($channel))
                     <form action="{{ route('channel.update', $channel->id) }}" method="POST" name="searchForm" onsubmit="return checkValue();">
@@ -61,7 +62,7 @@
             </form>
         </div>
       </div>
-      <div class="right">
+      <div class="right col-3 pl-4">
         <div class="banner banner_above">
             <span>banner</span>
         </div>
@@ -83,14 +84,14 @@
     {
         let form = document.searchForm;
 
-        if(!(form.name.value.length >= 2 && form.name.value.length < 100))
+        if(form.name.value === "" || form.name.value.length > 12)
         {
-            alert("이름은 2자 이상, 100자 미만입니다");
+            alert("이름을 입력해주세요 ( 12자 이하 )");
             return false;
         }
-        if(!(form.description.value.length >= 2 && form.description.value.length < 255))
+        if(form.description.value === "" || form.description.value.length > 255)
         {
-            alert("설명은 2자 이상, 255자 미만입니다");
+            alert("설명을 입력해주세요 ( 255자 이하 )");
             return false;
         }
     }

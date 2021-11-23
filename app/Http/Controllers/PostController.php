@@ -90,7 +90,7 @@ class PostController extends Controller
         // set validation rules
         $rules = [
             'channel_id' => 'required',
-            'title' => 'required|max:200',
+            'title' => 'required|max:20',
             'content' => 'required|min:1',
         ];
 
@@ -98,7 +98,7 @@ class PostController extends Controller
             'channel_id.required' => '채널을 선택해주세요.',
             'title.required' => '제목을 입력해주세요.',
             'content.required' => '내용을 입력해주세요.',
-            'max' => '제목은 최대 255 글자 이하입니다.',
+            'max' => '제목은 최대 20 글자 이하입니다.',
             'min' => '내용은 최소 1글자 이상입니다.',
         ];
         $validator = Validator::make($request->all(), $rules, $messages)->validate();
@@ -200,7 +200,7 @@ class PostController extends Controller
         // set validation rules
         $rules = [
             'channel_id' => 'required',
-            'title' => 'min:1|required|max:200',
+            'title' => 'min:1|required|max:20',
             'content' => 'min:1|required',
         ];
 
@@ -208,7 +208,7 @@ class PostController extends Controller
             'channel_id.required' => '채널을 선택해주세요.',
             'title.required' => '제목을 입력해주세요.',
             'content.required' => '내용을 입력해주세요.',
-            'title.max' => '제목은 최대 255 글자 이하입니다.',
+            'title.max' => '제목은 최대 20 글자 이하입니다.',
             'content.min' => '내용은 최소 1 글자 이상 입력해주세요.',
             'title.min' => '제목은 최소 1 글자 이상 입력해주세요.',
         ];
@@ -315,5 +315,26 @@ class PostController extends Controller
             $result = "insert";
         }
         return response(['result' => $result]);
+    }
+    public function getPost(Post $post)
+    {
+        $comments = Comment::where('post_id', '=', $post->id)
+            ->orderBy('group', 'desc')
+            ->orderBy('order', 'asc')
+            ->orderBy('depth', 'asc')
+            ->get();
+
+        if(auth()->check()) {
+            // 게시글 열람이력을 추가한다
+            $post->postReadHistories()->updateOrCreate(
+                ["user_id" => auth()->id() ],
+                ['updated_at' => now()]
+            );
+        }
+        if($this->agent->isMobile()) {
+            return view('mobile.post.get', compact('post', 'comments'));
+        } else {
+            return view('post.get', compact('post', 'comments'));
+        }
     }
 }

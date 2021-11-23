@@ -4,7 +4,10 @@
             <div class="modal-header flex-wrap-wrap">
                 <div class="modal-title flex-0-0-100">
                     <h4>
-                        {{ $post->title }}&nbsp;&nbsp;<span class="titleSub">[&nbsp;<span class="commentCount">{{ $post->comments->count() }}</span>&nbsp;]</span>
+                        <p>{{ $post->title }}&nbsp;&nbsp;</p>
+                        @if($post->comments->count() > 0)
+                            <span class="titleSub">[&nbsp;<span class="commentCount">{{ $post->comments->count() }}</span>&nbsp;]</span>
+                        @endif
                         <span class="stamps">
                             @foreach($post->stampInPosts as $stampInPost)
                                 <span class="stamp-{{ $stampInPost->stampID }}">
@@ -27,7 +30,7 @@
 {{--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-image: url({{ asset('image/close.png') }})"></button>--}}
             </div>
 
-            <div class="modal-body" style="flex: 0 0 auto;">
+            <div class="modal-body" style="flex: 0 0 auto; height: calc(100vh - 140.6px)">
                 <!-- 왼쪽 게시글 내용 -->
                 <div class="modal-left">
                     <div class="modal-content">
@@ -266,29 +269,27 @@
                 });
                 $(document).ready(function () {
                     //adjust modal body sizes
-                    var fit_modal_body;
+                    // var fit_modal_body;
 
-                    fit_modal_body = function(modal) {
-                        console.log(modal);
-                        var body, bodypaddings, header, headerheight, height, modalheight;
-                        header = $(".modal-header:nth-of-type(1)", modal);
-                        // footer = $(".modal-footer", modal);
-                        body = $(".modal-body", modal);
-                        console.log(header);
-                        console.log(body);
-                        modalheight = parseInt(modal.css("height"));
-                        headerheight = parseInt(header.css("height")) + parseInt(header.css("padding-top")) + parseInt(header.css("padding-bottom"));
-                        // footerheight = parseInt(footer.css("height")) + parseInt(footer.css("padding-top")) + parseInt(footer.css("padding-bottom"));
-                        bodypaddings = parseInt(body.css("padding-top")) + parseInt(body.css("padding-bottom"));
-                        // height = $(window).height() - headerheight - footerheight - bodypaddings - 150;
-                        height = $(window).height() - headerheight - bodypaddings - 150;
-                        return body.css({"max-height": "" + height + "px", 'height':'auto'});
-                    };
+                    // fit_modal_body = function(modal) {
+                    //     console.log(modal);
+                    //     var body, bodypaddings, header, headerheight, height, modalheight;
+                    //     header = $(".modal-header", modal).eq(0);
+                    //     // footer = $(".modal-footer", modal);
+                    //     body = $(".modal-body", modal).eq(0);
+                    //     modalheight = parseInt(modal.css("height"));
+                    //     headerheight = parseInt(header.css("height")) + parseInt(header.css("padding-top")) + parseInt(header.css("padding-bottom"));
+                    //     // footerheight = parseInt(footer.css("height")) + parseInt(footer.css("padding-top")) + parseInt(footer.css("padding-bottom"));
+                    //     bodypaddings = parseInt(body.css("padding-top")) + parseInt(body.css("padding-bottom"));
+                    //     // height = $(window).height() - headerheight - footerheight - bodypaddings - 150;
+                    //     height = $(window).height() - headerheight - bodypaddings - 150;
+                    //     return body.css({"height": "" + height + "px"});
+                    // };
 
-                    fit_modal_body($("#open_post_modal"));
-                    $(window).resize(function() {
-                        return fit_modal_body($("#open_post_modal"));
-                    });
+                    // fit_modal_body($("#open_post_modal"));
+                    // $(window).resize(function() {
+                    //     return fit_modal_body($("#open_post_modal"));
+                    // });
 
                     document.querySelectorAll( 'oembed[url]' ).forEach( element => {
                         // Create the <a href="..." class="embedly-card"></a> element that Embedly uses

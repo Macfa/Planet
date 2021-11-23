@@ -38,6 +38,13 @@
     font-size:26px;
     font-weight:400;
   }
+.modal-parent > .modal-wrap > .modal-header > .modal-title p {
+    letter-spacing: 0;
+    float: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 .modal-parent > .modal-wrap > .modal-header > .modal-title h4 .titleSub {
     font-size:23px;
     /*font-weight:400;*/
@@ -150,7 +157,7 @@
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-write-form {
     margin-top:25px;
-      margin-bottom: 40px;
+      margin-bottom: 20px;
   }
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-write-form .form-title {
@@ -173,19 +180,22 @@
     resize:none;
     width:100%;
     height:160px;
+    /*height:70%;*/
   }
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-write-form .form-btn {
-    position:absolute;
-    right:20px;
-    bottom:10px;
-    display:flex;
+      margin-top: 20px;
+      /*float:right;*/
+    /*position:absolute;*/
+    /*right:20px;*/
+    /*bottom:10px;*/
+    /*display:flex;*/
   }
 
-  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-write-form .form-btn  button {
+  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-write-form .form-btn button {
     border-radius:15px;
     height:35px;
-    width:68px;
+    width:136px;
     font-size:14px;
   }
 
@@ -204,19 +214,21 @@
   }
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent:before {
-    content:"";
-    position:absolute;
-    left:50%;
-    top:-20px;
-    transform:translateX(-50%);
-    background-color:#707070;
-    width:100%;
-    height:1px;
-    display:block;
+    /*content:"";*/
+    /*position:absolute;*/
+    /*left:50%;*/
+    /*top:-20px;*/
+    /*transform:translateX(-50%);*/
+    /*background-color:#707070;*/
+    /*width:100%;*/
+    /*height:1px;*/
+    /*display:block;*/
   }
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent {
     position:relative;
+      padding-top: 20px;
+    border-top: 1px solid #888;
     /*margin-top:40px;*/
   }
 
@@ -266,7 +278,7 @@
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .reply-list > .reply-item .reply-top  {
     display:flex;
     justify-content:space-between;
-    margin-bottom:4px;
+    margin-bottom:6px;
     align-items:center;
   }
 
@@ -351,13 +363,13 @@
   }
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .reply-form .form-btn {
-    position:absolute;
-    right:20px;
-    bottom:10px;
-    display:flex;
+    /*position:absolute;*/
+    /*right:20px;*/
+    /*bottom:10px;*/
+    /*display:flex;*/
   }
 
-  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .reply-form .form-btn  button {
+  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .reply-form .form-btn button {
     border-radius:15px;
     height:35px;
     width:68px;
@@ -598,13 +610,13 @@ table, td {
 }
 
 .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .reply-form .form-btn {
-    position:absolute;
-    right:20px;
-    bottom:10px;
-    display:flex;
+    /*position:absolute;*/
+    /*right:20px;*/
+    /*bottom:10px;*/
+    /*display:flex;*/
 }
 
-.modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .reply-form .form-btn  button {
+.modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .reply-form .form-btn button {
     border-radius:15px;
     height:35px;
     width:68px;

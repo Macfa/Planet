@@ -47,7 +47,7 @@ Route::get('/sidebar', [HomeController::class, 'sidebar'])->name('home.sidebar')
 Route::get('/mainMenu', [HomeController::class, 'mainMenu'])->name('home.mainmenu');
 
 
-//Route::get('/post/getPostData/{post}', [PostController::class, 'getPostData']);
+Route::get('/post/{post}/get', [PostController::class, 'getPost']);
 Route::post('/post/{post}/like', [PostController::class, 'like']);
 Route::post('/post/{post}/report', [PostController::class, 'report']);
 Route::post('/post/{post}/scrap', [PostController::class, 'scrap']);

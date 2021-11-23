@@ -7,10 +7,10 @@
       <div class="left">
         <div class="list">
                 @if(isset($channel))
-                    <form action="{{ route('channel.update', $channel->id) }}" method="POST">
+                    <form action="{{ route('channel.update', $channel->id) }}" method="POST" name="searchForm" onsubmit="return checkValue();">
                     @method('PUT')
                 @else
-                    <form action="{{ route('channel.store') }}" method="POST">
+                    <form action="{{ route('channel.store') }}" method="POST" name="searchForm" onsubmit="return checkValue();">
                 @endif
                 @csrf
                 <div class="input_box input_box_title">
@@ -74,15 +74,19 @@
   </div>
 </section>
 <script>
-    // $('#channel_name_input').keyup(function (e){
-    //     var content = $(this).val();
-    //
-    //     if (content.length > 20){
-    //         return;
-    //     } else {
-    //         var elem = `<span>${content.length}/20</span>`;
-    //         $("#channel_name_input_section").append(elem);
-    //         console.log(elem);
-    //     }
-    // });
+    function checkValue()
+    {
+        let form = document.searchForm;
+
+        if(form.name.value === "" || form.name.value.length > 12)
+        {
+            alert("이름을 입력해주세요 ( 12자 이하 )");
+            return false;
+        }
+        if(form.description.value==="" || form.description.value.length > 255)
+        {
+            alert("설명을 입력해주세요 ( 255자 이하 )");
+            return false;
+        }
+    }
 </script>

@@ -9,11 +9,10 @@
 
         <div class="comment-input">
             <textarea name="content" id="comment_text"></textarea>
-
-            <div class="form-btn">
-                <div class="reset-btn">
-                    <button type="button" data-bs-dismiss="modal" aria-label="Close">취소</button>
-                </div>
+            <div class="form-btn d-flex justify-content-end">
+{{--                <div class="reset-btn">--}}
+{{--                    <button type="button" data-bs-dismiss="modal" aria-label="Close">취소</button>--}}
+{{--                </div>--}}
 
                 <div class="write-btn">
                     <button type="submit" onclick="checkCommentTypeToProcess('add');">등록</button>
@@ -193,7 +192,7 @@
             toggleAddForm('hide', existCommentID);
 
             // 새로 수정하고하는 댓글의 수정 폼을 연다
-            toggleAddForm('show', commentID);
+            // toggleAddForm('show', commentID);
         } else {
             toggleAddForm('show', commentID);
         }
@@ -280,11 +279,31 @@
                                 $("#replyForm").tmpl(templateValues).insertAfter(".section-title");
                             }
                         }
-                        $(`#post-${data.post_id} .commentCount, #open_post_modal .commentCount`).text(data.commentCount);
                         if(commentID) {
                             cancleForm('add', commentID);
                         } else {
                             $("#comment-form #comment_text").val('');
+                        }
+                        // main page section modify
+                        // $(`#post-${data.post_id} .commentCount, #open_post_modal .commentCount`).text(data.commentCount);
+                        var mainCommentValue = $(`#post-${data.post_id} .commentCount`).eq(0).text();
+                        if(mainCommentValue > 1)
+                        {
+                            $(`#post-${data.post_id} .commentCount`).text(parseInt(mainCommentValue)+1);
+                        } else if(mainCommentValue === '') {
+                            var afterData = '<span class="titleSub">[&nbsp;<span class="commentCount">1</span>&nbsp;]</span>';
+                            $(`#post-${data.post_id} .title a p`).after(afterData);
+                        }
+
+
+                        // post title section modify
+                        var commentValue = $("#open_post_modal .commentCount").eq(0).text();
+                        if(commentValue > 1)
+                        {
+                            $(".commentCount").eq(0).text(parseInt(commentValue)+1);
+                        } else if(commentValue === ''){
+                            var afterData = '<span class="titleSub">[&nbsp;<span class="commentCount">1</span>&nbsp;]</span>';
+                            $(".modal-parent > .modal-wrap > .modal-header > .modal-title h4 p").after(afterData);
                         }
                     }
 
@@ -314,6 +333,27 @@
                     if(commentTotalCount === 0) {
                         $("#comment").remove();
                     }
+
+                    // post title section modify
+                    var commentCount = $(".commentCount").eq(0).text();
+                    if(commentCount > 1)
+                    {
+                        $(".commentCount").eq(0).text(parseInt(commentCount)-1);
+                    } else {
+                        var titleSub = $(".titleSub").eq(0).remove();
+                    }
+
+                    // main page title section modify
+                    var getPostID = $("input[name='post_id']").val();
+                    var mainCommentValue = $(`#post-${getPostID} .commentCount`).eq(0).text();
+                    if(mainCommentValue > 1)
+                    {
+                        $(`#post-${getPostID} .commentCount`).text(parseInt(mainCommentValue)-1);
+                    } else if(mainCommentValue == 1) {
+                        $(`#post-${getPostID} .title a .titleSub`).remove();
+                    }
+
+                    // blah blah
                 },
                 error: function(err) {
                     console.log(err);
@@ -417,7 +457,7 @@
         id="reply_text"
         >${value}</textarea>
 
-        <div class="form-btn">
+        <div class="form-btn d-flex justify-content-end mt-2">
             <div class="reset-btn">
                 <button onclick="cancleForm('${form}', ${commentID})" type="reset">취소</button>
             </div>
