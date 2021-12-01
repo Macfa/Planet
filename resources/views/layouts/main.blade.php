@@ -36,63 +36,9 @@
                 @endif
 {{--                @yield('content-menu')--}}
 
-                <div class="list">
-                    <table>
-                        <colgroup>
-                            @if(!blank($posts))
-                                <col style="width:40px;">
-                                <col style="width:75px;">
-                                <col style="width:100%;">
-                            @endif
-                        </colgroup>
-                        @forelse ($posts as $post)
-                            <tr id="post-{{ $post->id }}">
-                                <td>
-                                    <!-- 업이면 클래스 up, 다운이면 down -->
-                                    <span class="post-like-main
-                                    @if($post->likes->sum('like') > 0)
-                                        updown up
-                                        @elseif($post->likes->sum('like') < 0)
-                                        updown down
-                                        @else
-                                        updown dash
-                                        @endif
-                                    ">{{ $post->likes->sum('like') }}</span>
-                                </td>
-                                <td>
-{{--                                    <div class="thum" style="background-image: url({{ $post->image }});"></div>--}}
-                                    <div class="thum"></div>
-                                </td>
-                                <td>
-                                    <div class="title">
-                                        <a href="#post-show-{{ $post->id }}" data-bs-toggle="modal" data-bs-focus="false" data-bs-post-id="{{ $post->id }}" data-bs-channel-id="{{ $post->channel->id }}" data-bs-target="#open_post_modal">
-                                            <p>{{ $post->title }}&nbsp;&nbsp;</p>
-                                            @if($post->comments->count() > 0)
-                                                <span class="titleSub">[&nbsp;<span class="commentCount">{{ $post->comments->count() }}</span>&nbsp;]</span></p>
-                                            @endif
-                                            <span>
-                                                @foreach($post->stampInPosts as $stamp)
-                                                    <img style="width:27px;" src="{{ $stamp->stamp->image }}" alt="">
-                                                    @if($stamp->count>1)
-                                                        {{ $stamp->count }}
-                                                    @endif
-                                                @endforeach
-                                            </span>
-                                        </a>
-                                    </div>
-                                    <div class="user">
-                                        <p><span><a href="{{ route('channel.show', $post->channel_id) }}">[ {{ $post->channel->name }} ]</a></span> {{ $post->created_at->diffForHumans() }} / <a href="{{ route('user.show', ["user" => $post->user] ) }}">{{ $post->user->name }}</a></p></div>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr class="none-tr">
-                                <td>
-                                    @yield('message')
-                                </td>
-                            </tr>
-                        @endforelse
-                    </table>
-                </div>
+                @hasSection('mainlist')
+                    @yield('mainlist')
+                @endif
             </div>
             <div class="right col-3 pr-4 pl-4">
                 @yield('sidebar')
@@ -109,17 +55,19 @@
         var checkRun = false;
 
         $(document).ready(function(){
-            // $(window.location.hash).modal('show'); // URL 입력 확인 후 모달 오픈
             $(window).on('popstate', function(e) {
+                console.log("popstate");
                 if(e.type === "popstate") {
                     var modalState = $("#open_post_modal").hasClass('show');
-
+                    console.log(modalState);
                     if(modalState) {
+                        console.log('popstate hide');
                         $("#open_post_modal").modal("hide");
                     } else {
-{{--                        alert("{{ request()->segment() }}");--}}
+                        console.log("another post clicked");
                         let url = window.location.href;
                         var tmpPostID = url.split('/').pop();
+                        console.log(tmpPostID);
                         if($.isNumeric(tmpPostID))
                         {
                             $(`#post-${tmpPostID} .title a`).get(0).click();
@@ -127,7 +75,18 @@
                     }
                 }
             });
-
+            var checkPost = "{{ request()->route()->named("post.show") }}";
+            if(checkPost === "1") {
+                console.log("post show !");
+                let url = window.location.href;
+                // window.location.href = window.location.origin;
+                var tmpPostID = url.split('/').pop();
+                if($.isNumeric(tmpPostID))
+                {
+                    // history.pushState('asd', 'asd', window.location.origin);
+                    $(`#post-${tmpPostID} .title a`).get(0).click();
+                }
+            }
             $(window).scroll(function(event) {
                 if($(window).scrollTop() + $(window).height() >= $(document).height()) {
                     if(checkRun == false) {
@@ -200,14 +159,20 @@
             checkRun = false;
         }
 
-        // $(document).on('show.bs.modal', '#open_post_modal', function (event) {
         $("#open_post_modal").on('hide.bs.modal', function(event) {
+            console.log("hide.bs");
             if(history.state == "modal") {
+                console.log("history back");
                 history.back();
             }
         });
         $("#open_post_modal").on('show.bs.modal', function(event) {
             if (event.target.id == 'open_post_modal') {
+                $(this).addClass(`modal-level-${$('.modal:visible').length}`);
+
+                $(document).off('focusin.modal');
+                $.fn.modal.Constructor.prototype.enforceFocus = function () {};
+                console.log("post");
                 var button = event.relatedTarget;
                 // var button = event.currentTarget;
 
@@ -216,13 +181,13 @@
                 // var channelID = button.getAttribute('data-bs-channel-id');
                 var modalBody = $(".modal-content");
                 // console.log(history);
-                $(document).off('focusin.modal');
-                $.fn.modal.Constructor.prototype.enforceFocus = function () {};
+                // $(document).off('focusin.modal');
+                var urlPath = '';
                 if(history.state == null) {
                     // var urlPath = "/channel/"+channelID+"/post/"+postID;
-                    var urlPath = "/post/"+postID;
+                    urlPath = "/post/"+postID;
                 } else {
-                    var urlPath = location.href;
+                    urlPath = location.href;
                 }
 
 
@@ -237,18 +202,13 @@
                         console.log(err);
                     }
                 })
+            } else {
+                console.log("else");
             }
             // else if (event.target.id == 'openStampModal') {
             //     // do stuff when the outer dialog is hidden.
             // }
         });
-
-        // var open_post_modal = document.getElementById('open_post_modal')
-        // open_post_modal.addEventListener('show.bs.modal', function (event) {
-        //     // event.stopPropagation();
-        //     // Button that triggered the modal
-        //
-        // })
 
         $('#main .tab li').click(function(event){
             $('#main .tab li').removeClass('on');

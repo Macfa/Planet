@@ -184,7 +184,15 @@
             }
 
         });
-
+        var checkPost = "{{ request()->route()->named("post.show") }}";
+        if(checkPost === "1") {
+            let url = window.location.href;
+            var tmpPostID = url.split('/').pop();
+            if($.isNumeric(tmpPostID))
+            {
+                $(`#post-${tmpPostID} .title a`).get(0).click();
+            }
+        }
         $(window).scroll(function(event) {
             console.log(event);
             console.log($(window).scrollTop());

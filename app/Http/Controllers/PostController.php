@@ -148,23 +148,13 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        $comments = Comment::where('post_id', '=', $post->id)
-            ->orderBy('group', 'desc')
-            ->orderBy('order', 'asc')
-            ->orderBy('depth', 'asc')
-            ->get();
+        $posts = $post->getAllData();
 
-        if(auth()->check()) {
-            // 게시글 열람이력을 추가한다
-            $post->postReadHistories()->updateOrCreate(
-                ["user_id" => auth()->id() ],
-                ['updated_at' => now()]
-            );
-        }
+        $channelVisitHistories = ChannelVisitHistory::showHistory();
         if($this->agent->isMobile()) {
-            return view('mobile.post.show', compact('post', 'comments'));
+            return view('mobile.main.index', compact('posts', 'channelVisitHistories'));
         } else {
-            return view('post.show', compact('post', 'comments'));
+            return view('main.index', compact('posts', 'channelVisitHistories'));
         }
     }
 

@@ -46,7 +46,7 @@
 {{--            @endforeach--}}
 {{--        </div>--}}
         @auth
-            @if($channel->channelJoins->count()>0 && $channel->user_id != auth()->id())
+            @if($channel->channelJoins()->where('user_id', auth()->id())->count()>0 && $channel->user_id != auth()->id())
                 <div class="mt-4 channel_join"><a class="d-btn favorite_btn clickable" onclick="addChannelJoin({{ $channel->id }})">동아리 탈퇴</a></div>
             @elseif($channel->user_id != auth()->id())
                 <div class="mt-4 channel_join"><a class="d-btn favorite_btn clickable" onclick="addChannelJoin({{ $channel->id }})">동아리 가입</a></div>

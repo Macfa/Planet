@@ -90,11 +90,20 @@ class User extends Authenticatable
         return $this->hasMany(Experience::class, "user_id", "id");
     }
     public function allChannels() {
-        $joins = $this->hasMany(ChannelJoin::class, 'user_id', 'id')
+//        dd($this->id);
+//        $joins = auth()->user()->channelJoins()
+        $joins = $this->channelJoins()
+//            ->with('channel')
             ->join('channels', 'channel_joins.channel_id', '=', 'channels.id')
             ->get();
-        $channels = $this->hasMany(Channel::class, 'user_id', 'id')->get();
-        $vals = $joins->merge($channels);
+//        $channels = auth()->user()->channels()
+        $channels = $this->channels()
+//            ->with('channelJoins')
+            ->leftJoin('channel_joins', 'channels.id', '=', 'channel_joins.channel_id')
+            ->select('channels.*', 'channel_joins.channel_id', 'channel_joins.user_id')
+            ->get();
+        $vals = collect($joins)->merge($channels);
+//        dd($vals);
 //        dd($vals);
         return $vals;
     }

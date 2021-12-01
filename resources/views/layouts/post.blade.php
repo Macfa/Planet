@@ -83,9 +83,10 @@
                                 <!-- Button trigger modal -->
                                 @auth
                                     <li data-bs-toggle="modal" data-bs-target="#openStampModal" class="clickable items">
+{{--                                    <li class="items"><a data-bs-toggle="modal" href="#openStampModal">--}}
                                 @endauth
                                 @guest
-                                    <li onclick="notLogged()" class="clickable items">
+                                    <li class="items"><a onclick="notLogged()">
                                 @endguest
                                     <img src="{{ asset('image/stamp_c.png') }}" class="image-sm" alt="" />
 
@@ -133,126 +134,18 @@
                             </ul>
                         </div>
                     @yield('comment')
-{{--                        <div class="board-bot-function" id="post-bot-function">--}}
-{{--                            <div class="left-function">--}}
-{{--                                <div class="page-arrow">--}}
-{{--                                    <img onclick="@if(auth()->check()) voteLikeInPost({{ $post->id }},1) @else notLogged(); @endif" id="post-upvote-fix" class="image-m clickable" alt="위로"--}}
-{{--                                         @if($post->existPostLike == 1)--}}
-{{--                                         src="{{ asset('image/upvote_c.png') }}" />--}}
-{{--                                    @else--}}
-{{--                                        src="{{ asset('image/upvote.png') }}" />--}}
-{{--                                    @endif--}}
-{{--                                    <span class="post-like">{{ $post->likes->sum('like') }}</span>--}}
-{{--                                    <img onclick="@if(auth()->check()) voteLikeInPost({{ $post->id }},-1) @else notLogged(); @endif" id="post-downvote-fix" class="image-m clickable" alt="아래로"--}}
-{{--                                         @if($post->existPostLike == -1)--}}
-{{--                                         src="{{ asset('image/downvote_c.png') }}" />--}}
-{{--                                    @else--}}
-{{--                                        src="{{ asset('image/downvote.png') }}" />--}}
-{{--                                    @endif--}}
-{{--                                </div>--}}
-
-{{--                                <img alt="stamp" class="stamp-image image-m clickable" src="{{ asset('image/stamp.png') }}"/>--}}
-{{--                                <img class="favorit-image image-m clickable" id="post-scrap" onclick="@if(auth()->check()) scrapPost({{ $post->id }}) @else notLogged(); @endif" alt="favorit"--}}
-{{--                                     @if($post->postScrap == 1)--}}
-{{--                                     src="{{ asset('image/scrap_c.png') }}" />--}}
-{{--                                @else--}}
-{{--                                    src="{{ asset('image/scrap.png') }}" />--}}
-{{--                                @endif--}}
-{{--                                <img src="{{ asset('image/message.png') }}" alt="message" class="message-image">--}}
-{{--                            </div>--}}
-
-{{--                            <div class="right-function">--}}
-{{--                                <img src="{{ asset('image/message.png') }}" alt="message" class="message-image">--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
                     </div>
                 </div>
             </div>
 
-            <!-- Modal -->
-            <div class="modal fade" id="openStampModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" style="margin-top:250px;">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4>스탬프 목록</h4>
-{{--                            <input type="text" name="searchStamp" />--}}
-                        </div>
-                        <div class="modal-body">
-                            <div class="">
-                                <nav id="category-header" class="flex-container">
-                                    @forelse(\App\Models\StampCategory::getAllCategories() as $category)
-                                        <button class="col" onclick="selectCategory({{ $category->id }});">
-    {{--                                                                                <img style="width:25px;" src="{{ asset($category->image) }}" alt="{{ $category->name }}">--}}
-                                            {{ $category->name }}
-                                        </button>
-                                    @empty
-                                        <div>데이터가 없습니다.</div>
-                                    @endforelse
-                                    <button class="col" onclick="return false;">테스트1</button>
-                                    <button class="col" onclick="return false;">테스트2</button>
-                                    <button class="col" onclick="return false;">테스트3</button>
-                                </nav>
-                                <div id="category-data">
-                                    @forelse(\App\Models\StampGroup::getDataFromCategory(1) as $group)
-                                        <div>
-                                            <div>
-                                                <span id="group-name">{{ $group->name }}</span>
-                                            </div>
-                                            @forelse($group->stamps as $stamp)
-                                            <div>
-                                                <ul class="flex-container">
-                                                    <li class="col">
-                                                        <button onclick="purchaseStamp({{ $stamp->id }}, {{ $post->id }});">
-                                                            <img src="{{ $stamp->image }}" />
-                                                            <span>{{ $stamp->coin }}</span>
-                                                        </button>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            @empty
-                                            @endforelse
-                                        </div>
-                                    @empty
-                                    @endforelse
-                                    <div>
-                                        <div>
-                                            <span id="group-name">동물</span>
-                                        </div>
-                                            <div>
-                                                <button onclick="return false;">
-                                                    <img src="/image/2_1629657939.gif" />
-                                                    <span>100</span>
-                                                </button>
-                                            </div>
-                                    </div>
-                                    <div>
-                                        <div>
-                                            <span id="group-name">고양이</span>
-                                        </div>
-                                            <div>
-                                                <button onclick="return false;">
-                                                    <img src="/image/2_1629657939.gif" />
-                                                    <span>1500</span>
-                                                </button>
-                                            </div>
-                                    </div>
-{{--                                    테스트 영역 끝--}}
-                                </div>
-                            </div>
-                        </div>
-{{--                        <div class="modal-footer">--}}
-{{--                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>--}}
-{{--                            <button type="button" class="btn btn-primary">Save changes</button>--}}
-{{--                        </div>--}}
-                    </div>
-                </div>
-            </div>
             {{--    <script src="{{ asset('js/editorShow.js') }}"></script>--}}
             <script>
                 $("#open_post_modal").scroll(function() {
                     var headerHeight = $("#header").height();
                     var postOffsetTop = $("#post").offset().top;
 
+                    console.log(headerHeight);
+                    console.log(postOffsetTop);
                     if(postOffsetTop - headerHeight <= 0 ) {
                         var checkExist = $("#post-bot-function").hasClass("sticky-bottom");
                         if(checkExist === false) {

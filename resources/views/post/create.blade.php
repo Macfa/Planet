@@ -112,7 +112,7 @@
             return false;
         }
     }
-    ClassicEditor.create( document.querySelector( '#editor' ), {
+        ClassicEditor.create( document.querySelector( '#editor' ), {
         simpleUpload: {
             // The URL that the images are uploaded to.
             uploadUrl: '{{ route('ck.upload') }}',

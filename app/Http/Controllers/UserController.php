@@ -34,7 +34,7 @@ class UserController extends Controller
                 ->withCount('comments')
                 ->orderby("id", "desc")
                 ->get();
-        } elseif($el == "comment") {
+        } else if($el == "comment") {
             $posts = Post::join('comments', 'posts.id', '=', 'comments.post_id')
                 ->where('comments.user_id', $user->id)
                 ->with('user')
@@ -43,7 +43,7 @@ class UserController extends Controller
 //                ->groupBy('posts.id')
                 ->orderby("id", "desc")
                 ->get();
-        } elseif($el == "scrap") {
+        } else if($el == "scrap") {
 //            $posts = Post::join('users', 'users.id', '=', 'posts.user _id')
             $posts = Post::leftJoin('scraps', function($join) {
 //                    $join->on('users.id', '=', 'scraps.user_id');
@@ -55,6 +55,10 @@ class UserController extends Controller
                 ->where('scraps.user_id', $user->id)
                 ->orderby("id", "desc")
                 ->get();
+            //                ('scraps', 'users.id', '=', 'scraps.userID')
+        } else if($el == "channel") {
+//            $posts = Post::join('users', 'users.id', '=', 'posts.user _id')
+            $posts = $user->allChannels();
             //                ('scraps', 'users.id', '=', 'scraps.userID')
         }
 

@@ -93,25 +93,35 @@ class HomeController extends Controller
     public function search(Request $request) {
         $searchType = $request->get('searchType');
 
-        $searchContent = '%'.$request->searchText.'%';
 //        $posts = Post::where('content', 'like', $searchContent)
 
-        $posts = Post::where(function($q) use ($searchType, $searchContent) {
-                if($searchType==='a') {
-                    $q->where('title', 'like', $searchContent);
-                    $q->orWhere('content', 'like', $searchContent);
-                } else if($searchType==='t') {
-                    $q->where('title', 'like', $searchContent);
-                } else if($searchType==='c') {
-                    $q->where('content', 'like', $searchContent);
-                }
-            })
-//            ->withCount('comments')
-//            ->with('channel')
-//            ->with('user')
-//            ->with('likes')
-            ->get();
-
+        if($searchType==="ch"){
+            $searchContent = $request->searchText;
+            $posts = Channel::where('name', 'like', '%'.$searchContent.'%')
+//                ->select((keywords LIKE '%이효리%') + (keywords LIKE '%한예슬%') + (keywords LIKE '%전지현%') AS score)
+                ->select('*')
+                ->addSelect(DB::raw("(name='$searchContent') + (name LIKE '%$searchContent%') AS score"))
+                ->orderby('score', 'desc')
+                ->get();
+//            dd($posts);
+        } else {
+            $searchContent = '%'.$request->searchText.'%';
+            $posts = Post::where(function($q) use ($searchType, $searchContent) {
+                    if($searchType==='a') {
+                        $q->where('title', 'like', $searchContent);
+                        $q->orWhere('content', 'like', $searchContent);
+                    } else if($searchType==='t') {
+                        $q->where('title', 'like', $searchContent);
+                    } else if($searchType==='c') {
+                        $q->where('content', 'like', $searchContent);
+                    }
+                })
+    //            ->withCount('comments')
+    //            ->with('channel')
+    //            ->with('user')
+    //            ->with('likes')
+                ->get();
+        }
         // $visit = new Visit();
         $channelVisitHistories = ChannelVisitHistory::showHistory();
 

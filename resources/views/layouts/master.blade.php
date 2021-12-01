@@ -57,29 +57,19 @@
 
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-{{--    <script src="{{ asset('js/bootstrap-5.1.0.min.js') }}"></script>--}}
-    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script async charset="utf-8" src="//cdn.embedly.com/widgets/platform.js"></script>
+
+{{--    <script src="https://unpkg.com/@popperjs/core@2"></script>--}}
     <script src="{{ asset('js/toastr.min.js') }}"></script>
     <script src="{{ asset('js/jquery-tmpl.js') }}"></script>
     <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
-    <script async charset="utf-8" src="//cdn.embedly.com/widgets/platform.js"></script>
+{{--    <script async charset="utf-8" src="//cdn.embedly.com/widgets/platform.js"></script>--}}
 
     @stack("styles")
 
-
-
-    <!-- Fonts -->
-    {{-- <link rel="dns-prefetch" href="//fonts.gstatic.com"> --}}
-    {{-- <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> --}}
-
-<!-- Styles -->
-    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
 </head>
 
-
 <body>
-{{--{{ dd(\Illuminate\Support\Facades\Session::has('msg')) }}--}}
-
 
 {{--@if(session('status'))--}}
 {{--    <script>--}}
@@ -102,8 +92,9 @@
 {{--@endif--}}
 
 <!-- Modals -->
-<div style="max-height:100vh;" class="modal fade" id="open_post_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div style="width: 80%; max-width: none; top: 53px; margin-top: 0px;" class="modal-dialog moda">
+{{--<div style="max-height:100vh;" class="modal fade" id="open_post_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">--}}
+<div style="max-height:100vh;" class="modal fade" id="open_post_modal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div style="width: 80%; max-width: none; top: 53px; margin-top: 0px;" class="modal-dialog">
 {{--    <div class="modal-dialog">--}}
         <div class="modal-content">
         </div>
@@ -139,7 +130,6 @@
 
 
 </script>
-
 </body>
 </html>
 

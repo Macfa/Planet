@@ -7,11 +7,9 @@ $.ajaxSetup({
 var timer = null;
 
 
+$(document).off('focusin.modal');
 $(document).ready(function () {
-
-    $('#open_post_modal').on('shown.bs.modal', function() {
-        $(document).off('focusin.modal');
-    });
+    $(document).off('focusin.modal');
     $("#header .header_icon_clickable a").click(function(){
         $('.multi-collapse').collapse('hide');
     });
@@ -33,8 +31,8 @@ $(document).ready(function () {
         .forEach(function (form) {
             form.addEventListener('submit', function (event) {
                 if (!form.checkValidity()) {
-                    event.preventDefault()
-                    event.stopPropagation()
+                    // event.preventDefault()
+                    // event.stopPropagation()
                 }
 
                 form.classList.add('was-validated')
