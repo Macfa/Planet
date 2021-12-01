@@ -161,16 +161,15 @@
 
         $("#open_post_modal").on('hide.bs.modal', function(event) {
             console.log("hide.bs");
-            if(history.state == "modal") {
+            if(history.state === "modal") {
                 console.log("history back");
                 history.back();
             }
         });
         $("#open_post_modal").on('show.bs.modal', function(event) {
-            if (event.target.id == 'open_post_modal') {
-                $(this).addClass(`modal-level-${$('.modal:visible').length}`);
-
-                $(document).off('focusin.modal');
+            if (event.target.id === 'open_post_modal') {
+                // $(this).addClass(`modal-level-${$('.modal:visible').length}`);
+                // $(document).off('focusin.modal');
                 $.fn.modal.Constructor.prototype.enforceFocus = function () {};
                 console.log("post");
                 var button = event.relatedTarget;
@@ -237,7 +236,7 @@
                 success: function(data) {
                     var valueList = [];
                     $("#main .main-wrap .left .list table tbody tr").remove();
-                    if(data.result.length==0) {
+                    if(data.result.length === 0) {
                         // valueList.push("<tr class='none-tr'><td>데이터가 없습니다.</td></tr>");
                         var value = "<tr class='none-tr'><td>데이터가 없습니다.</td></tr>";
                         $("#main .wrap .left .list table tbody").html(value);
