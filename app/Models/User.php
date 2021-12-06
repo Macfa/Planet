@@ -90,7 +90,8 @@ class User extends Authenticatable
         return $this->hasMany(Experience::class, "user_id", "id");
     }
     public function allChannels() {
-        $userId = auth()->id();
+
+        $userId = $this->id;
 
         $joins = Channel::whereHas('channelJoins', function($q) use ($userId) {
             $q->where('user_id', $userId);

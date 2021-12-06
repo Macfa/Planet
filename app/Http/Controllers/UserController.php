@@ -58,6 +58,7 @@ class UserController extends Controller
             //                ('scraps', 'users.id', '=', 'scraps.userID')
         } else if($el == "channel") {
 //            $posts = Post::join('users', 'users.id', '=', 'posts.user _id')
+//            dd($user);
             $posts = $user->allChannels();
             //                ('scraps', 'users.id', '=', 'scraps.userID')
         }
