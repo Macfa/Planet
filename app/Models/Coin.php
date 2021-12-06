@@ -104,7 +104,7 @@ class Coin extends Model
             return true;
         }
     }
-    public function purchaseStamp(Stamp $stamp, Post $post) {
+    public function purchaseStamp(Stamp $stamp, Model $target) {
         $user = User::find(auth()->id());
         $price = $stamp->coin;
         $totalCoin = $user->hasCoins()->sum('coin');
@@ -115,19 +115,26 @@ class Coin extends Model
                 'coin'=>-$price,
                 'user_id'=>auth()->id()
             ]);
-            $checkExist = $post->stampInPosts()->where("stamp_id", $stamp->id)->first();
+            $className = get_class($target);
+            if($className === "App\Models\Post") {
+                $conditionalTarget = $target->stampInPosts();
+            } else if($className === "App\Models\Comment") {
+                $conditionalTarget = $target->stampInPosts();
+            }
+            $checkExist = $conditionalTarget->where("stamp_id", $stamp->id)->first();
+
             $currentCoin = $totalCoin - $price;
 
             if($checkExist) {
                 $toBeCount = $checkExist->count+1;
-                $post->stampInPosts()->update([
+                $conditionalTarget->update([
                     "count" => $toBeCount
                 ]);
                 $method = "update";
             } else {
                 $toBeCount = 1;
-                $post->stampInPosts()->create([
-                    'post_id' => $post->id,
+                $conditionalTarget->create([
+                    'post_id' => $target->id,
                     'stamp_id' => $stamp->id,
                     'count' => 1,
                     'user_id' => auth()->id()
@@ -141,7 +148,7 @@ class Coin extends Model
                 "count" => $toBeCount
             ];
         } else {
-            return false;
+            return null;
         }
     }
 }

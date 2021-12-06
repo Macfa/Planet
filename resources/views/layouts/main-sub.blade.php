@@ -9,6 +9,7 @@
 {{--                @endif--}}
             </colgroup>
             @forelse ($posts as $list)
+{{--                @dd($list)--}}
                 <tr>
                     <td>
                         <div class="p-1 ml-1">
@@ -20,7 +21,7 @@
                                 가입 수:&nbsp;
                                 <span class="total">
 {{--                                    {{ dd($list) }}--}}
-                                    {{ number_transform($list->count('user_id')) }}
+                                    {{ number_transform($list->channelJoins->count()) }}
                                 </span>
                                 &nbsp;명
 {{--                            </div>--}}

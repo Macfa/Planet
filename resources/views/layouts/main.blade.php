@@ -56,18 +56,13 @@
 
         $(document).ready(function(){
             $(window).on('popstate', function(e) {
-                console.log("popstate");
                 if(e.type === "popstate") {
                     var modalState = $("#open_post_modal").hasClass('show');
-                    console.log(modalState);
                     if(modalState) {
-                        console.log('popstate hide');
                         $("#open_post_modal").modal("hide");
                     } else {
-                        console.log("another post clicked");
                         let url = window.location.href;
                         var tmpPostID = url.split('/').pop();
-                        console.log(tmpPostID);
                         if($.isNumeric(tmpPostID))
                         {
                             $(`#post-${tmpPostID} .title a`).get(0).click();
@@ -77,7 +72,6 @@
             });
             var checkPost = "{{ request()->route()->named("post.show") }}";
             if(checkPost === "1") {
-                console.log("post show !");
                 let url = window.location.href;
                 // window.location.href = window.location.origin;
                 var tmpPostID = url.split('/').pop();
@@ -160,30 +154,20 @@
         }
 
         $("#open_post_modal").on('hide.bs.modal', function(event) {
-            console.log("hide.bs");
             if(history.state === "modal") {
-                console.log("history back");
                 history.back();
             }
         });
         $("#open_post_modal").on('show.bs.modal', function(event) {
+            console.log("main show");
             if (event.target.id === 'open_post_modal') {
-                // $(this).addClass(`modal-level-${$('.modal:visible').length}`);
-                // $(document).off('focusin.modal');
-                $.fn.modal.Constructor.prototype.enforceFocus = function () {};
-                console.log("post");
+                console.log("main open post modal");
                 var button = event.relatedTarget;
-                // var button = event.currentTarget;
-
-                // console.log(button.getAttribute('data-bs-post-id'));
                 var postID = button.getAttribute('data-bs-post-id');
-                // var channelID = button.getAttribute('data-bs-channel-id');
                 var modalBody = $(".modal-content");
-                // console.log(history);
-                // $(document).off('focusin.modal');
                 var urlPath = '';
+
                 if(history.state == null) {
-                    // var urlPath = "/channel/"+channelID+"/post/"+postID;
                     urlPath = "/post/"+postID;
                 } else {
                     urlPath = location.href;
@@ -196,17 +180,24 @@
                     success: function(data) {
                         modalBody.html(data);
                         history.pushState('modal', 'modal', urlPath);
+                        // $.fn.modal.Constructor.prototype.enforceFocus = function () {};
+                        var button = event.relatedTarget;
+                        // $("#openStampModal").on('hide.bs.modal', function(event) {
+                        //     event.stopPropagation();
+                        // });
                     },
                     error: function(err) {
                         console.log(err);
                     }
                 })
             } else {
-                console.log("else");
+                console.log(event);
             }
             // else if (event.target.id == 'openStampModal') {
             //     // do stuff when the outer dialog is hidden.
             // }
+            // $(this).off("show.bs.modal");
+            event.stopPropagation();
         });
 
         $('#main .tab li').click(function(event){

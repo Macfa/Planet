@@ -42,7 +42,8 @@
 
                 {{--                    <li class="header_icon"><a href="{{ route('user.show', auth()->id()) }}" class="btn btn-primary" data-bs-toggle="collapse" href="#header-mypage" role="button" aria-expanded="false" aria-controls="header-mypage"><img src="{{ asset('image/mypage_4x.png') }}" alt="mypage" /></a></li>--}}
                 <li class="mr-2 header_icon header_icon_clickable">
-                    <a style="position: relative;" class="" data-bs-toggle="collapse" data-bs-target="#header-noti" role="button" aria-expanded="false" aria-controls="header-noti"><img src="{{ asset('image/noti_4x.png') }}" alt="noti" />
+                    <a style="position: relative;" class="header-collapse-icon collapsed" data-bs-toggle="collapse" data-bs-target="#header-noti" role="button" aria-expanded="false" aria-controls="header-noti">
+                        <img src="{{ asset('image/noti_4x.png') }}" class="header-collapse-icon-img" alt="noti" />
                         @if(auth()->user()->unreadNotifications->count() > 0)
                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                 {{ auth()->user()->unreadNotifications->count() }}
@@ -50,7 +51,11 @@
                         @endisset
                     </a>
                 </li>
-                <li class="header_icon header_icon_clickable"><a class="" data-bs-toggle="collapse" data-bs-target="#header-list" role="button" aria-expanded="false" aria-controls="header-list"><img src="{{ asset('image/list_4x.png') }}" alt="list" /></a></li>
+                <li class="header_icon header_icon_clickable">
+                    <a class="header-collapse-icon collapsed" data-bs-toggle="collapse" data-bs-target="#header-list" role="button" aria-expanded="false" aria-controls="header-list">
+                        <img src="{{ asset('image/list_4x.png') }}" class="header-collapse-icon-img" alt="list" />
+                    </a>
+                </li>
             </ul>
         @endauth
     </div>

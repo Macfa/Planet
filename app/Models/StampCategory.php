@@ -12,8 +12,11 @@ class StampCategory extends Model
 //    protected $primaryKey = "id";
     protected $guarded = [];
 
+//    public static function getAllCategories() {
+//        return self::get();
+//    }
 
-    public static function getAllCategories() {
-        return self::get();
+    public function getAllCategories() {
+        return $this->all();
     }
 }

@@ -18,7 +18,8 @@ class CreateStampsTable extends Migration
             $table->bigInteger("category_group_id")->unsigned();
             $table->foreign("category_group_id")->references("id")->on("stamp_groups")->onDelete("cascade");
             $table->string("name", 30);
-            $table->string("image");
+            $table->string("image")->nullable();
+            $table->string("description")->nullable();
             $table->integer("coin");
             $table->string("abbr", 20); // 약어
             $table->timestamps();

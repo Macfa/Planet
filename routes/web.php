@@ -88,8 +88,10 @@ Route::get('/mark', function() {
 });
 
 // Stamp's
-Route::get('/stamp', [StampController::class,'getDataFromCategory']);
+//Route::get('/stamp', [StampController::class,'getDataFromCategory']);
 Route::post('/stamp/purchase', [StampController::class,'purchase']);
+Route::get('/stamp', [StampController::class,'show']);
+Route::get('/stamp/{id}', [StampController::class,'get']);
 
 // Login with APIs
 //Route::get('auth/social', 'Auth\LoginController@show')->name('social.login');

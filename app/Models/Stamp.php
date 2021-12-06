@@ -24,6 +24,10 @@ class Stamp extends Model
             return StampGroup::where("categoryID", $categoryID)->get();
         }
     }
+    public function getAllStamps()
+    {
+        return $this->all();
+    }
 //    public static function purchase($stampID, $postID) {
 //        $stamp = self::find($stampID);
 //        $coin = new Coin();

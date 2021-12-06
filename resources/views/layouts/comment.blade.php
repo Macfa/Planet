@@ -58,7 +58,7 @@
                 <div class="comment-info">
                     <ul>
                         @auth
-                            <li data-bs-toggle="modal" data-bs-target="#openStampModal" class="clickable">스탬프</li>
+                            <li data-bs-type="comment" data-bs-id="{{ $comment->id }}" data-bs-toggle="modal" data-bs-target="#openStampModal" class="clickable">스탬프</li>
                         @endauth
                         @guest
                                 <li onclick="notLogged();" class="clickable">스탬프</li>
@@ -125,7 +125,7 @@
             @endif
         </div>
         @auth
-            <img alt="stamp" data-bs-toggle="modal" data-bs-target="#openStampModal1" class="mr-3 stamp-image image-m clickable" src="{{ asset('image/stamp_c.png') }}"/>
+            <img alt="stamp" data-bs-type="post" data-bs-id="{{ $post->id }}" data-bs-toggle="modal" data-bs-target="#openStampModal1" class="mr-3 stamp-image image-m clickable" src="{{ asset('image/stamp_c.png') }}"/>
         @endauth
         @guest
             <img alt="stamp" onclick="notLogged()" class="mr-3 stamp-image image-m clickable" src="{{ asset('image/stamp_c.png') }}"/>
@@ -140,88 +140,8 @@
     </div>
 </div>
 
-
-<!-- Modal -->
-<div class="modal fade" id="openStampModal" tabindex="-1" aria-labelledby="openStamp" aria-hidden="true" role="dialog">
-    <div class="modal-dialog" style="margin-top:250px;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4>스탬프 목록</h4>
-            </div>
-            <div class="modal-body">
-                <div class="">
-                    <nav id="category-header" class="flex-container">
-                        @forelse(\App\Models\StampCategory::getAllCategories() as $category)
-                            <button class="col" onclick="selectCategory({{ $category->id }});">
-                                {{--                                                                                <img style="width:25px;" src="{{ asset($category->image) }}" alt="{{ $category->name }}">--}}
-                                {{ $category->name }}
-                            </button>
-                        @empty
-                            <div>데이터가 없습니다.</div>
-                        @endforelse
-                        <button class="col" onclick="return false;">테스트1</button>
-                        <button class="col" onclick="return false;">테스트2</button>
-                        <button class="col" onclick="return false;">테스트3</button>
-                    </nav>
-                    <div id="category-data">
-                        @forelse(\App\Models\StampGroup::getDataFromCategory(1) as $group)
-                            <div>
-                                <div>
-                                    <span id="group-name">{{ $group->name }}</span>
-                                </div>
-                                @forelse($group->stamps as $stamp)
-                                    <div>
-                                        <ul class="flex-container">
-                                            <li class="col">
-                                                <button onclick="purchaseStamp({{ $stamp->id }}, {{ $post->id }});">
-                                                    <img src="{{ $stamp->image }}" />
-                                                    <span>{{ $stamp->coin }}</span>
-                                                </button>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                @empty
-                                @endforelse
-                            </div>
-                        @empty
-                        @endforelse
-                        <div>
-                            <div>
-                                <span id="group-name">동물</span>
-                            </div>
-                            <div>
-                                <button onclick="return false;">
-                                    <img src="/image/2_1629657939.gif" />
-                                    <span>100</span>
-                                </button>
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                <span id="group-name">고양이</span>
-                            </div>
-                            <div>
-                                <button onclick="return false;">
-                                    <img src="/image/2_1629657939.gif" />
-                                    <span>1500</span>
-                                </button>
-                            </div>
-                        </div>
-                        {{--                                    테스트 영역 끝--}}
-                    </div>
-                </div>
-            </div>
-            {{--                        <div class="modal-footer">--}}
-            {{--                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>--}}
-            {{--                            <button type="button" class="btn btn-primary">Save changes</button>--}}
-            {{--                        </div>--}}
-        </div>
-    </div>
-</div>
 <script>
     //# sourceURL=comment
-
-
 
     // add : 댓글, 대댓글   |   edit : 수정
     function checkCommentTypeToAddForm(commentType, commentID) {

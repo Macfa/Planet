@@ -10,11 +10,11 @@
                         @endif
                         <span class="stamps">
                             @foreach($post->stampInPosts as $stampInPost)
-                                <span class="stamp-{{ $stampInPost->stampID }}">
+                                <span class="stamp-{{ $stampInPost->stamp_id }}">
                                     <img style="width:31px;" src="{{ $stampInPost->stamp->image }}" alt="">
                                     <span>
-                                        @if($stampInPost->count() > 1)
-                                                {{ $stampInPost->count() }}
+                                        @if($stampInPost->count > 1)
+                                                {{ $stampInPost->count }}
                                         @endif
                                     </span>
                                 </span>
@@ -82,11 +82,11 @@
                                 </li>
                                 <!-- Button trigger modal -->
                                 @auth
-                                    <li data-bs-toggle="modal" data-bs-target="#openStampModal" class="clickable items">
+                                    <li data-bs-type="post" data-bs-id="{{ $post->id }}" data-bs-toggle="modal" data-bs-target="#openStampModal" class="clickable items">
 {{--                                    <li class="items"><a data-bs-toggle="modal" href="#openStampModal">--}}
                                 @endauth
                                 @guest
-                                    <li class="items"><a onclick="notLogged()">
+                                    <li class="items clickable" onclick="notLogged();">
                                 @endguest
                                     <img src="{{ asset('image/stamp_c.png') }}" class="image-sm" alt="" />
 
@@ -137,15 +137,20 @@
                     </div>
                 </div>
             </div>
-
+            <!-- Modal -->
+            <div class="modal fade" id="openStampModal" tabindex="-1" aria-labelledby="openStamp" aria-hidden="true" role="dialog">
+                <div class="modal-dialog" style="margin-top:250px; max-width: 80%; width: 700px;">
+                    <div class="modal-content"></div>
+                </div>
+            </div>
             {{--    <script src="{{ asset('js/editorShow.js') }}"></script>--}}
             <script>
                 $("#open_post_modal").scroll(function() {
                     var headerHeight = $("#header").height();
                     var postOffsetTop = $("#post").offset().top;
 
-                    console.log(headerHeight);
-                    console.log(postOffsetTop);
+                    // console.log(headerHeight);
+                    // console.log(postOffsetTop);
                     if(postOffsetTop - headerHeight <= 0 ) {
                         var checkExist = $("#post-bot-function").hasClass("sticky-bottom");
                         if(checkExist === false) {
@@ -161,28 +166,34 @@
                     }
                 });
                 $(document).ready(function () {
+                // $(document).load(function () {
                     //adjust modal body sizes
-                    // var fit_modal_body;
+                    var fit_modal_body;
 
-                    // fit_modal_body = function(modal) {
-                    //     console.log(modal);
-                    //     var body, bodypaddings, header, headerheight, height, modalheight;
-                    //     header = $(".modal-header", modal).eq(0);
-                    //     // footer = $(".modal-footer", modal);
-                    //     body = $(".modal-body", modal).eq(0);
-                    //     modalheight = parseInt(modal.css("height"));
-                    //     headerheight = parseInt(header.css("height")) + parseInt(header.css("padding-top")) + parseInt(header.css("padding-bottom"));
-                    //     // footerheight = parseInt(footer.css("height")) + parseInt(footer.css("padding-top")) + parseInt(footer.css("padding-bottom"));
-                    //     bodypaddings = parseInt(body.css("padding-top")) + parseInt(body.css("padding-bottom"));
-                    //     // height = $(window).height() - headerheight - footerheight - bodypaddings - 150;
-                    //     height = $(window).height() - headerheight - bodypaddings - 150;
-                    //     return body.css({"height": "" + height + "px"});
-                    // };
+                    fit_modal_body = function(modal) {
+                        console.log(modal);
+                        var body, bodypaddings, header, headerheight, height, modalheight;
+                        header = $(".modal-header", modal).eq(0);
+                        // header = $(".modal-header", modal).eq(0);
+                        // footer = $(".modal-footer", modal);
+                        body = $(".modal-body", modal).eq(0);
+                        modalheight = parseInt(modal.css("height"));
+                        headerheight = parseInt(header.css("height")) + parseInt(header.css("padding-top")) + parseInt(header.css("padding-bottom"));
+                        // footerheight = parseInt(footer.css("height")) + parseInt(footer.css("padding-top")) + parseInt(footer.css("padding-bottom"));
+                        // bodypaddings = parseInt(body.css("padding-top")) + parseInt(body.css("padding-bottom"));
+                        bodypaddings = parseInt(header.css("height")) + parseInt(body.css("padding-top")) + parseInt(body.css("padding-bottom"));
+                        // height = $(window).height() - headerheight - footerheight - bodypaddings - 150;
+                        // height = $(window).height() - headerheight - bodypaddings - 150;
+                        height = headerheight + bodypaddings;
+                        console.log(body, height);
+                        body.css({'background-color': 'red'});
+                        return body.css({"height": "" + height + "px"});
+                    };
 
-                    // fit_modal_body($("#open_post_modal"));
-                    // $(window).resize(function() {
-                    //     return fit_modal_body($("#open_post_modal"));
-                    // });
+                    fit_modal_body($("#open_post_modal"));
+                    $(window).resize(function() {
+                        return fit_modal_body($("#open_post_modal"));
+                    });
 
                     document.querySelectorAll( 'oembed[url]' ).forEach( element => {
                         // Create the <a href="..." class="embedly-card"></a> element that Embedly uses
@@ -195,7 +206,37 @@
                         element.appendChild( anchor );
                     } );
                 });
+                $("#openStampModal").on('hide.bs.modal', function(event) {
+                    event.stopPropagation();
+                });
+                $("#openStampModal").on('show.bs.modal', function(event) {
+                    event.stopPropagation();
+                    console.log(event);
+                    console.log(event.target.id);
+                    if (event.target.id === 'openStampModal') {
+                        var modalBody = $("#openStampModal .modal-content");
+                        var button = event.relatedTarget;
+                        var id = button.getAttribute('data-bs-id');
+                        var type = button.getAttribute('data-bs-type');
 
+                        $.ajax({
+                            url: '/stamp',
+                            type: 'get',
+                            success: function(data) {
+                                modalBody.html(data);
+                                $("#openStampModal").on('shown.bs.modal', function(event) {
+                                    // event.stopPropagation();
+                                    $("#category-data .stamp-list:first button").click();
+                                    $("#openStampModal input[name=type]").val(type);
+                                    $("#openStampModal input[name=id]").val(id);
+                                });
+                            },
+                            error: function(err) {
+                                console.log(err);
+                            }
+                        })
+                    }
+                })
 
                 // var openStampModal = document.getElementById('openStampModal')
                 // openStampModal.addEventListener('show.bs.modal', function (event) {
@@ -302,54 +343,24 @@
                         });
                     }
                 }
-                function selectCategory(categoryID) {
-                    // alert(categoryID);
-                    $.ajax({
-                        url: "/stamp",
-                        data: { categoryID: categoryID },
-                        type: "get",
-                        success: function(data) {
-                            var result = {
-                                'groups': data
-                            };
-                            $("#openStampModal #category-data > div").remove();
-                            $("#stampDataTemplate").tmpl(result).appendTo("#openStampModal #category-data");
-                        },
-                        errror: function(err) {
-                            alert("기능에러로 스탬프를 불러오지 못 했습니다.");
-                        }
-                    });
-                }
-                function purchaseStamp(stampID, postID) {
-                    if(confirm('구매하시겠습니까 ?')) {
-                        $.ajax({
-                            url: "/stamp/purchase",
-                            data: {
-                                stampID: stampID,
-                                postID: postID
-                            },
-                            type: "post",
-                            success: function (data) {
-                                console.log(data);
-                                $("#total_coin").text(data.currentCoin);
-                                $("#openStampModal").hide();
-                                if(data.method == "create") {
-                                    $(".modal-title .stamps").append(`<span class="stamp-${stampID}"><img style='width:31px;' src='${data.image}' alt=''><span></span></span>`);
-                                    console.log(`<span class="stamp-${stampID}"><img style='width:31px;' src="${data.image}" alt=''></span>`);
-                                } else if(data.method == "update") {
-                                    $(`.modal-title .stamps span[class="stamp-${stampID}"] span`).text(data.count);
-                                }
-                                console.log(`.modal-title .stamps span[class="stamp-${stampID}"] span`);
-                                console.log(data.count);
-
-                                toastr.info("스탬프 정상 구매하였습니다");
-                            },
-                            errror: function (err) {
-                                toastr.warning("기능에러로 스탬프를 불러오지 못 했습니다");
-                            }
-                        });
-                    }
-                }
+                // function selectCategory(categoryID) {
+                //     // alert(categoryID);
+                //     $.ajax({
+                //         url: "/stamp",
+                //         data: { categoryID: categoryID },
+                //         type: "get",
+                //         success: function(data) {
+                //             var result = {
+                //                 'groups': data
+                //             };
+                //             $("#openStampModal #category-data > div").remove();
+                //             $("#stampDataTemplate").tmpl(result).appendTo("#openStampModal #category-data");
+                //         },
+                //         errror: function(err) {
+                //             alert("기능에러로 스탬프를 불러오지 못 했습니다.");
+                //         }
+                //     });
+                // }
             </script>
         </div>
     </div>

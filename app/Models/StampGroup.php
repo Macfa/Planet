@@ -12,10 +12,10 @@ class StampGroup extends Model
     protected $guarded = [];
 
     public function stamps() {
-        return $this->hasMany(Stamp::class, "category_id", "id");
+        return $this->hasMany(Stamp::class, "category_group_id", "id");
     }
     public static function getDataFromCategory($categoryID) {
-        if($categoryID == 1) {
+        if($categoryID == 0) {
             return self::with("stamps")->get();
         } else {
             return self::where("category_id", $categoryID)->with("stamps")->get();

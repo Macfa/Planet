@@ -6,12 +6,19 @@ $.ajaxSetup({
 
 var timer = null;
 
-
-$(document).off('focusin.modal');
 $(document).ready(function () {
     $(document).off('focusin.modal');
     $("#header .header_icon_clickable a").click(function(){
         $('.multi-collapse').collapse('hide');
+    });
+
+    $(document).click(function (event) {
+        var clickover = $(event.target);
+        var _opened = $(".multi-collapse").hasClass("show");
+
+        if (_opened === true && !clickover.hasClass("header-collapse-icon-img")) {
+            $("li.header_icon a.header-collapse-icon:not(.collapsed)").click();
+        }
     });
 
     var myCollapsible = document.getElementById('header-noti');

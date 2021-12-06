@@ -636,3 +636,34 @@ table, td {
     color:#fff;
     border:0;
 }
+
+#openStampModal #category-header button {
+    font-size: 1.1rem;
+}
+#openStampModal #category-data .stamp-list img {
+    width: 50px;
+}
+#openStampModal #category-data .stamp-list p,
+#openStampModal .category-data-item .item-header p{
+    text-align: center;
+    font-size: 13px;
+}
+#openStampModal #category-data ul .stamp-list:not(:first-child) {
+    margin-left: 2rem;
+}
+#openStampModal .category-data-item .item-header img {
+    width: 50px;
+}
+#openStampModal .category-data-item .item-header .item-header-coin {
+    line-height: 100%;
+    vertical-align: middle;
+}
+.base-btn {
+    height: 35px;
+    width: 136px;
+    font-size: 14px;
+    border-radius: 15px;
+    background-color: #3d5afe;
+    color: #fff;
+    border: 0;
+}
