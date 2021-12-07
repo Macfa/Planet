@@ -12,7 +12,7 @@
         <a href="{{ route('user.show', ['user'=>auth()->id(), 'el'=>'post']) }}" class="fw-bold flex-container list-group-item list-group-item-action"><p>마이 페이지</p></a>
         <!--Channels-->
 
-        <a href="" class="fw-bold flex-container list-group-item list-group-item-action">내 동아리</a>
+        <a href="{{ route('user.show', ['user'=>auth()->id(), 'el'=>'channel']) }}" class="fw-bold flex-container list-group-item list-group-item-action">내 동아리</a>
 
         <div id="collapse_channelJoins">
             @foreach(auth()->user()->allChannels() as $joined)
