@@ -148,7 +148,9 @@ class Coin extends Model
                 "count" => $toBeCount
             ];
         } else {
-            return null;
+            return [
+
+            ];
         }
     }
 }

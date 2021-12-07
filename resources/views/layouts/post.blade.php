@@ -226,9 +226,9 @@
                                 modalBody.html(data);
                                 $("#openStampModal").on('shown.bs.modal', function(event) {
                                     // event.stopPropagation();
-                                    $("#category-data .stamp-list:first button").click();
                                     $("#openStampModal input[name=type]").val(type);
                                     $("#openStampModal input[name=id]").val(id);
+                                    $("#category-data .stamp-list:first button").click();
                                 });
                             },
                             error: function(err) {

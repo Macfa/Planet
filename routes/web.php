@@ -92,6 +92,7 @@ Route::get('/mark', function() {
 Route::post('/stamp/purchase', [StampController::class,'purchase']);
 Route::get('/stamp', [StampController::class,'show']);
 Route::get('/stamp/{id}', [StampController::class,'get']);
+Route::get('/category/', [\App\Http\Controllers\StampCategoryController::class,'get']);
 
 // Login with APIs
 //Route::get('auth/social', 'Auth\LoginController@show')->name('social.login');

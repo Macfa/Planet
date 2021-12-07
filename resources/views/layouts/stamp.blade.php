@@ -39,18 +39,18 @@
                                 <p class="mt-1">{{ $stamp->coin }}</p>
                             </button>
                         </li>
-                        <li class="stamp-list">
-                            <button onclick="purchaseStamp({{ $stamp->id }}, 1);">
-                                <img src="/image/2_1629657939.gif" />
-                                <p class="mt-1">{{ $stamp->coin }}</p>
-                            </button>
-                        </li>
-                        <li class="stamp-list">
-                            <button onclick="purchaseStamp({{ $stamp->id }}, 1);">
-                                <img src="/image/2_1629657939.gif" />
-                                <p class="mt-1">{{ $stamp->coin }}</p>
-                            </button>
-                        </li>
+{{--                        <li class="stamp-list">--}}
+{{--                            <button onclick="purchaseStamp({{ $stamp->id }}, 1);">--}}
+{{--                                <img src="/image/2_1629657939.gif" />--}}
+{{--                                <p class="mt-1">{{ $stamp->coin }}</p>--}}
+{{--                            </button>--}}
+{{--                        </li>--}}
+{{--                        <li class="stamp-list">--}}
+{{--                            <button onclick="purchaseStamp({{ $stamp->id }}, 1);">--}}
+{{--                                <img src="/image/2_1629657939.gif" />--}}
+{{--                                <p class="mt-1">{{ $stamp->coin }}</p>--}}
+{{--                            </button>--}}
+{{--                        </li>--}}
                 @endforeach
                     </ul>
                 </div>
@@ -63,7 +63,34 @@
     </div>
 </div>
 <script>
-    // $("#selectStampItem")
+    function selectCategory(id) {
+        $.ajax({
+            url: "/category/",
+            data: {
+                categoryId: id
+            },
+            type: "get",
+            success: function (data) {
+                console.log(data.length);
+                // console.log(data);
+                // console.log(id);
+                var replaceData = [];
+                for(var i=0; i<data.length; i++) {
+                    replaceData.push({
+                        'stampId': data[i].id,
+                        'stampImage': data[i].image,
+                        'stampCoin': data[i].coin,
+                    })
+                    console.log(replaceData);
+                }
+                $(".category-data-list ul.d-flex li").remove();
+                $("#stampListTemplate").tmpl(replaceData).appendTo(".category-data-list ul.d-flex");
+            },
+            errror: function (err) {
+                alert("관리자에게 문의해주세요");
+            }
+        });
+    }
     function selectStamp(id) {
         $.ajax({
             url: "/stamp/"+id,
@@ -121,12 +148,22 @@
                     if(err.errorCode === 401) {
                         alert("로그인이 필요한 기능입니다");
                     } else {
-                        alert("s");
+                        alert("코인이 부족합니다");
                     }
                 }
             });
         }
     }
+</script>
+<script id="stampListTemplate" type="text/x-jquery-tmpl">
+{{--    @{{each groups}}--}}
+        <li class="stamp-list">
+            <button onclick="selectStamp(${stampId});">
+                <img src="${stampImage}" />
+                <p class="mt-1">${stampCoin}</p>
+            </button>
+        </li>
+{{--    @{{/each}}--}}
 </script>
 <script id="selectStampTemplate" type="text/x-jquery-tmpl">
     <div class="category-data-item">
