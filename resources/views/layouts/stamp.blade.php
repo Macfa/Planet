@@ -103,7 +103,7 @@
                     'id': data.id,
                     'coin': data.coin,
                     'name': data.name,
-                    'image': data.image,
+                    'image': '/image/'+data.image,
                     'description': data.description,
                     'hasCoin': data.hasCoin,
                     'afterPurchaseCoin': data.afterPurchaseCoin
@@ -179,7 +179,7 @@
                 <p class="mt-1 item-name">${name}</p>
                 <p class="mt-1 item-description">${description}</p>
                 <div>
-                    <img style="width: 24px;" src="{{ asset('image/coin_4x.png') }}" alt="coin">
+                    <img style="width: 24px;" src="/image/coin_4x.png" alt="coin">
                         <span class="item-coin">${coin}</p>
                 </div>
         </div>
