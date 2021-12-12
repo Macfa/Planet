@@ -667,3 +667,6 @@ table, td {
     color: #fff;
     border: 0;
 }
+.modal-wrap .modal-title .stamps img {
+    vertical-align: middle;
+}
