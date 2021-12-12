@@ -11,7 +11,7 @@
                         <span class="stamps">
                             @foreach($post->stampInPosts as $stampInPost)
                                 <span class="stamp-{{ $stampInPost->stamp_id }}">
-                                    <img style="width:31px;" src="{{ $stampInPost->stamp->image }}" alt="">
+                                    <img style="width:31px;" src="/image/{{ $stampInPost->stamp->image }}" alt="{{ $stampInPost->stamp->name }}">
                                     <span>
                                         @if($stampInPost->count > 1)
                                                 {{ $stampInPost->count }}

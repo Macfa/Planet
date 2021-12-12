@@ -137,7 +137,7 @@
                     $("#openStampModal").modal("hide");
                     if(data.target === "post") {
                         if(data.method == "create") {
-                            $(".modal-title .stamps").append(`<span class="stamp-${stampID}"><img style='width:31px;' alt='${data.name}' src='${data.image}' alt=''></span>`);
+                            $(".modal-title .stamps").append(`<span class="stamp-${stampID}"><img style='width:31px;' alt='${data.name}' src='/image/${data.image}' ></span>`);
                         } else if(data.method == "update") {
                             $(`.modal-title .stamps span[class="stamp-${stampID}"] span`).text(data.count);
                         }
