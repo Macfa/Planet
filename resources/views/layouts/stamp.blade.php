@@ -35,7 +35,7 @@
                         <li class="stamp-list">
 {{--                            <button onclick="purchaseStamp({{ $stamp->id }}, {{ $post->id }});">--}}
                             <button onclick="selectStamp({{ $stamp->id }});">
-                                <img src="{{ $stamp->image }}" />
+                                <img src="{{ asset('image/'.$stamp->image) }}" />
                                 <p class="mt-1">{{ $stamp->coin }}</p>
                             </button>
                         </li>

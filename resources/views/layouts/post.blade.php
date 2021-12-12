@@ -209,7 +209,6 @@
                     event.stopPropagation();
                 });
                 $("#openStampModal").on('show.bs.modal', function(event) {
-                    alert(1);
                     if (event.target.id === 'openStampModal') {
                         var modalBody = $("#openStampModal .modal-content");
                         var button = event.relatedTarget;
