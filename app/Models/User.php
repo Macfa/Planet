@@ -90,9 +90,7 @@ class User extends Authenticatable
         return $this->hasMany(Experience::class, "user_id", "id");
     }
     public function allChannels() {
-
-        $userId = $this->id;
-
+        $userId = $this->id; // 본인이 아닌 대상유저
         $joins = Channel::whereHas('channelJoins', function($q) use ($userId) {
             $q->where('user_id', $userId);
         })
@@ -101,8 +99,6 @@ class User extends Authenticatable
             ->with('channelJoins')
             ->get();
         $vals = collect($joins)->merge($channels);
-//        dd($channels, $joins, $vals);
-//        dd($vals);
         return $vals;
     }
 

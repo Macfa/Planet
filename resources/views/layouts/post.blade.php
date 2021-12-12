@@ -165,35 +165,34 @@
                         }
                     }
                 });
+                // var fit_modal_body;
+                //
+                // fit_modal_body = function(modal) {
+                //     console.log(modal);
+                //     var body, bodypaddings, header, headerheight, height, modalheight;
+                //     header = $(".modal-header", modal).eq(0);
+                //     // header = $(".modal-header", modal).eq(0);
+                //     // footer = $(".modal-footer", modal);
+                //     body = $(".modal-body", modal).eq(0);
+                //     modalheight = parseInt(modal.css("height"));
+                //     headerheight = parseInt(header.css("height")) + parseInt(header.css("padding-top")) + parseInt(header.css("padding-bottom"));
+                //     // footerheight = parseInt(footer.css("height")) + parseInt(footer.css("padding-top")) + parseInt(footer.css("padding-bottom"));
+                //     // bodypaddings = parseInt(body.css("padding-top")) + parseInt(body.css("padding-bottom"));
+                //     bodypaddings = parseInt(header.css("height")) + parseInt(body.css("padding-top")) + parseInt(body.css("padding-bottom"));
+                //     // height = $(window).height() - headerheight - footerheight - bodypaddings - 150;
+                //     // height = $(window).height() - headerheight - bodypaddings - 150;
+                //     height = headerheight + bodypaddings;
+                //     console.log(body, height);
+                //     body.css({'background-color': 'red'});
+                //     return body.css({"height": "" + height + "px"});
+                // };
+                //
+                // $(window).resize(function() {
+                //     return fit_modal_body($("#open_post_modal"));
+                // });
                 $(document).ready(function () {
                 // $(document).load(function () {
                     //adjust modal body sizes
-                    // var fit_modal_body;
-                    //
-                    // fit_modal_body = function(modal) {
-                    //     console.log(modal);
-                    //     var body, bodypaddings, header, headerheight, height, modalheight;
-                    //     header = $(".modal-header", modal).eq(0);
-                    //     // header = $(".modal-header", modal).eq(0);
-                    //     // footer = $(".modal-footer", modal);
-                    //     body = $(".modal-body", modal).eq(0);
-                    //     modalheight = parseInt(modal.css("height"));
-                    //     headerheight = parseInt(header.css("height")) + parseInt(header.css("padding-top")) + parseInt(header.css("padding-bottom"));
-                    //     // footerheight = parseInt(footer.css("height")) + parseInt(footer.css("padding-top")) + parseInt(footer.css("padding-bottom"));
-                    //     // bodypaddings = parseInt(body.css("padding-top")) + parseInt(body.css("padding-bottom"));
-                    //     bodypaddings = parseInt(header.css("height")) + parseInt(body.css("padding-top")) + parseInt(body.css("padding-bottom"));
-                    //     // height = $(window).height() - headerheight - footerheight - bodypaddings - 150;
-                    //     // height = $(window).height() - headerheight - bodypaddings - 150;
-                    //     height = headerheight + bodypaddings;
-                    //     console.log(body, height);
-                    //     body.css({'background-color': 'red'});
-                    //     return body.css({"height": "" + height + "px"});
-                    // };
-                    //
-                    // fit_modal_body($("#open_post_modal"));
-                    // $(window).resize(function() {
-                    //     return fit_modal_body($("#open_post_modal"));
-                    // });
 
                     document.querySelectorAll( 'oembed[url]' ).forEach( element => {
                         // Create the <a href="..." class="embedly-card"></a> element that Embedly uses
@@ -210,9 +209,7 @@
                     event.stopPropagation();
                 });
                 $("#openStampModal").on('show.bs.modal', function(event) {
-                    event.stopPropagation();
-                    console.log(event);
-                    console.log(event.target.id);
+                    alert(1);
                     if (event.target.id === 'openStampModal') {
                         var modalBody = $("#openStampModal .modal-content");
                         var button = event.relatedTarget;

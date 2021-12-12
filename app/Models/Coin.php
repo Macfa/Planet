@@ -119,7 +119,7 @@ class Coin extends Model
             if($className === "App\Models\Post") {
                 $conditionalTarget = $target->stampInPosts();
             } else if($className === "App\Models\Comment") {
-                $conditionalTarget = $target->stampInPosts();
+                $conditionalTarget = $target->stampInComments();
             }
             $checkExist = $conditionalTarget->where("stamp_id", $stamp->id)->first();
 
@@ -133,16 +133,28 @@ class Coin extends Model
                 $method = "update";
             } else {
                 $toBeCount = 1;
-                $conditionalTarget->create([
-                    'post_id' => $target->id,
-                    'stamp_id' => $stamp->id,
-                    'count' => 1,
-                    'user_id' => auth()->id()
-                ]);
+                if($className === "App\Models\Post") {
+                    $conditionalTarget->create([
+                        'post_id' => $target->id,
+                        'stamp_id' => $stamp->id,
+                        'count' => 1,
+                        'user_id' => auth()->id()
+                    ]);
+                    $target = "post";
+                } else if($className === "App\Models\Comment") {
+                    $conditionalTarget->create([
+                        'comment_id' => $target->id,
+                        'stamp_id' => $stamp->id,
+                        'count' => 1,
+                        'user_id' => auth()->id()
+                    ]);
+                    $target = "comment";
+                }
                 $method = "create";
             }
             return [
                 "method" => $method,
+                "target" => $target,
                 "currentCoin" => $currentCoin,
                 "image" => $stamp->image,
                 "count" => $toBeCount

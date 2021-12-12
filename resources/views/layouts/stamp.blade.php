@@ -135,11 +135,18 @@
                 success: function (data) {
                     $("#total_coin").text(data.currentCoin);
                     $("#openStampModal").modal("hide");
-                    if(data.method == "create") {
-                        $(".modal-title .stamps").append(`<span class="stamp-${stampID}"><img style='width:31px;' alt='${data.name}' src='${data.image}' alt=''></span>`);
-                        console.log(`<span class="stamp-${stampID}"><img style='width:31px;' src="${data.image}" alt=''></span>`);
-                    } else if(data.method == "update") {
-                        $(`.modal-title .stamps span[class="stamp-${stampID}"] span`).text(data.count);
+                    if(data.target === "post") {
+                        if(data.method == "create") {
+                            $(".modal-title .stamps").append(`<span class="stamp-${stampID}"><img style='width:31px;' alt='${data.name}' src='${data.image}' alt=''></span>`);
+                        } else if(data.method == "update") {
+                            $(`.modal-title .stamps span[class="stamp-${stampID}"] span`).text(data.count);
+                        }
+                    } else if(data.target === "comment") {
+                        if(data.method == "create") {
+                            // $(".modal-title .stamps").append(`<span class="stamp-${stampID}"><img style='width:31px;' alt='${data.name}' src='${data.image}' alt=''></span>`);
+                        } else if(data.method == "update") {
+                            // $(`.modal-title .stamps span[class="stamp-${stampID}"] span`).text(data.count);
+                        }
                     }
 
                     alert("스탬프 정상 구매하였습니다");

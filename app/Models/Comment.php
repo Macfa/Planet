@@ -30,6 +30,9 @@ class Comment extends Model
     public function alarms() {
         return $this->morphMany('App\Models\AlarmNotification', 'alarm_notifiable');
     }
+    public function stampInComments() {
+        return $this->hasMany(StampInComment::class, 'comment_id', "id");
+    }
 //    public function reports() {
 //        return $this->morphMany(Report::class, 'reportable');
 //    }
