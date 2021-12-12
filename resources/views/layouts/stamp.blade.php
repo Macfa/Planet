@@ -78,7 +78,7 @@
                 for(var i=0; i<data.length; i++) {
                     replaceData.push({
                         'stampId': data[i].id,
-                        'stampImage': data[i].image,
+                        'stampImage': '/image/'+data[i].image,
                         'stampCoin': data[i].coin,
                     })
                     console.log(replaceData);
