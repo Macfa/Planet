@@ -29,7 +29,8 @@
                 <td>
                     <div class="title">
 {{--                        <a href="#post-show-{{ $post->id }}" data-bs-toggle="modal" data-bs-focus="false" data-bs-post-id="{{ $post->id }}" data-bs-channel-id="{{ $post->channel->id }}" data-bs-target="#open_post_modal">--}}
-                        <a href="#post-show-{{ $post->id }}" data-bs-toggle="modal" data-bs-focus="true" data-bs-post-id="{{ $post->id }}" data-bs-channel-id="{{ $post->channel->id }}" data-bs-target="#open_post_modal">
+                        <a href="#{{ $post->id }}" data-focus="false" data-bs-toggle="modal" data-bs-focus="true" data-bs-post-id="{{ $post->id }}" data-bs-channel-id="{{ $post->channel->id }}" data-bs-target="#open_post_modal">
+{{--                        <a href="#post-show-{{ $post->id }}" data-bs-toggle="modal" data-bs-focus="true" data-bs-post-id="{{ $post->id }}" data-bs-channel-id="{{ $post->channel->id }}" data-bs-target="#open_post_modal">--}}
                             <p>{{ $post->title }}&nbsp;&nbsp;</p>
                             @if($post->comments->count() > 0)
                                 <span class="titleSub">[&nbsp;<span class="commentCount">{{ $post->comments->count() }}</span>&nbsp;]</span></p>
