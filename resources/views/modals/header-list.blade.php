@@ -15,11 +15,12 @@
         <a href="{{ route('user.show', ['user'=>auth()->id(), 'el'=>'channel']) }}" class="fw-bold flex-container list-group-item list-group-item-action">내 동아리</a>
 
         <div id="collapse_channelJoins">
-            @foreach(auth()->user()->allChannels() as $joined)
+            @foreach(auth()->user()->allChannels() as $page => $list)
+{{--                {{ dd($list) }}--}}
 {{--                <a style="padding-left: 30px;" href="{{ route('channel.show', $joined->channel->id) }}" class="flex-container list-group-item list-group-item-action"><img src="{{ asset('image/scrap_c.png') }}" alt="" class="header-list-icon"><p>{{ $joined->channel->name }}</p></a>--}}
-                <a style="padding-left: 30px;" href="{{ route('channel.show', $joined->id) }}" class="flex-container list-group-item list-group-item-action"><p>{{ $joined->name }}</p></a>
-{{--                @if($loop->index === 9)--}}
-{{--                    <a>더보기</a>--}}
+                <a style="padding-left: 30px;" href="{{ route('channel.show', $list->id) }}" class="flex-container list-group-item list-group-item-action"><p>{{ $list->name }}</p></a>
+{{--                @if($loop->index === 1)--}}
+{{--                    <a href="{{ route('user.channels', $loop->count) }}">더보기</a>--}}
 {{--                @endif--}}
             @endforeach
         </div>

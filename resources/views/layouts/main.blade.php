@@ -161,6 +161,9 @@
         $("#open_post_modal").on('show.bs.modal', function(event) {
             console.log("main show");
             if (event.target.id === 'open_post_modal') {
+                $('body').removeClass('modal-open');
+                $('#open_post_modal').addClass('modal-open');
+
                 console.log("main open post modal");
                 var button = event.relatedTarget;
                 var postID = button.getAttribute('data-bs-post-id');

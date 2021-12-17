@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -89,7 +90,7 @@ class User extends Authenticatable
     public function hasExperiences() {
         return $this->hasMany(Experience::class, "user_id", "id");
     }
-    public function allChannels() {
+    public function allChannels($page = 1) {
         $userId = $this->id; // 본인이 아닌 대상유저
         $joins = Channel::whereHas('channelJoins', function($q) use ($userId) {
             $q->where('user_id', $userId);
@@ -98,8 +99,11 @@ class User extends Authenticatable
         $channels = Channel::where('user_id', $userId)
             ->with('channelJoins')
             ->get();
-        $vals = collect($joins)->merge($channels);
-        return $vals;
+        $values = $joins->merge($channels)->sortBy('updated_at', SORT_REGULAR, true)->forPage($page, 10);
+
+//        $result = [ $page => $values ];
+//        dd($values);
+        return $values;
     }
 
     // Custom Functions...

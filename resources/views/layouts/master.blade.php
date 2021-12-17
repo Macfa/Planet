@@ -93,8 +93,8 @@
 {{--@endif--}}
 
 <!-- Modals -->
-<div style="max-height:100vh;" class="modal fade" id="open_post_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div style="width: 80%; max-width: none; top: 53px; margin-top: 0px;" class="modal-dialog">
+<div class="modal fade" id="open_post_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div style="height: auto; min-height: 100vh; width: 80%; max-width: none; top: 53px; margin-top: 0px;" class="modal-dialog">
 {{--    <div class="modal-dialog">--}}
         <div class="modal-content">
         </div>

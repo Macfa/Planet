@@ -80,6 +80,7 @@ Route::prefix('/channel/{channel}')->group(function () {
 });
 // User's
 Route::get('/user/{user}/{el?}', [UserController::class,'show'])->name('user.show');
+Route::get('/user/channels', [UserController::class,'allChannels'])->name('user.channels');
 Route::post('/user/{id}', [UserController::class,'modify'])->name('user.modify');
 Route::delete('/user/{id?}', [UserController::class,'destroy'])->name('user.destroy');
 Route::get('/user/', [UserController::class,'logout'])->name('user.logout');
