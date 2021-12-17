@@ -30,7 +30,7 @@
 {{--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-image: url({{ asset('image/close.png') }})"></button>--}}
             </div>
 
-            <div class="modal-body" style="flex: 0 0 auto; height: calc(100vh - 140.6px)">
+            <div class="modal-body" style="flex: 0 0 auto; min-height: calc(100vh - 140.6px)">
                 <!-- 왼쪽 게시글 내용 -->
                 <div class="modal-left">
                     <div class="modal-content">
