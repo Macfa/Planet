@@ -115,10 +115,11 @@
                 },
                 success: function (data) {
                     var valueList = [];
-                    if (data.result.length == 0) {
+                    if (data.result.length === 0) {
                         // alert("데이터가 없습니다");
                     } else {
                         addDataPlaceHolder();
+                        var postIdArr = [];
                         for (var i = 0; i < data.result.length; i++) {
                             valueList.push({
                                 "totalLike": data.result[i].totalLike,
@@ -132,10 +133,12 @@
                                 "created_at_modi": data.result[i].created_at_modi,
                                 "postImage": data.result[i].image,
                             });
+                            postIdArr.push(data.result[i].id);
                         }
                         delay(function() {
                             removeDataPlaceHolder();
                             $("#mainMenuItem").tmpl(valueList).insertAfter("#main .main-wrap .left .list table tbody tr:last-child");
+                            addReadPost(postIdArr);
                         }, 1500);
                     }
                     // $("#main .wrap .left .tab li[class="+type+"]").attr('class', 'on');
@@ -152,19 +155,19 @@
             $("#main .main-wrap .left .list table tbody tr:last-child").remove();
             checkRun = false;
         }
-
         $("#open_post_modal").on('hide.bs.modal', function(event) {
             if(history.state === "modal") {
                 history.back();
             }
         });
-        $("#open_post_modal").on('show.bs.modal', function(event) {
-            console.log("main show");
+        $("#open_post_modal").on('shown.bs.modal', function(event) {
             if (event.target.id === 'open_post_modal') {
                 $('body').removeClass('modal-open');
                 $('#open_post_modal').addClass('modal-open');
-
-                console.log("main open post modal");
+            }
+        });
+        $("#open_post_modal").on('show.bs.modal', function(event) {
+            if (event.target.id === 'open_post_modal') {
                 var button = event.relatedTarget;
                 var postID = button.getAttribute('data-bs-post-id');
                 var modalBody = $(".modal-content");
@@ -183,8 +186,25 @@
                     success: function(data) {
                         modalBody.html(data);
                         history.pushState('modal', 'modal', urlPath);
+                        var readPost = JSON.parse(localStorage.getItem('readPost'));
+
+                        if(readPost === null)
+                        {
+                            // 읽은 게시글이 없으면 새로 추가
+                            localStorage.setItem('readPost', JSON.stringify([postID]));
+                        } else
+                        {
+                            //
+                            var checkExist = readPost.includes(postID.toString());
+                            if (checkExist === false)
+                            {
+                                readPost.push(postID);
+                                localStorage.setItem('readPost', JSON.stringify(readPost));
+                            }
+                        }
+                        addReadPost(postID);
                         // $.fn.modal.Constructor.prototype.enforceFocus = function () {};
-                        var button = event.relatedTarget;
+                        // var button = event.relatedTarget;
                         // $("#openStampModal").on('hide.bs.modal', function(event) {
                         //     event.stopPropagation();
                         // });
@@ -207,6 +227,18 @@
             $('#main .tab li').removeClass('on');
             $(this).addClass('on');
         });
+        // function addReadPost(vals) {
+        //     if (typeof(vals) !== "object") {
+        //         vals = [vals];
+        //     }
+        //     vals.forEach(function (val, idx, arr) {
+        //         var exist = $(`#main #post-${val} a[data-bs-post-id=${val}]`).hasClass('visited');
+        //         if (exist === false)
+        //         {
+        //             $(`#main #post-${val} a[data-bs-post-id=${val}]`).addClass('visited');
+        //         }
+        //     });
+        // }
         function willRemove() {
             location.href = "/test2";
         }

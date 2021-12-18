@@ -444,3 +444,8 @@ button {
 .header-list-icon {
     width: 25px;
 }
+
+.visited {
+    text-decoration: none;
+    color: rgb(128,128,128) !important;
+}
