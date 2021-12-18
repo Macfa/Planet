@@ -240,10 +240,10 @@
         }
 
         // 생성, 수정 구분
-        if(form == "add") {
+        if(form === "add") {
             type = "post";
             url = "/comment";
-        } else if(form == "edit") {
+        } else if(form === "edit") {
             type = "put";
             url = "/comment/" + commentID;
         }
@@ -253,10 +253,10 @@
                 data: data,
                 type: type,
                 success: function(data) {
-                    if(form == "edit") { // 기존 댓글 업데이트 로직
+                    if(form === "edit") { // 기존 댓글 업데이트 로직
                         $(`.comment-${commentID} .comment-cont p`).html(data.content);
                         toggleEditForm('hide', commentID);
-                    } else if(form == "add") { // 신규 댓글 생성 로직
+                    } else if(form === "add") { // 신규 댓글 생성 로직
                         var templateValues = {
                             "id": data.id,
                             "depth": (data.depth <= 4) ? data.depth*22 : 4*22,

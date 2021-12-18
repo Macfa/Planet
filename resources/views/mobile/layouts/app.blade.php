@@ -57,11 +57,12 @@
 
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/bootstrap-5.1.0.min.js') }}"></script>
-    <script src="{{ asset('js/toastr.min.js') }}"></script>
+{{--    <script src="{{ asset('js/toastr.min.js') }}"></script>--}}
+    <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('js/jquery-tmpl.js') }}"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+{{--    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>--}}
     <script async charset="utf-8" src="//cdn.embedly.com/widgets/platform.js"></script>
-    @stack("javascripts")
+    @stack("styles")
     <!-- Fonts -->
     {{-- <link rel="dns-prefetch" href="//fonts.gstatic.com"> --}}
     {{-- <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> --}}
@@ -74,7 +75,7 @@
 <body style="height: calc(var(--vh, 1vh) * 100);">
 <!-- Modals -->
 <div class="modal fade" id="open_post_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div style="top: 53px; margin: 0px 0px;" class="modal-dialog">
+    <div style="margin: 0px 0px;" class="modal-dialog">
         <div class="modal-content" style="border: 0; border-radius: 0;">
         </div>
     </div>
@@ -153,6 +154,8 @@
     alert("{{ Session::get('msg') }}");
 @endif
 
+<script src="{{ asset('js/common.js') }}"></script>
+@stack("javascripts")
 <script>
     $('body').on('click', function(e){
         var target = $(e.target);

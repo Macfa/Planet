@@ -61,7 +61,7 @@
     <script async charset="utf-8" src="//cdn.embedly.com/widgets/platform.js"></script>
 
 {{--    <script src="https://unpkg.com/@popperjs/core@2"></script>--}}
-    <script src="{{ asset('js/toastr.min.js') }}"></script>
+{{--    <script src="{{ asset('js/toastr.min.js') }}"></script>--}}
     <script src="{{ asset('js/jquery-tmpl.js') }}"></script>
     <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
 {{--    <script async charset="utf-8" src="//cdn.embedly.com/widgets/platform.js"></script>--}}

@@ -38,6 +38,13 @@
     font-size:24px;
     font-weight:400;
   }
+.modal-parent > .modal-wrap > .modal-header > .modal-title p {
+    letter-spacing: 0;
+    float: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 .modal-parent > .modal-wrap > .modal-header > .modal-title h4 .titleSub {
     font-size:24px;
     /*font-weight:400;*/
@@ -154,12 +161,10 @@
     margin-right:10px;
   }
 
-  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-write-form {
+.modal-parent > .modal-wrap > .modal-body > .modal-left .comment-write-form {
     margin-top:25px;
-      border-bottom: 1px solid black;
-      padding: 15px 15px 10px;
-      margin-bottom: 20px;
-  }
+    margin-bottom: 20px;
+}
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-write-form .form-title {
     margin-bottom:10px;
@@ -182,19 +187,18 @@
     width:100%;
     height:160px;
   }
-
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-write-form .form-btn {
       margin-top: 20px;
     /*display:flex;*/
     /*  justify-content: flex-end;*/
   }
 
-  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-write-form .form-btn  button {
+.modal-parent > .modal-wrap > .modal-body > .modal-left .comment-write-form .form-btn button {
     border-radius:15px;
     height:35px;
-    width:68px;
+    width:136px;
     font-size:14px;
-  }
+}
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-write-form .form-btn > .reset-btn button {
     background-color:#fff;
@@ -222,12 +226,12 @@
   /*  display:block;*/
   /*}*/
 
-  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent {
+.modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent {
     position:relative;
-    margin-top:40px;
-      padding-top: 20px;
-      border-top: 1px solid #888;
-  }
+    padding-top: 20px;
+    border-top: 1px solid #888;
+    /*margin-top:40px;*/
+}
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .section-title {
     margin:10px 0 23px;
@@ -314,16 +318,18 @@
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .comment-top > .comment-info > ul > li,
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .reply-list > .reply-item .reply-top > .reply-info > ul > li  {
-    font-size:14px;
+    font-size:12px;
     vertical-align:middle;
     /*margin-left:12px;*/
       margin-right: 10px;
       font-weight: 400;
+      color: rgb(120,120,120);
       /*14 400 돋움,Dotum,Arial,나눔고딕,"Malgun Gothic",맑은고딕,굴림,sans-serif*/
   }
 
 .write-info .comment-modi-form > button > div.function-text > p {
     font-size:12px;
+    color: rgb(120,120,120);
     vertical-align:middle;
     margin-left:12px;
 }

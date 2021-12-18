@@ -1,17 +1,20 @@
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/mobile/post/show.css') }}">
+
     <div class="modal-parent wid100" style="height: 100vh; background-color: #888888;">
         <div class="modal-wrap" style="background-color: #ffffff;">
             <div class="modal-header flex-wrap-wrap">
                 <div class="modal-title flex-0-0-100">
                     <h4>
-                        {{ $post->title }}&nbsp;&nbsp;<span class="titleSub">[&nbsp;<span class="commentCount">{{ $post->comments->count() }}</span>&nbsp;]</span>
+                        <p>{{ $post->title }}&nbsp;&nbsp;</p>
+                        @if($post->comments->count() > 0)
+                            <span class="titleSub">[&nbsp;<span class="commentCount">{{ $post->comments->count() }}</span>&nbsp;]</span>
+                        @endif
                         <span class="stamps">
                             @foreach($post->stampInPosts as $stampInPost)
-                                <span class="stamp-{{ $stampInPost->stampID }}">
-                                    <img style="width:31px;" src="{{ $stampInPost->stamp->image }}" alt="">
+                                <span class="stamp-{{ $stampInPost->stamp_id }}">
+                                    <img style="width:31px;" src="/image/{{ $stampInPost->stamp->image }}" alt="{{ $stampInPost->stamp->name }}">
                                     <span>
-                                        @if($stampInPost->count() > 1)
-                                            {{ $stampInPost->count() }}
+                                        @if($stampInPost->count > 1)
+                                            {{ $stampInPost->count }}
                                         @endif
                                     </span>
                                 </span>
@@ -26,7 +29,7 @@
 {{--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-image: url({{ asset('image/close.png') }})"></button>--}}
             </div>
 
-            <div class="modal-body" style="height: calc(100vh - 143px)">
+            <div class="modal-body" style="min-height: calc(100vh - 143px)">
                 <!-- 왼쪽 게시글 내용 -->
                 <div class="modal-left">
                     <div>
@@ -136,77 +139,6 @@
             <div class="modal fade" id="openStampModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" style="margin-top:250px;">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h4>스탬프 목록</h4>
-{{--                            <input type="text" name="searchStamp" />--}}
-                        </div>
-                        <div class="modal-body">
-                            <div class="">
-                                <nav id="category-header" class="flex-container">
-                                    @forelse(\App\Models\StampCategory::getAllCategories() as $category)
-                                        <button class="col" onclick="selectCategory({{ $category->id }});">
-    {{--                                                                                <img style="width:25px;" src="{{ asset($category->image) }}" alt="{{ $category->name }}">--}}
-                                            {{ $category->name }}
-                                        </button>
-                                    @empty
-                                        <div>데이터가 없습니다.</div>
-                                    @endforelse
-                                    <button class="col" onclick="return false;">테스트1</button>
-                                    <button class="col" onclick="return false;">테스트2</button>
-                                    <button class="col" onclick="return false;">테스트3</button>
-                                </nav>
-                                <div id="category-data">
-                                    @forelse(\App\Models\StampGroup::getDataFromCategory(1) as $group)
-                                        <div>
-                                            <div>
-                                                <span id="group-name">{{ $group->name }}</span>
-                                            </div>
-                                            @forelse($group->stamps as $stamp)
-                                            <div>
-                                                <ul class="flex-container">
-                                                    <li class="col">
-                                                        <button onclick="purchaseStamp({{ $stamp->id }}, {{ $post->id }});">
-                                                            <img src="{{ $stamp->image }}" />
-                                                            <span>{{ $stamp->coin }}</span>
-                                                        </button>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            @empty
-                                            @endforelse
-                                        </div>
-                                    @empty
-                                    @endforelse
-                                    <div>
-                                        <div>
-                                            <span id="group-name">동물</span>
-                                        </div>
-                                            <div>
-                                                <button onclick="return false;">
-                                                    <img src="/image/2_1629657939.gif" />
-                                                    <span>100</span>
-                                                </button>
-                                            </div>
-                                    </div>
-                                    <div>
-                                        <div>
-                                            <span id="group-name">고양이</span>
-                                        </div>
-                                            <div>
-                                                <button onclick="return false;">
-                                                    <img src="/image/2_1629657939.gif" />
-                                                    <span>1500</span>
-                                                </button>
-                                            </div>
-                                    </div>
-{{--                                    테스트 영역 끝--}}
-                                </div>
-                            </div>
-                        </div>
-{{--                        <div class="modal-footer">--}}
-{{--                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>--}}
-{{--                            <button type="button" class="btn btn-primary">Save changes</button>--}}
-{{--                        </div>--}}
                     </div>
                 </div>
             </div>

@@ -214,39 +214,85 @@
     });
 
     $("#open_post_modal").on('hide.bs.modal', function(event) {
-        if(history.state == "modal") {
-            history.back();
+        if (event.target.id === 'open_post_modal') {
+            if (history.state === "modal") {
+                var isOpen = $("#openStampModal").hasClass("show");
+                if(isOpen) {
+                    history.back();
+                }
+            }
         }
     });
     $("#open_post_modal").on('show.bs.modal', function(event) {
-        if (event.target.id == 'open_post_modal') {
+        if (event.target.id === 'open_post_modal') {
             var button = event.relatedTarget;
-            var post_id = button.getAttribute('data-bs-post-id');
-            // var channelID = button.getAttribute('data-bs-channel-id');
+            var postID = button.getAttribute('data-bs-post-id');
             var modalBody = $(".modal-content");
+            var urlPath = '';
 
             if(history.state == null) {
-                // var urlPath = "/channel/"+channelID+"/post/"+post_id;
-                var urlPath = "/post/"+post_id;
+                urlPath = "/post/"+postID;
             } else {
-                var urlPath = location.href;
+                urlPath = location.href;
             }
 
+
             $.ajax({
-                url: '/post/'+post_id,
+                url: '/post/'+postID+"/get",
                 type: 'get',
                 success: function(data) {
                     modalBody.html(data);
                     history.pushState('modal', 'modal', urlPath);
+                    var readPost = JSON.parse(localStorage.getItem('readPost'));
+
+                    if(readPost === null)
+                    {
+                        // 읽은 게시글이 없으면 새로 추가
+                        localStorage.setItem('readPost', JSON.stringify([postID]));
+                    } else
+                    {
+                        //
+                        var checkExist = readPost.includes(postID.toString());
+                        if (checkExist === false)
+                        {
+                            readPost.push(postID);
+                            localStorage.setItem('readPost', JSON.stringify(readPost));
+                        }
+                    }
+                    addReadPost(postID);
+                    // $.fn.modal.Constructor.prototype.enforceFocus = function () {};
+                    // var button = event.relatedTarget;
+                    // $("#openStampModal").on('hide.bs.modal', function(event) {
+                    //     event.stopPropagation();
+                    // });
+                },
+                error: function(err) {
+                    console.log(err);
+                }
+            })
+        } else if (event.target.id === 'openStampModal') {
+            var modalBody = $("#openStampModal .modal-content");
+            var button = event.relatedTarget;
+            var id = button.getAttribute('data-bs-id');
+            var type = button.getAttribute('data-bs-type');
+
+            $.ajax({
+                url: '/stamp',
+                type: 'get',
+                success: function(data) {
+                    modalBody.html(data);
+                    $("#openStampModal").on('shown.bs.modal', function(event) {
+                        // event.stopPropagation();
+                        $("#openStampModal input[name=type]").val(type);
+                        $("#openStampModal input[name=id]").val(id);
+                        $("#category-data .stamp-list:first button").click();
+                    });
                 },
                 error: function(err) {
                     console.log(err);
                 }
             })
         }
-        // else if (event.target.id == 'openStampModal') {
-        //     // do stuff when the outer dialog is hidden.
-        // }
     });
 
     // var open_post_modal = document.getElementById('open_post_modal')
@@ -355,6 +401,6 @@
 </tr>
 </script>
 @endsection
-
-
-
+@push('styles')
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/mobile/post/show.css') }}">
+@endpush

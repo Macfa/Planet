@@ -156,8 +156,14 @@
             checkRun = false;
         }
         $("#open_post_modal").on('hide.bs.modal', function(event) {
-            if(history.state === "modal") {
-                history.back();
+            // alert('hide post');
+            if (event.target.id === 'open_post_modal') {
+                if (history.state === "modal") {
+                    var isOpen = $("#openStampModal").hasClass("show");
+                    if(isOpen) {
+                        history.back();
+                    }
+                }
             }
         });
         $("#open_post_modal").on('shown.bs.modal', function(event) {
@@ -213,14 +219,29 @@
                         console.log(err);
                     }
                 })
-            } else {
-                console.log(event);
+            } else if (event.target.id === 'openStampModal') {
+                var modalBody = $("#openStampModal .modal-content");
+                var button = event.relatedTarget;
+                var id = button.getAttribute('data-bs-id');
+                var type = button.getAttribute('data-bs-type');
+
+                $.ajax({
+                    url: '/stamp',
+                    type: 'get',
+                    success: function(data) {
+                        modalBody.html(data);
+                        $("#openStampModal").on('shown.bs.modal', function(event) {
+                            // event.stopPropagation();
+                            $("#openStampModal input[name=type]").val(type);
+                            $("#openStampModal input[name=id]").val(id);
+                            $("#category-data .stamp-list:first button").click();
+                        });
+                    },
+                    error: function(err) {
+                        console.log(err);
+                    }
+                })
             }
-            // else if (event.target.id == 'openStampModal') {
-            //     // do stuff when the outer dialog is hidden.
-            // }
-            // $(this).off("show.bs.modal");
-            event.stopPropagation();
         });
 
         $('#main .tab li').click(function(event){
