@@ -29,6 +29,9 @@
 input::-webkit-calendar-picker-indicator {
     opacity: 0;
 }
+#header .header_logo {
+    height:43px !important;
+}
 #header .header-section-search input[type=text]::-moz-placeholder {
     color: #cbc7c7;
 }

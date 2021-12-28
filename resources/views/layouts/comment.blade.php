@@ -106,6 +106,8 @@
 @endforelse
 </div>
 @endif
+
+
 <!-- 하단 기능 Comment -->
 <div class="board-bot-function d-none" id="post-bot-function">
     <div class="left-function">
@@ -125,7 +127,8 @@
             @endif
         </div>
         @auth
-            <img alt="stamp" data-bs-type="post" data-bs-id="{{ $post->id }}" data-bs-toggle="modal" data-bs-target="#openStampModal1" class="mr-3 stamp-image image-m clickable" src="{{ asset('image/stamp_c.png') }}"/>
+            <img data-bs-type="post" data-bs-id="{{ $post->id }}" data-bs-toggle="modal" data-bs-target="#openStampModal" class="mr-3 stamp-image image-m clickable" src="{{ asset('image/stamp_c.png') }}"/>
+{{--            <img alt="stamp" data-bs-type="post" data-bs-id="{{ $post->id }}" data-bs-toggle="modal" data-bs-target="#openStampModal1" class="mr-3 stamp-image image-m clickable" src="{{ asset('image/stamp_c.png') }}"/>--}}
         @endauth
         @guest
             <img alt="stamp" onclick="notLogged()" class="mr-3 stamp-image image-m clickable" src="{{ asset('image/stamp_c.png') }}"/>
@@ -136,7 +139,8 @@
     </div>
 
     <div class="right-function">
-        <img src="{{ asset('image/message.png') }}" alt="message" class="message-image">
+        <a href="javascript:$('#open_post_modal').animate( { scrollTop : 0 }, 400 );"><img src="{{ asset('image/message.png') }}" alt="message" class="message-image"></a>
+{{--        <a href="javascript:$('#open_post_modal').scrollTop(0);"><img src="{{ asset('image/message.png') }}" alt="message" class="message-image"></a>--}}
     </div>
 </div>
 

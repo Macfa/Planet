@@ -117,7 +117,7 @@ class Coin extends Model
             ]);
             $className = get_class($target);
             if($className === "App\Models\Post") {
-                $conditionalTarget = $target->stampInPosts();
+                $conditionalTarget = $target->stamps();
             } else if($className === "App\Models\Comment") {
                 $conditionalTarget = $target->stampInComments();
             }

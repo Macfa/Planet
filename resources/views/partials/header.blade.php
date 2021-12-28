@@ -1,7 +1,10 @@
 <div class="d-flex align-items-center" id="header">
     <div style="flex: 1 0 auto;" class="header-sections">
         <a href="/">
-            <img src="{{ asset('image/logo.png') }}">
+{{--            <img src="{{ asset('image/logo.png') }}">--}}
+            <img class="header_logo" src="{{ asset('image/logo_v1.png') }}">
+{{--            <img src="{{ asset('image/logo_v2.png') }}">--}}
+{{--            112 43 --}}
         </a>
     </div>
     <div style="flex: 5 5 auto;" class="header-sections header-section-search">
@@ -26,9 +29,9 @@
         @endguest
         @auth
             <ul class="d-flex flex-justify-content-flex-end flex-wrap-nowrap">
-                <li class="mr-2 header_icon"><a href="{{ route('user.show', auth()->id()) }}"><img src="{{ auth()->user()->avatar }}" alt="img" /></a></li>
+                <li class="mr-2 header_icon"><a href="{{ route('user.show', auth()->id()) }}"><img src="{{ auth()->user()->hasExperiences->grade->image }}" alt="img" /></a></li>
                 <li class="mr-3 header_text header_text_align">
-                    <p>{{ Auth::user()->name }}</p>
+                    <p>{{ auth()->user()->name }}</p>
                 </li>
                 <li class="mr-2 header_icon"><img src="{{ asset('image/coin_4x.png') }}" alt="coin" /></li>
                 {{--                    <li class="header_text ml-0 header_text_align">--}}

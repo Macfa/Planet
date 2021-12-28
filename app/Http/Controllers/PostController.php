@@ -39,10 +39,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderby('id', 'desc')
-            ->pagination()
-            ->get();
-
+//        $posts = Post::getAllData();
+        $posts = Post::mainMenu('realtime','', 0);
+//        dd($posts);
         $channelVisitHistories = ChannelVisitHistory::showHistory();
 
         if($this->agent->isMobile()) {

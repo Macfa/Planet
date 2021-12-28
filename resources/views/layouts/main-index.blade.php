@@ -35,15 +35,22 @@
                             @if($post->comments->count() > 0)
                                 <span class="titleSub">[&nbsp;<span class="commentCount">{{ $post->comments->count() }}</span>&nbsp;]</span></p>
                             @endif
-                            <span>
-                                                @foreach($post->stampInPosts as $stamp)
-                                    <img style="width:27px;" src="{{ $stamp->stamp->image }}" alt="">
-                                    @if($stamp->count>1)
-                                        {{ $stamp->count }}
-                                    @endif
-                                @endforeach
-                                            </span>
                         </a>
+                    </div>
+                    <div class="stamps">
+                        @foreach($post->stampInPosts as $stamp)
+                            <div class="stamp-item stamp-{{ $stamp->id }}
+                            @if($stamp->totalCount>1)
+                                multi-stamps">
+                            @else
+                                ">
+                            @endif
+                                <img src="/image/{{ $stamp->stamp->image }}" alt="">
+                                @if($stamp->totalCount>1)
+                                    <span class="stamp_count">{{ $stamp->totalCount }}</span>
+                                @endif
+                            </div>
+                        @endforeach
                     </div>
                     <div class="user">
                         <p><span><a href="{{ route('channel.show', $post->channel_id) }}">[ {{ $post->channel->name }} ]</a></span> {{ $post->created_at->diffForHumans() }} / <a href="{{ route('user.show', ["user" => $post->user] ) }}">{{ $post->user->name }}</a></p></div>

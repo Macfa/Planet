@@ -9,12 +9,12 @@
                         <span class="titleSub">[&nbsp;<span class="commentCount">{{ $post->comments->count() }}</span>&nbsp;]</span>
                     @endif
                     <span class="stamps">
-                        @foreach($post->stampInPosts as $stampInPost)
-                            <span class="stamp-{{ $stampInPost->stamp_id }}">
-                                <img style="width:31px;" src="/image/{{ $stampInPost->stamp->image }}" alt="{{ $stampInPost->stamp->name }}">
+                        @foreach($post->stamps as $stamp)
+                            <span class="stamp-{{ $stamp->stamp_id }}">
+                                <img style="width:31px;" src="/image/{{ $stamp->image }}" alt="{{ $stamp->name }}">
                                 <span>
-                                    @if($stampInPost->count > 1)
-                                            {{ $stampInPost->count }}
+                                    @if($stamp->totalCount > 1)
+                                            {{ $stamp->totalCount }}
                                     @endif
                                 </span>
                             </span>

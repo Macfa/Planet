@@ -55,6 +55,7 @@
         var checkRun = false;
 
         $(document).ready(function(){
+            addClassForMultiStamp();
             $(window).on('popstate', function(e) {
                 if(e.type === "popstate") {
                     var modalState = $("#open_post_modal").hasClass('show');
@@ -100,7 +101,15 @@
             $('#main .right .best > ul .realtime').click();
 
         });
+        function addClassForMultiStamp(element) {
+            if(element === undefined) {
+                // $(".stamp-item:has(>span)").addClass("multi-stamps");
+            } else if(typeof(element) === 'object'){
+                $.each(element, function(idx, val) {
 
+                });
+            }
+        }
         function loadMoreData(page) {
             var channelID = "{{ request()->route('channel.id') }}";
             var type = $(".tab .on").attr('value');
@@ -121,6 +130,11 @@
                         addDataPlaceHolder();
                         var postIdArr = [];
                         for (var i = 0; i < data.result.length; i++) {
+                            var multiClassName = '';
+                            if(data.result[i].stamps.totalCount > 1) {
+                                // alert(data.result[i].stamps.totalCount);
+                                // multiClassName = 'multi-stamps';
+                            }
                             valueList.push({
                                 "totalLike": data.result[i].totalLike,
                                 "postID": data.result[i].id,
@@ -132,6 +146,8 @@
                                 "user_id": data.result[i].user.id,
                                 "created_at_modi": data.result[i].created_at_modi,
                                 "postImage": data.result[i].image,
+                                "stamps": data.result[i].stamps,
+                                "multiClassName": multiClassName,
                             });
                             postIdArr.push(data.result[i].id);
                         }
@@ -139,6 +155,7 @@
                             removeDataPlaceHolder();
                             $("#mainMenuItem").tmpl(valueList).insertAfter("#main .main-wrap .left .list table tbody tr:last-child");
                             addReadPost(postIdArr);
+                            addClassForMultiStamp(postIdArr);
                         }, 1500);
                     }
                     // $("#main .wrap .left .tab li[class="+type+"]").attr('class', 'on');
@@ -337,6 +354,18 @@
                         <span class="titleSub">[&nbsp;<span class="commentCount">${commentCount}</span>&nbsp;]</span>
                     @{{/if}}
                 </a>
+            </div>
+            <div class="stamps">
+                @{{each stamps}}
+                alert(1);
+                ${alert(1)}
+                    <div class="stamp-item stamp-${id} ${multiClassName}">
+                        <img src="/image/${image}" alt="">
+                        @{{if totalCount > 1}}
+                            <span class="stamp_count">${totalCount}</span>
+                        @{{/if}}
+                    </div>
+                @{{/each}}
             </div>
             <div class="user">
                 <p><span><a href="/channel/${postChannelID}">[ ${channelName} ]</a></span> ${created_at_modi} / <a href="/user/${userID}">${userName}</a></p></div>

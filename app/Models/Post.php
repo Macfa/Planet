@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use mysql_xdevapi\Exception;
 
 class Post extends Model
@@ -32,7 +33,18 @@ class Post extends Model
         return $this->morphMany(Coin::class, 'coinable');
     }
     public function stampInPosts() {
-        return $this->hasMany(StampInPost::class, 'post_id', "id");
+        return $this->hasMany(StampInPost::class, 'post_id');
+    }
+    public function stamps() {
+        return $this->hasManyThrough(
+//        return $this->hasOneThrough(
+            Stamp::class,
+            StampInPost::class,
+            'post_id',
+            'id',
+            'id',
+            'stamp_id'
+        );
     }
     public function experiences() {
         return $this->morphMany(Experience::class, 'experienced');
@@ -109,12 +121,16 @@ class Post extends Model
             ->get();
     }
     public static function mainMenu($type, $channelID, $page) {
-//        var_dump($type, $channelID, $page);
         if($type==='realtime') {
             $posts = self::with('channel')
                 ->with('likes')
                 ->with('user')
-                ->with('stampInPosts')
+//                ->with('stampInPosts')
+//                ->with('stamps')
+                ->with('stamps', function($query) {
+//                    $query->select("stamp_id");
+//                    $query->groupBy("stamps.id");
+                })
                 ->withCount('comments')
                 ->orderby('id', 'desc')
                 ->where(function($query) use ($channelID) {
@@ -132,7 +148,7 @@ class Post extends Model
                 })
                 ->withCount('comments')
                 ->with('user')
-                ->with('stampInPosts')
+                ->with('stamps')
                 ->where(function($query) use ($channelID) {
                     if($channelID) {
                         $query->where('channel_id', '=', $channelID);
@@ -145,7 +161,7 @@ class Post extends Model
             $posts = self::with('channel')
                 ->with('likes')
                 ->with('user')
-                ->with('stampInPosts')
+                ->with('stamps')
                 ->withCount('comments')
                 ->orderby('id', 'desc')
                 ->join("scraps", "posts.id", "=", "scraps.post_id")
@@ -156,7 +172,14 @@ class Post extends Model
         foreach($posts as $idx => $post) {
             $posts[$idx]['totalLike'] = $post->likes->sum('like');
             $posts[$idx]['created_at_modi'] = $post->created_at->diffForHumans();
+//            dd($posts, $posts->count(), $post->stamps, $post->stamps->count());
+//            foreach($post->stamps as $stamp_idx => $stamp) {
+//                dd($stamp, $stamp->count());
+//                $stamp['totalCount'] = $stamp->count();
+//            }
         }
+//        dd($posts);
+//        dd($posts->stamps);
         return $posts;
     }
 }

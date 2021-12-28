@@ -40,6 +40,7 @@ class HomeController extends Controller
     public function index()
     {
         $posts = Post::getAllData();
+//        $posts = Post::mainMenu('realtime','', 0);
 
         $channelVisitHistories = ChannelVisitHistory::showHistory();
         if($this->agent->isMobile()) {
