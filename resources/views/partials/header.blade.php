@@ -29,7 +29,9 @@
         @endguest
         @auth
             <ul class="d-flex flex-justify-content-flex-end flex-wrap-nowrap">
-                <li class="mr-2 header_icon"><a href="{{ route('user.show', auth()->id()) }}"><img src="{{ auth()->user()->hasExperiences->grade->image }}" alt="img" /></a></li>
+                <li class="mr-2 header_icon">
+{{--                    <a href="{{ route('user.show', auth()->id()) }}"><img src="{{ auth()->user()->hasExperiences->grade->image }}" alt="img" /></a>--}}
+                </li>
                 <li class="mr-3 header_text header_text_align">
                     <p>{{ auth()->user()->name }}</p>
                 </li>

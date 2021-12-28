@@ -37,13 +37,13 @@ class Post extends Model
     }
     public function stamps() {
         return $this->hasManyThrough(
-//        return $this->hasOneThrough(
             Stamp::class,
             StampInPost::class,
             'post_id',
             'id',
             'id',
             'stamp_id'
+//        )->groupBy("stamp_in_posts.stamp_id");
         );
     }
     public function experiences() {
@@ -125,11 +125,10 @@ class Post extends Model
             $posts = self::with('channel')
                 ->with('likes')
                 ->with('user')
-//                ->with('stampInPosts')
-//                ->with('stamps')
                 ->with('stamps', function($query) {
-//                    $query->select("stamp_id");
-//                    $query->groupBy("stamps.id");
+                    $query->select('*');
+                    $query->addSelect(DB::raw('count(*) as totalCount'));
+                    $query->groupBy("stamps.id");
                 })
                 ->withCount('comments')
                 ->orderby('id', 'desc')
@@ -168,7 +167,7 @@ class Post extends Model
                 ->pagination($page)
                 ->get();
         }
-
+//        $posts->toSql();
         foreach($posts as $idx => $post) {
             $posts[$idx]['totalLike'] = $post->likes->sum('like');
             $posts[$idx]['created_at_modi'] = $post->created_at->diffForHumans();

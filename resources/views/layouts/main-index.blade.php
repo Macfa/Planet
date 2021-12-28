@@ -38,14 +38,14 @@
                         </a>
                     </div>
                     <div class="stamps">
-                        @foreach($post->stampInPosts as $stamp)
+                        @foreach($post->stamps as $stamp)
                             <div class="stamp-item stamp-{{ $stamp->id }}
                             @if($stamp->totalCount>1)
                                 multi-stamps">
                             @else
                                 ">
                             @endif
-                                <img src="/image/{{ $stamp->stamp->image }}" alt="">
+                                <img src="/image/{{ $stamp->image }}" alt="">
                                 @if($stamp->totalCount>1)
                                     <span class="stamp_count">{{ $stamp->totalCount }}</span>
                                 @endif
