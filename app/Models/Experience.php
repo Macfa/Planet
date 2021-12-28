@@ -18,6 +18,9 @@ class Experience extends Model
     {
         return $this->morphTo('experienced', 'experienced_type', 'experienced_id');
     }
+    public function grade() {
+
+    }
     public function writePost(Post $post) {
         $today = Carbon::now();
         $limit = 20;

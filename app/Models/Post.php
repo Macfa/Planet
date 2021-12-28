@@ -14,7 +14,7 @@ class Post extends Model
     protected $table = "posts";
     protected $primaryKey = "id";
     protected $guarded = [];
-    private $count = 10;
+    private int $count = 10;
 
     public function channel() {
         return $this->belongsTo(Channel::class, 'channel_id', 'id');
@@ -33,7 +33,9 @@ class Post extends Model
         return $this->morphMany(Coin::class, 'coinable');
     }
     public function stampInPosts() {
-        return $this->hasMany(StampInPost::class, 'post_id');
+        return $this->hasMany(StampInPost::class, 'post_id')
+//            ->groupBy("stamp_id");
+        ;
     }
     public function stamps() {
         return $this->hasManyThrough(
@@ -43,7 +45,6 @@ class Post extends Model
             'id',
             'id',
             'stamp_id'
-//        )->groupBy("stamp_in_posts.stamp_id");
         );
     }
     public function experiences() {
@@ -120,15 +121,14 @@ class Post extends Model
             ->pagination()
             ->get();
     }
-    public static function mainMenu($type, $channelID, $page) {
+    public static function mainMenu($type="realtime", $channelID=null, $page=0) {
         if($type==='realtime') {
             $posts = self::with('channel')
                 ->with('likes')
                 ->with('user')
                 ->with('stamps', function($query) {
-                    $query->select('*');
-                    $query->addSelect(DB::raw('count(*) as totalCount'));
-                    $query->groupBy("stamps.id");
+                    $query->select('*', DB::raw('count(*) as totalCount'));
+                    $query->groupBy(["stamp_in_posts.post_id", "stamps.id"]);
                 })
                 ->withCount('comments')
                 ->orderby('id', 'desc')
@@ -137,8 +137,11 @@ class Post extends Model
                         $query->where('channel_id', '=', $channelID);
                     }
                 })
+//                ->groupBy(["posts.id", "stamps.id"])
                 ->pagination($page)
                 ->get();
+//                ->toSql();
+//            dd($posts);
         } else if($type==='hot') {
             $posts = self::with('channel')
 //                ->with('likes')
@@ -171,14 +174,12 @@ class Post extends Model
         foreach($posts as $idx => $post) {
             $posts[$idx]['totalLike'] = $post->likes->sum('like');
             $posts[$idx]['created_at_modi'] = $post->created_at->diffForHumans();
-//            dd($posts, $posts->count(), $post->stamps, $post->stamps->count());
+//            dd($posts, $posts->count(), $post->stamps, $post->stamps);
 //            foreach($post->stamps as $stamp_idx => $stamp) {
 //                dd($stamp, $stamp->count());
 //                $stamp['totalCount'] = $stamp->count();
 //            }
         }
-//        dd($posts);
-//        dd($posts->stamps);
         return $posts;
     }
 }
