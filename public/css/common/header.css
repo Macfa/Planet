@@ -175,3 +175,12 @@ input::-webkit-calendar-picker-indicator {
 /*    width: 1276px;*/
 /*  }*/
 /*}*/
+.modal ul.btn {
+    float: right;
+    /*overflow*/
+    /*padding*/
+}
+.modal ul.btn li {
+    float: right;
+    margin: 0 0 0 14px;
+}
