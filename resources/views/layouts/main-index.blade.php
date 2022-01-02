@@ -13,13 +13,13 @@
                 <td>
                     <!-- 업이면 클래스 up, 다운이면 down -->
                     <span class="post-like-main
-                                    @if($post->likes->sum('like') > 0)
-                        updown up
-@elseif($post->likes->sum('like') < 0)
-                        updown down
-@else
-                        updown dash
-@endif
+                        @if($post->likes->sum('like') > 0)
+                            updown up
+                        @elseif($post->likes->sum('like') < 0)
+                            updown down
+                        @else
+                            updown dash
+                        @endif
                         ">{{ $post->likes->sum('like') }}</span>
                 </td>
                 <td>
@@ -38,7 +38,7 @@
                         </a>
                     </div>
                     <div class="stamps">
-                        @foreach($post->stamps as $stamp)
+                        @foreach($post->stampsCount as $stamp)
                             <div class="stamp-item stamp-{{ $stamp->id }}
                             @if($stamp->totalCount>1)
                                 multi-stamps">

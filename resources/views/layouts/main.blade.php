@@ -131,10 +131,10 @@
                         var postIdArr = [];
                         for (var i = 0; i < data.result.length; i++) {
                             var multiClassName = '';
-                            if(data.result[i].stamps.totalCount > 1) {
+                            // if(data.result[i].stamps.totalCount > 1) {
                                 // alert(data.result[i].stamps.totalCount);
                                 // multiClassName = 'multi-stamps';
-                            }
+                            // }
                             valueList.push({
                                 "totalLike": data.result[i].totalLike,
                                 "postID": data.result[i].id,
@@ -147,7 +147,7 @@
                                 "created_at_modi": data.result[i].created_at_modi,
                                 "postImage": data.result[i].image,
                                 "stamps": data.result[i].stamps,
-                                "multiClassName": multiClassName,
+                                // "multiClassName": multiClassName,
                             });
                             postIdArr.push(data.result[i].id);
                         }
@@ -318,6 +318,7 @@
                                 "stampInPosts": data.result[i].stamp_in_posts,
                                 "created_at_modi": data.result[i].created_at_modi,
                                 "postImage": data.result[i].image,
+                                "stamps": data.result[i].stamps,
                             });
                         }
                         $("#mainMenuItem").tmpl(valueList).appendTo("#main .main-wrap .left .list table tbody");
@@ -357,9 +358,12 @@
             </div>
             <div class="stamps">
                 @{{each stamps}}
-                alert(1);
-                ${alert(1)}
-                    <div class="stamp-item stamp-${id} ${multiClassName}">
+                    <div class="stamp-item stamp-${id}
+                    @{{if totalCount > 1}}
+                        multi-stamps">
+                     @{{else}}
+                        ">
+                    @{{/if}}
                         <img src="/image/${image}" alt="">
                         @{{if totalCount > 1}}
                             <span class="stamp_count">${totalCount}</span>

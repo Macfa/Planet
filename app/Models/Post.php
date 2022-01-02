@@ -47,6 +47,11 @@ class Post extends Model
             'stamp_id'
         );
     }
+    public function stampsCount() {
+        return $this->stamps()
+            ->select('*', DB::raw('count(*) as totalCount'))
+            ->groupBy(["stamp_in_posts.post_id", "stamps.id"]);
+    }
     public function experiences() {
         return $this->morphMany(Experience::class, 'experienced');
     }
@@ -126,10 +131,7 @@ class Post extends Model
             $posts = self::with('channel')
                 ->with('likes')
                 ->with('user')
-                ->with('stamps', function($query) {
-                    $query->select('*', DB::raw('count(*) as totalCount'));
-                    $query->groupBy(["stamp_in_posts.post_id", "stamps.id"]);
-                })
+//                ->with('stamps')
                 ->withCount('comments')
                 ->orderby('id', 'desc')
                 ->where(function($query) use ($channelID) {
@@ -145,31 +147,35 @@ class Post extends Model
         } else if($type==='hot') {
             $posts = self::with('channel')
 //                ->with('likes')
-                ->with('likes', function($q) {
+                ->with('likes', function ($q) {
                     $q->orderBy('like', 'desc');
                 })
                 ->withCount('comments')
                 ->with('user')
-                ->with('stamps')
-                ->where(function($query) use ($channelID) {
-                    if($channelID) {
+//                ->with('stamps', function($query) {
+//                    $query->select('*', DB::raw('count(*) as totalCount'));
+//                    $query->groupBy(["stamp_in_posts.post_id", "stamps.id"]);
+//                })
+                ->where(function ($query) use ($channelID) {
+                    if ($channelID) {
                         $query->where('channel_id', '=', $channelID);
                     }
                 })
 //                ->orderBy('likes.like', 'desc')
                 ->pagination($page)
                 ->get();
-        } else if($type==="scrap") {
-            $posts = self::with('channel')
-                ->with('likes')
-                ->with('user')
-                ->with('stamps')
-                ->withCount('comments')
-                ->orderby('id', 'desc')
-                ->join("scraps", "posts.id", "=", "scraps.post_id")
-                ->pagination($page)
-                ->get();
         }
+//        } else if($type==="scrap") {
+//            $posts = self::with('channel')
+//                ->with('likes')
+//                ->with('user')
+//                ->with('stamps')
+//                ->withCount('comments')
+//                ->orderby('id', 'desc')
+//                ->join("scraps", "posts.id", "=", "scraps.post_id")
+//                ->pagination($page)
+//                ->get();
+//        }
 //        $posts->toSql();
         foreach($posts as $idx => $post) {
             $posts[$idx]['totalLike'] = $post->likes->sum('like');

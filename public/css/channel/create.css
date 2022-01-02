@@ -26,7 +26,8 @@ input:focus {
   min-height: 686px;
 }
 
-#channel .board_box .left div.list .menu {
+#channel .board_box .left div.list .menu,
+#channel .channel_wrap .page_info h2 {
   font-size: 25px;
   /*border-bottom: 4px solid #3d5afe;*/
 }

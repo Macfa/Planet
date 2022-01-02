@@ -59,9 +59,9 @@ class User extends Authenticatable
     public function channelJoins() {
         return $this->hasMany(ChannelJoin::class, 'user_id', 'id');
     }
-//    public function grade() {
-//        return $this->hasOne(Grade::class, "id", "grade_id");
-//    }
+    public function grade() {
+        return $this->hasOne(Grade::class, "id", "grade_id");
+    }
     public function favorites() {
         // to be delete !
 //        return $this->hasMany(Favorite::class, 'user_id', 'id');

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Comment extends Model
 {
@@ -32,6 +33,22 @@ class Comment extends Model
     }
     public function stampInComments() {
         return $this->hasMany(StampInComment::class, 'comment_id', "id");
+    }
+    public function stamps()
+    {
+        return $this->hasManyThrough(
+            Stamp::class,
+            StampInComment::class,
+            'comment_id',
+            'id',
+            'id',
+            'stamp_id'
+        );
+    }
+    public function stampsCount() {
+        return $this->stamps()
+            ->select('*', DB::raw('count(*) as totalCount'))
+            ->groupBy(['stamp_in_comments.comment_id', "stamp_id"]);
     }
 //    public function reports() {
 //        return $this->morphMany(Report::class, 'reportable');

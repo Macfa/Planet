@@ -8,19 +8,22 @@
                     @if($post->comments->count() > 0)
                         <span class="titleSub">[&nbsp;<span class="commentCount">{{ $post->comments->count() }}</span>&nbsp;]</span>
                     @endif
-                    <span class="stamps">
-                        @foreach($post->stamps as $stamp)
-                            <span class="stamp-{{ $stamp->stamp_id }}">
-                                <img style="width:31px;" src="/image/{{ $stamp->image }}" alt="{{ $stamp->name }}">
-                                <span>
-                                    @if($stamp->totalCount > 1)
-                                            {{ $stamp->totalCount }}
-                                    @endif
-                                </span>
-                            </span>
-                        @endforeach
-                    </span>
                 </h4>
+            </div>
+            <div class="stamps">
+                @foreach($post->stampsCount as $stamp)
+                    <div class="stamp-item stamp-{{ $stamp->id }}
+                    @if($stamp->totalCount>1)
+                        multi-stamps">
+                        @else
+                            ">
+                        @endif
+                        <img src="/image/{{ $stamp->image }}" alt="">
+                        @if($stamp->totalCount>1)
+                            <span class="stamp_count">{{ $stamp->totalCount }}</span>
+                        @endif
+                    </div>
+                @endforeach
             </div>
             <div class="write-info">
 {{--                    <p><span><a href="{{ route('channel.show', $post->channel_id) }}">[{{ $post->channel->name }}]</a></span>&nbsp;온 <a href="{{ route('user.show', 'post') }}">{{ $post->user->name }}</a> / {{ $post->created_at->diffForHumans() }}</p>--}}
@@ -398,7 +401,7 @@
                 error: function (err) {
                     if(err.errorCode === 401) {
                         alert("로그인이 필요한 기능입니다");
-                    } else {
+                    } else if(err.errorCode === 402){
                         alert("코인이 부족합니다");
                     }
                 }

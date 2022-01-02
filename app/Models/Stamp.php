@@ -14,9 +14,6 @@ class Stamp extends Model
     public function coins() {
         return $this->morphMany(Coin::class, 'coinable');
     }
-    public function stampInPosts() {
-        return $this->hasMany(StampInPost::class, 'stamp_id', 'id');
-    }
     public function getStamps($categoryID) {
         if($categoryID == 1) {
             return StampGroup::get();
@@ -28,13 +25,4 @@ class Stamp extends Model
     {
         return $this->all();
     }
-//    public static function purchase($stampID, $postID) {
-//        $stamp = self::find($stampID);
-//        $coin = new Coin();
-//        $result = $coin->purchaseStamp($stamp, $postID);
-//        if($result) {
-//
-//        }
-//
-//    }
 }

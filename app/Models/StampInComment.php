@@ -11,7 +11,7 @@ class StampInComment extends Model
     protected $table = "stamp_in_comments";
     protected $guarded = [];
 
-    public function post() {
+    public function comment() {
         return $this->belongsTo(Comment::class, 'comment_id');
     }
 }

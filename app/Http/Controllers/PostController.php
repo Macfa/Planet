@@ -12,6 +12,7 @@ use App\Models\Like;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 use Jenssegers\Agent\Agent;
@@ -147,7 +148,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        $posts = $post->getAllData();
+//        $posts = $post->getAllData();
+        $posts = Post::mainMenu('realtime','', 0);
 
         $channelVisitHistories = ChannelVisitHistory::showHistory();
         if($this->agent->isMobile()) {
@@ -307,7 +309,10 @@ class PostController extends Controller
     }
     public function getPost(Post $post)
     {
+//        $post = Post::where('id', $post->id)->;
         $comments = Comment::where('post_id', '=', $post->id)
+            ->with('likes')
+            ->with('user')
             ->orderBy('group', 'desc')
             ->orderBy('order', 'asc')
             ->orderBy('depth', 'asc')

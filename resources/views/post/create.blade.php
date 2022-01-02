@@ -106,33 +106,34 @@
             alert("이름을 입력해주세요 ( 20자 이하 )");
             return false;
         }
-        if(form.content.value === "")
+        if(window.editor.data.get() === "")
         {
             alert("내용을 입력해주세요");
             return false;
         }
     }
-        ClassicEditor.create( document.querySelector( '#editor' ), {
-        simpleUpload: {
-            // The URL that the images are uploaded to.
-            uploadUrl: '{{ route('ck.upload') }}',
+    $(document).ready(function () {
+        ClassicEditor.create(document.querySelector('#editor'), {
+            simpleUpload: {
+                // The URL that the images are uploaded to.
+                uploadUrl: '{{ route('ck.upload') }}',
 
-            // Enable the XMLHttpRequest.withCredentials property.
-            // withCredentials: true,
+                // Enable the XMLHttpRequest.withCredentials property.
+                // withCredentials: true,
 
-            // Headers sent along with the XMLHttpRequest to the upload server.
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                // Headers sent along with the XMLHttpRequest to the upload server.
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
             }
-        }
-    } )
-        .then( editor => {
-            window.editor = editor;
-        } )
-        .catch( error => {
-            console.error( 'There was a problem initializing the editor.', error );
-        } );
-
+        })
+            .then(editor => {
+                window.editor = editor;
+            })
+            .catch(error => {
+                console.error('There was a problem initializing the editor.', error);
+            });
+    });
     // function clickSubmit() {
     //     var val = $("#channelList").val();
     //     if(val != "") {

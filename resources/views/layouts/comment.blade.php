@@ -53,8 +53,22 @@
                             </button>
                         </div>
                     @endif
+                    <div class="stamps">
+                        @foreach($comment->stampsCount as $stamp)
+                            <div class="stamp-item stamp-{{ $stamp->id }}
+                            @if($stamp->totalCount>1)
+                                multi-stamps">
+                                @else
+                                    ">
+                                @endif
+                                <img src="/image/{{ $stamp->image }}" alt="">
+                                @if($stamp->totalCount>1)
+                                    <span class="stamp_count">{{ $stamp->totalCount }}</span>
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
-
                 <div class="comment-info">
                     <ul>
                         @auth
@@ -93,7 +107,6 @@
                     </ul>
                 </div>
             </div>
-
             <div class="comment-cont">
                 <p>
                     {!! $comment->content !!}

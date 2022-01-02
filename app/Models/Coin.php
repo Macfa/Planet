@@ -117,27 +117,37 @@ class Coin extends Model
             ]);
             $className = get_class($target);
             if($className === "App\Models\Post") {
-                $conditionalTarget = $target->stamps();
+                $conditionalTarget = $target->stampInPosts();
+//                $conditionalTarget = $target->stamps();
             } else if($className === "App\Models\Comment") {
                 $conditionalTarget = $target->stampInComments();
+            } else {
+                $conditionalTarget = '';
             }
             $checkExist = $conditionalTarget->where("stamp_id", $stamp->id)->first();
 
             $currentCoin = $totalCoin - $price;
 
             if($checkExist) {
-                $toBeCount = $checkExist->count+1;
-                $conditionalTarget->update([
-                    "count" => $toBeCount
+                $conditionalTarget->create([
+                    'post_id' => $target->id,
+                    'stamp_id' => $stamp->id,
+//                        'count' => 1,
+                    'user_id' => auth()->id()
                 ]);
-                $method = "update";
+//                $toBeCount = $checkExist->count+1;
+//                $conditionalTarget->update([
+//                    "count" => $toBeCount
+//                ]);
+//                $method = "update";
+                $method = "create";
             } else {
-                $toBeCount = 1;
+//                $toBeCount = 1;
                 if($className === "App\Models\Post") {
                     $conditionalTarget->create([
                         'post_id' => $target->id,
                         'stamp_id' => $stamp->id,
-                        'count' => 1,
+//                        'count' => 1,
                         'user_id' => auth()->id()
                     ]);
                     $target = "post";
@@ -145,7 +155,7 @@ class Coin extends Model
                     $conditionalTarget->create([
                         'comment_id' => $target->id,
                         'stamp_id' => $stamp->id,
-                        'count' => 1,
+//                        'count' => 1,
                         'user_id' => auth()->id()
                     ]);
                     $target = "comment";
@@ -157,12 +167,10 @@ class Coin extends Model
                 "target" => $target,
                 "currentCoin" => $currentCoin,
                 "image" => $stamp->image,
-                "count" => $toBeCount
+//                "count" => $toBeCount
             ];
         } else {
-            return [
-
-            ];
+            abort(402);
         }
     }
 }
