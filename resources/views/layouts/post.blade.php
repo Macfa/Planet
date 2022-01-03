@@ -10,9 +10,9 @@
                     @endif
                 </h4>
             </div>
-            <div class="stamps">
+            <div class="stamps post-{{ $post->id }}-stamps">
                 @foreach($post->stampsCount as $stamp)
-                    <div class="stamp-item stamp-{{ $stamp->id }}
+                    <div class="stamp-item stamp-{{ $stamp->stamp_id }}
                     @if($stamp->totalCount>1)
                         multi-stamps">
                         @else
@@ -346,6 +346,7 @@
             },
             type: "get",
             success: function (data) {
+                // console.log(data);
                 var replaceData = {
                     'id': data.id,
                     'coin': data.coin,
@@ -383,11 +384,22 @@
                     $("#total_coin").text(data.currentCoin);
                     $("#openStampModal").modal("hide");
                     if(data.target === "post") {
-                        if(data.method == "create") {
-                            $(".modal-title .stamps").append(`<span class="stamp-${stampID}"><img style='width:31px;' alt='${data.name}' src='/image/${data.image}' ></span>`);
-                        } else if(data.method == "update") {
-                            $(`.modal-title .stamps span[class="stamp-${stampID}"] span`).text(data.count);
+                        if(data.count === 1) {
+                            $(`.stamps.post-${id}-stamps`).append(`<div class="stamp-item stamp-${stampID}"><img alt='${data.name}' src='/image/${data.image}' ></div>`);
+                        } else if(data.count > 1) {
+                            if($(`.stamps.post-${id}-stamps div.stamp-${stampID} span.stamp_count`).length) {
+                                $(`.stamps.post-${id}-stamps div.stamp-${stampID} span.stamp_count`).text(data.count);
+                                console.log($(`.stamps.post-${id}-stamps div.stamp-${stampID} span.stamp_count`));
+                            } else {
+                                var tmpl = `<span class="stamp_count">${data.count}</span>`;
+                                $(`.stamps.post-${id}-stamps div.stamp-${stampID}`).append(tmpl);
+                                $(`.stamps.post-${id}-stamps div.stamp-${stampID}`).addClass("multi-stamps");
+                            }
                         }
+
+                        // if() {
+                        //
+                        // }
                     } else if(data.target === "comment") {
                         if(data.method == "create") {
                             // $(".modal-title .stamps").append(`<span class="stamp-${stampID}"><img style='width:31px;' alt='${data.name}' src='${data.image}' alt=''></span>`);

@@ -37,9 +37,9 @@
                             @endif
                         </a>
                     </div>
-                    <div class="stamps">
+                    <div class="stamps post-{{ $post->id }}-stamps">
                         @foreach($post->stampsCount as $stamp)
-                            <div class="stamp-item stamp-{{ $stamp->id }}
+                            <div class="stamp-item stamp-{{ $stamp->stamp_id }}
                             @if($stamp->totalCount>1)
                                 multi-stamps">
                             @else

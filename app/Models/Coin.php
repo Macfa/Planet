@@ -112,7 +112,8 @@ class Coin extends Model
         if($totalCoin >= $price) {
             $stamp->coins()->create([
                 'type'=>'스탬프구매',
-                'coin'=>-$price,
+//                'coin'=>-$price,
+                'coin'=>$price,
                 'user_id'=>auth()->id()
             ]);
             $className = get_class($target);
@@ -124,24 +125,24 @@ class Coin extends Model
             } else {
                 $conditionalTarget = '';
             }
-            $checkExist = $conditionalTarget->where("stamp_id", $stamp->id)->first();
+//            $checkExist = $conditionalTarget->where("stamp_id", $stamp->id)->first();
 
             $currentCoin = $totalCoin - $price;
 
-            if($checkExist) {
-                $conditionalTarget->create([
-                    'post_id' => $target->id,
-                    'stamp_id' => $stamp->id,
+//            if($checkExist) {
+//                $conditionalTarget->create([
+//                    'post_id' => $target->id,
+//                    'stamp_id' => $stamp->id,
 //                        'count' => 1,
-                    'user_id' => auth()->id()
-                ]);
+//                    'user_id' => auth()->id()
+//                ]);
 //                $toBeCount = $checkExist->count+1;
 //                $conditionalTarget->update([
 //                    "count" => $toBeCount
 //                ]);
 //                $method = "update";
-                $method = "create";
-            } else {
+//                $method = "create";
+//            } else {
 //                $toBeCount = 1;
                 if($className === "App\Models\Post") {
                     $conditionalTarget->create([
@@ -160,14 +161,12 @@ class Coin extends Model
                     ]);
                     $target = "comment";
                 }
-                $method = "create";
-            }
+//            }
             return [
-                "method" => $method,
                 "target" => $target,
                 "currentCoin" => $currentCoin,
                 "image" => $stamp->image,
-//                "count" => $toBeCount
+                "count" => $conditionalTarget->where('stamp_id', $stamp->id)->count()
             ];
         } else {
             abort(402);
