@@ -65,6 +65,8 @@
     <script src="{{ asset('js/jquery-tmpl.js') }}"></script>
     <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
 {{--    <script async charset="utf-8" src="//cdn.embedly.com/widgets/platform.js"></script>--}}
+    <script charset="utf-8" src="//cdn.iframe.ly/embed.js?api_key=ddc93c9ff7add82b1b3370"></script>
+
 
     @stack("styles")
 

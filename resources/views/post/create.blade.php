@@ -113,6 +113,9 @@
         }
     }
     $(document).ready(function () {
+        var IFRAME_SRC = '//cdn.iframe.ly/api/iframe';
+        var API_KEY = '6341e81a116ba645f8ee8336332eb524';
+
         ClassicEditor.create(document.querySelector('#editor'), {
             simpleUpload: {
                 // The URL that the images are uploaded to.
@@ -125,6 +128,38 @@
                 headers: {
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                 }
+            },
+            mediaEmbed: {
+                previewsInData: false,
+
+                providers: [
+                    {
+                        // hint: this is just for previews. Get actual HTML codes by making API calls from your CMS
+                        name: 'iframely previews',
+
+                        // Match all URLs or just the ones you need:
+                        url: /.+/,
+
+                        html: match => {
+                            const url = match[ 0 ];
+
+                            var iframeUrl = IFRAME_SRC + '?app=1&api_key=' + API_KEY + '&url=' + encodeURIComponent(url);
+                            // alternatively, use &key= instead of &api_key with the MD5 hash of your api_key
+                            // more about it: https://iframely.com/docs/allow-origins
+
+                            return (
+                                // If you need, set maxwidth and other styles for 'iframely-embed' class - it's yours to customize
+                                '<div class="iframely-embed">' +
+                                '<div class="iframely-responsive">' +
+                                `<iframe src="${ iframeUrl }" ` +
+                                'frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>' +
+                                '</iframe>' +
+                                '</div>' +
+                                '</div>'
+                            );
+                        }
+                    }
+                ]
             }
         })
             .then(editor => {
