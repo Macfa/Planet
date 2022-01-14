@@ -31,8 +31,12 @@
             <ul class="d-flex flex-justify-content-flex-end flex-wrap-nowrap">
                 <li class="mr-2 header_icon">
 {{--                    <a href="{{ route('user.show', auth()->id()) }}"><img src="{{ auth()->user()->hasExperiences->grade->image }}" alt="img" /></a>--}}
+{{--                    <img src="{{ auth()->user()->grade->icon }}" alt="">--}}
+                    <img src="{{ auth()->user()->grade_icon }}" alt="">
                 </li>
                 <li class="mr-3 header_text header_text_align">
+
+{{--                    <img src="{{ auth()->user()-> }}" alt="">--}}
                     <p>{{ auth()->user()->name }}</p>
                 </li>
                 <li class="mr-2 header_icon"><img src="{{ asset('image/coin_4x.png') }}" alt="coin" /></li>

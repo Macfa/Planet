@@ -27,7 +27,7 @@
             </div>
             <div class="write-info">
 {{--                    <p><span><a href="{{ route('channel.show', $post->channel_id) }}">[{{ $post->channel->name }}]</a></span>&nbsp;온 <a href="{{ route('user.show', 'post') }}">{{ $post->user->name }}</a> / {{ $post->created_at->diffForHumans() }}</p>--}}
-                <p class="sub_text"><span><a href="{{ route('channel.show', $post->channel_id) }}">[&nbsp;{{ $post->channel->name }}&nbsp;]&nbsp;</a></span> {{ $post->created_at->diffForHumans() }} / <a href="{{ route('user.show', ["user" => $post->user] ) }}">{{ $post->user->name }}</a></p>
+                <p class="sub_text"><span><a href="{{ route('channel.show', $post->channel_id) }}">&nbsp;&nbsp;[&nbsp;{{ $post->channel->name }}&nbsp;]&nbsp;</a></span> {{ $post->created_at->diffForHumans() }} / <a href="{{ route('user.show', ["user" => $post->user] ) }}">{{ $post->user->name }}</a></p>
             </div>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 {{--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-image: url({{ asset('image/close.png') }})"></button>--}}
@@ -155,9 +155,9 @@
         var headerHeight = $("#header").height();
         var postOffsetTop = $("#post").offset().top;
 
-        // console.log(headerHeight);
-        // console.log(postOffsetTop);
-        if(postOffsetTop - headerHeight <= 0 ) {
+        console.log(headerHeight); // 43
+        console.log(postOffsetTop);
+        if(postOffsetTop   - headerHeight <= 0 ) {
             var checkExist = $("#post-bot-function").hasClass("sticky-bottom");
             if(checkExist === false) {
                 $("#post-bot-function").addClass("sticky-bottom");
@@ -396,25 +396,30 @@
                                 $(`.stamps.post-${id}-stamps div.stamp-${stampID}`).addClass("multi-stamps");
                             }
                         }
-
-                        // if() {
-                        //
-                        // }
                     } else if(data.target === "comment") {
-                        if(data.method == "create") {
+                        console.log(data);
+                        console.log(id, stampID);
+                        if(data.count === 1) {
+                            $(`.comment-${id} .stamps`).append(`<div class="stamp-item comment-${stampID}-stamp"><img alt='${data.name}' src='/image/${data.image}' ></div>`);
                             // $(".modal-title .stamps").append(`<span class="stamp-${stampID}"><img style='width:31px;' alt='${data.name}' src='${data.image}' alt=''></span>`);
-                        } else if(data.method == "update") {
-                            // $(`.modal-title .stamps span[class="stamp-${stampID}"] span`).text(data.count);
+                        } else if(data.count > 1) {
+                            if($(`.comment-${id} .stamps div.comment-${stampID}-stamp span.stamp_count`).length) {
+                                $(`.comment-${id} .stamps div.comment-${stampID}-stamp span.stamp_count`).text(data.count);
+                            } else {
+                                var tmpl = `<span class="stamp_count">${data.count}</span>`;
+                                $(`.comment-${id} .stamps div.comment-${stampID}-stamp`).append(tmpl);
+                                $(`.comment-${id} .stamps div.comment-${stampID}-stamp`).addClass("multi-stamps");
+                            }
                         }
                     }
 
                     alert("스탬프 정상 구매하였습니다");
                 },
                 error: function (err) {
-                    if(err.errorCode === 401) {
-                        alert("로그인이 필요한 기능입니다");
-                    } else if(err.errorCode === 402){
-                        alert("코인이 부족합니다");
+                    if(err.responseJSON.errorType === "login") {
+                        alert(err.responseJSON.errorText);
+                    } else if(err.responseJSON.errorType === "coin"){
+                        alert(err.responseJSON.errorText);
                     }
                 }
             });

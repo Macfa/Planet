@@ -58,7 +58,7 @@
     /*color:#CBC7C7;*/
   }
 
-  .modal-parent > .modal-wrap > .modal-header > .write-info .comment-item-header-r span {
+  .modal-parent > .modal-wrap > .modal-header > .write-info > p > span {
     font-size:14px;
     color:#0008F9;
   }
@@ -241,12 +241,11 @@
     font-weight:700;
   }
 
-  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .comment-item {
+  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item {
     display:flex;
     flex-direction:column;
     position:relative;
     overflow:hidden;
-      margin-bottom: 10px;
   }
 
   /* 댓글보기 에서 이래로 이어지는 선 */
@@ -277,80 +276,76 @@
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .comment-top,
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .reply-list > .reply-item .reply-top  {
-    /*display:flex;*/
-    /*justify-content:space-between;*/
-    /*margin-bottom:6px;*/
-    /*align-items:center;*/
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:6px;
+    align-items:center;
   }
 
-  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .comment-top > .write-info .comment-item-header-r,
+  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .comment-top > .write-info,
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .reply-list > .reply-item .reply-top > .write-info  {
-    /*display:flex;*/
-    /*align-items:center;*/
-    /*position:relative;*/
-    /*  float: right;*/
+    display:flex;
+    align-items:center;
+    position:relative;
   }
 
-  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .comment-top > .write-info h5,
-  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .reply-list > .reply-item .reply-top > .write-info h5  {
+  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .comment-top > .write-info > h5,
+  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .reply-list > .reply-item .reply-top > .write-info > h5  {
     font-size:14px;
     font-weight:400;
     margin:0 6px;
   }
 
-  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .comment-item > .comment-top > .write-info .comment-item-header-r .comment-modi-form > p,
+  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .comment-top > .write-info > p,
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .reply-list > .reply-item .reply-top > .write-info > p  {
     font-size:12px;
     color:rgba(120,120,120);
   }
 
-  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .comment-item > .comment-top > .write-info > img,
-  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .comment-item > .reply-list > .reply-item .reply-top > .write-info > img  {
+  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .comment-top > .write-info > img,
+  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .reply-list > .reply-item .reply-top > .write-info > img  {
     width:38px;
-      float: left;
-    /*height:38px;*/
+    height:38px;
     outline:3px solid #fff;
   }
 
-  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .comment-item > .comment-top > .comment-info > ul,
-  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .comment-item > .reply-list > .reply-item .reply-top > .reply-info > ul  {
+  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .comment-top > .comment-info > ul,
+  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .reply-list > .reply-item .reply-top > .reply-info > ul  {
     display:flex;
     align-items:center;
   }
 
-  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .comment-item > .comment-top > .comment-info > ul > li,
-  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .comment-item > .reply-list > .reply-item .reply-top > .reply-info > ul > li  {
+  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .comment-top > .comment-info > ul > li,
+  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .reply-list > .reply-item .reply-top > .reply-info > ul > li  {
     font-size:12px;
     vertical-align:middle;
     margin-left:10px;
       color: rgb(120,120,120);
   }
 
-/*.write-info .comment-modi-form > button > div.function-text > p {*/
-.sub_txt {
+.write-info .comment-modi-form > button > div.function-text > p {
     font-size:12px;
     color: rgb(120,120,120);
     vertical-align:middle;
     margin-left:12px;
 }
-  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .comment-item > .comment-top > .comment-info > ul > li img,
-  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .comment-item > .reply-list > .reply-item .reply-top > .reply-info > ul > li img  {
+  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .comment-top > .comment-info > ul > li img,
+  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .reply-list > .reply-item .reply-top > .reply-info > ul > li img  {
     vertical-align:-4px;
   }
 
-  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .comment-item > .comment-cont,
-  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .comment-item > .reply-list > .reply-item .reply-cont  {
+  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .comment-cont,
+  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .reply-list > .reply-item .reply-cont  {
     padding-left:44px;
-      margin-left: 46px;
-    /*margin-bottom:14px;*/
+    margin-bottom:14px;
   }
 
-  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .comment-item > .comment-cont p,
-  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .comment-item > .reply-list > .reply-item .reply-cont p  {
+  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .comment-cont p,
+  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .reply-list > .reply-item .reply-cont p  {
     font-size:14px;
   }
 
-  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .comment-item > .reply-form {
+  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .reply-form {
     padding-left:44px;
   }
 
@@ -674,10 +669,4 @@ table, td {
 }
 .modal-wrap .modal-title .stamps img {
     vertical-align: middle;
-}
-.stamp-item + .stamp-item {
-    margin-left: 3px;
-}
-.comment-cont {
-    margin-left: 40px;
 }

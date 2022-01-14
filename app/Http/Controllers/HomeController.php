@@ -173,7 +173,8 @@ class HomeController extends Controller
             'user_id' => $userID
         ]);
 
-        return redirect()->back();
+//        return redirect()->back();
+        return back();
     }
 
     public function test2() {

@@ -6,7 +6,7 @@
         <article class="board_box d-flex">
             <div class="left col-9">
                 <button style="margin:0 30px;" onclick="willRemove();">Unread</button>
-                <button onclick="location.href='/test'">Coin</button>
+                <a href="{{ route("test") }}">Coin</a>
                     <ul class="category">
                         <div class="category_title">최근 방문한 동아리</div>
 {{--                        <ul class="channel-history d-flex flex-nowrap justify-content-between align-items-center">--}}

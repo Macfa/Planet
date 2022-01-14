@@ -104,72 +104,59 @@ class Coin extends Model
             return true;
         }
     }
-    public function purchaseStamp(Stamp $stamp, Model $target) {
-        $user = User::find(auth()->id());
-        $price = $stamp->coin;
-        $totalCoin = $user->hasCoins()->sum('coin');
-
-        if($totalCoin >= $price) {
-            $stamp->coins()->create([
-                'type'=>'스탬프구매',
+//    public function purchaseStamp(Stamp $stamp, Model $target) {
+//        $user = User::find(auth()->id());
+//        $price = $stamp->coin;
+//        $totalCoin = $user->hasCoins()->sum('coin');
+//
+//        if($totalCoin >= $price) {
+//            $stamp->coins()->create([
+//                'type'=>'스탬프구매',
 //                'coin'=>-$price,
-                'coin'=>$price,
-                'user_id'=>auth()->id()
-            ]);
-            $className = get_class($target);
-            if($className === "App\Models\Post") {
-                $conditionalTarget = $target->stampInPosts();
-//                $conditionalTarget = $target->stamps();
-            } else if($className === "App\Models\Comment") {
-                $conditionalTarget = $target->stampInComments();
-            } else {
-                $conditionalTarget = '';
-            }
-//            $checkExist = $conditionalTarget->where("stamp_id", $stamp->id)->first();
-
-            $currentCoin = $totalCoin - $price;
-
-//            if($checkExist) {
-//                $conditionalTarget->create([
-//                    'post_id' => $target->id,
-//                    'stamp_id' => $stamp->id,
-//                        'count' => 1,
-//                    'user_id' => auth()->id()
-//                ]);
-//                $toBeCount = $checkExist->count+1;
-//                $conditionalTarget->update([
-//                    "count" => $toBeCount
-//                ]);
-//                $method = "update";
-//                $method = "create";
+////                'coin'=>$price,
+//                'user_id'=>auth()->id()
+//            ]);
+//            $className = get_class($target);
+//            if($className === "App\Models\Post") {
+//                $conditionalTarget = $target->stampInPosts();
+////                $conditionalTarget = $target->stamps();
+//            } else if($className === "App\Models\Comment") {
+//                $conditionalTarget = $target->stampInComments();
 //            } else {
-//                $toBeCount = 1;
-                if($className === "App\Models\Post") {
-                    $conditionalTarget->create([
-                        'post_id' => $target->id,
-                        'stamp_id' => $stamp->id,
-//                        'count' => 1,
-                        'user_id' => auth()->id()
-                    ]);
-                    $target = "post";
-                } else if($className === "App\Models\Comment") {
-                    $conditionalTarget->create([
-                        'comment_id' => $target->id,
-                        'stamp_id' => $stamp->id,
-//                        'count' => 1,
-                        'user_id' => auth()->id()
-                    ]);
-                    $target = "comment";
-                }
+//                $conditionalTarget = '';
 //            }
-            return [
-                "target" => $target,
-                "currentCoin" => $currentCoin,
-                "image" => $stamp->image,
-                "count" => $conditionalTarget->where('stamp_id', $stamp->id)->count()
-            ];
-        } else {
-            abort(402);
-        }
-    }
+//
+//            $currentCoin = $totalCoin - $price;
+//                if($className === "App\Models\Post") {
+//                    $conditionalTarget->create([
+//                        'post_id' => $target->id,
+//                        'stamp_id' => $stamp->id,
+////                        'count' => 1,
+//                        'user_id' => auth()->id()
+//                    ]);
+//                    $target = "post";
+//                } else if($className === "App\Models\Comment") {
+//                    $conditionalTarget->create([
+//                        'comment_id' => $target->id,
+//                        'stamp_id' => $stamp->id,
+////                        'count' => 1,
+//                        'user_id' => auth()->id()
+//                    ]);
+//                    $target = "comment";
+//                }
+////            }
+//            return [
+//                "target" => $target,
+//                "currentCoin" => $currentCoin,
+//                "image" => $stamp->image,
+//                "count" => $conditionalTarget->where('stamp_id', $stamp->id)->count()
+//            ];
+//        } else {
+//            return response()->json(
+//                [
+//                    "errorType" => "coin",
+//                    "errorText" => "코인이 부족합니다"
+//                ], 400);
+//        }
+//    }
 }

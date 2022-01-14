@@ -33,7 +33,7 @@ Route::domain('m.localhost')->group(function () {
 });
 
 // should be deleted route
-Route::get('/test', [HomeController::class, 'test']);
+Route::get('/test', [HomeController::class, 'test'])->name("test");
 Route::get('/test2', [HomeController::class, 'test2']);
 Route::get('/noti', [\App\Http\Controllers\NoticeNotiController::class, 'test'])->name('test.noti');
 Route::get('/noti2', [\App\Http\Controllers\NoticeNotiController::class, 'test_2'])->name('test.noti2');

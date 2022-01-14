@@ -110,6 +110,9 @@ class User extends Authenticatable
     public function setSetNameAttribute($name) {
         $this->attributes['name'] = $name;
     }
+    public function getGradeIconAttribute() {
+        return $this->grade->attributes['icon'];
+    }
     public function changeUserName($name) {
         // 무료 이름 변경을 이전에 이용했었는지 체크
         if($this->isNameChanged == "N") {
