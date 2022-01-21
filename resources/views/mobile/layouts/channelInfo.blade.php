@@ -5,7 +5,7 @@
         <p class="description">{{ $channel->description }}</p>
         <div class="flex">
             <div class="flex_item fs-12">
-                <div class="totalCount">{{ number_format($channel->channelJoins->count()) }}</div>
+                <div class="totalCount">{{ number_format($channel->channelJoins->count()+1) }}</div>
                 <p style="font-size:12px;">동아리 인원</p>
             </div>
             <div class="flex_item fs-12">

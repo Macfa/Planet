@@ -44,35 +44,56 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('image/favicon/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('image/favicon/favicon-96x96.png') }}">
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('css.bak/bootstrap-5.1.0.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css.bak/main/font.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/mobile/common/header.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/mobile/common/flex.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/mobile/main/common.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/mobile/main/layout.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/mobile/main/index.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css.bak/toastr.min.css') }}">
-
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-5.1.0.min.css') }}">
+    {{--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">--}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/main/font.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/common/header.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/common/flex.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/main/common.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/main/layout.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/main/index.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/toastr.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.min.css') }}">
 
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/bootstrap-5.1.0.min.js') }}"></script>
-{{--    <script src="{{ asset('js/toastr.min.js') }}"></script>--}}
-    <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
-    <script src="{{ asset('js/jquery-tmpl.js') }}"></script>
-{{--    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>--}}
-    <script async charset="utf-8" src="//cdn.embedly.com/widgets/platform.js"></script>
-    @stack("styles")
-    <!-- Fonts -->
-    {{-- <link rel="dns-prefetch" href="//fonts.gstatic.com"> --}}
-    {{-- <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> --}}
+    {{--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>--}}
+    {{--    <script async charset="utf-8" src="//cdn.embedly.com/widgets/platform.js"></script>--}}
 
-<!-- Styles -->
-    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
+    {{--    <script src="https://unpkg.com/@popperjs/core@2"></script>--}}
+    {{--    <script src="{{ asset('js/toastr.min.js') }}"></script>--}}
+    <script src="{{ asset('js/jquery-tmpl.js') }}"></script>
+    <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+    {{--    <script async charset="utf-8" src="//cdn.embedly.com/widgets/platform.js"></script>--}}
+    <script charset="utf-8" src="//cdn.iframe.ly/embed.js?api_key=ddc93c9ff7add82b1b3370"></script>
+
+    @stack("styles")
 </head>
 
 
 <body style="height: calc(var(--vh, 1vh) * 100);">
+
+{{--@if(session('status'))--}}
+{{--    <script>--}}
+{{--    var status = "{{ session('status') }}";--}}
+{{--    switch(status){--}}
+{{--        case 'info':--}}
+{{--        toastr.info("{{ session('message') }}");--}}
+{{--        break;--}}
+{{--        case 'warning':--}}
+{{--        toastr.warning("{{ session('message') }}");--}}
+{{--        break;--}}
+{{--        case 'success':--}}
+{{--        toastr.success("{{ session('message') }}");--}}
+{{--        break;--}}
+{{--        case 'error':--}}
+{{--        toastr.error("{{ session('message') }}");--}}
+{{--        break;--}}
+{{--    }--}}
+{{--    </script>--}}
+{{--@endif--}}
+
 <!-- Modals -->
 <div class="modal fade" id="open_post_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div style="margin: 0px 0px;" class="modal-dialog">
@@ -82,238 +103,23 @@
 </div>
 
 <div id="app">
-    <div style="width: 100vw; height: calc(var(--vh, 8vh) * 8);" class="row flex-justify-space-between align-self-center" id="header">
-        <div class="header-sections col-3">
-            <a href="/">
-                <img src="{{ asset('image/logo.png') }}">
-            </a>
-        </div>
-        <div class="@if(auth()->check()) col-5 @else col-6 @endif header-sections header-section-search align-self-center">
-            <form class="row align-items-center vertical-md" name="mainSearchForm" id="mainSearchForm" action="{{ route('home.search') }}" method="get">
-{{--                <input list="searched-list" type="text" name="searchText" onkeydown="searchingCallback(this);" placeholder="검색..." value="{{ Request::input('searchText') }}">--}}
-                <input type="text" class="vertical-md" name="searchText" onkeydown="searchingCallback(this);" placeholder="검색..." value="{{ Request::input('searchText') }}">
-{{--                <datalist id="searched-list">--}}
-{{--                    <option oninput="selectSearchItem();" value="Chocolate">--}}
-{{--                    <option value="Coconut">--}}
-{{--                    <option value="Mint">--}}
-{{--                    <option value="Strawberry">--}}
-{{--                    <option value="Vanilla">--}}
-{{--                </datalist>--}}
-                                <div id="header-search">
-{{--                                    <div>--}}
-{{--                                        <a href="" class="list-group-item list-group-item-action">Some</a>--}}
-{{--                                        <a href="" class="list-group-item list-group-item-action">Some</a>--}}
-{{--                                        <a href="" class="list-group-item list-group-item-action">Some</a>--}}
-{{--                                    </div>--}}
-                                </div>
-
-                <input type="hidden" name="searchType" id="searchType" value="a">
-                <button type="submit"></button>
-
-            </form>
-        </div>
-        <div class="align-self-center header-sections @if(auth()->check()) col-4 @else col-3 @endif">
-            @guest
-                <ul class="flex-container flex-justify-content-flex-end">
-                    <li class="login">
-                        <a href="{{ route('social.oauth', 'google') }}">로그인</a>
-                    </li>
-                </ul>
-            @endguest
-            @auth
-                <ul class="row flex-justify-content-flex-end flex-wrap-nowrap">
-{{--                    <li class="header_icon header_icon_clickable"><a class="" data-bs-toggle="collapse" href="#header-mypage" role="button" aria-expanded="false" aria-controls="header-mypage"><img src="{{ asset('image/mypage_4x.png') }}" alt="mypage" /></a></li>--}}
-
-{{--                    <li class="header_icon"><a href="{{ route('user.show', auth()->id()) }}" class="btn btn-primary" data-bs-toggle="collapse" href="#header-mypage" role="button" aria-expanded="false" aria-controls="header-mypage"><img src="{{ asset('image/mypage_4x.png') }}" alt="mypage" /></a></li>--}}
-
-                    <li class="header_icon header_icon_clickable">
-                        <a style="position: relative;" class="" data-bs-toggle="collapse" href="#header-noti" role="button" aria-expanded="false" aria-controls="header-noti"><img src="{{ asset('image/noti_4x.png') }}" alt="noti" />
-                            @if(auth()->user()->unreadNotifications->count() > 0)
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                        {{ auth()->user()->unreadNotifications->count() }}
-                                </span><span class="visually-hidden">unread messages</span>
-                            @endif
-                        </a>
-                    </li>
-                    <li class="header_icon header_icon_clickable"><a class="" data-bs-toggle="collapse" href="#header-list" role="button" aria-expanded="false" aria-controls="header-list"><img src="{{ asset('image/list_4x.png') }}" alt="list" /></a></li>
-                </ul>
-            @endauth
-        </div>
-    </div>
-    @auth
-    <div class="header-collaps">
-        @include('mobile.layouts.header-collaps')
-    </div>
-    @endauth
-
-    @yield('content')
 
 </div>
 
+@auth
+    @include('modals.header-noti')
+    {{--    @include('modals.header-mypage')--}}
+    @include('modals.header-list')
+@endauth
+@stack("modals")
+
 @if(Session::has('msg'))
-    alert("{{ Session::get('msg') }}");
+    <script>alert("{{ Session::get('msg') }}");</script>
 @endif
 
 <script src="{{ asset('js/common.js') }}"></script>
-@stack("javascripts")
-<script>
-    $('body').on('click', function(e){
-        var target = $(e.target);
-        // if(target[0].alt !== "noti") {
-        var targetNoti = $("#header-noti");
-        var targetList = $("#header-list");
+@stack("scripts")
 
-        if(targetNoti.hasClass("show")) {
-            targetNoti.toggleClass("show");
-        }
-        // } else if(target[0].alt !== "list") {
-
-        if(targetList.hasClass("show")) {
-            targetList.toggleClass("show");
-        }
-        // }
-        // var $popCallBtn = $tgPoint.hasClass('JS-popup-btn')
-        // var $popArea = $tgPoint.hasClass('popup-box')
-        //
-        // if ( !$popCallBtn && !$popArea ) {
-        //     $('.popup-box').removeClass('view');
-        // }
-    });
-    var timer = null;
-    $(document).ready(function () {
-        let vh = window.innerHeight * 0.01;
-
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
-        window.addEventListener('resize', () => {
-            let vh = window.innerHeight * 0.01;
-            document.documentElement.style.setProperty('--vh', `${vh}px`);
-        });
-
-        $('#open_post_modal').on('shown.bs.modal', function() {
-            $(document).off('focusin.modal');
-        });
-        var myCollapsible = document.getElementById('header-noti');
-        if(myCollapsible) {
-            myCollapsible.addEventListener('show.bs.collapse', function () {
-                $.ajax({
-                    type: "get",
-                    url: "/mark",
-                })
-            });
-        }
-    });
-
-    var delay = (function(){
-        var timer = 0;
-        return function(callback, ms){
-            clearTimeout (timer);
-            timer = setTimeout(callback, ms);
-        };
-    })();
-
-    // function setScreenSize() {
-    //     let vh = window.innerHeight * 0.01;
-    //
-    //     document.documentElement.style.setProperty('--vh', `${vh}px`);
-    // }
-    // setScreenSize();
-    // window.addEventListener('resize', () => setScreenSize());
-
-
-    function searchingCallback() {
-        // var timer = null;
-
-        if (timer) {
-            window.clearTimeout(timer);
-        }
-        timer = window.setTimeout( function() {
-            timer = null;
-            search();
-        }, 600 );
-    }
-
-    function search() {
-        var obj = $("input[name=searchText]");
-        var word = obj.val();
-
-        $.ajax({
-            type: "get",
-            url: "/searchHelper",
-            data: {
-                'searchText': word
-            },
-            success: function(data) {
-                var elementToPlace = $("#header-search");
-                var dataToAppend = [];
-
-                elementToPlace.children().remove();
-
-                if(data['list'] === null) {
-                    // pass
-                    // dataToAppend.push('<a href="" class="list-group-item list-group-item-action">검색</a>');
-                } else {
-                    $.each(data['list'], function(idx,val) {
-                        if(data['type'] == "channel") {
-                            dataToAppend.push('<a href="/channel/'+val['id']+'" class="list-group-item list-group-item-action">'+val['name']+'</a>');
-                        } else if(data['type'] == "post") {
-                            dataToAppend.push('<a href="/post/'+val['id']+'" class="list-group-item list-group-item-action">'+val['title']+'</a>');
-                            // dataToAppend.push('<a href="/post/'+val['id']+'" class="list-group-item list-group-item-action">'+val['title']+'</a>');
-                        }
-                    });
-                }
-                elementToPlace.append(dataToAppend);
-
-                {{--if(data.result=='created') {--}}
-                {{--    var url = '{{ route('channel.show', ":id") }}';--}}
-                {{--    url = url.replace(':id', data.channelID);--}}
-                {{--    $('.category').append('<li class="channel_'+data.channel.id+'"><a href="'+url+'">'+data.channel.name+'</a></li>');--}}
-                {{--    $('.totalCount').text(data.totalCount);--}}
-                {{--} else if(data.result=='deleted') {--}}
-                {{--    $('.category li.channel_'+data.id).remove();--}}
-                {{--    $('.totalCount').text(data.totalCount);--}}
-                {{--}--}}
-            },
-            error: function(err) {
-                // console.log(err);
-            }
-        })
-    }
-
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-
-    (function () {
-        'use strict'
-
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        var forms = document.querySelectorAll('.needs-validation')
-
-        // Loop over them and prevent submission
-        Array.prototype.slice.call(forms)
-            .forEach(function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                    }
-
-                    form.classList.add('was-validated')
-                }, false)
-            })
-    })()
-
-    function notLogged() {
-        // if(!auth()->check()) {
-        alert("로그인이 필요한 기능입니다");
-        return;
-        // }
-    }
-
-</script>
 </body>
 </html>
 

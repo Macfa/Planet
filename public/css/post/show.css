@@ -246,7 +246,7 @@
     flex-direction:column;
     position:relative;
     overflow:hidden;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
   }
 
   /* 댓글보기 에서 이래로 이어지는 선 */
@@ -644,6 +644,9 @@ table, td {
 
 #openStampModal #category-header button {
     font-size: 1.1rem;
+}
+#openStampModal #category-header button + button {
+    margin-left: 25px;
 }
 #openStampModal #category-data .stamp-list img {
     width: 50px;

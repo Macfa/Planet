@@ -146,4 +146,7 @@ class User extends Authenticatable
             return redirect()->back()->with(['msg' => '로그인이 필요한 기능입니다', 'type' => 'warning']);
         }
     }
+    public function isAdmin() {
+        return $this->role === "admin" ? true : false;
+    }
 }

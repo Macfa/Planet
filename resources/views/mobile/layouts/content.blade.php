@@ -107,7 +107,7 @@
     </section>
 </section>
 
-@hasSection('content-mainmenu')
+@hasSection('mobile.content-mainmenu')
     <script>
         // 무한 스크롤
         var page = 1;

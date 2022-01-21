@@ -21,7 +21,7 @@
                                 가입 수:&nbsp;
                                 <span class="total">
 {{--                                    {{ dd($list) }}--}}
-                                    {{ number_transform($list->channelJoins->count()) }}
+                                    {{ number_transform($list->channelJoins->count()+1) }}
                                 </span>
                                 &nbsp;명
 {{--                            </div>--}}

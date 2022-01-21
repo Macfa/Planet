@@ -29,6 +29,6 @@ class CreateStampGroupsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('stamp_groups');
+//        Schema::dropIfExists('stamp_groups');
     }
 }

@@ -13,6 +13,7 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 use Jenssegers\Agent\Agent;
@@ -42,6 +43,7 @@ class PostController extends Controller
     {
 //        $posts = Post::getAllData();
         $posts = Post::mainMenu('realtime','', 0);
+        Gate::check('check-admin', auth()->user());
 //        dd($posts);
         $channelVisitHistories = ChannelVisitHistory::showHistory();
 

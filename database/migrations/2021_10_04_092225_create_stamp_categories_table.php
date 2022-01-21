@@ -28,6 +28,6 @@ class CreateStampCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('stamp_categories');
+//        Schema::dropIfExists('stamp_categories');
     }
 }

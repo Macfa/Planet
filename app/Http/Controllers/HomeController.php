@@ -14,6 +14,7 @@ use App\Models\User;
 use App\Notifications\Alarmnotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Jenssegers\Agent\Agent;
 
 class HomeController extends Controller
@@ -40,6 +41,7 @@ class HomeController extends Controller
     public function index()
     {
         $posts = Post::getAllData();
+
 //        $posts = Post::mainMenu('realtime','', 0);
 
         $channelVisitHistories = ChannelVisitHistory::showHistory();

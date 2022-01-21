@@ -630,7 +630,15 @@ table, td {
     color:#fff;
     border:0;
 }
-
+#openStampModal #category-header button {
+    font-size: 1.1rem;
+}
+#openStampModal #category-header button + button {
+    margin-left: 25px;
+}
+.modal-dialog {
+    margin: 0;
+}
 /*.right-function {*/
 /*    justify-content: flex-end;*/
 /*}*/

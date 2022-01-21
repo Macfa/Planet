@@ -68,9 +68,9 @@
 
 #main .board_box .left ul.tab li a {
   display: inline-block;
-  padding: 3px 12px;
+  padding: 3px 8px;
   color: #7a7a7a;
-  font-size: 16px;
+  font-size: 15px;
   letter-spacing: 0;
 }
 

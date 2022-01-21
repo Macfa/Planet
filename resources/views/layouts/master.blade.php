@@ -67,9 +67,7 @@
 {{--    <script async charset="utf-8" src="//cdn.embedly.com/widgets/platform.js"></script>--}}
     <script charset="utf-8" src="//cdn.iframe.ly/embed.js?api_key=ddc93c9ff7add82b1b3370"></script>
 
-
     @stack("styles")
-
 </head>
 
 <body>
@@ -118,7 +116,6 @@
 @endauth
 @stack("modals")
 
-
 @if(Session::has('msg'))
     <script>alert("{{ Session::get('msg') }}");</script>
 @endif
@@ -126,10 +123,6 @@
 <script src="{{ asset('js/common.js') }}"></script>
 @stack("scripts")
 
-<script>
-
-
-</script>
 </body>
 </html>
 

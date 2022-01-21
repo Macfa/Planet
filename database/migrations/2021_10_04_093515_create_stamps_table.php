@@ -33,6 +33,6 @@ class CreateStampsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('stamps');
+//        Schema::dropIfExists('stamps');
     }
 }

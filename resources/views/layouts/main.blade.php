@@ -34,7 +34,6 @@
                 @hasSection('content-mypage')
                     @yield('content-mypage')
                 @endif
-{{--                @yield('content-menu')--}}
 
                 @hasSection('mainlist')
                     @yield('mainlist')

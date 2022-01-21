@@ -23,7 +23,7 @@
                     <button onclick="selectCategory(0);">모두</button>
                     {{--                        {{ dd(\App\Models\StampCategory::getAllCategories()) }}--}}
                     @foreach($allCategories as $category)
-                        <button class="ml-5" onclick="selectCategory({{ $category->id }});">
+                        <button onclick="selectCategory({{ $category->id }});">
                             {{ $category->name }}
                         </button>
                     @endforeach

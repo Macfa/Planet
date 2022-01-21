@@ -268,50 +268,117 @@
                         });
                     }
                 }
-                function selectCategory(categoryID) {
-                    // alert(categoryID);
+                function selectCategory(id) {
                     $.ajax({
-                        url: "/stamp",
-                        data: { categoryID: categoryID },
-                        type: "get",
-                        success: function(data) {
-                            var result = {
-                                'groups': data
-                            };
-                            $("#openStampModal #category-data > div").remove();
-                            $("#stampDataTemplate").tmpl(result).appendTo("#openStampModal #category-data");
+                        url: "/category/",
+                        data: {
+                            categoryId: id
                         },
-                        errror: function(err) {
-                            alert("기능에러로 스탬프를 불러오지 못 했습니다.");
+                        type: "get",
+                        success: function (data) {
+                            console.log(data.length);
+                            // console.log(data);
+                            // console.log(id);
+                            var replaceData = [];
+                            for(var i=0; i<data.length; i++) {
+                                replaceData.push({
+                                    'stampId': data[i].id,
+                                    'stampImage': '/image/'+data[i].image,
+                                    'stampCoin': data[i].coin,
+                                })
+                                console.log(replaceData);
+                            }
+                            $(".category-data-list ul.d-flex li").remove();
+                            $("#stampListTemplate").tmpl(replaceData).appendTo(".category-data-list ul.d-flex");
+                        },
+                        errror: function (err) {
+                            alert("관리자에게 문의해주세요");
                         }
                     });
                 }
-                function purchaseStamp(stampID, postID) {
+                function selectStamp(id) {
+                    $.ajax({
+                        url: "/stamp/"+id,
+                        data: {
+                            stampID: id
+                        },
+                        type: "get",
+                        success: function (data) {
+                            // console.log(data);
+                            var replaceData = {
+                                'id': data.id,
+                                'coin': data.coin,
+                                'name': data.name,
+                                'image': '/image/'+data.image,
+                                'description': data.description,
+                                'hasCoin': data.hasCoin,
+                                'afterPurchaseCoin': data.afterPurchaseCoin
+                            };
+                            $("#openStampModal #selectStampItem .category-data-item").remove();
+                            $("#selectStampTemplate").tmpl(replaceData).prependTo("#openStampModal #selectStampItem");
+                        },
+                        errror: function (err) {
+                            alert("관리자에게 문의해주세요");
+                        }
+                    });
+                }
+                function purchaseStamp(stampID) {
+                    var type = $("#openStampModal input[name=type]").val();
+                    var id = $("#openStampModal input[name=id]").val();
+                    // var url = '';
+                    // if(type === "post") {
+                    // }
+
                     if(confirm('구매하시겠습니까 ?')) {
                         $.ajax({
                             url: "/stamp/purchase",
                             data: {
                                 stampID: stampID,
-                                postID: postID
+                                type: type,
+                                id: id
                             },
                             type: "post",
                             success: function (data) {
-                                console.log(data);
                                 $("#total_coin").text(data.currentCoin);
-                                $("#openStampModal").hide();
-                                if(data.method == "create") {
-                                    $(".modal-title .stamps").append(`<span class="stamp-${stampID}"><img style='width:31px;' src='${data.image}' alt=''><span></span></span>`);
-                                    console.log(`<span class="stamp-${stampID}"><img style='width:31px;' src="${data.image}" alt=''></span>`);
-                                } else if(data.method == "update") {
-                                    $(`.modal-title .stamps span[class="stamp-${stampID}"] span`).text(data.count);
+                                $("#openStampModal").modal("hide");
+                                if(data.target === "post") {
+                                    if(data.count === 1) {
+                                        $(`.stamps.post-${id}-stamps`).append(`<div class="stamp-item stamp-${stampID}"><img alt='${data.name}' src='/image/${data.image}' ></div>`);
+                                    } else if(data.count > 1) {
+                                        if($(`.stamps.post-${id}-stamps div.stamp-${stampID} span.stamp_count`).length) {
+                                            $(`.stamps.post-${id}-stamps div.stamp-${stampID} span.stamp_count`).text(data.count);
+                                            console.log($(`.stamps.post-${id}-stamps div.stamp-${stampID} span.stamp_count`));
+                                        } else {
+                                            var tmpl = `<span class="stamp_count">${data.count}</span>`;
+                                            $(`.stamps.post-${id}-stamps div.stamp-${stampID}`).append(tmpl);
+                                            $(`.stamps.post-${id}-stamps div.stamp-${stampID}`).addClass("multi-stamps");
+                                        }
+                                    }
+                                } else if(data.target === "comment") {
+                                    console.log(data);
+                                    console.log(id, stampID);
+                                    if(data.count === 1) {
+                                        $(`.comment-${id} .stamps`).append(`<div class="stamp-item comment-${stampID}-stamp"><img alt='${data.name}' src='/image/${data.image}' ></div>`);
+                                        // $(".modal-title .stamps").append(`<span class="stamp-${stampID}"><img style='width:31px;' alt='${data.name}' src='${data.image}' alt=''></span>`);
+                                    } else if(data.count > 1) {
+                                        if($(`.comment-${id} .stamps div.comment-${stampID}-stamp span.stamp_count`).length) {
+                                            $(`.comment-${id} .stamps div.comment-${stampID}-stamp span.stamp_count`).text(data.count);
+                                        } else {
+                                            var tmpl = `<span class="stamp_count">${data.count}</span>`;
+                                            $(`.comment-${id} .stamps div.comment-${stampID}-stamp`).append(tmpl);
+                                            $(`.comment-${id} .stamps div.comment-${stampID}-stamp`).addClass("multi-stamps");
+                                        }
+                                    }
                                 }
-                                console.log(`.modal-title .stamps span[class="stamp-${stampID}"] span`);
-                                console.log(data.count);
 
-                                toastr.info("스탬프 정상 구매하였습니다");
+                                alert("스탬프 정상 구매하였습니다");
                             },
-                            errror: function (err) {
-                                toastr.warning("기능에러로 스탬프를 불러오지 못 했습니다");
+                            error: function (err) {
+                                if(err.responseJSON.errorType === "login") {
+                                    alert(err.responseJSON.errorText);
+                                } else if(err.responseJSON.errorType === "coin"){
+                                    alert(err.responseJSON.errorText);
+                                }
                             }
                         });
                     }
@@ -319,25 +386,36 @@
             </script>
         </div>
     </div>
-    <script id="stampDataTemplate" type="text/x-jquery-tmpl">
-    @{{each groups}}
-{{--    <p>${name}</p>--}}
-        <div>
-            <div>
-                <span id="group-name">${name}</span>
-            </div>
-            @{{each stamps}}
+    <script id="stampListTemplate" type="text/x-jquery-tmpl">
+{{--    @{{each groups}}--}}
+        <li class="stamp-list">
+            <button onclick="selectStamp(${stampId});">
+                <img src="${stampImage}" />
+                <p class="mt-1">${stampCoin}</p>
+            </button>
+        </li>
+{{--    @{{/each}}--}}
+    </script>
+    <script id="selectStampTemplate" type="text/x-jquery-tmpl">
+    <div class="category-data-item">
+        <div class="item-header text-center">
+            <img src="${image}" alt="stamp" class="item-img">
+                <p class="mt-1 item-name">${name}</p>
+                <p class="mt-1 item-description">${description}</p>
                 <div>
-                    <ul class="flex-container">
-                        <li class="col">
-                            <button onclick="purchaseStamp(${id}, {{ $post->id }});">
-                                <img src="${image}" />
-                                <span>${coin}</span>
-                            </button>
-                        </li>
-                    </ul>
+                    <img style="width: 24px;" src="/image/coin_4x.png" alt="coin">
+                        <span class="item-coin">${coin}</p>
                 </div>
-            @{{/each}}
         </div>
-    @{{/each}}
+        <div class="mt-4 item-body d-flex justify-content-end mr-2">
+            <ul style="display: block">
+                <li>보유 코인 : ${hasCoin}</li>
+                <li>결제 코인 : ${coin}</li>
+                <li>남은 코인 : ${afterPurchaseCoin}</li>
+            </ul>
+        </div>
+        <div class="purchase-btn-section mt-4 mb-4 text-center">
+            <button onclick="purchaseStamp(${id})" class="base-btn">구입</button>
+        </div>
+    </div>
 </script>

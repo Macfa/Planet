@@ -25,11 +25,11 @@ use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 
 Route::domain('m.lanet.co.kr')->group(function () {
-    Route::get('/', [HomeController::class, 'index'])->name('mobile.home');
+    Route::get('/', [PostController::class, 'index'])->name('mobile.home');
 });
 
 Route::domain('m.localhost')->group(function () {
-    Route::get('/', [HomeController::class, 'index'])->name('mobile.home2');
+    Route::get('/', [PostController::class, 'index'])->name('mobile.home2');
 });
 
 // should be deleted route

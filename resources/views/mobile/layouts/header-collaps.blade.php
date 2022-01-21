@@ -10,7 +10,7 @@
 <div class="collapse" id="header-list" style="z-index:1055; position:absolute; width:100vw;">
     <div class="list-group">
         <!--name-->
-        <a class="fw-bold flex-container disabled list-group-item list-group-item-action"><p>{{ auth()->user()->name }} ( {{ auth()->user()->grade->name }} )</p></a>
+        <a class="fw-bold flex-container disabled list-group-item list-group-item-action"><p>{{ auth()->user()->name }} ( {{ auth()->user()->grade_icon }} )</p></a>
         <!--coin-->
         <a class="fw-bold flex-container disabled list-group-item list-group-item-action"><p>{{ coin_transform() }} Coin</p></a>
         <!--mypage-->
