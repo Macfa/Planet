@@ -52,8 +52,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/mobile/main/layout.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/mobile/main/index.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css.bak/toastr.min.css') }}">
-
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.min.css') }}">
 
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/bootstrap-5.1.0.min.js') }}"></script>
@@ -71,25 +70,32 @@
 </head>
 
 
-<body style="height: calc(var(--vh, 1vh) * 100);">
-
-<!-- Modals -->
-<div class="modal fade" id="open_post_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div style="margin: 0px 0px;" class="modal-dialog">
-        <div class="modal-content" style="border: 0; border-radius: 0;">
+<body style="height: calc(var(--vh, 1vh) * 100); padding-top: 53px;">
+    <div id="app">
+        @include('mobile.partials.header')
+        <!-- Modals -->
+        <div class="modal fade" id="open_post_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div style="margin: 0px 0px;" class="modal-dialog">
+                <div class="modal-content" style="border: 0; border-radius: 0;">
+                </div>
+            </div>
+        </div>
+        @yield('main')
+        <div id="footer">
+            <section>
+                <section class="container-fluid">
+                    <nav style="padding: 8px; text-align: center;" class="flex-container flex-justify-space-between">
+                        {{--        <li><a href="@if(auth()->check()) {{ route('post.create') }} @else javascript:notLogged(); @endif">게시글 작성</a></li>--}}
+                        <a href="@if(auth()->check()) {{ route('channel.create') }} @else javascript:notLogged(); @endif"
+                           class="col">동아리 만들기</a>
+                        <a href="javascript:$('#main').animate({ scrollTop: 0}, 300);" class="col">맨 위로</a>
+                        <a href="@if(auth()->check()) {{ route('post.create') }} @else javascript:notLogged(); @endif"
+                           class="col">글쓰기</a>
+                    </nav>
+                </section>
+            </section>
         </div>
     </div>
-</div>
-
-<div id="app">
-    <div class="header-section">
-        @include('mobile.partials.header')
-    </div>
-
-    <div>
-        @yield('main')
-    </div>
-</div>
 
 {{--@auth--}}
 {{--    @include('modals.header-noti')--}}
@@ -132,6 +138,7 @@
 
         document.documentElement.style.setProperty('--vh', `${vh}px`);
         window.addEventListener('resize', () => {
+            alert(2);
             let vh = window.innerHeight * 0.01;
             document.documentElement.style.setProperty('--vh', `${vh}px`);
         });

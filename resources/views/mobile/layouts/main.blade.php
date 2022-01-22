@@ -47,20 +47,6 @@
             </div>
         </article>
     </div>
-    <section
-        style="position: absolute; bottom: 0; background: rgba(252, 252, 252, 1) !important; z-index: 2 !important; width: 100%;"
-        id="footer" class="">
-        <section class="container-fluid">
-            <nav style="padding: 8px; text-align: center;" class="flex-container flex-justify-space-between">
-                {{--        <li><a href="@if(auth()->check()) {{ route('post.create') }} @else javascript:notLogged(); @endif">게시글 작성</a></li>--}}
-                <a href="@if(auth()->check()) {{ route('channel.create') }} @else javascript:notLogged(); @endif"
-                   class="col">동아리 만들기</a>
-                <a href="javascript:$('#main').animate({ scrollTop: 0}, 300);" class="col">맨 위로</a>
-                <a href="@if(auth()->check()) {{ route('post.create') }} @else javascript:notLogged(); @endif"
-                   class="col">글쓰기</a>
-            </nav>
-        </section>
-    </section>
 </section>
 {{--<section--}}
 {{--    style="position: absolute; bottom: 0; background: rgba(252, 252, 252, 1) !important; z-index: 2 !important; width: 100%;"--}}

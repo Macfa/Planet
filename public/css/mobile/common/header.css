@@ -4,9 +4,6 @@
 .header-sections {
     padding: 0 10px;
 }
-#app {
-    margin: 0;
-}
 #header .header-section-search input[type=text] {
     border: 1px solid #cbc7c7;
     border-radius: 15px;
@@ -95,24 +92,27 @@
 
 
 /* 헤더 */
-.header-section {
-    position: relative;
-}
 #header {
     /*overflow: hidden;*/
     border-bottom: 1px solid #b5b5b5;
     padding: 10px 0 9px;
     position: fixed;
     /*position: sticky;*/
-    top: 0px;
-    right: 0px;
-    left: 0px;
+    top: 0;
+    right: 0;
+    left: 0;
     z-index: 1055;
     /*background-color: #FFF;*/
     /*z-index: 1055;*/
     background: rgba(252, 252, 252, 1) !important;
 }
-
+#footer {
+    position: fixed;
+    bottom: 0;
+    background: rgba(252, 252, 252, 1) !important;
+    z-index: 2 !important;
+    width: 100%;
+}
 #header h1 {
     font-size: 0;
     position: absolute;

@@ -19,7 +19,7 @@
   }
 
   body {
-    overflow-y:scroll;
+      margin: 0;
   }
 
   .modal-parent {
