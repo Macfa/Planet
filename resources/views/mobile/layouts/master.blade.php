@@ -73,26 +73,6 @@
 
 <body style="height: calc(var(--vh, 1vh) * 100);">
 
-{{--@if(session('status'))--}}
-{{--    <script>--}}
-{{--    var status = "{{ session('status') }}";--}}
-{{--    switch(status){--}}
-{{--        case 'info':--}}
-{{--        toastr.info("{{ session('message') }}");--}}
-{{--        break;--}}
-{{--        case 'warning':--}}
-{{--        toastr.warning("{{ session('message') }}");--}}
-{{--        break;--}}
-{{--        case 'success':--}}
-{{--        toastr.success("{{ session('message') }}");--}}
-{{--        break;--}}
-{{--        case 'error':--}}
-{{--        toastr.error("{{ session('message') }}");--}}
-{{--        break;--}}
-{{--    }--}}
-{{--    </script>--}}
-{{--@endif--}}
-
 <!-- Modals -->
 <div class="modal fade" id="open_post_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div style="margin: 0px 0px;" class="modal-dialog">
@@ -102,7 +82,9 @@
 </div>
 
 <div id="app">
-    @include('mobile.partials.header')
+    <div class="header-section">
+        @include('mobile.partials.header')
+    </div>
 
     <div>
         @yield('main')

@@ -95,11 +95,15 @@
 
 
 /* 헤더 */
+.header-section {
+    position: relative;
+}
 #header {
     /*overflow: hidden;*/
     border-bottom: 1px solid #b5b5b5;
     padding: 10px 0 9px;
-    position: sticky;
+    position: fixed;
+    /*position: sticky;*/
     top: 0px;
     right: 0px;
     left: 0px;

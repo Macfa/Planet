@@ -1,4 +1,4 @@
-<div style="width: 100vw; height: calc(var(--vh, 8vh) * 8);" class="row flex-justify-space-between align-self-center" id="header">
+<div class="row flex-justify-space-between align-self-center" id="header">
     <div class="header-sections col-3">
         <a href="/">
             <img src="{{ asset('image/logo.png') }}">

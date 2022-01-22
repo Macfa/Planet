@@ -1,7 +1,7 @@
 @extends('mobile.layouts.master')
 
 @section('main')
-<section style="height: calc(var(--vh, 92vh) * 92); overflow-y: scroll;" id="main">
+<section id="main">
     <div class="main-wrap">
         {{--        <article class="advertising"><a href="#"><img src="../img/test.jpg"></a></article>--}}
         {{--        <article class="board_box">--}}
@@ -139,6 +139,9 @@
     }
 
     $(document).ready(function () {
+        $( window ).resize(function() {
+            alert(1);
+        });
         $(window).on('popstate', function (e) {
             if (e.type === "popstate") {
                 var modalState = $("#open_post_modal").hasClass('show');
