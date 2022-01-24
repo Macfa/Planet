@@ -125,9 +125,11 @@
     }
 
     $(document).ready(function () {
-        $( window ).resize(function() {
-            alert(1);
+        $('#main .tab li').click(function (event) {
+            $('#main .tab li').removeClass('on');
+            $(this).addClass('on');
         });
+
         $(window).on('popstate', function (e) {
             if (e.type === "popstate") {
                 var modalState = $("#open_post_modal").hasClass('show');
@@ -151,7 +153,7 @@
                 $(`#post-${tmpPostID} .title a`).get(0).click();
             }
         }
-        $(window).scroll(function (event) {
+        $(".list").scroll(function (event) {
             console.log(event);
             console.log($(window).scrollTop());
             console.log($(window).height());
@@ -257,11 +259,6 @@
     //
     // })
 
-    $('#main .tab li').click(function (event) {
-        $('#main .tab li').removeClass('on');
-        $(this).addClass('on');
-    });
-
     function willRemove() {
         location.href = "/test2";
     }
@@ -345,9 +342,9 @@
 </script>
 <script id="dataPlaceHolder" type="text/x-jquery-tmpl">
 <tr>
-    <td>
-        <span class="updown up"></span>
-    </td>
+{{--    <td>--}}
+{{--        <span class="updown up"></span>--}}
+{{--    </td>--}}
     <td><div class="thum"></div></td>
     <td>
         <div class="title">

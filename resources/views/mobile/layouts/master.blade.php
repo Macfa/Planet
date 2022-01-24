@@ -70,7 +70,7 @@
 </head>
 
 
-<body style="height: calc(var(--vh, 1vh) * 100); padding-top: 53px;">
+<body style="padding-top: 53px; padding-bottom: 30px;" id="body">
     <div id="app">
         @include('mobile.partials.header')
         <!-- Modals -->
@@ -110,6 +110,16 @@
 <script src="{{ asset('js/common.js') }}"></script>
 @stack("scripts")
 <script>
+
+    function setContentHeight() {
+        let list = $(".list").offset().top;
+        let footer = $("#footer").offset().top;
+
+        let distance = footer - list;
+        console.log(list, footer, distance);
+        $(".list").css("max-height", distance);
+    }
+
     $('body').on('click', function(e){
         var target = $(e.target);
         // if(target[0].alt !== "noti") {
@@ -134,13 +144,15 @@
     });
     var timer = null;
     $(document).ready(function () {
+        setContentHeight();
         let vh = window.innerHeight * 0.01;
 
         document.documentElement.style.setProperty('--vh', `${vh}px`);
         window.addEventListener('resize', () => {
-            alert(2);
             let vh = window.innerHeight * 0.01;
             document.documentElement.style.setProperty('--vh', `${vh}px`);
+            // set Content Max-Height
+            setContentHeight();
         });
 
         $('#open_post_modal').on('shown.bs.modal', function() {

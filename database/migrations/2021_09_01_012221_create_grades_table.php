@@ -13,14 +13,14 @@ class CreateGradesTable extends Migration
      */
     public function up()
     {
-        Schema::create('grades', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('icon')->nullable();
-            $table->integer('minExp');
-            $table->integer('maxExp');
-            $table->timestamps();
-        });
+//        Schema::create('grades', function (Blueprint $table) {
+//            $table->id();
+//            $table->string('name');
+//            $table->string('icon')->nullable();
+//            $table->integer('minExp');
+//            $table->integer('maxExp');
+//            $table->timestamps();
+//        });
     }
 
     /**

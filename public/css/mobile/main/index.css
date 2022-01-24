@@ -96,6 +96,7 @@
 #main .board_box .left div.list {
   border: 1px solid #cbc7c7;
   border-radius: 0px;
+    overflow-y: scroll;
 }
 
 #main .board_box .left div.list table tr {
@@ -357,3 +358,4 @@ textarea[name=content]:focus {
 .post-title {
     line-height: 1.9;
 }
+

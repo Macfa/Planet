@@ -26,13 +26,14 @@ h1, h2, h3, h4, h5, h6 {
 body {
   background: #fff;
   letter-spacing: -0.5px;
-  /*overflow-y: scroll;*/
+  overflow-y: hidden;
   overflow-x: hidden;
   margin: 0;
   padding: 0;
   font-size: 15px;
   color: #000;
   font-family: "Noto Sans KR";
+    height: calc(var(--vh, 1vh) * 100);
 }
 
 textarea, input, select, button, a {
@@ -451,3 +452,7 @@ button {
 #open_post_modal {
     margin-top: 59px;
 }
+#app {
+    height: 100%;
+}
+

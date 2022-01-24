@@ -13,17 +13,17 @@ class CreateStampsTable extends Migration
      */
     public function up()
     {
-        Schema::create('stamps', function (Blueprint $table) {
-            $table->id();
-            $table->bigInteger("category_id")->unsigned();
-            $table->foreign("category_id")->references("id")->on("stamp_categories")->onDelete("cascade");
-            $table->string("name", 30);
-            $table->string("image")->nullable();
-            $table->string("description")->nullable();
-            $table->integer("coin");
-            $table->string("abbr", 20); // 약어
-            $table->timestamps();
-        });
+//        Schema::create('stamps', function (Blueprint $table) {
+//            $table->id();
+//            $table->bigInteger("category_id")->unsigned();
+//            $table->foreign("category_id")->references("id")->on("stamp_categories")->onDelete("cascade");
+//            $table->string("name", 30);
+//            $table->string("image")->nullable();
+//            $table->string("description")->nullable();
+//            $table->integer("coin");
+//            $table->string("abbr", 20); // 약어
+//            $table->timestamps();
+//        });
     }
 
     /**
