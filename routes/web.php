@@ -74,10 +74,10 @@ Route::get('/channel/removeChannelAdmin/{userID}', [ChannelController::class, 'g
 Route::resource('channel', ChannelController::class);
 
 // Post resource in Channel
-Route::prefix('/channel/{channel}')->group(function () {
+//Route::prefix('/channel/{channel}')->group(function () {
 //    Route::get('/post/{post}', [PostController::class, 'show']);
-    Route::get('/post/{post}', [PostController::class, 'show']);
-});
+//    Route::get('/post/{post}', [PostController::class, 'show']);
+//});
 // User's
 Route::get('/user/{user}/{el?}', [UserController::class,'show'])->name('user.show');
 Route::get('/user/channels', [UserController::class,'allChannels'])->name('user.channels');

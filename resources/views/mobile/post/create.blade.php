@@ -1,6 +1,6 @@
-@extends('mobile.layouts.app')
+@extends('mobile.layouts.master')
 
-@section('content')
+@section('main')
 <link rel="stylesheet" type="text/css" href="{{ asset('css/mobile/post/create.css') }}">
 
 <section id="channel">
@@ -106,7 +106,7 @@
             return false;
         }
     }
-    $(window).load(function () {
+    $(window).ready(function () {
         ClassicEditor.create( document.querySelector( '#editor' ), {
             simpleUpload: {
                 // The URL that the images are uploaded to.

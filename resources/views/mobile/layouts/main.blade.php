@@ -48,6 +48,20 @@
         </article>
     </div>
 </section>
+<div id="footer">
+    <section>
+        <section class="container-fluid">
+            <nav style="padding: 8px; text-align: center;" class="flex-container flex-justify-space-between">
+                {{--        <li><a href="@if(auth()->check()) {{ route('post.create') }} @else javascript:notLogged(); @endif">게시글 작성</a></li>--}}
+                <a href="@if(auth()->check()) {{ route('channel.create') }} @else javascript:notLogged(); @endif"
+                   class="col">동아리 만들기</a>
+                <a href="javascript:$('.list').animate({ scrollTop: 0}, 300);" class="col">맨 위로</a>
+                <a href="@if(auth()->check()) {{ route('post.create') }} @else javascript:notLogged(); @endif"
+                   class="col">글쓰기</a>
+            </nav>
+        </section>
+    </section>
+</div>
 {{--<section--}}
 {{--    style="position: absolute; bottom: 0; background: rgba(252, 252, 252, 1) !important; z-index: 2 !important; width: 100%;"--}}
 {{--    id="footer" class="">--}}
@@ -125,6 +139,7 @@
     }
 
     $(document).ready(function () {
+        setContentHeight();
         $('#main .tab li').click(function (event) {
             $('#main .tab li').removeClass('on');
             $(this).addClass('on');
@@ -134,8 +149,10 @@
             if (e.type === "popstate") {
                 var modalState = $("#open_post_modal").hasClass('show');
                 if (modalState) {
+                    // 뒤로가기
                     $("#open_post_modal").modal("hide");
                 } else {
+                    // 앞으로 가기
                     let url = window.location.href;
                     var tmpPostID = url.split('/').pop();
                     if ($.isNumeric(tmpPostID)) {
@@ -147,6 +164,8 @@
         });
         var checkPost = "{{ request()->route()->named("post.show") }}";
         if (checkPost === "1") {
+            alert(checkPost);
+            console.log(history);
             let url = window.location.href;
             var tmpPostID = url.split('/').pop();
             if ($.isNumeric(tmpPostID)) {
@@ -154,12 +173,8 @@
             }
         }
         $(".list").scroll(function (event) {
-            console.log(event);
-            console.log($(window).scrollTop());
-            console.log($(window).height());
-            console.log($(document).height());
             if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
-                if (checkRun == false) {
+                if (checkRun === false) {
                     checkRun = true;
                     loadMoreData(page);
                     page++;
@@ -201,6 +216,7 @@
                 url: '/post/' + postID + "/get",
                 type: 'get',
                 success: function (data) {
+
                     modalBody.html(data);
                     history.pushState('modal', 'modal', urlPath);
                     var readPost = JSON.parse(localStorage.getItem('readPost'));
@@ -217,6 +233,7 @@
                         }
                     }
                     addReadPost(postID);
+                    setModalHeight();
                     // $.fn.modal.Constructor.prototype.enforceFocus = function () {};
                     // var button = event.relatedTarget;
                     // $("#openStampModal").on('hide.bs.modal', function(event) {
@@ -258,7 +275,17 @@
     //     // Button that triggered the modal
     //
     // })
+    function setModalHeight() {
+        let height = $("#header").outerHeight();
+        $("#open_post_modal").css("top", height);
+    }
+    function setContentHeight() {
+        let list = $(".list").offset().top;
+        let footer = $("#footer").offset().top;
 
+        let distance = footer - list;
+        $(".list").css("max-height", distance);
+    }
     function willRemove() {
         location.href = "/test2";
     }

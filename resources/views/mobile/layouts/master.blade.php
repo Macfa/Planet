@@ -45,6 +45,7 @@
     <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('image/favicon/favicon-96x96.png') }}">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('css.bak/bootstrap-5.1.0.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css.bak/main/font.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/mobile/common/header.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/mobile/common/flex.css') }}">
@@ -70,7 +71,7 @@
 </head>
 
 
-<body style="padding-top: 53px; padding-bottom: 30px;" id="body">
+<body>
     <div id="app">
         @include('mobile.partials.header')
         <!-- Modals -->
@@ -81,20 +82,6 @@
             </div>
         </div>
         @yield('main')
-        <div id="footer">
-            <section>
-                <section class="container-fluid">
-                    <nav style="padding: 8px; text-align: center;" class="flex-container flex-justify-space-between">
-                        {{--        <li><a href="@if(auth()->check()) {{ route('post.create') }} @else javascript:notLogged(); @endif">게시글 작성</a></li>--}}
-                        <a href="@if(auth()->check()) {{ route('channel.create') }} @else javascript:notLogged(); @endif"
-                           class="col">동아리 만들기</a>
-                        <a href="javascript:$('#main').animate({ scrollTop: 0}, 300);" class="col">맨 위로</a>
-                        <a href="@if(auth()->check()) {{ route('post.create') }} @else javascript:notLogged(); @endif"
-                           class="col">글쓰기</a>
-                    </nav>
-                </section>
-            </section>
-        </div>
     </div>
 
 {{--@auth--}}
@@ -110,16 +97,6 @@
 <script src="{{ asset('js/common.js') }}"></script>
 @stack("scripts")
 <script>
-
-    function setContentHeight() {
-        let list = $(".list").offset().top;
-        let footer = $("#footer").offset().top;
-
-        let distance = footer - list;
-        console.log(list, footer, distance);
-        $(".list").css("max-height", distance);
-    }
-
     $('body').on('click', function(e){
         var target = $(e.target);
         // if(target[0].alt !== "noti") {
@@ -144,7 +121,6 @@
     });
     var timer = null;
     $(document).ready(function () {
-        setContentHeight();
         let vh = window.innerHeight * 0.01;
 
         document.documentElement.style.setProperty('--vh', `${vh}px`);

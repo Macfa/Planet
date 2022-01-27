@@ -28,6 +28,6 @@
     </ul>
 @endsection
 
-@section('message')
+@section('mobile.message')
     글이 존재하지 않아요 !
 @endsection

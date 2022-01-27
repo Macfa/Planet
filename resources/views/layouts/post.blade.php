@@ -152,11 +152,9 @@
 <script>
 
     $("#open_post_modal").scroll(function() {
-        var headerHeight = $("#header").height();
+        var headerHeight = $("#header").outerHeight();
         var postOffsetTop = $("#post").offset().top;
 
-        console.log(headerHeight); // 43
-        console.log(postOffsetTop);
         if(postOffsetTop   - headerHeight <= 0 ) {
             var checkExist = $("#post-bot-function").hasClass("sticky-bottom");
             if(checkExist === false) {
@@ -321,9 +319,6 @@
             },
             type: "get",
             success: function (data) {
-                console.log(data.length);
-                // console.log(data);
-                // console.log(id);
                 var replaceData = [];
                 for(var i=0; i<data.length; i++) {
                     replaceData.push({
@@ -331,7 +326,6 @@
                         'stampImage': '/image/'+data[i].image,
                         'stampCoin': data[i].coin,
                     })
-                    console.log(replaceData);
                 }
                 $(".category-data-list ul.d-flex li").remove();
                 $("#stampListTemplate").tmpl(replaceData).appendTo(".category-data-list ul.d-flex");
@@ -373,7 +367,6 @@
         // var url = '';
         // if(type === "post") {
         // }
-
         if(confirm('구매하시겠습니까 ?')) {
             $.ajax({
                 url: "/stamp/purchase",
@@ -392,7 +385,6 @@
                         } else if(data.count > 1) {
                             if($(`.stamps.post-${id}-stamps div.stamp-${stampID} span.stamp_count`).length) {
                                 $(`.stamps.post-${id}-stamps div.stamp-${stampID} span.stamp_count`).text(data.count);
-                                console.log($(`.stamps.post-${id}-stamps div.stamp-${stampID} span.stamp_count`));
                             } else {
                                 var tmpl = `<span class="stamp_count">${data.count}</span>`;
                                 $(`.stamps.post-${id}-stamps div.stamp-${stampID}`).append(tmpl);
@@ -400,8 +392,6 @@
                             }
                         }
                     } else if(data.target === "comment") {
-                        console.log(data);
-                        console.log(id, stampID);
                         if(data.count === 1) {
                             $(`.comment-${id} .stamps`).append(`<div class="stamp-item comment-${stampID}-stamp"><img alt='${data.name}' src='/image/${data.image}' ></div>`);
                             // $(".modal-title .stamps").append(`<span class="stamp-${stampID}"><img style='width:31px;' alt='${data.name}' src='${data.image}' alt=''></span>`);

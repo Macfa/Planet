@@ -33,7 +33,6 @@ class StampController extends Controller
             "errorType" => "login",
             "errorText" => "로그인이 필요한 기능입니다"
         ], 400);
-
         $stamp = Stamp::find($stampID);
         if($type === "post") {
             $target = Post::find($id);

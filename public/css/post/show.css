@@ -242,8 +242,8 @@
   }
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .comment-item {
-    display:flex;
-    flex-direction:column;
+    /*display:flex;*/
+    /*flex-direction:column;*/
     position:relative;
     overflow:hidden;
       margin-bottom: 20px;

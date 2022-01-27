@@ -449,10 +449,28 @@ button {
 .header-list-icon {
     width: 25px;
 }
-#open_post_modal {
-    margin-top: 59px;
-}
 #app {
-    height: 100%;
+    padding-top: 57.22px;
 }
-
+.collapse {
+    z-index: 1056;
+}
+.multi-stamps {
+    background-color: #888;
+}
+.stamp-item > img {
+    vertical-align: middle;
+    width:20px;
+}
+.stamp-item {
+    display:inline-block;
+    /*background-color: #888;*/
+    border-radius: 10px;
+    padding: 2px 3px;
+}
+.stamps {
+    font-size: 11px;
+}
+.stamp_count {
+    color: #fff;
+}

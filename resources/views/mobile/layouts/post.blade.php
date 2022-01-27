@@ -8,20 +8,23 @@
                         @if($post->comments->count() > 0)
                             <span class="titleSub">[&nbsp;<span class="commentCount">{{ $post->comments->count() }}</span>&nbsp;]</span>
                         @endif
-                        <span class="stamps">
-                            @foreach($post->stampInPosts as $stampInPost)
-                                <span class="stamp-{{ $stampInPost->stamp_id }}">
-                                    <img style="width:31px;" src="/image/{{ $stampInPost->stamp->image }}" alt="{{ $stampInPost->stamp->name }}">
-                                    <span>
-                                        @if($stampInPost->count > 1)
-                                            {{ $stampInPost->count }}
-                                        @endif
-                                    </span>
-                                </span>
-                            @endforeach
-                            </span>
                     </h4>
                 </div>
+                <div class="stamps post-{{ $post->id }}-stamps">
+                    @foreach($post->stampsCount as $stamp)
+                        <div class="stamp-item stamp-{{ $stamp->stamp_id }}
+                        @if($stamp->totalCount>1)
+                            multi-stamps">
+                            @else
+                                ">
+                            @endif
+                            <img src="/image/{{ $stamp->image }}" alt="">
+                            @if($stamp->totalCount>1)
+                                <span class="stamp_count">{{ $stamp->totalCount }}</span>
+                            @endif
+                        </div>
+                    @endforeach
+                            </div>
                 <div class="write-info">
                     <p class="sub_text"><span><a href="{{ route('channel.show', $post->channel_id) }}">[&nbsp;{{ $post->channel->name }}&nbsp;]&nbsp;</a></span> {{ $post->created_at->diffForHumans() }} / <a href="{{ route('user.show', ["user" => $post->user] ) }}">{{ $post->user->name }}</a></p>
                 </div>
@@ -80,7 +83,7 @@
                                 </li>
                                 <!-- Button trigger modal -->
                                 @auth
-                                    <li data-bs-toggle="modal" data-bs-target="#openStampModal" class="clickable items">
+                                    <li data-bs-toggle="modal" data-bs-target="#openStampModal" data-bs-type="post" data-bs-id="{{ $post->id }}" class="clickable items">
                                 @endauth
                                 @guest
                                     <li onclick="notLogged()" class="clickable items">
@@ -325,6 +328,7 @@
                 function purchaseStamp(stampID) {
                     var type = $("#openStampModal input[name=type]").val();
                     var id = $("#openStampModal input[name=id]").val();
+
                     // var url = '';
                     // if(type === "post") {
                     // }

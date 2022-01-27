@@ -16,7 +16,7 @@
     </ul>
 @endsection
 
-@section('message')
+@section('mobile.message')
     @if($el == "post")
         작성하신 글이 없어요 !
     @elseif($el == "comment")
