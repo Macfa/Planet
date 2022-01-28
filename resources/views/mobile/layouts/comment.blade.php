@@ -33,13 +33,9 @@
                      class="comment-item comment-{{ $comment->id }}">
                     <div class="comment-top">
                         <table>
-                            <thead>
-                                <col style="width: 50px;">
-                                <col>
-                            </thead>
                             <tbody>
                                 <tr>
-                                    <td style="vertical-align: top;">
+                                    <td style="vertical-align: top; width: 50px;">
                                         <img src="{{ $comment->user->avatar }}" class="mr-2" alt="닉네임"/>
                                     </td>
                                     <td>
@@ -191,7 +187,16 @@
 
     <script>
 
+        $(document).ready(function () {
+            window.addEventListener('resize', () => {
+                // set Comment Max-Height
+                setModalContentHeight();
+            });
+        });
 
+        function setModalContentHeight() {
+            $("#post-bot-function").offset().top - $("#open_post_modal").offset().top;
+        }
         // add : 댓글, 대댓글   |   edit : 수정
         function checkCommentTypeToAddForm(commentType, commentID) {
             if (commentType == "edit") {

@@ -664,3 +664,11 @@ table, td {
     vertical-align:middle;
     margin-left:12px;
 }
+.cst-fixed-bot {
+    position: fixed !important;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background-color: rgba(252, 252, 252, 1) !important;
+}

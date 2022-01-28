@@ -164,8 +164,6 @@
         });
         var checkPost = "{{ request()->route()->named("post.show") }}";
         if (checkPost === "1") {
-            alert(checkPost);
-            console.log(history);
             let url = window.location.href;
             var tmpPostID = url.split('/').pop();
             if ($.isNumeric(tmpPostID)) {

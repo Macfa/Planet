@@ -147,23 +147,35 @@
             </div>
             {{--    <script src="{{ asset('js/editorShow.js') }}"></script>--}}
             <script>
+
                 $("#open_post_modal").scroll(function() {
                     var headerHeight = $("#header").height();
                     var postOffsetTop = $("#post").offset().top;
 
                     if(postOffsetTop - headerHeight <= 0 ) {
-                        var checkExist = $("#post-bot-function").hasClass("sticky-bottom");
+                        let checkCssExist = $("#open_post_modal").css("max-height");
+
+                        var checkExist = $("#post-bot-function").hasClass("cst-fixed-bot");
                         // console.log(checkExist);
                         if(checkExist === false) {
-                            $("#post-bot-function").addClass("sticky-bottom");
+                            $("#post-bot-function").addClass("cst-fixed-bot");
                             $("#post-bot-function").removeClass("d-none");
                             // console.log($("#post-bot-function").className);
                         }
+                        if (checkCssExist === 'none') {
+                            let maxHeight = $("#post-bot-function").offset().top - $("#open_post_modal").offset().top;
+                            $("#open_post_modal").css("max-height", maxHeight);
+                        }
                     } else {
-                        var checkExist = $("#post-bot-function").hasClass("sticky-bottom");
+                        var checkExist = $("#post-bot-function").hasClass("cst-fixed-bot");
+                        let checkCssExist = $("#open_post_modal").css("max-height");
+
                         if(checkExist === true) {
-                            $("#post-bot-function").removeClass("sticky-bottom");
+                            $("#post-bot-function").removeClass("cst-fixed-bot");
                             $("#post-bot-function").addClass("d-none");
+                        }
+                        if (checkCssExist !== 'none') {
+                            $("#open_post_modal").css("max-height", 'none');
                         }
                     }
                 });
@@ -359,8 +371,6 @@
                                         }
                                     }
                                 } else if(data.target === "comment") {
-                                    console.log(data);
-                                    console.log(id, stampID);
                                     if(data.count === 1) {
                                         $(`.comment-${id} .stamps`).append(`<div class="stamp-item comment-${stampID}-stamp"><img alt='${data.name}' src='/image/${data.image}' ></div>`);
                                         // $(".modal-title .stamps").append(`<span class="stamp-${stampID}"><img style='width:31px;' alt='${data.name}' src='${data.image}' alt=''></span>`);
