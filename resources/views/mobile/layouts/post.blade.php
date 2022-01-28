@@ -175,6 +175,9 @@
                             $("#post-bot-function").addClass("d-none");
                         }
                         if (checkCssExist !== 'none') {
+                            // 모달 콘텐츠의 높이 제한 걸기 -> 아래 고정이 제외되면 빈 공간이 생김
+                            // var modalContentMaxHeight = $("body").height() - $("#header").outerHeight();
+                            // $("#open_post_modal").css("max-height", modalContentMaxHeight);
                             $("#open_post_modal").css("max-height", 'none');
                         }
                     }
