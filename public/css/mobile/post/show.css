@@ -671,4 +671,5 @@ table, td {
     right: 0;
     width: 100%;
     background-color: rgba(252, 252, 252, 1) !important;
+    z-index: 3 !important;
 }

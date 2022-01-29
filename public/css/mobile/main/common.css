@@ -460,7 +460,8 @@ button {
 }
 .stamp-item > img {
     vertical-align: middle;
-    width:20px;
+    width: 40px !important;
+    height: 20px !important;
 }
 .stamp-item {
     display:inline-block;

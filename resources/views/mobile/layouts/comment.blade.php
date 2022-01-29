@@ -61,7 +61,7 @@
                                 </div>
                                 {{--                            <div class="comment-info">--}}
                                 {{--                                <ul>--}}
-                                <div>
+                                <div style="margin-right: 20px;">
                                     @auth
                                         <button class="sub_txt" data-bs-type="comment"
                                                 data-bs-id="{{ $comment->id }}" data-bs-toggle="modal"
