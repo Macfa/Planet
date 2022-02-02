@@ -1,5 +1,5 @@
 @section('mainlist')
-    <div class="list">
+    <div class="list no-scroll">
         <table>
             <colgroup>
                 @if(!blank($posts))
@@ -9,7 +9,7 @@
             </colgroup>
             @forelse ($posts as $post)
                 <tr id="post-{{ $post->id }}" class="post-title">
-                    <td>
+                    <td style="vertical-align: top">
                         <div class="thum"></div>
                     </td>
                     <td>
@@ -19,17 +19,22 @@
                                 @if($post->comments->count() > 0)
                                     <span class="titleSub">[&nbsp;<span class="commentCount">{{ $post->comments->count() }}</span>&nbsp;]</span>
                                 @endif
-
-                                <span>
-                                                @forelse($post->stampInPosts as $stamp)
-                                        <img style="width:27px;" src="{{ $stamp->stamp->image }}" alt="">
-                                        @if($stamp->count>1)
-                                            {{ $stamp->count }}
-                                        @endif
-                                    @empty
-                                    @endforelse
-                                            </span>
                             </a>
+                        </div>
+                        <div class="stamps post-{{ $post->id }}-stamps">
+                            @foreach($post->stampsCount as $stamp)
+                                <div class="stamp-item stamp-{{ $stamp->stamp_id }}
+                                @if($stamp->totalCount>1)
+                                    multi-stamps">
+                                    @else
+                                        ">
+                                    @endif
+                                    <img src="/image/{{ $stamp->image }}" alt="">
+                                    @if($stamp->totalCount>1)
+                                        <span class="stamp_count">{{ $stamp->totalCount }}</span>
+                                    @endif
+                                </div>
+                            @endforeach
                         </div>
                         <div class="user">
                             {{--                                                                                            [동아리명] n분 전 / 사용자 id--}}

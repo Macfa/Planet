@@ -297,14 +297,14 @@
   }
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .comment-top .write-info,
-  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .reply-list > .reply-item .reply-top > .write-info  {
+  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .reply-list .reply-item .reply-top > .write-info  {
     /*display:flex;*/
     /*align-items:center;*/
     /*position:relative;*/
   }
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .comment-top .write-info > h5,
-  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .reply-list > .reply-item .reply-top > .write-info > h5  {
+  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .reply-list .reply-item .reply-top > .write-info > h5  {
     font-size:14px;
     font-weight:400;
     margin:0 6px;
@@ -672,4 +672,7 @@ table, td {
     width: 100%;
     background-color: rgba(252, 252, 252, 1) !important;
     z-index: 3 !important;
+}
+.modal-wrap {
+    padding: 0 10px;
 }

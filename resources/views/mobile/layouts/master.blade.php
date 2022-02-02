@@ -75,7 +75,7 @@
     <div id="app">
         @include('mobile.partials.header')
         <!-- Modals -->
-        <div class="modal fade" id="open_post_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade no-scroll" id="open_post_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div style="margin: 0px 0px;" class="modal-dialog">
                 <div class="modal-content" style="border: 0; border-radius: 0;">
                 </div>

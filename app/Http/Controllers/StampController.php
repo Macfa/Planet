@@ -10,6 +10,7 @@ use App\Models\StampCategory;
 use App\Models\StampGroup;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Jenssegers\Agent\Agent;
 
 class StampController extends Controller
 {
@@ -143,8 +144,13 @@ class StampController extends Controller
         // get data
         $allCategories = $stampCategoryModel->getAllCategories();
         $allStamps = $stampModel->getAllStamps();
-//        dd($allCategories, $allStamps);
-        return view('layouts.stamp', compact('allCategories', 'allStamps', 'inputs'));
+
+        $agent = new Agent();
+        if($agent->isMobile()) {
+            return view('mobile.layouts.stamp', compact('allCategories', 'allStamps', 'inputs'));
+        } else {
+            return view('layouts.stamp', compact('allCategories', 'allStamps', 'inputs'));
+        }
     }
 //    public function getStampCategory($id) {
 //        if($id === 0) {

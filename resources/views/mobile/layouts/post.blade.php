@@ -10,7 +10,7 @@
                         @endif
                     </h4>
                 </div>
-                <div class="stamps post-{{ $post->id }}-stamps">
+                <div class="stamps post-{{ $post->id }}-stamps flex-0-0-100">
                     @foreach($post->stampsCount as $stamp)
                         <div class="stamp-item stamp-{{ $stamp->stamp_id }}
                         @if($stamp->totalCount>1)

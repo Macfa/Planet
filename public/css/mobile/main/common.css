@@ -476,3 +476,42 @@ button {
     color: #000;
     margin-left: 5px;
 }
+.modal-header {
+    padding: 1rem 0;
+}
+.no-scroll {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.no-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.accordion-button:not(.collapsed)::before {
+    flex-shrink: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1.25rem;
+    transition: transform .2s ease-in-out;
+    transform: rotate(-180deg);
+    /*background-image: url("/image/arrow-top-white.png");*/
+    background-image: url("/image/arrow-bot-white.png");
+    margin-right: 1.25rem;
+}
+.accordion-button::before {
+    flex-shrink: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1.25rem;
+    transition: transform .2s ease-in-out;
+    /*transform: rotate(-180deg);*/
+    background-image: url("/image/arrow-bot-white.png");
+    margin-right: 1.25rem;
+}
+.accordion-button::after {
+    display: none;
+}

@@ -61,7 +61,7 @@
                                 </div>
                                 {{--                            <div class="comment-info">--}}
                                 {{--                                <ul>--}}
-                                <div style="margin-right: 20px;">
+                                <div>
                                     @auth
                                         <button class="sub_txt" data-bs-type="comment"
                                                 data-bs-id="{{ $comment->id }}" data-bs-toggle="modal"
@@ -460,51 +460,65 @@
         <h4>댓글 보기</h4>
     </div>
     @{{/if}}
-   <div class="mb15 comment-list comment-${id}">
-        <div style="padding-left:${depth}px;" class="comment-item">
-            <div class="comment-top">
-                <div style="" class="write-info">
-                    <img src="${avatar}" alt="닉네임" />
-                    <h5 class="nickname">${name}</h5>
-                    <p>${updated_at_modi}</p>
-                    <div class="comment-modi-form">
-                        <button onclick="checkCommentTypeToAddForm('edit', ${id})">
-                            <div class="function-text">
-                                <p>수정</p>
-                            </div>
-                        </button>
-                        <button onclick="deleteComment(${id})">
-                            <div class="function-text">
-                                <p>삭제</p>
-                            </div>
-                        </button>
-                    </div>
+   <div class="comment-list">
+        <div style="padding-left:${depth}px;">
+            <div class="comment-item comment-${id}">
+                <div class="comment-top">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td style="vertical-align: top; width: 50px;">
+                                    <img src="${avatar}" class="mr-2" alt="닉네임" />
+                                </td>
+                                <td>
+                                    <div style="" class="write-info">
+{{--                                    <div style="" class="write-info @{{if ${depth > 0}}} 'write-info-line':'' @{{/if}}">--}}
+                                        <div class="d-flex justify-content-between comment-item-header-r">
+                                            <div class="comment-modi-form">
+                                                <span class="nickname">${name}</span>
+                                                <span class="sub_txt">${updated_at_modi}</span>
+                                                <button class="sub_txt" onclick="checkCommentTypeToAddForm('edit', ${id})">
+                                                    <div class="function-text">
+                                                        <p>수정</p>
+                                                    </div>
+                                                </button>
+                                                <button class="sub_txt" onclick="deleteComment(${id})">
+                                                    <div class="function-text">
+                                                        <p>삭제</p>
+                                                    </div>
+                                                </button>
+                                            </div>
+                                            <div>
+                                                <button class="sub_txt" data-bs-type="comment"
+                                                    data-bs-id="${id}" data-bs-toggle="modal"
+                                                    data-bs-target="#openStampModal">스탬프
+                                                </button>
+                                                <button class="sub_txt" onclick="checkCommentTypeToAddForm('add', ${id});">댓글</button>
+                                                <button>
+                                                    <img onclick="voteLikeInComment(${id}, 1)" id="comment-${id}-upvote" class="image-sm" alt="" src="{{ asset('image/upvote.png') }}" />
+                                                </button>
+                                                <button class="sub_txt"><span class="comment-like">${sumOfLikes}</button>
+                                                <button><img onclick="voteLikeInComment(${id}, -1)" id="comment-${id}-downvote" class="image-sm" alt="" src="{{ asset('image/upvote.png') }}" /></button>
+                                            </div>
+                                        </div>
+                                        <div class="stamps"></div>
+                                        <div class="comment-cont">
+                                            <p>
+                                                ${content}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-
-                <div class="comment-info">
-                    <ul>
-                        <li class="clickable">스탬프</li>
-                        <li class="clickable" onclick="checkCommentTypeToAddForm('add', ${id});">댓글</li>
-                        <li class="clickable">
-                            <img onclick="voteLikeInComment(${id}, 1)" id="comment-${id}-upvote" class="image-sm" alt="" src="{{ asset('image/upvote.png') }}" />
-                        </li>
-                        <li class="clickable"><span class="comment-like">${sumOfLikes}</li>
-                        <li class="clickable"><img onclick="voteLikeInComment(${id}, -1)" id="comment-${id}-downvote" class="image-sm" alt="" src="{{ asset('image/upvote.png') }}" /></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="comment-cont">
-                <p>
-                    ${content}
-                </p>
             </div>
         </div>
-    </div>
     @{{if commentCount < 2}}
+    </div>
 </div>
 @{{/if}}
-
     </script>
     <script id="replyWriteForm" type="text/x-jquery-tmpl">
 <div class="reply-form mb-3">

@@ -1,5 +1,5 @@
 @section('mainlist')
-    <div class="list">
+    <div class="list no-scroll">
         <table>
             <colgroup>
 {{--                @if(!blank($posts))--}}

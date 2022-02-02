@@ -62,6 +62,9 @@
     color: #FFFFFF;
     font-size: 18px;
 }
+#main .board_box .left ul.tab_title span button {
+    color: #fff;
+}
 #main .board_box .left ul.tab li {
   display: inline-block;
 }
@@ -358,4 +361,6 @@ textarea[name=content]:focus {
 .post-title {
     line-height: 1.9;
 }
-
+.list {
+    padding: 0 10px;
+}

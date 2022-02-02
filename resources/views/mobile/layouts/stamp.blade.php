@@ -1,7 +1,7 @@
 <!-- Modal -->
 <div>
     <div class="modal-header justify-content-start">
-        <div class="mr-4">
+        <div class="mr-4 pl-4">
             <span style="font-size: 25px;">스탬프</span>
         </div>
         <div>
