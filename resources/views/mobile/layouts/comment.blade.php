@@ -109,16 +109,9 @@
                             <div class="stamps">
                                 @foreach($comment->stampsCount as $stamp)
                                     {{--                                        @dd($stamp)--}}
-                                    <div class="stamp-item comment-{{ $stamp->stamp_id }}-stamp
-                                            @if($stamp->totalCount>1)
-                                        multi-stamps">
-                                        @else
-                                            ">
-                                        @endif
+                                    <div class="stamp-item comment-{{ $stamp->stamp_id }}-stamp multi-stamps">
                                         <img src="/image/{{ $stamp->image }}" alt="">
-                                        @if($stamp->totalCount>1)
-                                            <span class="stamp_count">{{ $stamp->totalCount }}</span>
-                                        @endif
+                                        <span class="stamp_count">{{ $stamp->totalCount }}</span>
                                     </div>
                                 @endforeach
                             </div>

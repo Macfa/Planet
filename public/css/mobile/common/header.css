@@ -1,6 +1,9 @@
 @charset "UTF-8";
 
 /* Header */
+#header > div:first-child  {
+    padding: 0 10px 0 0;
+}
 .header-sections {
     padding: 0 10px;
 }

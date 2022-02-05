@@ -2,7 +2,10 @@
 
 <div class="right_sub">
     <div class="info_detail">
-        <p class="description">{{ $channel->description }}</p>
+        <p class="description">
+            {{ $channel->description }}
+            <button onclick="location.href='{{ route('channel.edit', $channel->id) }}'" class="channel_desc_right_btn">수정</button>
+        </p>
         <div class="flex">
             <div class="flex_item fs-12">
                 <div class="totalCount">{{ number_format($channel->channelJoins->count()+1) }}</div>

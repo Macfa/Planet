@@ -19,9 +19,9 @@
                                 ">
                             @endif
                             <img src="/image/{{ $stamp->image }}" alt="">
-                            @if($stamp->totalCount>1)
+{{--                            @if($stamp->totalCount>1)--}}
                                 <span class="stamp_count">{{ $stamp->totalCount }}</span>
-                            @endif
+{{--                            @endif--}}
                         </div>
                     @endforeach
                             </div>
@@ -304,7 +304,6 @@
                                     'stampImage': '/image/'+data[i].image,
                                     'stampCoin': data[i].coin,
                                 })
-                                console.log(replaceData);
                             }
                             $(".category-data-list ul.d-flex li").remove();
                             $("#stampListTemplate").tmpl(replaceData).appendTo(".category-data-list ul.d-flex");
@@ -362,28 +361,19 @@
                                 $("#openStampModal").modal("hide");
                                 if(data.target === "post") {
                                     if(data.count === 1) {
-                                        $(`.stamps.post-${id}-stamps`).append(`<div class="stamp-item stamp-${stampID}"><img alt='${data.name}' src='/image/${data.image}' ></div>`);
+                                        $(`.stamps.post-${id}-stamps`).append(`<div class="stamp-item stamp-${stampID} multi-stamps"><img alt='${data.name}' src='/image/${data.image}' ><span class="stamp_count">${data.count}</span></div>`);
                                     } else if(data.count > 1) {
                                         if($(`.stamps.post-${id}-stamps div.stamp-${stampID} span.stamp_count`).length) {
                                             $(`.stamps.post-${id}-stamps div.stamp-${stampID} span.stamp_count`).text(data.count);
-                                            console.log($(`.stamps.post-${id}-stamps div.stamp-${stampID} span.stamp_count`));
-                                        } else {
-                                            var tmpl = `<span class="stamp_count">${data.count}</span>`;
-                                            $(`.stamps.post-${id}-stamps div.stamp-${stampID}`).append(tmpl);
-                                            $(`.stamps.post-${id}-stamps div.stamp-${stampID}`).addClass("multi-stamps");
                                         }
                                     }
                                 } else if(data.target === "comment") {
                                     if(data.count === 1) {
-                                        $(`.comment-${id} .stamps`).append(`<div class="stamp-item comment-${stampID}-stamp"><img alt='${data.name}' src='/image/${data.image}' ></div>`);
+                                        $(`.comment-${id} .stamps`).append(`<div class="stamp-item comment-${stampID}-stamp multi-stamps"><img alt='${data.name}' src='/image/${data.image}' ><span class="stamp_count">${data.count}</span></div>`);
                                         // $(".modal-title .stamps").append(`<span class="stamp-${stampID}"><img style='width:31px;' alt='${data.name}' src='${data.image}' alt=''></span>`);
                                     } else if(data.count > 1) {
                                         if($(`.comment-${id} .stamps div.comment-${stampID}-stamp span.stamp_count`).length) {
                                             $(`.comment-${id} .stamps div.comment-${stampID}-stamp span.stamp_count`).text(data.count);
-                                        } else {
-                                            var tmpl = `<span class="stamp_count">${data.count}</span>`;
-                                            $(`.comment-${id} .stamps div.comment-${stampID}-stamp`).append(tmpl);
-                                            $(`.comment-${id} .stamps div.comment-${stampID}-stamp`).addClass("multi-stamps");
                                         }
                                     }
                                 }

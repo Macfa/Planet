@@ -417,6 +417,9 @@ Custom
   border-bottom: 2px black solid;
     font-size: 12px;
 }
+.right_sub .info_detail .description .channel_desc_right_btn {
+    float: right;
+}
 
 .right_sub .info_detail .flex {
   display: flex;

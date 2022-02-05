@@ -1,7 +1,7 @@
 <div class="row flex-justify-space-between align-self-center" id="header">
-    <div class="header-sections col-3">
+    <div class="col-3">
         <a href="/">
-            <img src="{{ asset('image/logo.png') }}">
+            <img src="{{ asset('image/logo_v1.png') }}">
         </a>
     </div>
     <div class="@if(auth()->check()) col-5 @else col-6 @endif header-sections header-section-search align-self-center">

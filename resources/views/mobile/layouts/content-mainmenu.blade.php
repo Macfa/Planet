@@ -12,7 +12,6 @@
 
         @if(isset($channel) && auth()->id()==$channel->user_id)
             <span style="margin-left: 10%; color: black !important;">
-                <button onclick="location.href='{{ route('channel.edit', $channel->id) }}'" class="">수정</button>
                 <button onclick="deleteChannel({{ $channel->id }})" class="">삭제</button>
             </span>
         @endif
