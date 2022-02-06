@@ -158,7 +158,7 @@ background-color: #3d5afe;
 }
 
 .title {
-    margin-bottom: 3px;
+    /*margin-bottom: 3px;*/
 }
 #main .board_box .left div.list table tr td div.title a {
   display: block;

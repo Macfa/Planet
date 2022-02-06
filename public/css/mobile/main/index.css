@@ -138,7 +138,7 @@
 }
 
 .title {
-    margin-bottom: 3px;
+    /*margin-bottom: 3px;*/
     font-family: 돋움,Dotum,Arial,나눔고딕,"Malgun Gothic",맑은고딕,굴림,sans-serif;
 }
 #main .board_box .left div.list table tr td div.title a {

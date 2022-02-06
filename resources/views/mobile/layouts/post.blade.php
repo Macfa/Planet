@@ -13,11 +13,11 @@
                 <div class="stamps post-{{ $post->id }}-stamps flex-0-0-100">
                     @foreach($post->stampsCount as $stamp)
                         <div class="stamp-item stamp-{{ $stamp->stamp_id }}
-                        @if($stamp->totalCount>1)
+{{--                        @if($stamp->totalCount>1)--}}
                             multi-stamps">
-                            @else
-                                ">
-                            @endif
+{{--                            @else--}}
+{{--                                ">--}}
+{{--                            @endif--}}
                             <img src="/image/{{ $stamp->image }}" alt="">
 {{--                            @if($stamp->totalCount>1)--}}
                                 <span class="stamp_count">{{ $stamp->totalCount }}</span>
@@ -163,8 +163,8 @@
                             // console.log($("#post-bot-function").className);
                         }
                         if (checkCssExist === 'none') {
-                            let maxHeight = $("#post-bot-function").offset().top - $("#open_post_modal").offset().top;
-                            $("#open_post_modal").css("max-height", maxHeight);
+                            // let maxHeight = $("#post-bot-function").offset().top - $("#open_post_modal").offset().top;
+                            // $("#open_post_modal").css("max-height", maxHeight);
                         }
                     } else {
                         var checkExist = $("#post-bot-function").hasClass("cst-fixed-bot");

@@ -9,12 +9,6 @@
         <ul class="tab_title">
     @endif
         {{ (isset($channel)) ? $channel->name:'포디엄'  }}
-
-        @if(isset($channel) && auth()->id()==$channel->user_id)
-            <span style="margin-left: 10%; color: black !important;">
-                <button onclick="deleteChannel({{ $channel->id }})" class="">삭제</button>
-            </span>
-        @endif
     </ul>
     <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
         <div class="accordion-body-channelinfo">

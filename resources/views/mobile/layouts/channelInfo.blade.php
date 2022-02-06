@@ -4,7 +4,9 @@
     <div class="info_detail">
         <p class="description">
             {{ $channel->description }}
-            <button onclick="location.href='{{ route('channel.edit', $channel->id) }}'" class="channel_desc_right_btn">수정</button>
+            @if($channel->user_id === auth()->id())
+                <button onclick="location.href='{{ route('channel.edit', $channel->id) }}'" class="channel_desc_right_btn">수정</button>
+            @endif
         </p>
         <div class="flex">
             <div class="flex_item fs-12">
@@ -39,6 +41,8 @@
                 <div class="mt-4 channel_join"><a class="d-btn favorite_btn clickable" onclick="addChannelJoin({{ $channel->id }})">동아리 탈퇴</a></div>
             @elseif($channel->user_id != auth()->id())
                 <div class="mt-4 channel_join"><a class="d-btn favorite_btn clickable" onclick="addChannelJoin({{ $channel->id }})">동아리 가입</a></div>
+            @elseif($channel->user_id === auth()->id())
+                <div class="mt-4 channel_join"><a class="d-btn favorite_btn clickable" onclick="deleteChannel({{ $channel->id }})">동아리 삭제</a></div>
             @endif
         @endauth
     </div>
