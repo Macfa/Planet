@@ -16,12 +16,12 @@ class CreateStampInPostsTable extends Migration
         Schema::create('stamp_in_posts', function (Blueprint $table) {
             $table->id();
             $table->bigInteger("post_id")->unsigned();
-            $table->foreign("post_id")->references("id")->on("posts");
+            $table->foreign("post_id")->references("id")->on("posts")->onDelete('cascade');
             $table->bigInteger("stamp_id")->unsigned();
-            $table->foreign("stamp_id")->references("id")->on("stamps");
+            $table->foreign("stamp_id")->references("id")->on("stamps")->onDelete('cascade');
             $table->integer("count");
             $table->bigInteger("user_id")->unsigned();
-            $table->foreign("user_id")->references("id")->on("users");
+//            $table->foreign("user_id")->references("id")->on("users");
             $table->timestamps();
         });
     }
