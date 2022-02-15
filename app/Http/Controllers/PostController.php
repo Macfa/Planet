@@ -89,22 +89,6 @@ class PostController extends Controller
     {
         $this->authorize('create', Post::class);
 
-        // set validation rules
-        $rules = [
-            'channel_id' => 'required',
-            'title' => 'required|max:20',
-            'content' => 'required|min:1',
-        ];
-
-        $messages = [
-            'channel_id.required' => '채널을 선택해주세요.',
-            'title.required' => '제목을 입력해주세요.',
-            'content.required' => '내용을 입력해주세요.',
-            'max' => '제목은 최대 20 글자 이하입니다.',
-            'min' => '내용은 최소 1글자 이상입니다.',
-        ];
-        $validator = Validator::make($request->all(), $rules, $messages)->validate();
-
         // 이미지 소스만 추출
         $content = $request->input('content');
         $regex = "/https?:\/\/\S+image+\S+\.[gif|png|jpg|jpeg]+/";

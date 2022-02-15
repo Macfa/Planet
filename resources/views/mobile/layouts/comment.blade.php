@@ -9,6 +9,7 @@
 
         <div class="comment-input">
             <textarea name="content" id="comment_text"></textarea>
+
             <div class="form-btn d-flex justify-content-end">
                 <div class="write-btn">
                     <button type="submit" onclick="checkCommentTypeToProcess('add');">등록</button>
@@ -115,29 +116,26 @@
                                     </div>
                                 @endforeach
                             </div>
-                            {{--                                <div class="comment-cont">--}}
-                            {{--                                    <p>--}}
-                            {{--                                        {!! $comment->content !!}--}}
-                            {{--                                    </p>--}}
-                            {{--                                </div>--}}
                             <div class="comment-cont">
-                                <p>
-                                    {!! $comment->content !!}
-                                </p>
+{{--                                {{ nl2br($comment->content) }}--}}
+{{--                                {!! nl2br($comment->content) !!}--}}
+{{--                                {!! htmlspecialchars($comment->content) !!}--}}
+{{--                                {{ nl2br($comment->content) }}--}}
+                                {!! $comment->content !!}
                             </div>
                         </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            @empty
-                <div><p>댓글이 없습니다.</p></div>
-            @endforelse
-        </div>
-        <!-- 하단 기능 Comment -->
-        {{--        <div class="flex-container board-bot-function justify-content-between" style="position: sticky; top:0px;  background: rgba(252, 252, 252, 1) !important;" id="post-bot-function">--}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+        @empty
+            <div><p>댓글이 없습니다.</p></div>
+        @endforelse
+    </div>
+    <!-- 하단 기능 Comment -->
+    {{--        <div class="flex-container board-bot-function justify-content-between" style="position: sticky; top:0px;  background: rgba(252, 252, 252, 1) !important;" id="post-bot-function">--}}
         <div class="d-none flex-container flex-justify-space-between" id="post-bot-function">
             <div class="left-function flex-container">
                 {{--                <div class="page-arrow">--}}
@@ -310,6 +308,7 @@
                     data: data,
                     type: type,
                     success: function (data) {
+                        // data.content = htmlentities($data, ENT_QUOTES, 'UTF-8');
                         if (form === "edit") { // 기존 댓글 업데이트 로직
                             $(`.comment-${commentID} .comment-cont p`).html(data.content);
                             toggleEditForm('hide', commentID);
@@ -342,6 +341,7 @@
                             } else {
                                 $("#comment-form #comment_text").val('');
                             }
+
                             var mainCommentValue = $(`#post-${data.post_id} .commentCount`).eq(0).text();
                             if (mainCommentValue > 1) {
                                 $(`#post-${data.post_id} .commentCount`).text(parseInt(mainCommentValue) + 1);

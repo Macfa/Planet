@@ -8,25 +8,6 @@
         <article class="board_box">
             <form id="form" action="{{ route('post.store') }}" name="searchForm" method="POST" onsubmit="return checkValue();">
                 @csrf
-{{--                <div>--}}
-{{--                    <div class="select_box d-flex">--}}
-{{--                        <select class="cst_select is-invalid" name="channel_id" id="channelList">--}}
-{{--                            <option value="">등록할 채널을 선택해주세요</option>--}}
-{{--                            @foreach ($user->allChannels() as $channel)--}}
-{{--                                <option value="{{ $channel->id }}"--}}
-{{--                                    @if($fromChannelID == $channel->id) selected--}}
-{{--                                    @elseif(old('channel_id')==$channel->id) selected @endif>--}}
-{{--                                    {{ $channel->name }}--}}
-{{--                                </option>--}}
-{{--                            @endforeach--}}
-
-{{--                        </select>--}}
-{{--                        @error('channel_id')--}}
-{{--                            <div class="ml-2 invalid-feedback">{{ $message }}</div>--}}
-{{--                        @enderror--}}
-
-{{--                    </div>--}}
-{{--                </div>--}}
                 <div class="d-flex">
                     <div class="left col-9">
                         <div class="ch_list">
@@ -36,8 +17,8 @@
                                         <option value="">등록할 채널을 선택해주세요</option>
                                         @foreach ($user->allChannels() as $channel)
                                             <option value="{{ $channel->id }}"
-                                                    @if($fromChannelID == $channel->id) selected
-                                                    @elseif(old('channel_id')==$channel->id) selected @endif>
+                                                    @if(old('channel_id')==$channel->id) selected
+                                                    @elseif($fromChannelID == $channel->id) selected  @endif>
                                                 {{ $channel->name }}
                                             </option>
                                         @endforeach
@@ -52,6 +33,13 @@
                             <div class="input_box input_box_title">
                                 <div class="sub_box sub_box_line">
                                     <span class="menu">포스트</span>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="is_notice">
+                                        <label class="form-check-label" for="is_notice">
+                                            안내글
+                                        </label>
+                                    </div>
                                 </div>
                                 <div class="sub_box sub_box_line">
                                     <input type="text" class="box is-invalid" name="title" value="{{ ($post->title) ?? old('title') }}" placeholder="이름을 입력하세요">

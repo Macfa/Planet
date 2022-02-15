@@ -23,6 +23,7 @@ use App\Http\Controllers\UserController;
 use App\Models\Channel;
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
+use \App\Http\Controllers\AdminController;
 
 Route::domain('m.lanet.co.kr')->group(function () {
     Route::get('/', [PostController::class, 'index'])->name('mobile.home');
@@ -103,3 +104,12 @@ Route::get('oauth/{driver}/callback', [LoginController::class, 'handleProviderCa
 
 // it must be change api sections
 Route::post('/api/upload', [EditorsController::class, 'upload'])->name('ck.upload');
+
+// admin page
+Route::group(['middleware'=>'check.admin'], function() {
+    Route::get('/admin', [AdminController::class,'index']);
+    Route::get('/admin/report', [AdminController::class,'report']);
+    Route::get('/admin/coin', [AdminController::class,'coin']);
+    Route::get('/admin/user', [AdminController::class,'user']);
+    Route::post('/admin/coin/set', [AdminController::class,'setCoin']);
+});

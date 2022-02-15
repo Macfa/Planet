@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
+    private $content = '';
     /**
      * Display a listing of the resource.
      *
@@ -44,6 +45,9 @@ class CommentController extends Controller
             abort(401);
         }
         $id = $request->input('id'); // 그룹 아이디
+        $this->content = preg_replace('/\r\n|\r|\n/',PHP_EOL,$request->input("content"));
+
+        // $this->content = preg_replace("(\<(/?[^\>]+)\>)", "", $request->input("content"));
 
 //        dd($request->input('content'));
 
@@ -137,7 +141,7 @@ class CommentController extends Controller
         $created = Comment::create([
             'post_id' => $req->input('post_id'),
             'group' => $req->input('post_id'),
-            'content' => $req->input('content'),
+            'content' => $this->content,
             'user_id' => auth()->id()
         ]);
 
@@ -165,7 +169,7 @@ class CommentController extends Controller
         $created = Comment::create([
             'post_id' => $thatComment['post_id'],
             'group' => $thatComment['group'],
-            'content' => $req->input('content'),
+            'content' => $this->content,
             'depth' => $thatComment['depth']+1,
             'order' => $thatComment['order']+1,
             'user_id' => auth()->id()
