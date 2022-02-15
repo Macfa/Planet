@@ -13,12 +13,12 @@ class CreateStampCategoriesTable extends Migration
      */
     public function up()
     {
-//        Schema::create('stamp_categories', function (Blueprint $table) {
-//            $table->id();
-//            $table->string("image"); // 대표이미지
-//            $table->string("name", 30); // 명칭
-//            $table->timestamps();
-//        });
+        Schema::create('stamp_categories', function (Blueprint $table) {
+            $table->id();
+            $table->string("image"); // 대표이미지
+            $table->string("name", 30); // 명칭
+            $table->timestamps();
+        });
     }
 
     /**

@@ -13,13 +13,13 @@ class CreateStampGroupsTable extends Migration
      */
     public function up()
     {
-//        Schema::create('stamp_groups', function (Blueprint $table) {
-//            $table->id();
-//            $table->bigInteger("category_id")->unsigned();
-//            $table->foreign("category_id")->references("id")->on("stamp_categories")->onDelete("cascade");
-//            $table->string("name", 30);
-//            $table->timestamps();
-//        });
+        Schema::create('stamp_groups', function (Blueprint $table) {
+            $table->id();
+            $table->bigInteger("category_id")->unsigned();
+            $table->foreign("category_id")->references("id")->on("stamp_categories")->onDelete("cascade");
+            $table->string("name", 30);
+            $table->timestamps();
+        });
     }
 
     /**
