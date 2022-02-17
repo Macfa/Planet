@@ -27,11 +27,10 @@ class AdminController extends Controller
     }
     function coin() {
         $coin_setup = CoinSetup::find(1);
-//        dd($coin_setup->post);
+
         return view('admin.coin', compact('coin_setup'));
     }
     function setCoin(Request $request) {
-
         // set validation rules
         $rules = [
             'post' => 'required|integer|min:0',
