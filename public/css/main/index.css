@@ -113,7 +113,8 @@ background-color: #3d5afe;
 #main .board_box .left div.list {
   border: 1px solid #cbc7c7;
   border-radius: 0px;
-  min-height: 686px;
+  max-height: 686px;
+    overflow-y: scroll;
 }
 
 #main .board_box .left div.list table tr {
