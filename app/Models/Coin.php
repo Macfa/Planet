@@ -50,7 +50,8 @@ class Coin extends Model
 
     public function writePost(Post $post) {
         $today = Carbon::now();
-        $limit = 50;
+        $coin_setup = new CoinSetup();
+        $limit = $coin_setup["day_limit"];
 //        $totalCoin = $post->coins()->where('created_at', $today)->sum('coin');
 //        $totalCoin = $post->join('coins', 'coins.coinable_type', '=', 'test')->whereDate('coins.created_at', $today)->sum('coin');
         $totalCoin = $post->coins()->whereDate('coins.created_at', $today)->sum('coin');
@@ -60,7 +61,7 @@ class Coin extends Model
         } else {
             $post->coins()->create([
                 'type'=> '글작성',
-                'coin'=> 5,
+                'coin'=> $coin_setup["post"],
                 'user_id'=> auth()->id()
             ]);
             // 코인 추가 획득
@@ -69,7 +70,8 @@ class Coin extends Model
 
     public function writeComment(Comment $comment) {
         $today = Carbon::now();
-        $limit = 50;
+        $coin_setup = new CoinSetup();
+        $limit = $coin_setup["day_limit"];
         $totalCoin = $comment->coins()->whereDate('coins.created_at', $today)->sum('coin');
 
         if($totalCoin > $limit) {
@@ -77,7 +79,7 @@ class Coin extends Model
         } else {
             $comment->coins()->create([
                 'type'=> '댓글작성',
-                'coin'=> 1,
+                'coin'=> $coin_setup["comment"],
                 'user_id'=> auth()->id()
             ]);
             // 코인 추가 획득

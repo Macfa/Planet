@@ -16,7 +16,7 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
 //            $table->foreignId('channel_id')->nullable()->constrained("channels")->cascadeOnUpdate()->nullOnDelete();
-
+//            $table->enum("is_notice");
             $table->bigInteger('channel_id')->unsigned();
             $table->foreign("channel_id")->references("id")->on("channels")->onDelete('cascade');
             $table->string('title', 200);

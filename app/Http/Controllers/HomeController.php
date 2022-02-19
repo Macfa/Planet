@@ -140,7 +140,7 @@ class HomeController extends Controller
         $matched = substr($searchText, 0, 1);
 
         if($matched == "#") {
-            // 키워드를 포함하는 동아리 검색
+            // 키워드를 포함하는 토픽 검색
             $tempSearchText = substr($searchText, 1);
             $toSearchText = '%'.$tempSearchText.'%';
 

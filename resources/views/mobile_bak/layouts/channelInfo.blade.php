@@ -6,11 +6,11 @@
         <div class="flex">
             <div class="flex_item fs-12">
                 <div class="totalCount">{{ number_format($channel->channelJoins->count()) }}</div>
-                <p style="font-size:12px;">동아리 인원</p>
+                <p style="font-size:12px;">토픽 인원</p>
             </div>
             <div class="flex_item fs-12">
                 <div>{{ date('Y.m.d', strtotime($channel->created_at)) }}</div>
-                <p>동아리 창단일</p>
+                <p>토픽 창단일</p>
             </div>
         </div>
         <div class="flex">
@@ -33,9 +33,9 @@
 {{--        </ul>--}}
         @auth
             @if($channel->channelJoins->count()>0 && $channel->user_id != auth()->id())
-                <div class="mt-4 channel_join"><a class="d-btn favorite_btn clickable" onclick="addChannelJoin({{ $channel->id }})">동아리 탈퇴</a></div>
+                <div class="mt-4 channel_join"><a class="d-btn favorite_btn clickable" onclick="addChannelJoin({{ $channel->id }})">토픽 탈퇴</a></div>
             @elseif($channel->user_id != auth()->id())
-                <div class="mt-4 channel_join"><a class="d-btn favorite_btn clickable" onclick="addChannelJoin({{ $channel->id }})">동아리 가입</a></div>
+                <div class="mt-4 channel_join"><a class="d-btn favorite_btn clickable" onclick="addChannelJoin({{ $channel->id }})">토픽 가입</a></div>
             @endif
         @endauth
     </div>
@@ -105,11 +105,11 @@
 {{--                    var url = '{{ route('channel.show', ":id") }}';--}}
 //                     url = url.replace(':id', data.channelID);
                     // $('.category').append('<li class="channel_'+data.channel.id+'"><a href="'+url+'">'+data.channel.name+'</a></li>');
-                    $(".channel_join > a").text("동아리 탈퇴");
+                    $(".channel_join > a").text("토픽 탈퇴");
                     $('.totalCount').text(data.totalCount);
                 } else if(data.result=='deleted') {
                     // $('.category li.channel_'+data.id).remove();
-                    $(".channel_join > a").text("동아리 가입");
+                    $(".channel_join > a").text("토픽 가입");
                     $('.totalCount').text(data.totalCount);
                 }
             },

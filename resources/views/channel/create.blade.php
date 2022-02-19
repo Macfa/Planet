@@ -5,7 +5,7 @@
   <div class="channel_wrap">
     <article class="board_box d-flex">
       <div class="left col-9">
-        <div class="page_info mb30"><h2>동아리 만들기</h2></div>
+        <div class="page_info mb30"><h2>토픽 만들기</h2></div>
         <div class="list">
                 @if(isset($channel))
                     <form action="{{ route('channel.update', $channel->id) }}" method="POST" name="searchForm" onsubmit="return checkValue();">
@@ -84,9 +84,14 @@
     {
         let form = document.searchForm;
 
-        if(form.name.value === "" || form.name.value.length > 12)
+        if(form.name.value === "")
         {
-            alert("이름을 입력해주세요 ( 12자 이하 )");
+            alert("이름을 입력해주세요");
+            return false;
+        }
+        if(form.name.value.length < 2 || form.name.value.length > 12)
+        {
+            alert("이름 양식은 2글자 이상 12글자 이하 입니다");
             return false;
         }
         if(form.description.value === "" || form.description.value.length > 255)

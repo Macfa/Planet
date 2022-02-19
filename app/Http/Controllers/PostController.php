@@ -64,18 +64,19 @@ class PostController extends Controller
     {
         $this->authorize('create', Post::class);
 
-        $user = User::find(auth()->id());
-//        $fromChannelID = $request->input('channel_id');
         $prevUrl = url()->previous();
         $prevUrlArr = explode('/', $prevUrl);
-        $fromChannelID = end($prevUrlArr);
-
-//        $channels = Channel::own()->get();
+        $fromChannelID = (int)end($prevUrlArr);
+        $setting = [
+            "type" => 'create',
+            "previous" => $fromChannelID,
+            "btn" => "등록",
+        ];
 
         if($this->agent->isMobile()) {
-            return view('mobile.post.create', compact('user', 'fromChannelID'));
+            return view('mobile.post.create', compact('setting'));
         } else {
-            return view('post.create', compact('user', 'fromChannelID'));
+            return view('post.create', compact('setting'));
         }
     }
 
@@ -107,6 +108,7 @@ class PostController extends Controller
             'channel_id' => $request->input('channel_id'),
             'image' => $mainImageUrl,
             'title' => $request->input('title'),
+//            'is_notice' => $request->input('is_notice'),
             'content' => $content,
             'user_id' => auth()->id()
         ])->id;
@@ -154,12 +156,19 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $this->authorize('update',$post);
-//        $post = Post::find($id);
+
+        $setting = [
+            "type" => 'edit',
+            "previous" => null,
+            "btn" => "수정",
+        ];
         $user = auth()->user();
         if($this->agent->isMobile()) {
-            return view('mobile.post.edit', compact('user', 'post'));
+            return view('mobile.post.create', compact('user', 'post', 'setting'));
+//            return view('mobile.post.edit', compact('user', 'post'));
         } else {
-            return view('post.edit', compact('user','post'));
+            return view('post.create', compact('user','post', 'setting'));
+//            return view('post.edit', compact('user','post'));
         }
     }
 
@@ -208,6 +217,7 @@ class PostController extends Controller
             ->update([
                 'image'=>$mainImageUrl,
                 'title'=>$request->title,
+//                'is_notice' => $request->has('is_notice'),
                 'channel_id'=>$request->channel_id,
                 'content'=>$content
             ]);

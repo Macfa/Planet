@@ -97,7 +97,7 @@ class ChannelController extends Controller
 //            ]);
 
             $user->coins()->create([
-                "type" => "동아리생성",
+                "type" => "토픽생성",
                 "coin" => -100,
                 'user_id' => auth()->id(),
             ]);
@@ -217,7 +217,7 @@ class ChannelController extends Controller
             $result['id'] = $id;
             $result['result'] = 'deleted';
             $result['type'] = 'info';
-            $result['msg'] = '동아리 정상 탈퇴되었습니다';
+            $result['msg'] = '토픽 정상 탈퇴되었습니다';
 
         } else {
             $created = ChannelJoin::create([
@@ -230,7 +230,7 @@ class ChannelController extends Controller
                 ->first();
             $result['result'] = 'created';
             $result['type'] = 'info';
-            $result['msg'] = '동아리 정상 가입되었습니다';
+            $result['msg'] = '토픽 정상 가입되었습니다';
         }
 
         $count = ChannelJoin::where('channel_id', $id)

@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Experience extends Model
 {
@@ -23,17 +24,20 @@ class Experience extends Model
     }
     public function writePost(Post $post) {
         $today = Carbon::now();
-        $limit = 20;
+        $coin_setup = CoinSetup::first();
+        $limit = $coin_setup["day_limit"];
 //        $totalCoin = $post->coins()->where('created_at', $today)->sum('coin');
 //        $totalCoin = $post->join('coins', 'coins.coinable_type', '=', 'test')->whereDate('coins.created_at', $today)->sum('coin');
         $totalExp = $post->experiences()->whereDate('experiences.created_at', $today)->sum('exp');
 
         if($totalExp > $limit) {
             // 코인 추가 획득 불가
+            return true;
         } else {
+
             $post->experiences()->create([
                 'message'=> '글작성',
-                'exp'=> 5,
+                'exp'=> $coin_setup["post"],
                 'user_id'=> auth()->id()
             ]);
             $this->checkUserGrade();
@@ -43,15 +47,17 @@ class Experience extends Model
 
     public function writeComment(Comment $comment) {
         $today = Carbon::now();
-        $limit = 10;
+        $coin_setup = new CoinSetup();
+        $limit = $coin_setup["day_limit"];
         $totalExp = $comment->experiences()->whereDate('experiences.created_at', $today)->sum('exp');
 
         if($totalExp > $limit) {
             // 코인 추가 획득 불가
         } else {
+            $coin_setup = CoinSetup::first();
             $comment->experiences()->create([
                 'message'=> '댓글작성',
-                'exp'=> 1,
+                'exp'=> $coin_setup["comment"],
                 'user_id'=> auth()->id()
             ]);
             $this->checkUserGrade();
@@ -60,16 +66,23 @@ class Experience extends Model
     }
 
     public function checkUserGrade() {
+        $checkExistGradeTable = DB::table("grades")->exists();
+
+        if(!$checkExistGradeTable) {
+            $grade = new Grade();
+            $grade->setDefaultValue();
+        }
         $user = User::find(auth()->id());
+//        dd($user->grade);
+        $totalExp = $user->hasExperiences()->sum('exp');
         $maxExp = $user->grade->maxExp;
         $minExp = $user->grade->minExp;
-        $totalExp = $user->hasExperiences()->sum('exp');
 
         if($maxExp > $totalExp && $minExp < $totalExp) {
             // pass
         } else if($maxExp <= $totalExp) {
-            $gradeID = Grade::where('minExp', '<=', $totalExp)->where('maxExp', '>', $totalExp)->value('id');
-            $user->gradeID = $gradeID;
+            $level = Grade::where('minExp', '<=', $totalExp)->where('maxExp', '>', $totalExp)->value('level');
+            $user->level = $level;
             $user->save();
 //            $request->session()->flash('status', 'Task was successful!');
         } else if($minExp > $totalExp) {

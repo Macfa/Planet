@@ -6,8 +6,13 @@
 <section id="channel">
     <div class="post_wrap">
         <article class="board_box">
-            <form id="form" action="{{ route('post.store') }}" name="searchForm" method="POST" onsubmit="return checkValue();">
-                @csrf
+            @if($setting["type"] === "create")
+                <form id="form" action="{{ route('post.store') }}" name="searchForm" method="POST" onsubmit="return checkValue();">
+            @else
+                <form id="form" action="{{ route('post.update', $post->id) }}" method="POST">
+                @method('PUT')
+            @endif
+            @csrf
                 <div class="d-flex">
                     <div class="left col-9">
                         <div class="ch_list">
@@ -15,14 +20,28 @@
                                 <div class="select_box d-flex">
                                     <select class="cst_select is-invalid" name="channel_id" id="channelList">
                                         <option value="">등록할 채널을 선택해주세요</option>
-                                        @foreach ($user->allChannels() as $channel)
-                                            <option value="{{ $channel->id }}"
-                                                    @if(old('channel_id')==$channel->id) selected
-                                                    @elseif($fromChannelID == $channel->id) selected  @endif>
-                                                {{ $channel->name }}
-                                            </option>
-                                        @endforeach
-
+                                        @if($setting["type"] === "create")
+                                            @foreach (auth()->user()->allChannels() as $channel)
+                                                <option value="{{ $channel->id }}"
+                                                    @if(old('channel_id') === $channel->id)
+                                                        selected
+                                                    @elseif($setting["previous"] === $channel->id)
+                                                        selected
+                                                    @endif
+                                                    >
+                                                    {{ $channel->name }}
+                                                </option>
+                                            @endforeach
+                                        @else
+                                            @foreach (auth()->user()->allChannels() as $channel)
+                                                <option value="{{ $channel->id }}"
+                                                        @if(old('channel_id') === $channel->id) selected
+                                                        @elseif($post->channel_id === $channel->id) selected
+                                                    @endif>
+                                                    {{ $channel->name }}
+                                                </option>
+                                            @endforeach
+                                        @endif
                                     </select>
                                     @error('channel_id')
                                     <div class="ml-2 invalid-feedback">{{ $message }}</div>
@@ -34,12 +53,14 @@
                                 <div class="sub_box sub_box_line">
                                     <span class="menu">포스트</span>
 
+                                    @if(auth()->user()->role === "admin")
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="is_notice">
+                                        <input class="form-check-input" type="checkbox" name="is_notice" value="1" id="is_notice" {{ (isset($post->is_notice) && $post->is_notice === 1) ? 'checked' : '' }} >
                                         <label class="form-check-label" for="is_notice">
                                             안내글
                                         </label>
                                     </div>
+                                    @endif
                                 </div>
                                 <div class="sub_box sub_box_line">
                                     <input type="text" class="box is-invalid" name="title" value="{{ ($post->title) ?? old('title') }}" placeholder="이름을 입력하세요">
@@ -56,8 +77,8 @@
                             </div>
                                 <div style="margin-top: 20px;">
                                     <ul class="btn">
-                                        <li><button type="button" class="btn_cancle" onclick="location.href='{{ url('/') }}'">취소</button></li>
-                                        <li><button type="submit" class="btn_enter" onclick="">등록</button></li>
+                                        <li><button type="button" class="btn_cancle" onclick="history.back();">취소</button></li>
+                                        <li><button type="submit" class="btn_enter" onclick="">{{ $setting["btn"] }}</button></li>
                                     </ul>
                                 </div>
 

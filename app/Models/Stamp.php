@@ -11,6 +11,9 @@ class Stamp extends Model
     protected $table = "stamps";
     protected $guarded = [];
 
+    public function category() {
+        return $this->hasOne(StampCategory::class,'id', 'category_id');
+    }
     public function coins() {
         return $this->morphMany(Coin::class, 'coinable');
     }

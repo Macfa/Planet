@@ -9,9 +9,9 @@
                     <button style="margin:0 30px;" onclick="willRemove();">Unread</button>
                     <button onclick="location.href='/test'">Coin</button>
 
-                    <div class="category_title">최근 방문한 동아리</div>
+                    <div class="category_title">최근 방문한 토픽</div>
                     <ul class="category flex-container flex-nowrap channel-history justify-content-start align-items-center">
-                        <div><a href="/">포디엄</a></div>
+                        <div><a href="/">실시간 화제글</a></div>
                         @foreach ($channelVisitHistories as $history)
                             @if($loop->first)
                                 <span>/</span>
@@ -69,7 +69,7 @@
                                         </a>
                                     </div>
                                     <div class="user">
-                                    {{--                                                                                            [동아리명] n분 전 / 사용자 id--}}
+                                    {{--                                                                                            [토픽명] n분 전 / 사용자 id--}}
                                         <p><span><a href="{{ route('channel.show', $post->channel_id) }}">[ {{ $post->channel->name }} ]</a></span> {{ $post->created_at->diffForHumans() }} / <a href="{{ route('user.show', ["user" => $post->user] ) }}">{{ $post->user->name }}</a></p></div>
 {{--                                        <p><span><a href="{{ route('channel.show', $post->channel_id) }}">[{{ $post->channel->name }}]</a></span>온 <a href="{{ route('user.show', ["user" => $post->user] ) }}">{{ $post->user->name }}</a> / {{ $post->created_at->diffForHumans() }}</p></div>--}}
                                 </td>
@@ -100,7 +100,7 @@
     <section class="container-fluid">
         <nav style="padding: 8px; text-align: center;" class="flex-container flex-justify-space-between">
             {{--        <li><a href="@if(auth()->check()) {{ route('post.create') }} @else javascript:notLogged(); @endif">게시글 작성</a></li>--}}
-            <a href="@if(auth()->check()) {{ route('channel.create') }} @else javascript:notLogged(); @endif" class="col">동아리 만들기</a>
+            <a href="@if(auth()->check()) {{ route('channel.create') }} @else javascript:notLogged(); @endif" class="col">토픽 만들기</a>
             <a href="javascript:$('#main').animate({ scrollTop: 0}, 300);" class="col">맨 위로</a>
             <a href="@if(auth()->check()) {{ route('post.create') }} @else javascript:notLogged(); @endif" class="col">글쓰기</a>
         </nav>

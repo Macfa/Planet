@@ -93,8 +93,13 @@ Route::get('/mark', function() {
 //Route::get('/stamp', [StampController::class,'getDataFromCategory']);
 Route::post('/stamp/purchase', [StampController::class,'purchase']);
 Route::get('/stamp', [StampController::class,'show']);
+Route::delete('/stamp/{id}', [StampController::class,'destroy']);
+Route::post('/stamp/store', [StampController::class,'store']);
 Route::get('/stamp/{id}', [StampController::class,'get']);
 Route::get('/category/', [\App\Http\Controllers\StampCategoryController::class,'get']);
+Route::delete('/category/{id}', [\App\Http\Controllers\StampCategoryController::class,'destroy']);
+Route::post('/category/store', [\App\Http\Controllers\StampCategoryController::class,'store']);
+
 
 // Login with APIs
 //Route::get('auth/social', 'Auth\LoginController@show')->name('social.login');
@@ -111,5 +116,17 @@ Route::group(['middleware'=>'check.admin'], function() {
     Route::get('/admin/report', [AdminController::class,'report']);
     Route::get('/admin/coin', [AdminController::class,'coin']);
     Route::get('/admin/user', [AdminController::class,'user']);
+    Route::get('/admin/stampCategory', [AdminController::class,'stampCategory']);
+    Route::post('/admin/stampCategory/store', [\App\Http\Controllers\StampCategoryController::class,'store']);
+    Route::get('/admin/stampCategory/create', function() {
+        return view('admin.stamp_category.create');
+    });
+    Route::get('/admin/stamp/create', function() {
+        $categories = \App\Models\StampCategory::all();
+        return view('admin.stamp.create', compact('categories'));
+    });
+    Route::post('/admin/stamp/store', [\App\Http\Controllers\StampController::class,'store']);
+    Route::get('/admin/stampGroup', [AdminController::class,'stampGroup']);
+    Route::get('/admin/stamp', [AdminController::class,'stamp']);
     Route::post('/admin/coin/set', [AdminController::class,'setCoin']);
 });

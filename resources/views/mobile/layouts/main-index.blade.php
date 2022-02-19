@@ -30,7 +30,7 @@
                             @endforeach
                         </div>
                         <div class="user">
-                            {{--                                                                                            [동아리명] n분 전 / 사용자 id--}}
+                            {{--                                                                                            [토픽명] n분 전 / 사용자 id--}}
                             <p><span><a href="{{ route('channel.show', $post->channel_id) }}">[ {{ $post->channel->name }} ]</a></span> {{ $post->created_at->diffForHumans() }} / <a href="{{ route('user.show', ["user" => $post->user] ) }}">{{ $post->user->name }}</a></p></div>
                         {{--                                        <p><span><a href="{{ route('channel.show', $post->channel_id) }}">[{{ $post->channel->name }}]</a></span>온 <a href="{{ route('user.show', ["user" => $post->user] ) }}">{{ $post->user->name }}</a> / {{ $post->created_at->diffForHumans() }}</p></div>--}}
                     </td>

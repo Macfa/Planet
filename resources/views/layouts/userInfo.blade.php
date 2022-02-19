@@ -100,7 +100,7 @@
         <p>어쩌면 마음이 맞는 친구를 찾을지도 모릅니다.</p>
         <ul>
             <li><a href="{{ route('post.create') }}">게시글 작성</a></li>
-            <li><a href="{{ route('channel.create') }}">동아리 만들기</a></li>
+            <li><a href="{{ route('channel.create') }}">토픽 만들기</a></li>
         </ul>
     </div>
 </div>

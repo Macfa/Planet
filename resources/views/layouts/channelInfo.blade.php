@@ -2,7 +2,7 @@
 
 <div class="right_sub">
     <div class="info d-flex justify-content-between">
-        동아리 정보
+        토픽 정보
         <span>
             @can('update', $channel)
                 <button class="mr-2" onclick="location.href='{{ route('channel.edit', $channel->id) }}'">수정</button>
@@ -17,11 +17,11 @@
         <div class="flex">
             <div class="flex_item">
                 <div class="totalCount">{{ number_format($channel->channelJoins->count()+1) }}</div>
-                <p>동아리 인원</p>
+                <p>토픽 인원</p>
             </div>
             <div class="flex_item">
                 <div>{{ date('Y.m.d', strtotime($channel->created_at)) }}</div>
-                <p>동아리 창단일</p>
+                <p>토픽 창단일</p>
             </div>
         </div>
         <div class="flex">
@@ -47,9 +47,9 @@
 {{--        </div>--}}
         @auth
             @if($channel->channelJoins()->where('user_id', auth()->id())->count()>0 && $channel->user_id != auth()->id())
-                <div class="mt-4 channel_join"><a class="d-btn favorite_btn clickable" onclick="addChannelJoin({{ $channel->id }})">동아리 탈퇴</a></div>
+                <div class="mt-4 channel_join"><a class="d-btn favorite_btn clickable" onclick="addChannelJoin({{ $channel->id }})">토픽 탈퇴</a></div>
             @elseif($channel->user_id != auth()->id())
-                <div class="mt-4 channel_join"><a class="d-btn favorite_btn clickable" onclick="addChannelJoin({{ $channel->id }})">동아리 가입</a></div>
+                <div class="mt-4 channel_join"><a class="d-btn favorite_btn clickable" onclick="addChannelJoin({{ $channel->id }})">토픽 가입</a></div>
             @endif
         @endauth
     </div>
@@ -59,9 +59,9 @@
         <p>사람들과 얘기하고 싶었던 주제로 나만의 몽드를 만들어 보세요.</p>
         <p>어쩌면 마음이 맞는 친구를 찾을지도 모릅니다.</p>
         <ul>
-{{--            <div class="mt-4"><a class="d-btn favorite_btn clickable" onclick="addChannelJoin({{ $channel->id }})">동아리 가입</a></div>--}}
+{{--            <div class="mt-4"><a class="d-btn favorite_btn clickable" onclick="addChannelJoin({{ $channel->id }})">토픽 가입</a></div>--}}
             <li><a class="d-btn favorite_btn clickable" href="@if(auth()->check()) {{ route('post.create') }} @else javascript:notLogged(); @endif">게시글 작성</a></li>
-            <li><a class="d-btn favorite_btn clickable" href="@if(auth()->check()) {{ route('channel.create') }} @else javascript:notLogged(); @endif">동아리 만들기</a></li>
+            <li><a class="d-btn favorite_btn clickable" href="@if(auth()->check()) {{ route('channel.create') }} @else javascript:notLogged(); @endif">토픽 만들기</a></li>
         </ul>
     </div>
 {{--    <div>--}}
@@ -80,7 +80,7 @@
                 <div class="modal-body">
                     <div>
                         <div class="searchChannelJoinSection">
-                            <input type="text" list="searchChannelJoinList" class="form-control" name="ChannelJoinInput" placeholder="동아리 유저 검색" required>
+                            <input type="text" list="searchChannelJoinList" class="form-control" name="ChannelJoinInput" placeholder="토픽 유저 검색" required>
 {{--                            <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">--}}
                             <datalist id="searchChannelJoinList">
                             </datalist>
@@ -160,11 +160,11 @@
 {{--                    var url = '{{ route('channel.show', ":id") }}';--}}
 //                     url = url.replace(':id', data.channelID);
                     // $('.category').append('<li class="channel_'+data.channel.id+'"><a href="'+url+'">'+data.channel.name+'</a></li>');
-                    $(".channel_join > a").text("동아리 탈퇴");
+                    $(".channel_join > a").text("토픽 탈퇴");
                     $('.totalCount').text(data.totalCount);
                 } else if(data.result=='deleted') {
                     // $('.category li.channel_'+data.id).remove();
-                    $(".channel_join > a").text("동아리 가입");
+                    $(".channel_join > a").text("토픽 가입");
                     $('.totalCount').text(data.totalCount);
                 }
             },

@@ -112,12 +112,6 @@ input:focus {
   transform: translate(-50%, 0);
 }
 
-#app .board_box .left div.list {
-  /*border: 1px solid #cbc7c7;*/
-  /*border-radius: 10px;*/
-  min-height: 686px;
-}
-
 #app .board_box .left div.list table tr {
   border-bottom: 1px solid #cbc7c7;
 }

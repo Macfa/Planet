@@ -3,9 +3,11 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CreateChannelsTable extends Migration
 {
+    use SoftDeletes;
     /**
      * Run the migrations.
      *
@@ -24,6 +26,7 @@ class CreateChannelsTable extends Migration
             $table->timestamps();
             $table->index('id');
             $table->index('user_id');
+            $table->softDeletes();
         });
     }
 

@@ -8,10 +8,10 @@
                 <button style="margin:0 30px;" onclick="willRemove();">Unread</button>
                 <a href="{{ route("test") }}">Coin</a>
                     <ul class="category">
-                        <div class="category_title">최근 방문한 동아리</div>
+                        <div class="category_title">최근 방문한 토픽</div>
 {{--                        <ul class="channel-history d-flex flex-nowrap justify-content-between align-items-center">--}}
                         <ul class="channel-history d-flex flex-nowrap align-items-center">
-                            <div><a href="{{ route('home') }}">포디엄</a></div>
+                            <div><a href="{{ route('home') }}">실시간 화제글</a></div>
     {{--                        @auth--}}
                                 @foreach($channelVisitHistories as $history)
                                     <div>
@@ -33,6 +33,9 @@
                 @endif
                 @hasSection('content-mypage')
                     @yield('content-mypage')
+                @endif
+                @hasSection('content-channel')
+                    @yield('content-channel')
                 @endif
 
                 @hasSection('mainlist')
@@ -81,8 +84,9 @@
                     $(`#post-${tmpPostID} .title a`).get(0).click();
                 }
             }
-            $(window).scroll(function(event) {
-                if($(window).scrollTop() + $(window).height() >= $(document).height()) {
+            $(".list").scroll(function(event) {
+                // console.log($(".list").scrollTop(), $(".list").height(), $(document).height());
+                if($(".list").scrollTop() + $(".list").height() >= $(".list > table").height()) {
                     if(checkRun == false) {
                         checkRun = true;
                         loadMoreData(page);
@@ -110,6 +114,7 @@
             }
         }
         function loadMoreData(page) {
+            // alert(page);
             var channelID = "{{ request()->route('channel.id') }}";
             var type = $(".tab .on").attr('value');
             // alert(channel_id);
@@ -329,6 +334,12 @@
                     console.log(err);
                 }
             })
+        }
+        function setContentHeight() {
+            let list = $(".list").offset().top;
+            let body = $("body").height();
+            let distance = body - list;
+            $(".list").css("max-height", distance);
         }
 
     </script>

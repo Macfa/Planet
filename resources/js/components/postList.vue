@@ -4,7 +4,7 @@
       <article class="board_box">
         <div class="left">
           <ul v-if="favorites" class="category">
-            <li><a href="/"><img :src="'/img/icon_podium.png'">포디엄</a></li>
+            <li><a href="/"><img :src="'/img/icon_podium.png'">실시간 화제글</a></li>
             <li v-for="favorite in favorites" :key="favorite.id"><a href="#"><img :src="'/img/icon_podium.png'">{{ favorite.channel.name }}</a></li>
           </ul>
           <ul class="tab">
@@ -37,15 +37,15 @@
                           <router-link :to="{ name: 'channelShow', params: { id: post.channel.id} }">
                             [ {{ post.channel.name }} ]
                           </router-link>
-                          
-                        </span>온 
+
+                        </span>온
                         <a>
                           {{ post.user.name }}
                         </a> / n분 전
                       </p>
                     </div>
                   </td>
-                </tr>                
+                </tr>
             </table>
           </div>
         </div>
@@ -69,7 +69,7 @@
           </div>
         </div>
       </article>
-    </div>    
+    </div>
 </template>
 
 <script>
@@ -111,7 +111,7 @@ export default {
         //     .catch(function(err) {
         //         console.log(err);
         //     })
-        // },        
+        // },
     }
 }
 </script>

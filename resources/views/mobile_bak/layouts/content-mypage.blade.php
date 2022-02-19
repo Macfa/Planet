@@ -1,6 +1,6 @@
 @section('mobile.content-mypage')
     <ul class="tab_title accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-{{--        {{ (isset($user)) ? $user->name:'포디엄'  }}--}}
+{{--        {{ (isset($user)) ? $user->name:'실시간 화제글'  }}--}}
         마이페이지
 
 {{--        @if(isset($user) && auth()->id()==$user->id)--}}

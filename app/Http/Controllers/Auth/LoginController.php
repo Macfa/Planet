@@ -5,6 +5,7 @@ use App\Models\User;
 use App\Exceptions;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -125,7 +126,7 @@ class LoginController extends Controller
                 'provider_id' => $providerUser->getId(),
                 'access_token' => $providerUser->token,
                 // user can use reset password to create a password
-                'password' => ''
+                'password' => Hash::make(''),
             ]);
         }
 

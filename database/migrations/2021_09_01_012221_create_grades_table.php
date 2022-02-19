@@ -16,6 +16,7 @@ class CreateGradesTable extends Migration
         Schema::create('grades', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('level');
             $table->string('icon')->nullable();
             $table->integer('minExp');
             $table->integer('maxExp');

@@ -18,7 +18,7 @@
         <p>어쩌면 마음이 맞는 친구를 찾을지도 모릅니다.</p>
         <ul>
             <li><a href="@if(auth()->check()) {{ route('post.create') }} @else javascript:notLogged(); @endif">게시글 작성</a></li>
-            <li><a href="@if(auth()->check()) {{ route('channel.create') }} @else javascript:notLogged(); @endif">동아리 만들기</a></li>
+            <li><a href="@if(auth()->check()) {{ route('channel.create') }} @else javascript:notLogged(); @endif">토픽 만들기</a></li>
         </ul>
     </div>
     <div>

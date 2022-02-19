@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Grade extends Model
 {
@@ -13,7 +14,23 @@ class Grade extends Model
     protected $primaryKey = "id";
     protected $guarded = [];
 
+    public function __construct(array $attributes = [])
+    {
+        if($this->exists() === false) {
+            $this->insert([
+                'level' => 1,
+                'name' => '기본',
+                'icon' => '',
+                'minExp' => 0,
+                'maxExp' => 100,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+        parent::__construct($attributes);
+    }
+
     public function user() {
-        return $this->belongsTo(User::class, 'id', 'grade_id');
+        return $this->belongsTo(User::class, 'level', 'level');
     }
 }

@@ -5,7 +5,7 @@
       <article class="board_box">
         <div class="left">
           <ul v-if="favorites.length" class="category">
-            <li><router-link :to="{ path: '/'}"><img :src="'/img/icon_podium.png'">포디엄</router-link></li>
+            <li><router-link :to="{ path: '/'}"><img :src="'/img/icon_podium.png'">실시간 화제글</router-link></li>
             <li v-for="favorite in favorties" :key="favorite.id"><router-link :to="{ path: '/channel/:id', params: { id: favorite.channel.id }}"><img :src="'/img/icon_podium.png'">{{ favorite.channel.name }}</router-link></li>
           </ul>
           <div class="add_planet">
@@ -57,7 +57,7 @@
                 </div>
                 <div class="flex_item">
                   <div>{{ date('Y년 m월 d일', strtotime(channel.created_at)) }}</div>
-                  <p>최초 관측일</p>              
+                  <p>최초 관측일</p>
                 </div>
               </div>
               <div class="flex">
@@ -65,7 +65,7 @@
                   <div>nickname</div>
                   <p>{{ channel.owner }}</p>
                 </div>
-              </div>              
+              </div>
             </div>
           </div>
           <div class="link">
@@ -121,7 +121,7 @@ export default {
         //     .catch(function(err) {
         //         console.log(err);
         //     })
-        // },        
+        // },
     }
 }
 </script>

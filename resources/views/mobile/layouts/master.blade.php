@@ -130,7 +130,7 @@
             // set Content Max-Height
             setContentHeight();
         });
-
+        setContentHeight();
         $('#open_post_modal').on('shown.bs.modal', function() {
             $(document).off('focusin.modal');
         });

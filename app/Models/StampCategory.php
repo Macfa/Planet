@@ -19,4 +19,7 @@ class StampCategory extends Model
     public function getAllCategories() {
         return $this->all();
     }
+    public function category() {
+        return $this->belongsTo(Stamp::class, 'category_id');
+    }
 }

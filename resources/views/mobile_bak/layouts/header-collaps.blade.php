@@ -21,7 +21,7 @@
                 <div class="accordion-header">
 
                     <button class="fw-bold flex-container" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_channelJoins" aria-expanded="true" aria-controls="collapseOne">
-                        내 동아리
+                        내 토픽
                     </button>
                 </div>
             </div>

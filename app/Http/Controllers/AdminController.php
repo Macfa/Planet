@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\CoinSetup;
 use App\Models\Post;
+use App\Models\Stamp;
+use App\Models\StampCategory;
+use App\Models\StampGroup;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -62,4 +65,17 @@ class AdminController extends Controller
         $users = User::orderBy('id', 'desc')->get();
         return view('admin.user', compact('users'));
     }
+    function stampCategory() {
+        $categories = StampCategory::all();
+        return view('admin.stamp_category', compact('categories'));
+    }
+    function stampGroup() {
+        $groups = StampGroup::all();
+        return view('admin.stamp_group', compact('groups'));
+    }
+    function stamp() {
+        $stamps = Stamp::all();
+        return view('admin.stamp', compact('stamps'));
+    }
+
 }

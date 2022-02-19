@@ -104,7 +104,7 @@
     <main>
         <div class="sidebar">
             <div class="flex-shrink-0 p-3 bg-white" style="width: 280px;">
-            <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+            <a href="/admin" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
                 <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
                 <span class="fs-5 fw-semibold">Test Admin Page</span>
             </a>
@@ -121,11 +121,11 @@
                 </li>
                 <li class="mb-1">
                     <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#channel-collapse" aria-expanded="false">
-                        동아리
+                        토픽
                     </button>
                     <div class="collapse" id="channel-collapse">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                            <li><a href="#" class="link-dark rounded">동아리복구</a></li>
+                            <li><a href="#" class="link-dark rounded">토픽복구</a></li>
                         </ul>
                     </div>
                 </li>
@@ -146,6 +146,9 @@
                     <div class="collapse" id="set-collapse">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                             <li><a href="/admin/coin" class="link-dark rounded">코인정보설정</a></li>
+                            <li><a href="/admin/stampCategory" class="link-dark rounded">스탬프카테고리설정</a></li>
+{{--                            <li><a href="/admin/stampGroup" class="link-dark rounded">스탬프그룹설정</a></li>--}}
+                            <li><a href="/admin/stamp" class="link-dark rounded">스탬프설정</a></li>
                         </ul>
                     </div>
                 </li>

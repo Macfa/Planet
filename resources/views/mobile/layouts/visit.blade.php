@@ -1,6 +1,6 @@
 @auth
     <ul class="category">
-        <div class="category_title">최근 방문한 동아리</div>
+        <div class="category_title">최근 방문한 토픽</div>
         @forelse ($visits as $visit)
             <li class="channel_{{ $visit->channelID }}"><a href="{{ route('channel.show', $visit->channelID) }}">{{ $visit->channel->name }}</a></li>
         @empty

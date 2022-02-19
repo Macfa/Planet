@@ -10,6 +10,7 @@ use App\Models\StampCategory;
 use App\Models\StampGroup;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Jenssegers\Agent\Agent;
 
 class StampController extends Controller
@@ -17,7 +18,44 @@ class StampController extends Controller
     public function recentStamp() { // 최근 사용한 스탬프
 
     }
+    public function store(Request $request) {
+        // set validation rules
+        $rules = [
+            'name' => 'required',
+            'image' => 'required',
+            'description' => 'required',
+            'coin' => 'required',
+        ];
 
+        $messages = [
+            'required' => ':attribute 입력해주세요.',
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages)->validate();
+
+        // some work with image
+//dd($request);
+        // upload file
+        $upload_controller = new EditorsController();
+        $result = $upload_controller->upload($request);
+//        dd($request->hasFile('image'), $result);
+        if($result) {
+            Stamp::create([
+                'category_id' => $request->input("category_id"),
+                'name' => $request->input("name"),
+                'description' => $request->input("description"),
+                'image' => $result["url"],
+                'coin' => $request->input("coin"),
+                'abbr' => $request->input("abbr"),
+            ]);
+        }
+        return redirect()->to('/admin/stamp');
+    }
+    public function destroy($id) {
+        $stamp = Stamp::findOrFail($id);
+        $stamp->delete();
+
+        return redirect()->back();
+    }
     public function getDataFromCategory(Request $request) {
         // 카테고리에 해당되는 데이터를 가져온다
         $categoryID = $request->input("categoryID");

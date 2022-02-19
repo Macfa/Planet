@@ -21,7 +21,7 @@ class CreateStampsTable extends Migration
             $table->string("image")->nullable();
             $table->string("description")->nullable();
             $table->integer("coin");
-            $table->string("abbr", 20); // 약어
+            $table->string("abbr", 20)->nullable(); // 약어
             $table->timestamps();
         });
     }

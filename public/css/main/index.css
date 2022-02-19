@@ -113,7 +113,6 @@ background-color: #3d5afe;
 #main .board_box .left div.list {
   border: 1px solid #cbc7c7;
   border-radius: 0px;
-  max-height: 686px;
     overflow-y: scroll;
 }
 
@@ -374,8 +373,7 @@ textarea[name=content]:focus {
     text-overflow: ellipsis;
     overflow: hidden;
 }
-/*@media screen and (max-width: 1440px) {*/
-/*  .wrap {*/
-/*    width: 1276px;*/
-/*  }*/
-/*}*/
+.notice_post {
+    /*color: #761b18;*/
+    background-color: #888;
+}

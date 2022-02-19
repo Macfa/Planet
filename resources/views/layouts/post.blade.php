@@ -323,7 +323,7 @@
                 for(var i=0; i<data.length; i++) {
                     replaceData.push({
                         'stampId': data[i].id,
-                        'stampImage': '/image/'+data[i].image,
+                        'stampImage': data[i].image,
                         'stampCoin': data[i].coin,
                     })
                 }
@@ -348,7 +348,7 @@
                     'id': data.id,
                     'coin': data.coin,
                     'name': data.name,
-                    'image': '/image/'+data.image,
+                    'image': data.image,
                     'description': data.description,
                     'hasCoin': data.hasCoin,
                     'afterPurchaseCoin': data.afterPurchaseCoin

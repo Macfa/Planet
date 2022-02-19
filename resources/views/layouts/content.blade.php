@@ -7,7 +7,7 @@
             <div class="left col-9">
                 @auth
                     <ul class="category">
-                        <div class="category_title">최근 방문한 동아리</div>
+                        <div class="category_title">최근 방문한 토픽</div>
                         <button style="margin:0 30px;" onclick="willRemove();">Unread</button>
                         <button onclick="location.href='/test'">Coin</button>
                         @forelse ($channelVisitHistories as $channel)

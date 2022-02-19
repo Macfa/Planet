@@ -14,11 +14,11 @@
         <ul>
             @auth
                 <li><a href="{{ route('post.create') }}">게시글 작성</a></li>
-                <li><a href="{{ route('channel.create') }}">동아리 만들기</a></li>
+                <li><a href="{{ route('channel.create') }}">토픽 만들기</a></li>
             @endauth
             @guest
                 <li><a href="javascript:notLogged();">게시글 작성</a></li>
-                <li><a href="javascript:notLogged();">동아리 만들기</a></li>
+                <li><a href="javascript:notLogged();">토픽 만들기</a></li>
             @endguest
         </ul>
     </div>

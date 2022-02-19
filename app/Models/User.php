@@ -21,7 +21,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email',
         'avatar', 'provider_id', 'provider',
         'access_token'
    ];
@@ -60,7 +60,7 @@ class User extends Authenticatable
         return $this->hasMany(ChannelJoin::class, 'user_id', 'id');
     }
     public function grade() {
-        return $this->hasOne(Grade::class, "id", "grade_id");
+        return $this->hasOne(Grade::class, "level", "level");
     }
     public function favorites() {
         // to be delete !
@@ -111,7 +111,7 @@ class User extends Authenticatable
         $this->attributes['name'] = $name;
     }
     public function getGradeIconAttribute() {
-        return $this->grade->attributes['icon'];
+        return $this->grade->attributes['icon'] ?? null;
     }
     public function changeUserName($name) {
         // 무료 이름 변경을 이전에 이용했었는지 체크
@@ -136,14 +136,6 @@ class User extends Authenticatable
             } else {
                 return false;
             }
-        }
-    }
-    public static function responseToastNotLogged() {
-        $checkLogged = auth()->check();
-
-        if(!$checkLogged) {
-            // if not logged
-            return redirect()->back()->with(['msg' => '로그인이 필요한 기능입니다', 'type' => 'warning']);
         }
     }
     public function isAdmin() {

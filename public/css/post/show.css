@@ -18,10 +18,6 @@
     cursor:pointer;
   }
 
-  body {
-    overflow-y:scroll;
-  }
-
   .modal-parent {
     /*display:flex;*/
     /*justify-content:center;*/
