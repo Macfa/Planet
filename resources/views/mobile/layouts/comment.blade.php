@@ -27,8 +27,8 @@
         <div class="section-title">
             <h4>댓글 보기</h4>
         </div>
+       @foreach ($comments as $comment)
         <div class="comment-list">
-           @forelse ($comments as $comment)
             <!-- 댓글 리스트 -->
                 <div style="padding-left:{{ ($comment->depth <= 4) ? $comment->depth*22 : 4*22 }}px;"
                      class="comment-item comment-{{ $comment->id }}">
@@ -130,10 +130,8 @@
         </table>
     </div>
 </div>
-        @empty
-            <div><p>댓글이 없습니다.</p></div>
-        @endforelse
-    </div>
+        </div>
+        @endforeach
     <!-- 하단 기능 Comment -->
     {{--        <div class="flex-container board-bot-function justify-content-between" style="position: sticky; top:0px;  background: rgba(252, 252, 252, 1) !important;" id="post-bot-function">--}}
         <div class="d-none flex-container flex-justify-space-between" id="post-bot-function">
@@ -508,8 +506,8 @@
                 </div>
             </div>
         </div>
-    @{{if commentCount < 2}}
     </div>
+    @{{if commentCount < 2}}
 </div>
 @{{/if}}
     </script>

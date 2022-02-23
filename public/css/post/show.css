@@ -300,8 +300,8 @@
     color:rgba(120,120,120);
   }
 
-  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .comment-item > .comment-top > .write-info > img,
-  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .comment-item > .reply-list > .reply-item .reply-top > .write-info > img  {
+.modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .comment-item > .comment-top td > img,
+.modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .comment-item > .reply-list > .reply-item .reply-top > .write-info > img  {
     width:38px;
       float: left;
     /*height:38px;*/
@@ -676,7 +676,4 @@ table, td {
 }
 .stamp-item + .stamp-item {
     margin-left: 3px;
-}
-.comment-cont {
-    margin-left: 40px;
 }

@@ -25,13 +25,14 @@ h1, h2, h3, h4, h5, h6 {
 body {
   background: #fff;
   letter-spacing: -0.5px;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
   margin: 0;
   padding: 0;
   font-size: 15px;
   color: #000;
   font-family: "Noto Sans KR";
-height: calc(var(--vh, 1vh) * 100)
+/*height: calc(var(--vh, 1vh) * 100)*/
 }
 
 textarea, input, select, button, a {

@@ -10,7 +10,8 @@
             @forelse ($posts as $post)
                 <tr id="post-{{ $post->id }}" class="post-title">
                     <td style="vertical-align: top">
-                        <div class="thum"></div>
+{{--                        <div class="thum"></div>--}}
+                        <div class="thum" style="background-image: url({{ $post->image }});"></div>
                     </td>
                     <td>
                         <div class="title">

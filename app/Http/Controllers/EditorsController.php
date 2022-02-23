@@ -19,7 +19,7 @@ class EditorsController extends Controller
             $extension = $request->file($target)->getClientOriginalExtension();
             $fileName = $fileName.'_'.time().'.'.$extension;
 
-            $request->file($target)->move(public_path($target), $fileName);
+            $request->file($target)->move(public_path('image'), $fileName);
 //            dd($fileName);
             $CKEditorFuncNum = $request->input('CKEditorFuncNum');
             $url = asset('image/'.$fileName);

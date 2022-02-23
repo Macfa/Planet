@@ -24,8 +24,8 @@
                         ">{{ $post->likes->sum('like') }}</span>
                 </td>
                 <td>
-                    {{--                                    <div class="thum" style="background-image: url({{ $post->image }});"></div>--}}
-                    <div class="thum"></div>
+                    <div class="thum" style="background-image: url({{ $post->image }});"></div>
+{{--                    <div class="thum"></div>--}}
                 </td>
                 <td>
                     <div class="title">
@@ -46,7 +46,7 @@
                             @else
                                 ">
                             @endif
-                                <img src="/image/{{ $stamp->image }}" alt="">
+                                <img src="{{ $stamp->image }}" alt="">
                                 @if($stamp->totalCount>1)
                                     <span class="stamp_count">{{ $stamp->totalCount }}</span>
                                 @endif

@@ -130,9 +130,9 @@
             let vh = window.innerHeight * 0.01;
             document.documentElement.style.setProperty('--vh', `${vh}px`);
             // set Content Max-Height
-            setContentHeight();
+            // setContentHeight();
         });
-        setContentHeight();
+        // setContentHeight();
     });
 
 </script>

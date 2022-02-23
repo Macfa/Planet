@@ -84,9 +84,9 @@
                     $(`#post-${tmpPostID} .title a`).get(0).click();
                 }
             }
-            $(".list").scroll(function(event) {
-                // console.log($(".list").scrollTop(), $(".list").height(), $(document).height());
-                if($(".list").scrollTop() + $(".list").height() >= $(".list > table").height()) {
+            $(window).scroll(function(event) {
+                // if($(".list").scrollTop() + $(".list").height() >= $(".list > table").height()) {
+                if($(window).scrollTop() + $(window).height() >= $(document).height()) {
                     if(checkRun == false) {
                         checkRun = true;
                         loadMoreData(page);
@@ -374,7 +374,7 @@
                      @{{else}}
                         ">
                     @{{/if}}
-                        <img src="/image/${image}" alt="">
+                        <img src="${image}" alt="">
                         @{{if totalCount > 1}}
                             <span class="stamp_count">${totalCount}</span>
                         @{{/if}}

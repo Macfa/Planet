@@ -23,121 +23,124 @@
     </div>
 
     @if(!blank($comments))
-        <!-- 댓글 -->
-        <div class="comment-list-parent" id="comment">
-            <div class="section-title">
-                <h4>댓글 보기</h4>
-            </div>
+    <!-- 댓글 -->
+    <div class="comment-list-parent" id="comment">
+        <div class="section-title">
+            <h4>댓글 보기1</h4>
+        </div>
 
-            <div class="comment-list">
-            @forelse ($comments as $comment)
-                <!-- 댓글 리스트 -->
-                    <div style="padding-left:{{ ($comment->depth <= 4) ? $comment->depth*22 : 4*22 }}px;"
-                         class="comment-item comment-{{ $comment->id }}">
-                        <div class="comment-top">
-                            <div class="write-info {{ $comment->depth>0 ? 'write-info-line':'' }}">
-                                <img src="{{ $comment->user->avatar }}" class="mr-2" alt="닉네임"/>
-                                <div class="d-flex justify-content-between comment-item-header-r">
-                                    {{--                        inline-block --}}
-                                    <div class="comment-modi-form">
-                                        <span class="nickname">{{ $comment->user->name }}</span>
-                                        <span class="sub_txt">{{ $comment->updated_at->diffForHumans() }}</span>
-                                        @if(auth()->id()==$comment->user_id)
-                                            <button class="sub_txt"
-                                                    onclick="checkCommentTypeToAddForm('edit', {{ $comment->id }})">
-                                                <div class="function-text">
-                                                    <p>수정</p>
-                                                </div>
-                                            </button>
-                                            <button class="sub_txt" onclick="deleteComment({{ $comment->id }})">
-                                                <div class="function-text">
-                                                    <p>삭제</p>
-                                                </div>
-                                            </button>
-                                        @endif
-                                    </div>
-                                    {{--                            <div class="comment-info">--}}
-                                    {{--                                <ul>--}}
-                                    <div>
-                                        @auth
-                                            <button class="sub_txt" data-bs-type="comment"
-                                                    data-bs-id="{{ $comment->id }}" data-bs-toggle="modal"
-                                                    data-bs-target="#openStampModal">스탬프
-                                            </button>
-                                        @endauth
-                                        @guest
-                                            <button class="sub_txt" onclick="notLogged();">스탬프</button>
-                                        @endguest
-                                        {{--                            <li></li>--}}
-                                        @auth
-                                            <button class="sub_txt"
-                                                    onclick="checkCommentTypeToAddForm('add', {{ $comment->id }});">댓글
-                                            </button>
-                                        @endauth
-                                        @guest
-                                            <button class="sub_txt" onclick="notLogged();">댓글</button>
-                                        @endguest
-                                        <button>
-                                            <img onclick="voteLikeInComment({{ $comment->id }}, 1)"
-                                                 id="comment-{{ $comment->id }}-upvote" class="image-sm" alt=""
-                                                 @if($comment->existCommentLike == 1)
-                                                 src="{{ asset('image/upvote_c.png') }}"/>
-                                            @else
-                                                src="{{ asset('image/upvote.png') }}" />
-                                            @endif
-                                        </button>
-                                        {{--                                    <li>--}}
-                                        <button class="sub_txt comment-like">{{ $comment->likes->sum('like') }}</button>
-                                        {{--                                    </li>--}}
-                                        <button>
-                                            <img onclick="voteLikeInComment({{ $comment->id }}, -1)"
-                                                 id="comment-{{ $comment->id }}-downvote" class="image-sm" alt=""
-                                                 @if($comment->existCommentLike == -1)
-                                                 src="{{ asset('image/downvote_c.png') }}"/>
-                                            @else
-                                                src="{{ asset('image/downvote.png') }}" />
-                                            @endif
-                                        </button>
-                                        {{--                                </div>--}}
-                                        {{--                                </ul>--}}
-                                    </div>
-                                    {{--                            </div>--}}
-                                </div>
-                                <div class="stamps">
-                                    @foreach($comment->stampsCount as $stamp)
-{{--                                        @dd($stamp)--}}
-                                        <div class="stamp-item comment-{{ $stamp->stamp_id }}-stamp
-                                        @if($stamp->totalCount>1)
-                                            multi-stamps">
-                                            @else
-                                                ">
-                                            @endif
-                                            <img src="/image/{{ $stamp->image }}" alt="">
-                                            @if($stamp->totalCount>1)
-                                                <span class="stamp_count">{{ $stamp->totalCount }}</span>
-                                            @endif
-                                        </div>
-                                    @endforeach
-                                </div>
-{{--                                <div class="comment-cont">--}}
-{{--                                    <p>--}}
-{{--                                        {!! $comment->content !!}--}}
-{{--                                    </p>--}}
-{{--                                </div>--}}
-                            </div>
+        <!-- 댓글 리스트 -->
+        @foreach ($comments as $comment)
+        <div class="comment-list">
+            <div style="padding-left:{{ ($comment->depth <= 4) ? $comment->depth*22 : 4*22 }}px;"
+                 class="comment-item comment-{{ $comment->id }}">
+                <div class="comment-top">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td style="vertical-align: top; width: 50px;">
+                                    <img src="{{ $comment->user->avatar }}" class="mr-2" alt="닉네임"/>
+                                </td>
+                                <td>
+                                    <div class="write-info {{ $comment->depth>0 ? 'write-info-line':'' }}">
 
-                                        <div class="comment-cont">
-                                            <p>
-                                                {!! $comment->content !!}
-                                            </p>
+                                        <div class="d-flex justify-content-between comment-item-header-r">
+                                            {{--                        inline-block --}}
+                                            <div class="comment-modi-form">
+                                                <span class="nickname">{{ $comment->user->name }}</span>
+                                                <span class="sub_txt">{{ $comment->updated_at->diffForHumans() }}</span>
+                                                @if(auth()->id()==$comment->user_id)
+                                                    <button class="sub_txt"
+                                                            onclick="checkCommentTypeToAddForm('edit', {{ $comment->id }})">
+                                                        <div class="function-text">
+                                                            <p>수정</p>
+                                                        </div>
+                                                    </button>
+                                                    <button class="sub_txt" onclick="deleteComment({{ $comment->id }})">
+                                                        <div class="function-text">
+                                                            <p>삭제</p>
+                                                        </div>
+                                                    </button>
+                                                @endif
+                                            </div>
+                                            {{--                            <div class="comment-info">--}}
+                                            {{--                                <ul>--}}
+                                            <div>
+                                                @auth
+                                                    <button class="sub_txt" data-bs-type="comment"
+                                                            data-bs-id="{{ $comment->id }}" data-bs-toggle="modal"
+                                                            data-bs-target="#openStampModal">스탬프
+                                                    </button>
+                                                @endauth
+                                                @guest
+                                                    <button class="sub_txt" onclick="notLogged();">스탬프</button>
+                                                @endguest
+                                                {{--                            <li></li>--}}
+                                                @auth
+                                                    <button class="sub_txt"
+                                                            onclick="checkCommentTypeToAddForm('add', {{ $comment->id }});">댓글
+                                                    </button>
+                                                @endauth
+                                                @guest
+                                                    <button class="sub_txt" onclick="notLogged();">댓글</button>
+                                                @endguest
+                                                <button>
+                                                    <img onclick="voteLikeInComment({{ $comment->id }}, 1)"
+                                                         id="comment-{{ $comment->id }}-upvote" class="image-sm" alt=""
+                                                         @if($comment->existCommentLike == 1)
+                                                         src="{{ asset('image/upvote_c.png') }}"/>
+                                                    @else
+                                                        src="{{ asset('image/upvote.png') }}" />
+                                                    @endif
+                                                </button>
+                                                {{--                                    <li>--}}
+                                                <button class="sub_txt comment-like">{{ $comment->likes->sum('like') }}</button>
+                                                {{--                                    </li>--}}
+                                                <button>
+                                                    <img onclick="voteLikeInComment({{ $comment->id }}, -1)"
+                                                         id="comment-{{ $comment->id }}-downvote" class="image-sm" alt=""
+                                                         @if($comment->existCommentLike == -1)
+                                                         src="{{ asset('image/downvote_c.png') }}"/>
+                                                    @else
+                                                        src="{{ asset('image/downvote.png') }}" />
+                                                    @endif
+                                                </button>
+                                                {{--                                </div>--}}
+                                                {{--                                </ul>--}}
+                                            </div>
+                                            {{--                            </div>--}}
                                         </div>
-                        </div>
-                    </div>
-                @empty
-                    <p>No users</p>
-                @endforelse
+                                        <div class="stamps">
+                                            @foreach($comment->stampsCount as $stamp)
+                {{--                                        @dd($stamp)--}}
+                                                <div class="stamp-item comment-{{ $stamp->stamp_id }}-stamp
+                                                @if($stamp->totalCount>1)
+                                                    multi-stamps">
+                                                    @else
+                                                        ">
+                                                    @endif
+                                                    <img src="{{ $stamp->image }}" alt="">
+                                                    @if($stamp->totalCount>1)
+                                                        <span class="stamp_count">{{ $stamp->totalCount }}</span>
+                                                    @endif
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    <div class="comment-cont">
+                                        <p>
+                                            {!! $comment->content !!}
+                                        </p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
+        @endforeach
+    </div>
     @endif
 
 
@@ -448,8 +451,8 @@
         }
     </script>
     <script id="replyForm" type="text/x-jquery-tmpl">
+@{{if commentCount < 2}}
 <div class="comment-list-parent" id="comment">
-    @{{if commentCount < 2}}
     <div class="section-title">
         <h4>댓글 보기</h4>
     </div>
@@ -465,7 +468,8 @@
                                     <img src="${avatar}" class="mr-2" alt="닉네임" />
                                 </td>
                                 <td>
-                                    <div style="" class="write-info @{{if ${depth > 0}}} 'write-info-line':'' @{{/if}}">
+                                    <div style="" class="write-info">
+{{--                                    <div style="" class="write-info @{{if ${depth > 0}}} 'write-info-line':'' @{{/if}}">--}}
                                         <div class="d-flex justify-content-between comment-item-header-r">
                                             <div class="comment-modi-form">
                                                 <span class="nickname">${name}</span>
@@ -509,9 +513,11 @@
             </div>
         </div>
     </div>
+@{{if commentCount < 2}}
 </div>
-    </script>
-    <script id="replyWriteForm" type="text/x-jquery-tmpl">
+@{{/if}}
+</script>
+<script id="replyWriteForm" type="text/x-jquery-tmpl">
 <div class="reply-form mb-3">
     <form method="post" onSubmit="return false;" id="comment-form-${commentID}">
     <input type="hidden" name="id" value="${commentID}">

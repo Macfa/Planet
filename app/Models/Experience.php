@@ -24,8 +24,8 @@ class Experience extends Model
     }
     public function writePost(Post $post) {
         $today = Carbon::now();
-        $coin_setup = CoinSetup::first();
-        $limit = $coin_setup["day_limit"];
+        $coin_setup = CoinSetup::find(1);
+        $limit = $coin_setup->day_limit;
 //        $totalCoin = $post->coins()->where('created_at', $today)->sum('coin');
 //        $totalCoin = $post->join('coins', 'coins.coinable_type', '=', 'test')->whereDate('coins.created_at', $today)->sum('coin');
         $totalExp = $post->experiences()->whereDate('experiences.created_at', $today)->sum('exp');
@@ -37,7 +37,7 @@ class Experience extends Model
 
             $post->experiences()->create([
                 'message'=> '글작성',
-                'exp'=> $coin_setup["post"],
+                'exp'=> $coin_setup->post,
                 'user_id'=> auth()->id()
             ]);
             $this->checkUserGrade();
@@ -47,17 +47,16 @@ class Experience extends Model
 
     public function writeComment(Comment $comment) {
         $today = Carbon::now();
-        $coin_setup = new CoinSetup();
-        $limit = $coin_setup["day_limit"];
+        $coin_setup = CoinSetup::find(1);
+        $limit = $coin_setup->day_limit;
         $totalExp = $comment->experiences()->whereDate('experiences.created_at', $today)->sum('exp');
 
         if($totalExp > $limit) {
             // 코인 추가 획득 불가
         } else {
-            $coin_setup = CoinSetup::first();
             $comment->experiences()->create([
                 'message'=> '댓글작성',
-                'exp'=> $coin_setup["comment"],
+                'exp'=> $coin_setup->comment,
                 'user_id'=> auth()->id()
             ]);
             $this->checkUserGrade();

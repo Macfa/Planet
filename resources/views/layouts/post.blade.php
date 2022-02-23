@@ -18,7 +18,7 @@
                         @else
                             ">
                         @endif
-                        <img src="/image/{{ $stamp->image }}" alt="">
+                        <img src="{{ $stamp->image }}" alt="">
                         @if($stamp->totalCount>1)
                             <span class="stamp_count">{{ $stamp->totalCount }}</span>
                         @endif
@@ -381,7 +381,7 @@
                     $("#openStampModal").modal("hide");
                     if(data.target === "post") {
                         if(data.count === 1) {
-                            $(`.stamps.post-${id}-stamps`).append(`<div class="stamp-item stamp-${stampID}"><img alt='${data.name}' src='/image/${data.image}' ></div>`);
+                            $(`.stamps.post-${id}-stamps`).append(`<div class="stamp-item stamp-${stampID}"><img alt='${data.name}' src='${data.image}' ></div>`);
                         } else if(data.count > 1) {
                             if($(`.stamps.post-${id}-stamps div.stamp-${stampID} span.stamp_count`).length) {
                                 $(`.stamps.post-${id}-stamps div.stamp-${stampID} span.stamp_count`).text(data.count);
@@ -393,7 +393,7 @@
                         }
                     } else if(data.target === "comment") {
                         if(data.count === 1) {
-                            $(`.comment-${id} .stamps`).append(`<div class="stamp-item comment-${stampID}-stamp"><img alt='${data.name}' src='/image/${data.image}' ></div>`);
+                            $(`.comment-${id} .stamps`).append(`<div class="stamp-item comment-${stampID}-stamp"><img alt='${data.name}' src='${data.image}' ></div>`);
                             // $(".modal-title .stamps").append(`<span class="stamp-${stampID}"><img style='width:31px;' alt='${data.name}' src='${data.image}' alt=''></span>`);
                         } else if(data.count > 1) {
                             if($(`.comment-${id} .stamps div.comment-${stampID}-stamp span.stamp_count`).length) {

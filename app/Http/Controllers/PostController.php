@@ -94,7 +94,7 @@ class PostController extends Controller
         $content = $request->input('content');
         $regex = "/https?:\/\/\S+image+\S+\.[gif|png|jpg|jpeg]+/";
         preg_match($regex, $content,$matchSubject);
-
+//        dd($matchSubject);
         if($matchSubject == []) {
             // 이미지 소스를 추출하지못했다면
             $mainImageUrl = null;
