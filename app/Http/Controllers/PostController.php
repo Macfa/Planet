@@ -90,6 +90,23 @@ class PostController extends Controller
     {
         $this->authorize('create', Post::class);
 
+        // set validation rules
+        $rules = [
+            'channel_id' => 'required',
+            'title' => 'required|max:40|min:2',
+            'content' => 'required|max:255',
+        ];
+
+        $messages = [
+            'title.required' => '게시글명을 입력해주세요.',
+            'content.required' => '게시글 내용을 입력해주세요.',
+            'channel_id.required' => '채널명을 선택해주세요.',
+            'title.min' => '게시글명은 최소 2 글자 이상입니다.',
+            'title.max' => '게시글명은 40 글자 이하입니다.',
+            'content.max' => '토픽 소개란은 최대 255 글자 이하입니다.',
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages)->validate();
+
         // 이미지 소스만 추출
         $content = $request->input('content');
         $regex = "/https?:\/\/\S+image+\S+\.[gif|png|jpg|jpeg]+/";
@@ -183,20 +200,21 @@ class PostController extends Controller
     {
         $post = Post::find($id);
         $this->authorize('update',$post);
+
         // set validation rules
         $rules = [
             'channel_id' => 'required',
-            'title' => 'min:1|required|max:20',
-            'content' => 'min:1|required',
+            'title' => 'required|max:40|min:2',
+            'content' => 'required|max:255',
         ];
 
         $messages = [
-            'channel_id.required' => '채널을 선택해주세요.',
-            'title.required' => '제목을 입력해주세요.',
-            'content.required' => '내용을 입력해주세요.',
-            'title.max' => '제목은 최대 20 글자 이하입니다.',
-            'content.min' => '내용은 최소 1 글자 이상 입력해주세요.',
-            'title.min' => '제목은 최소 1 글자 이상 입력해주세요.',
+            'title.required' => '게시글명을 입력해주세요.',
+            'content.required' => '게시글 내용을 입력해주세요.',
+            'channel_id.required' => '채널명을 선택해주세요.',
+            'title.min' => '게시글명은 최소 2 글자 이상입니다.',
+            'title.max' => '게시글명은 40 글자 이하입니다.',
+            'content.max' => '토픽 소개란은 최대 255 글자 이하입니다.',
         ];
         $validator = Validator::make($request->all(), $rules, $messages)->validate();
 
@@ -279,13 +297,10 @@ class PostController extends Controller
                 'user_id' => auth()->id(),
                 'message' => 'report'
             ]);
-            return response("신고되었습니다");
+            return response("신고가 완료되었습니다.\n잽싸게 확인해보도록 하겠습니다.(_ _)");
         }
     }
     public function scrap(Post $post) {
-//        $postID = $req->id;
-//        $post = Post::find($postID);
-
         if(!auth()->check()) {
             return response("로그인이 필요한 기능입니다", 401);
         }

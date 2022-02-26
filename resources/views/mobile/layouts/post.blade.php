@@ -250,11 +250,11 @@
                         url: "/post/"+postID+"/report",
                         type: "post",
                         success: function(data) {
-                            alert(data.responseText);
+                            alert(data);
                         },
-                        errror: function(err) {
-                            if(err.status == 401) {
-                                alert(err.responseText);
+                        error: function(err) {
+                            if(err.status === 401) {
+                                alert(err);
                             } else {
                                 alert("문제가 생겨 확인 중입니다")
                             }

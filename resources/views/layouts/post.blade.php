@@ -257,11 +257,12 @@
             url: "/post/"+postID+"/report",
             type: "post",
             success: function(data) {
-                alert(data.responseText);
+                // console.log(data);
+                alert(data);
             },
             error: function(err) {
-                if(err.status == 401) {
-                    alert(err.responseText);
+                if(err.status === 401) {
+                    alert(err);
                 } else {
                     alert("문제가 생겨 확인 중입니다")
                 }
@@ -274,16 +275,16 @@
                 url: "/post/"+postID+"/scrap",
                 type: "post",
                 success: function(data) {
-                    if(data.result == "insert") {
+                    if(data.result === "insert") {
                         $("#post-scrap").attr("src", "{{ asset('image/scrap_c.png') }}");
                         alert("스크랩되었습니다");
-                    } else if(data.result == "delete") {
+                    } else if(data.result === "delete") {
                         $("#post-scrap").attr("src", "{{ asset('image/scrap.png') }}");
                         alert("스크랩이 삭제되었습니다");
                     }
                 },
                 error: function(err) {
-                    if(err.status == 401) {
+                    if(err.status === 401) {
                         alert(err.responseText);
                     } else {
                         alert("문제가 생겨 확인 중입니다")

@@ -78,9 +78,14 @@
     {
         let form = document.searchForm;
 
-        if(form.name.value === "" || form.name.value.length > 12)
+        if(form.name.value === "")
         {
-            alert("이름을 입력해주세요 ( 12자 이하 )");
+            alert("이름을 입력해주세요");
+            return false;
+        }
+        if(form.name.value.length < 2 || form.name.value.length > 40)
+        {
+            alert("이름 양식은 2글자 이상 40글자 이하 입니다");
             return false;
         }
         if(form.description.value==="" || form.description.value.length > 255)

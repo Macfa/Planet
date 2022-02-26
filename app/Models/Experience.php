@@ -74,6 +74,7 @@ class Experience extends Model
         $user = User::find(auth()->id());
 //        dd($user->grade);
         $totalExp = $user->hasExperiences()->sum('exp');
+//        dd($user);
         $maxExp = $user->grade->maxExp;
         $minExp = $user->grade->minExp;
 

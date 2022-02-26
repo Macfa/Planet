@@ -110,9 +110,9 @@
             alert("채널을 선택해주세요");
             return false;
         }
-        if(form.title.value === "" || form.title.value.length > 20)
+        if(form.title.value === "" || form.title.value.length > 40)
         {
-            alert("이름을 입력해주세요 ( 20자 이하 )");
+            alert("이름을 입력해주세요 ( 40자 이하 )");
             return false;
         }
         if(window.editor.data.get() === "")

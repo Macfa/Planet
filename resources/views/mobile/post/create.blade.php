@@ -21,22 +21,28 @@
                                 <span class="menu">포스트</span>
                                 <select style="float: right;" class="cst_select" name="channel_id" id="channelList">
                                     <option value="">등록할 채널을 선택해주세요</option>
-                                    @forelse ($user->allChannels() as $channel)
-                                        @if(old('channel_id'))
-                                            <option value="{{ $channel->id }}" @if(old('channel_id')==$channel->id) selected @endif>{{ $channel->name }}</option>
-                                        @elseif(isset($post))
-                                            @if($post->channel_id==$channel->id)
-                                                <option value="{{ $channel->id }}" selected>{{ $channel->name }}</option>
-                                            @else
-                                                <option value="{{ $channel->id }}">{{ $channel->name }}</option>
-                                            @endif
-                                        @else
-                                            <option value="{{ $channel->id }}" @if($fromChannelID==$channel->id) selected @endif>{{ $channel->name }}</option>
-                                        @endif
-                                    @empty
-
-                                    @endforelse
-
+                                    @if($setting["type"] === "create")
+                                        @foreach (auth()->user()->allChannels() as $channel)
+                                            <option value="{{ $channel->id }}"
+                                                    @if(old('channel_id') === $channel->id)
+                                                    selected
+                                                    @elseif($setting["previous"] === $channel->id)
+                                                    selected
+                                                @endif
+                                            >
+                                                {{ $channel->name }}
+                                            </option>
+                                        @endforeach
+                                    @else
+                                        @foreach (auth()->user()->allChannels() as $channel)
+                                            <option value="{{ $channel->id }}"
+                                                    @if(old('channel_id') === $channel->id) selected
+                                                    @elseif($post->channel_id === $channel->id) selected
+                                                @endif>
+                                                {{ $channel->name }}
+                                            </option>
+                                        @endforeach
+                                    @endif
                                 </select>
                                 @error('channel_id')
                                 <span class="text-danger">{{ $message }}</span>
@@ -95,12 +101,12 @@
             alert("채널을 선택해주세요");
             return false;
         }
-        if(form.title.value === "" || form.title.value.length > 20)
+        if(form.title.value === "" || form.title.value.length > 40)
         {
-            alert("이름을 입력해주세요 ( 20자 이하 )");
+            alert("이름을 입력해주세요 ( 40자 이하 )");
             return false;
         }
-        if(form.content.value === "")
+        if(window.editor.data.get() === "")
         {
             alert("내용을 입력해주세요");
             return false;
