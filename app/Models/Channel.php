@@ -5,14 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Dyrynda\Database\Support\CascadeSoftDeletes;
 
 class Channel extends Model
 {
-    use SoftDeletes;
-    use HasFactory;
+    use SoftDeletes, CascadeSoftDeletes, HasFactory;
+
     protected $table = "channels";
     protected $primaryKey = "id";
     protected $guarded = [];
+    protected $cascadeDeletes = ['posts', 'channelJoins', 'channelAdmins', 'channelVisitHistories', 'reports'];
 
     public function posts() {
         return $this->hasMany(Post::class, 'channel_id', 'id');

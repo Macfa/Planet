@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -9,11 +10,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Comment extends Model
 {
-    use SoftDeletes;
-    use HasFactory;
+    use SoftDeletes, CascadeSoftDeletes, HasFactory;
     protected $table = "comments";
     protected $primaryKey = "id";
     protected $guarded = [];
+    protected $cascadeDeletes = [];
 
     public function post() {
         return $this->belongsTo(Post::class, 'post_id', 'id');

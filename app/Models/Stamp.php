@@ -5,13 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Dyrynda\Database\Support\CascadeSoftDeletes;
 
 class Stamp extends Model
 {
-    use SoftDeletes;
-    use HasFactory;
+    use SoftDeletes, CascadeSoftDeletes, HasFactory;
+
     protected $table = "stamps";
     protected $guarded = [];
+    protected $cascadeDeletes = [];
 
     public function category() {
         return $this->hasOne(StampCategory::class,'id', 'category_id');

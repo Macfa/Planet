@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -11,12 +12,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Coin extends Model
 {
-    use SoftDeletes;
-    use HasFactory;
+    use SoftDeletes, CascadeSoftDeletes, HasFactory;
 
     protected $table = "coins";
     protected $primaryKey = "id";
     protected $guarded = [];
+//    protected $cascadeDeletes = [];
 
     public function coinable()
     {

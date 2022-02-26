@@ -5,14 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Dyrynda\Database\Support\CascadeSoftDeletes;
 
 class StampCategory extends Model
 {
-    use SoftDeletes;
-    use HasFactory;
+    use SoftDeletes, CascadeSoftDeletes, HasFactory;
+
     protected $table = "stamp_categories";
 //    protected $primaryKey = "id";
     protected $guarded = [];
+    protected $cascadeDeletes = [];
 
 //    public static function getAllCategories() {
 //        return self::get();

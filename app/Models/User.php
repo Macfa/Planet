@@ -8,14 +8,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Dyrynda\Database\Support\CascadeSoftDeletes;
 
 class User extends Authenticatable
 // class User extends Model
 {
-    use SoftDeletes;
-    use HasFactory, Notifiable;
+    use SoftDeletes, CascadeSoftDeletes, HasFactory, Notifiable;
     protected $table = "users";
     protected $primaryKey = "id";
+    protected $cascadeDeletes = [];
 
     /**
      * The attributes that are mass assignable.

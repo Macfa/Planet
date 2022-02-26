@@ -8,14 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use mysql_xdevapi\Exception;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Dyrynda\Database\Support\CascadeSoftDeletes;
 
 class Post extends Model
 {
-    use SoftDeletes;
-    use HasFactory;
+    use SoftDeletes, CascadeSoftDeletes, HasFactory;
+
     protected $table = "posts";
     protected $primaryKey = "id";
     protected $guarded = [];
+    protected $cascadeDeletes = [];
     private int $count = 10;
 
     public function channel() {

@@ -5,14 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Dyrynda\Database\Support\CascadeSoftDeletes;
 
 class Favorite extends Model
 {
-    use SoftDeletes;
-    use HasFactory;
+    use SoftDeletes, CascadeSoftDeletes, HasFactory;
     protected $table = "favorites";
     protected $primaryKey = "id";
     protected $guarded = [];
+    protected $cascadeDeletes = [];
 
     public function channel() {
         return $this->belongsTo(Channel::class, 'channel_id', 'id');
