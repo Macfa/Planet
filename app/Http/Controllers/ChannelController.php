@@ -59,29 +59,31 @@ class ChannelController extends Controller
     public function store(Request $request)
     {
         $this->authorize('create', Channel::class);
+        $request->name = trim($request->name);
+
+        // set validation rules
+        $rules = [
+            'name' => 'required|unique:channels|max:40|min:2',
+            'description' => 'required|max:255',
+        ];
+
+        $messages = [
+            'name.required' => '토픽명을 입력해주세요.',
+            'description.required' => '토픽 소개란을 입력해주세요.',
+            'name.min' => '토픽명은 최소 2 글자 이상입니다.',
+//                'description.min' => '토픽 소개란은 최소 2 글자 이상입니다.',
+            'name.max' => '토픽명은 40 글자 이하입니다.',
+            'description.max' => '토픽 소개란은 최대 255 글자 이하입니다.',
+            'name.unique' => '토픽명이 이미 사용 중입니다.'
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages)->validate();
 
         $user = User::find(auth()->id());
         $hasCoin = $user->hasCoins()->sum('coin');
-        $request->name = trim($request->name);
+
         if($hasCoin < 100) {
             return response()->redirectTo('/')->with(["status"=>"warning", "msg"=>"코인이 부족합니다"]);
         } else {
-            // set validation rules
-            $rules = [
-                'name' => 'required|unique:channels|max:40|min:2',
-                'description' => 'required|max:255',
-            ];
-
-            $messages = [
-                'name.required' => '토픽명을 입력해주세요.',
-                'description.required' => '토픽 소개란을 입력해주세요.',
-                'name.min' => '토픽명은 최소 2 글자 이상입니다.',
-//                'description.min' => '토픽 소개란은 최소 2 글자 이상입니다.',
-                'name.max' => '토픽명은 40 글자 이하입니다.',
-                'description.max' => '토픽 소개란은 최대 255 글자 이하입니다.',
-                'name.unique' => '토픽명이 이미 사용 중입니다.'
-            ];
-            $validator = Validator::make($request->all(), $rules, $messages)->validate();
 
             // create channel
             $created = Channel::create([
