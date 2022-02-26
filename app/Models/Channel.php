@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Channel extends Model
 {
+    use SoftDeletes;
     use HasFactory;
     protected $table = "channels";
     protected $primaryKey = "id";
@@ -34,4 +36,9 @@ class Channel extends Model
     {
         return $query->where('user_id', auth()->id());
     }
+//    protected static function booted()
+//    {
+//        static::deleted(function ($channel) {
+//        });
+//    }
 }

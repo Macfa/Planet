@@ -18,10 +18,10 @@
 
 @section('mobile.message')
     @if($el == "post")
-        작성하신 글이 없어요 !
+        작성하신 글이 없어요
     @elseif($el == "comment")
-        작성하신 댓글이 없어요 !
+        작성하신 댓글이 없어요
     @else
-        스크랩하신 글이 없어요 !
+        즐겨찾기 한 게시판이 없습니다
     @endif
 @endsection

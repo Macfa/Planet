@@ -23,8 +23,8 @@ class CreateCommentsTable extends Migration
             $table->foreign("user_id")->references("id")->on("users")->onDelete('cascade');
             $table->integer('depth')->default('0');
             $table->integer('order')->default('0');
+            $table->softDeletes();
             $table->timestamps();
-
             $table->index('id');
             $table->index('post_id');
             $table->index('user_id');

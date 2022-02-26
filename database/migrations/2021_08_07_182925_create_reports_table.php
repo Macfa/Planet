@@ -19,6 +19,7 @@ class CreateReportsTable extends Migration
             $table->string('message', 255)->nullable();
             $table->bigInteger("user_id")->unsigned();
             $table->foreign("user_id")->references("id")->on("users");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

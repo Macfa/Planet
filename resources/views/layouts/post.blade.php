@@ -202,6 +202,7 @@
                 url: "/post/"+id,
                 data:{"id": id},
                 success: function(data) {
+                    alert(data);
                     window.location.href = "/";
                 },
                 error: function(err) {

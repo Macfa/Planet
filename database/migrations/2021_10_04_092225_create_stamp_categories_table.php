@@ -17,6 +17,7 @@ class CreateStampCategoriesTable extends Migration
             $table->id();
             $table->string("image"); // 대표이미지
             $table->string("name", 30); // 명칭
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateStampCategoriesTable extends Migration
      */
     public function down()
     {
-//        Schema::dropIfExists('stamp_categories');
+        Schema::dropIfExists('stamp_categories');
     }
 }

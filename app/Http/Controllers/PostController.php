@@ -48,7 +48,6 @@ class PostController extends Controller
         $channelVisitHistories = ChannelVisitHistory::showHistory();
 
         if($this->agent->isMobile()) {
-//            dd(1);
             return view('mobile.main.index', compact('posts', 'channelVisitHistories'));
         } else {
             return view('main.index', compact('posts', 'channelVisitHistories'));
@@ -240,6 +239,8 @@ class PostController extends Controller
                 'content'=>$content
             ]);
 
+//        return response()->redirectTo()
+//        return response()->redirectToRoute('post.show', $id, 302);
         return redirect()->route('post.show', $id, 302);
     }
 
@@ -251,11 +252,14 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        Post::where('id', $id)
+        $isDelete = Post::where('id', $id)
             ->delete();
 
-        return response();
-//        return true;
+        if($isDelete) {
+            return response('삭제되었습니다', 200);
+        } else {
+            return response('', 302);
+        }
     }
     public function like(Post $post)
     {

@@ -20,6 +20,7 @@ class CreateChannelJoinsTable extends Migration
 //            $table->foreignId('channel_id')->nullable()->constrained("channels")->cascadeOnUpdate()->nullOnDelete();
             $table->bigInteger('channel_id')->unsigned();
             $table->foreign("channel_id")->references("id")->on("channels")->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

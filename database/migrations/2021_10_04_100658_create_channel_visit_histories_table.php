@@ -20,6 +20,7 @@ class CreateChannelVisitHistoriesTable extends Migration
 //            $table->foreignId('channel_id')->nullable()->constrained("channels")->cascadeOnUpdate()->nullOnDelete();
             $table->bigInteger("user_id")->unsigned();
             $table->foreign("user_id")->references("id")->on("users")->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -25,8 +25,8 @@ class CreatePostsTable extends Migration
 //            $table->foreignId('user_id')->nullable()->constrained("users")->cascadeOnUpdate()->nullOnDelete();
             $table->bigInteger('user_id')->unsigned();
             $table->foreign("user_id")->references("id")->on("users")->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
-
             $table->index('id');
             $table->index('channel_id');
             $table->index('user_id');

@@ -20,6 +20,7 @@ class CreateGradesTable extends Migration
             $table->string('icon')->nullable();
             $table->integer('minExp');
             $table->integer('maxExp');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

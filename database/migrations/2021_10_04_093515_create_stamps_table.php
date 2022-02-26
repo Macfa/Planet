@@ -22,6 +22,7 @@ class CreateStampsTable extends Migration
             $table->string("description")->nullable();
             $table->integer("coin");
             $table->string("abbr", 20)->nullable(); // 약어
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -33,6 +34,6 @@ class CreateStampsTable extends Migration
      */
     public function down()
     {
-//        Schema::dropIfExists('stamps');
+        Schema::dropIfExists('stamps');
     }
 }

@@ -20,6 +20,7 @@ class CreateExperiencesTable extends Migration
             $table->integer('exp');
             $table->bigInteger("user_id")->unsigned();
             $table->foreign("user_id")->references("id")->on("users");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

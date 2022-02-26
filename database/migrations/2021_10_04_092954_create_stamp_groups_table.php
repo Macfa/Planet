@@ -18,6 +18,7 @@ class CreateStampGroupsTable extends Migration
             $table->bigInteger("category_id")->unsigned();
             $table->foreign("category_id")->references("id")->on("stamp_categories")->onDelete("cascade");
             $table->string("name", 30);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateStampGroupsTable extends Migration
      */
     public function down()
     {
-//        Schema::dropIfExists('stamp_groups');
+        Schema::dropIfExists('stamp_groups');
     }
 }
