@@ -31,7 +31,7 @@ class Experience extends Model
             return abort(401);
         }
         $user = auth()->user();
-        $totalExp = $user->hasExperiences("post")->whereDate('coins.created_at', $today)->sum('exp');
+        $totalExp = $user->hasExperiences("post")->whereDate('experiences.created_at', $today)->sum('exp');
 //        $totalExp = $post->experiences()->whereDate('experiences.created_at', $today)->sum('exp');
 
         if($totalExp > $limit) {
@@ -57,7 +57,7 @@ class Experience extends Model
             return abort(401);
         }
         $user = auth()->user();
-        $totalExp = $user->hasExperiences("comment")->whereDate('coins.created_at', $today)->sum('exp');
+        $totalExp = $user->hasExperiences("comment")->whereDate('experiences.created_at', $today)->sum('exp');
 //        $totalExp = $comment->experiences()->whereDate('experiences.created_at', $today)->sum('exp');
 
         if($totalExp > $limit) {
