@@ -23,7 +23,8 @@ class StampCategory extends Model
     public function getAllCategories() {
         return $this->all();
     }
-    public function category() {
-        return $this->belongsTo(Stamp::class, 'category_id');
+    public function stamps() {
+//        return $this->belongsTo(Stamp::class, 'category_id');
+        return $this->hasMany(Stamp::class, 'category_id', 'id');
     }
 }

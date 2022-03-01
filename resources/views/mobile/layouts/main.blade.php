@@ -101,10 +101,11 @@
             },
             success: function (data) {
                 var valueList = [];
-                if (data.result.length == 0) {
+                if (data.result.length === 0) {
                     // toastr.info("데이터가 없습니다");
                 } else {
                     addDataPlaceHolder();
+                    var postIdArr = [];
                     for (var i = 0; i < data.result.length; i++) {
                         valueList.push({
                             "totalLike": data.result[i].totalLike,
@@ -118,10 +119,12 @@
                             "created_at_modi": data.result[i].created_at_modi,
                             "postImage": data.result[i].image,
                         });
+                        postIdArr.push(data.result[i].id);
                     }
                     delay(function () {
                         removeDataPlaceHolder();
                         $("#mainMenuItem").tmpl(valueList).insertAfter("#main .main-wrap .left .list table tbody tr:last-child");
+                        addReadPost(postIdArr);
                     }, 1500);
                 }
                 // $("#main .wrap .left .tab li[class="+type+"]").attr('class', 'on');
@@ -159,7 +162,8 @@
                     let url = window.location.href;
                     var tmpPostID = url.split('/').pop();
                     if ($.isNumeric(tmpPostID)) {
-                        $(`#post-${tmpPostID} .title a`).get(0).click();
+                        // $(`#post-${tmpPostID} .title a`).get(0).click();
+                        openPostModal(tmpPostID);
                     }
                 }
             }
@@ -170,7 +174,7 @@
             let url = window.location.href;
             var tmpPostID = url.split('/').pop();
             if ($.isNumeric(tmpPostID)) {
-                $(`#post-${tmpPostID} .title a`).get(0).click();
+                openPostModal(tmpPostID);
             }
         }
         $(".list").scroll(function (event) {
@@ -202,49 +206,11 @@
     $("#open_post_modal").on('show.bs.modal', function (event) {
         if (event.target.id === 'open_post_modal') {
             var button = event.relatedTarget;
-            var postID = button.getAttribute('data-bs-post-id');
-            var modalBody = $(".modal-content");
-            var urlPath = '';
-
-            if (history.state == null) {
-                urlPath = "/post/" + postID;
-            } else {
-                urlPath = location.href;
+            if(button) {
+                var postID = button.getAttribute('data-bs-post-id');
+                openPostModal(postID);
             }
 
-
-            $.ajax({
-                url: '/post/' + postID + "/get",
-                type: 'get',
-                success: function (data) {
-
-                    modalBody.html(data);
-                    history.pushState('modal', 'modal', urlPath);
-                    var readPost = JSON.parse(localStorage.getItem('readPost'));
-
-                    if (readPost === null) {
-                        // 읽은 게시글이 없으면 새로 추가
-                        localStorage.setItem('readPost', JSON.stringify([postID]));
-                    } else {
-                        //
-                        var checkExist = readPost.includes(postID.toString());
-                        if (checkExist === false) {
-                            readPost.push(postID);
-                            localStorage.setItem('readPost', JSON.stringify(readPost));
-                        }
-                    }
-                    addReadPost(postID);
-                    setModalHeight();
-                    // $.fn.modal.Constructor.prototype.enforceFocus = function () {};
-                    // var button = event.relatedTarget;
-                    // $("#openStampModal").on('hide.bs.modal', function(event) {
-                    //     event.stopPropagation();
-                    // });
-                },
-                error: function (err) {
-                    console.log(err);
-                }
-            })
         } else if (event.target.id === 'openStampModal') {
             var modalBody = $("#openStampModal .modal-content");
             var button = event.relatedTarget;
@@ -270,12 +236,56 @@
         }
     });
 
-    // var open_post_modal = document.getElementById('open_post_modal')
-    // open_post_modal.addEventListener('show.bs.modal', function (event) {
-    //     // event.stopPropagation();
-    //     // Button that triggered the modal
-    //
-    // })
+    function openPostModal(postID) {
+        var modalBody = $(".modal-content");
+        var urlPath = '';
+
+        if (history.state == null) {
+            urlPath = "/post/" + postID;
+        } else {
+            urlPath = location.href;
+        }
+
+
+        $.ajax({
+            url: '/post/' + postID + "/get",
+            type: 'get',
+            success: function (data) {
+
+                modalBody.html(data);
+                history.pushState('modal', 'modal', urlPath);
+                var readPost = JSON.parse(localStorage.getItem('readPost'));
+
+                if (readPost === null) {
+                    // 읽은 게시글이 없으면 새로 추가
+                    localStorage.setItem('readPost', JSON.stringify([postID]));
+                    var exist = $(`#main #post-${postID} a[data-bs-post-id=${postID}]`).hasClass('visited');
+                    if (exist === false)
+                    {
+                        $(`#main #post-${postID} a[data-bs-post-id=${postID}]`).addClass('visited');
+                    }
+                } else {
+                    //
+                    var checkExist = readPost.includes(postID.toString());
+                    if (checkExist === false) {
+                        readPost.push(postID);
+                        localStorage.setItem('readPost', JSON.stringify(readPost));
+                        $(`#main #post-${postID} a[data-bs-post-id=${postID}]`).addClass('visited');
+                    }
+                }
+                // addReadPost(postID);
+                setModalHeight();
+                // $.fn.modal.Constructor.prototype.enforceFocus = function () {};
+                // var button = event.relatedTarget;
+                // $("#openStampModal").on('hide.bs.modal', function(event) {
+                //     event.stopPropagation();
+                // });
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        })
+    }
     function setModalHeight() {
         let height = $("#header").outerHeight();
         $("#open_post_modal").css("top", height);
@@ -314,6 +324,7 @@
                     var value = "<tr class='none-tr'><td>데이터가 없습니다.</td></tr>";
                     $("#main .wrap .left .list table tbody").html(value);
                 } else {
+                    var postIdArr = [];
                     for (var i = 0; i < data.result.length; i++) {
                         // console.log(data.result[i]);
                         valueList.push({
@@ -329,8 +340,11 @@
                             "created_at_modi": data.result[i].created_at_modi,
                             "postImage": data.result[i].image,
                         });
+                        postIdArr.push(data.result[i].id);
                     }
                     $("#mainMenuItem").tmpl(valueList).appendTo("#main .main-wrap .left .list table tbody");
+                    addReadPost(postIdArr);
+                    checkRun = false;
                 }
                 page = 1;
                 $("#main .wrap .left .tab li[class=" + type + "]").attr('class', 'on');

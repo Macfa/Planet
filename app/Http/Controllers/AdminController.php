@@ -38,13 +38,15 @@ class AdminController extends Controller
         $rules = [
             'post' => 'required|integer|min:0',
             'comment' => 'required|integer|min:0',
-            'day_limit' => 'required|integer|min:0',
+            'post_limit' => 'required|integer|min:0',
+            'comment_limit' => 'required|integer|min:0',
         ];
 
         $messages = [
             'post' => '글 작성 시, 포인트를 입력해주세요.',
             'comment' => '댓글 작성 시, 포인트를 입력해주세요.',
-            'day_limit' => '일일 최대 포인트 획득 제한 수를 입력해주세요.',
+            'post_limit' => '게시글 일일 최대 포인트 획득 제한 수를 입력해주세요.',
+            'comment_limit' => '댓글 일일 최대 포인트 획득 제한 수를 입력해주세요.',
         ];
         $validator = Validator::make($request->all(), $rules, $messages)->validate();
 
@@ -53,7 +55,8 @@ class AdminController extends Controller
         ],[
             'post'=>$request->input("post"),
             'comment'=>$request->input("comment"),
-            'day_limit'=>$request->input("day_limit"),
+            'post_limit'=>$request->input("post_limit"),
+            'comment_limit'=>$request->input("comment_limit"),
             'updated_at'=>now(),
         ]);
         return redirect('/admin/coin')->with([

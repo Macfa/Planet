@@ -14,7 +14,7 @@ class Report extends Model
     protected $table = "reports";
     protected $primaryKey = "id";
     protected $guarded = [];
-    protected $cascadeDeletes = [];
+//    protected $cascadeDeletes = [];
 
     public function reportable()
     {

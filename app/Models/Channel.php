@@ -14,7 +14,7 @@ class Channel extends Model
     protected $table = "channels";
     protected $primaryKey = "id";
     protected $guarded = [];
-    protected $cascadeDeletes = ['posts', 'channelJoins', 'channelAdmins', 'channelVisitHistories', 'reports'];
+    protected array $cascadeDeletes = ['posts', 'channelJoins', 'channelAdmins', 'channelVisitHistories', 'reports'];
 
     public function posts() {
         return $this->hasMany(Post::class, 'channel_id', 'id');

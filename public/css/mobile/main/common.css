@@ -521,3 +521,6 @@ button {
 .modal-content {
     padding: 0 10px;
 }
+.visited {
+    color: rgb(128,128,128) !important
+}

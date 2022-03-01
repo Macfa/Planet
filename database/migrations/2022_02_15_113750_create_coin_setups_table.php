@@ -17,7 +17,8 @@ class CreateCoinSetupsTable extends Migration
             $table->id();
             $table->integer('post');
             $table->integer('comment');
-            $table->integer('day_limit');
+            $table->integer('post_limit');
+            $table->integer('comment_limit');
             $table->softDeletes();
             $table->timestamps();
         });

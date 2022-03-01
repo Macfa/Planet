@@ -195,11 +195,9 @@ class ChannelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Channel $channel)
     {
-        Channel::where('id', $id)
-            ->delete();
-
+        $channel->delete();
         return true;
     }
 

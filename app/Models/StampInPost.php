@@ -13,7 +13,7 @@ class StampInPost extends Model
 
     protected $table = "stamp_in_posts";
     protected $guarded = [];
-    protected $cascadeDeletes = [];
+//    protected $cascadeDeletes = [];
 
     public function post() {
         return $this->belongsTo(Post::class, 'post_id');

@@ -93,7 +93,7 @@ class PostController extends Controller
         $rules = [
             'channel_id' => 'required',
             'title' => 'required|max:40|min:2',
-            'content' => 'required|max:255',
+            'content' => 'required',
         ];
 
         $messages = [
@@ -102,7 +102,6 @@ class PostController extends Controller
             'channel_id.required' => '채널명을 선택해주세요.',
             'title.min' => '게시글명은 최소 2 글자 이상입니다.',
             'title.max' => '게시글명은 40 글자 이하입니다.',
-            'content.max' => '토픽 소개란은 최대 255 글자 이하입니다.',
         ];
         $validator = Validator::make($request->all(), $rules, $messages)->validate();
 
@@ -204,7 +203,7 @@ class PostController extends Controller
         $rules = [
             'channel_id' => 'required',
             'title' => 'required|max:40|min:2',
-            'content' => 'required|max:255',
+            'content' => 'required',
         ];
 
         $messages = [
@@ -213,7 +212,6 @@ class PostController extends Controller
             'channel_id.required' => '채널명을 선택해주세요.',
             'title.min' => '게시글명은 최소 2 글자 이상입니다.',
             'title.max' => '게시글명은 40 글자 이하입니다.',
-            'content.max' => '토픽 소개란은 최대 255 글자 이하입니다.',
         ];
         $validator = Validator::make($request->all(), $rules, $messages)->validate();
 
@@ -344,6 +342,28 @@ class PostController extends Controller
             return view('mobile.post.get', compact('post', 'comments'));
         } else {
             return view('post.get', compact('post', 'comments'));
+        }
+    }
+    public function showPost(Post $post) {
+        $comments = Comment::where('post_id', '=', $post->id)
+            ->with('likes')
+            ->with('user')
+            ->orderBy('group', 'desc')
+            ->orderBy('order', 'asc')
+            ->orderBy('depth', 'asc')
+            ->get();
+
+        if(auth()->check()) {
+            // 게시글 열람이력을 추가한다
+            $post->postReadHistories()->updateOrCreate(
+                ["user_id" => auth()->id() ],
+                ['updated_at' => now()]
+            );
+        }
+        if($this->agent->isMobile()) {
+            return view('mobile.post.get', compact('post', 'comments'));
+        } else {
+            return view('layouts.test', compact('post', 'comments'));
         }
     }
 }

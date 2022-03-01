@@ -14,7 +14,7 @@ class PostReadHistory extends Model
     protected $table = "post_read_histories";
     protected $primaryKey = "id";
     protected $guarded = [];
-    protected $cascadeDeletes = [];
+//    protected $cascadeDeletes = [];
 
     public function post() {
         return $this->belongsTo(Post::class, 'post_id', 'id');

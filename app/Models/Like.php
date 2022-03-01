@@ -15,7 +15,7 @@ class Like extends Model
     protected $table = "likes";
     protected $primaryKey = "id";
     protected $guarded = [];
-    protected $cascadeDeletes = [];
+//    protected $cascadeDeletes = [];
 
     public function likeable() {
         return $this->morphTo('likeable', 'likeable_type', 'likeable_id');

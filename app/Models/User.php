@@ -16,7 +16,7 @@ class User extends Authenticatable
     use SoftDeletes, CascadeSoftDeletes, HasFactory, Notifiable;
     protected $table = "users";
     protected $primaryKey = "id";
-    protected $cascadeDeletes = [];
+    protected $cascadeDeletes = ['posts', 'channelJoins', 'channelVisitHistories', 'channelAdmins', 'comments', 'channels', 'reports', 'scraps', 'hasCoins', 'hasExperiences'];
 
     /**
      * The attributes that are mass assignable.
@@ -65,10 +65,6 @@ class User extends Authenticatable
     public function grade() {
         return $this->hasOne(Grade::class, "level", "level");
     }
-    public function favorites() {
-        // to be delete !
-//        return $this->hasMany(Favorite::class, 'user_id', 'id');
-    }
     public function channelVisitHistories() {
         return $this->hasMany(ChannelVisitHistory::class, 'user_id', 'id');
     }
@@ -84,14 +80,28 @@ class User extends Authenticatable
     public function reports() {
         return $this->morphMany(Report::class, 'reportable');
     }
-    public function scrap() {
+    public function scraps() {
         return $this->hasMany(Scrap::class, 'user_id', 'id');
     }
-    public function hasCoins() {
-        return $this->hasMany(Coin::class, 'user_id', 'id');
+    public function hasCoins($obj = null) {
+        $q = $this->hasMany(Coin::class, 'user_id', 'id');
+        if($obj === "post") {
+            return $q->where("coinable_type", '=', 'App\Models\Post');
+        } else if($obj === "comment") {
+            return $q->where("coinable_type", '=', 'App\Models\Comment');
+        } else {
+            return $q;
+        }
     }
-    public function hasExperiences() {
-        return $this->hasMany(Experience::class, "user_id", "id");
+    public function hasExperiences($obj = null) {
+        $q = $this->hasMany(Experience::class, "user_id", "id");
+        if($obj === "post") {
+            return $q->where("experienced_type", '=', 'App\Models\Post');
+        } else if($obj === "comment") {
+            return $q->where("experienced_type", '=', 'App\Models\Comment');
+        } else {
+            return $q;
+        }
     }
     public function allChannels($page = 1) {
         $userId = $this->id; // 본인이 아닌 대상유저

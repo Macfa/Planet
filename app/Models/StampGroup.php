@@ -13,11 +13,11 @@ class StampGroup extends Model
 
     protected $table = "stamp_groups";
     protected $guarded = [];
-    protected $cascadeDeletes = [];
+//    protected $cascadeDeletes = [];
 
-    public function stamps() {
-        return $this->hasMany(Stamp::class, "category_group_id", "id");
-    }
+//    public function stamps() {
+//        return $this->hasMany(Stamp::class, "category_group_id", "id");
+//    }
     public static function getDataFromCategory($categoryID) {
         if($categoryID == 0) {
             return self::with("stamps")->get();

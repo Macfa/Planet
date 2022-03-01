@@ -33,6 +33,7 @@ Route::domain('m.localhost')->group(function () {
     Route::get('/', [PostController::class, 'index'])->name('mobile.home2');
 });
 
+Route::get('/te/{post}', [PostController::class, 'showPost']);
 // should be deleted route
 Route::get('/test', [HomeController::class, 'test'])->name("test");
 Route::get('/test2', [HomeController::class, 'test2']);

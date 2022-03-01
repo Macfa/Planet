@@ -57,7 +57,6 @@
         var checkRun = false;
 
         $(document).ready(function(){
-            addClassForMultiStamp();
             $(window).on('popstate', function(e) {
                 if(e.type === "popstate") {
                     var modalState = $("#open_post_modal").hasClass('show');
@@ -68,7 +67,8 @@
                         var tmpPostID = url.split('/').pop();
                         if($.isNumeric(tmpPostID))
                         {
-                            $(`#post-${tmpPostID} .title a`).get(0).click();
+                            // $(`#main #post-${tmpPostID} a[data-bs-post-id=${tmpPostID}]`).get(0).click();
+                            openPostModal(tmpPostID);
                         }
                     }
                 }
@@ -81,13 +81,14 @@
                 if($.isNumeric(tmpPostID))
                 {
                     // history.pushState('asd', 'asd', window.location.origin);
-                    $(`#post-${tmpPostID} .title a`).get(0).click();
+                    // $(`#main #post-${tmpPostID} a[data-bs-post-id=${tmpPostID}]`).get(0).click();
+                    openPostModal(tmpPostID);
                 }
             }
             $(window).scroll(function(event) {
                 // if($(".list").scrollTop() + $(".list").height() >= $(".list > table").height()) {
                 if($(window).scrollTop() + $(window).height() >= $(document).height()) {
-                    if(checkRun == false) {
+                    if(checkRun === false) {
                         checkRun = true;
                         loadMoreData(page);
                         page++;
@@ -102,17 +103,7 @@
 
             // clickSidebarMenu('realtime');
             $('#main .right .best > ul .realtime').click();
-
         });
-        function addClassForMultiStamp(element) {
-            if(element === undefined) {
-                // $(".stamp-item:has(>span)").addClass("multi-stamps");
-            } else if(typeof(element) === 'object'){
-                $.each(element, function(idx, val) {
-
-                });
-            }
-        }
         function loadMoreData(page) {
             // alert(page);
             var channelID = "{{ request()->route('channel.id') }}";
@@ -134,11 +125,6 @@
                         addDataPlaceHolder();
                         var postIdArr = [];
                         for (var i = 0; i < data.result.length; i++) {
-                            var multiClassName = '';
-                            // if(data.result[i].stamps.totalCount > 1) {
-                                // alert(data.result[i].stamps.totalCount);
-                                // multiClassName = 'multi-stamps';
-                            // }
                             valueList.push({
                                 "totalLike": data.result[i].totalLike,
                                 "postID": data.result[i].id,
@@ -159,7 +145,6 @@
                             removeDataPlaceHolder();
                             $("#mainMenuItem").tmpl(valueList).insertAfter("#main .main-wrap .left .list table tbody tr:last-child");
                             addReadPost(postIdArr);
-                            addClassForMultiStamp(postIdArr);
                         }, 1500);
                     }
                     // $("#main .wrap .left .tab li[class="+type+"]").attr('class', 'on');
@@ -195,51 +180,13 @@
         });
         $("#open_post_modal").on('show.bs.modal', function(event) {
             if (event.target.id === 'open_post_modal') {
+                console.log(event);
                 var button = event.relatedTarget;
-                var postID = button.getAttribute('data-bs-post-id');
-                var modalBody = $(".modal-content");
-                var urlPath = '';
-
-                if(history.state == null) {
-                    urlPath = "/post/"+postID;
-                } else {
-                    urlPath = location.href;
+                if(button) {
+                    var postID = button.getAttribute('data-bs-post-id');
+                    openPostModal(postID);
                 }
 
-
-                $.ajax({
-                    url: '/post/'+postID+"/get",
-                    type: 'get',
-                    success: function(data) {
-                        modalBody.html(data);
-                        history.pushState('modal', 'modal', urlPath);
-                        var readPost = JSON.parse(localStorage.getItem('readPost'));
-
-                        if(readPost === null)
-                        {
-                            // 읽은 게시글이 없으면 새로 추가
-                            localStorage.setItem('readPost', JSON.stringify([postID]));
-                        } else
-                        {
-                            //
-                            var checkExist = readPost.includes(postID.toString());
-                            if (checkExist === false)
-                            {
-                                readPost.push(postID);
-                                localStorage.setItem('readPost', JSON.stringify(readPost));
-                            }
-                        }
-                        addReadPost(postID);
-                        // $.fn.modal.Constructor.prototype.enforceFocus = function () {};
-                        // var button = event.relatedTarget;
-                        // $("#openStampModal").on('hide.bs.modal', function(event) {
-                        //     event.stopPropagation();
-                        // });
-                    },
-                    error: function(err) {
-                        console.log(err);
-                    }
-                })
             } else if (event.target.id === 'openStampModal') {
                 var modalBody = $("#openStampModal .modal-content");
                 var button = event.relatedTarget;
@@ -288,6 +235,61 @@
             $("#searchType").val(type);
             $("#mainSearchForm").submit();
         }
+        function openPostModal(postID) {
+            var modalBody = $(".modal-content");
+            var urlPath = '';
+
+            if(history.state == null) {
+                urlPath = "/post/"+postID;
+            } else {
+                urlPath = location.href;
+            }
+            // alert(1);
+            // console.log(postID, urlPath);
+            $.ajax({
+                url: '/post/'+postID+"/get",
+                type: 'get',
+                success: function(data) {
+                    // console.log(data);
+                    modalBody.html(data);
+                    history.pushState('modal', 'modal', urlPath);
+                    var readPost = JSON.parse(localStorage.getItem('readPost'));
+
+                    if(readPost === null)
+                    {
+                        // 읽은 게시글이 없으면 새로 추가
+                        localStorage.setItem('readPost', JSON.stringify([postID]));
+                        var exist = $(`#main #post-${postID} a[data-bs-post-id=${postID}]`).hasClass('visited');
+                        if (exist === false)
+                        {
+                            $(`#main #post-${postID} a[data-bs-post-id=${postID}]`).addClass('visited');
+                        }
+                    } else
+                    {
+                        //
+                        var checkExist = readPost.includes(postID.toString());
+                        if (checkExist === false)
+                        {
+                            readPost.push(postID);
+                            localStorage.setItem('readPost', JSON.stringify(readPost));
+                            $(`#main #post-${postID} a[data-bs-post-id=${postID}]`).addClass('visited');
+                        }
+                    }
+                    console.log($(`#open_post_modal`));
+                    $('#open_post_modal').modal('show');
+
+                    // }
+                    // $.fn.modal.Constructor.prototype.enforceFocus = function () {};
+                    // var button = event.relatedTarget;
+                    // $("#openStampModal").on('hide.bs.modal', function(event) {
+                    //     event.stopPropagation();
+                    // });
+                },
+                error: function(err) {
+                    console.log(err);
+                }
+            })
+        }
         function clickMainMenu(type) {
             var channelID = "{{ request()->route('channel.id') }}";
 {{--            var channelID2 = "{{ request()->route('channel')->currentRouteName() }}";--}}
@@ -309,6 +311,7 @@
                         var value = "<tr class='none-tr'><td>데이터가 없습니다.</td></tr>";
                         $("#main .wrap .left .list table tbody").html(value);
                     } else {
+                        var postIdArr = [];
                         for(var i=0; i<data.result.length; i++) {
                             valueList.push({
                                 "totalLike": data.result[i].totalLike,
@@ -324,8 +327,11 @@
                                 "postImage": data.result[i].image,
                                 "stamps": data.result[i].stamps,
                             });
+                            postIdArr.push(data.result[i].id);
                         }
                         $("#mainMenuItem").tmpl(valueList).appendTo("#main .main-wrap .left .list table tbody");
+                        addReadPost(postIdArr);
+                        checkRun = false;
                     }
                     page = 1;
                     $("#main .wrap .left .tab li[class="+type+"]").attr('class', 'on');
@@ -335,13 +341,6 @@
                 }
             })
         }
-        function setContentHeight() {
-            let list = $(".list").offset().top;
-            let body = $("body").height();
-            let distance = body - list;
-            $(".list").css("max-height", distance);
-        }
-
     </script>
     <script id="mainMenuItem" type="text/x-jquery-tmpl">
     <tr id="post-${postID}">

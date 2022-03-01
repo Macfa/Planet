@@ -7,7 +7,6 @@ $.ajaxSetup({
 var timer = null;
 
 $(document).ready(function () {
-    // $(document).off('focusin.modal');
     var readPostList = JSON.parse(localStorage.getItem("readPost"));
     if(readPostList !== null) {
         readPostList.forEach(function(val, idx, arr) {
@@ -64,31 +63,29 @@ var delay = (function(){
 })();
 
 function addReadPost(vals) {
-    var lastVals = [];
+    // alert(1);
+    // var lastVals = [];
+    var readPostList = JSON.parse(localStorage.getItem("readPost"));
     if (typeof(vals) === "object") {
         // 무한스크롤로 대량을 데이터를 끌고 올 때,
-        var readPostList = JSON.parse(localStorage.getItem("readPost"));
+        // var readPostList = JSON.parse(localStorage.getItem("readPost"));
         if(readPostList !== null) {
             vals.forEach(function(val, idx) {
                 var exist = readPostList.includes(val.toString());
                 if(exist)
                 {
-                    lastVals.push(val);
+                    $(`#main #post-${val} a[data-bs-post-id=${val}]`).addClass('visited');
                 }
             });
         }
-    } else {
-        // 게시글을 클릭했을 경우
-        lastVals.push(vals);
-
     }
-    lastVals.forEach(function (val, idx, arr) {
-        var exist = $(`#main #post-${val} a[data-bs-post-id=${val}]`).hasClass('visited');
-        if (exist === false)
-        {
-            $(`#main #post-${val} a[data-bs-post-id=${val}]`).addClass('visited');
-        }
-    });
+    // lastVals.forEach(function (val, idx, arr) {
+    //     var exist = $(`#main #post-${val} a[data-bs-post-id=${val}]`).hasClass('visited');
+    //     if (exist === false)
+    //     {
+    //         $(`#main #post-${val} a[data-bs-post-id=${val}]`).addClass('visited');
+    //     }
+    // });
 }
 
 function searchingCallback() {

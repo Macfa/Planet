@@ -14,7 +14,7 @@ class Scrap extends Model
     protected $table = "scraps";
     protected $primaryKey = "id";
     protected $guarded = [];
-    protected $cascadeDeletes = [];
+//    protected $cascadeDeletes = [];
 
     public function post()
     {

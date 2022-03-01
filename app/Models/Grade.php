@@ -15,23 +15,7 @@ class Grade extends Model
     protected $table = "grades";
     protected $primaryKey = "id";
     protected $guarded = [];
-    protected $cascadeDeletes = [];
-
-    public function __construct(array $attributes = [])
-    {
-        if($this->exists() === false) {
-            $this->insert([
-                'level' => 1,
-                'name' => '기본',
-                'icon' => '',
-                'minExp' => 0,
-                'maxExp' => 100,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-        }
-        parent::__construct($attributes);
-    }
+//    protected $cascadeDeletes = [];
 
     public function user() {
         return $this->belongsTo(User::class, 'level', 'level');

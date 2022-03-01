@@ -13,10 +13,10 @@ class Stamp extends Model
 
     protected $table = "stamps";
     protected $guarded = [];
-    protected $cascadeDeletes = [];
+//    protected $cascadeDeletes = [];
 
     public function category() {
-        return $this->hasOne(StampCategory::class,'id', 'category_id');
+        return $this->belongsTo(StampCategory::class,'category_id', 'id');
     }
     public function coins() {
         return $this->morphMany(Coin::class, 'coinable');

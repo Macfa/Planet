@@ -149,8 +149,12 @@
         {{--    <script src="{{ asset('js/editorShow.js') }}"></script>--}}
     </div>
 </div>
+@push('styles')
+    <script async charset="utf-8"
+            src="//cdn.iframe.ly/embed.js?api_key=6341e81a116ba645f8ee8336332eb524"
+    ></script>
+@endpush
 <script>
-
     $("#open_post_modal").scroll(function() {
         var headerHeight = $("#header").outerHeight();
         var postOffsetTop = $("#post").offset().top;
@@ -173,9 +177,14 @@
         // $(document).load(function () {
         //adjust modal body sizes
 
-        document.querySelectorAll( 'oembed[url]' ).forEach( element => {
-            // iframe
-            iframely.load( element, element.attributes.url.value );
+        document.querySelectorAll( 'div[data-oembed-url]' ).forEach( element => {
+            // Discard the static media preview from the database (empty the <div data-oembed-url="...">).
+            while ( element.firstChild ) {
+                element.removeChild( element.firstChild );
+            }
+
+            // Generate the media preview using Iframely.
+            iframely.load( element, element.dataset.oembedUrl ) ;
         } );
         // document.querySelectorAll( 'oembed[url]' ).forEach( element => {
         // embedly

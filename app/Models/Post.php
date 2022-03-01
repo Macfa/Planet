@@ -17,7 +17,7 @@ class Post extends Model
     protected $table = "posts";
     protected $primaryKey = "id";
     protected $guarded = [];
-    protected $cascadeDeletes = [];
+    protected $cascadeDeletes = ['comments', 'likes', 'stampInPosts', 'scrap', 'report', 'postReadHistories'];
     private int $count = 10;
 
     public function channel() {

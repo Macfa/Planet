@@ -14,7 +14,7 @@ class Comment extends Model
     protected $table = "comments";
     protected $primaryKey = "id";
     protected $guarded = [];
-    protected $cascadeDeletes = [];
+    protected $cascadeDeletes = ['likes', 'stampInComments', 'scrap'];
 
     public function post() {
         return $this->belongsTo(Post::class, 'post_id', 'id');

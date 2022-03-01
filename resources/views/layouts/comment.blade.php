@@ -8,7 +8,7 @@
             </div>
 
             <div class="comment-input">
-                <textarea name="content" id="comment_text"></textarea>
+                <textarea name="content" id="comment_text" ></textarea>
                 <div class="form-btn d-flex justify-content-end">
                     {{--                <div class="reset-btn">--}}
                     {{--                    <button type="button" data-bs-dismiss="modal" aria-label="Close">취소</button>--}}
@@ -26,7 +26,7 @@
     <!-- 댓글 -->
     <div class="comment-list-parent" id="comment">
         <div class="section-title">
-            <h4>댓글 보기1</h4>
+            <h4>댓글 보기</h4>
         </div>
 
         <!-- 댓글 리스트 -->
@@ -287,12 +287,20 @@
             var data = "";
             var type = "";
             var url = "";
+            var validate = '';
 
             // 댓글, 대댓글 구분
             if (commentID) {
+                validate = $(`#open_post_modal .comment-${commentID} .reply-form form #reply_text`).val();
                 data = $(`#open_post_modal .comment-${commentID} .reply-form form`).serialize();
             } else {
+                validate = $("#open_post_modal #comment-form #comment_text").val();
                 data = $("#open_post_modal #comment-form").serialize();
+            }
+
+            if(validate === "") {
+                alert("내용을 입력해주세요 ");
+                return false;
             }
 
             // 생성, 수정 구분

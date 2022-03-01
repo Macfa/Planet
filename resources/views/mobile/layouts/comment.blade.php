@@ -222,8 +222,7 @@
                     "value": "",
                     "form": "edit"
                 };
-
-                $("#replyWriteForm").tmpl(templateValues).appendTo(`.comment-${commentID} .comment-item`);
+                $("#replyWriteForm").tmpl(templateValues).appendTo(`.comment-${commentID}`);
             } else if (status === "hide") {
                 $(`.comment-${commentID} .reply-form`).remove();
                 el.show();
@@ -282,14 +281,21 @@
             var data = "";
             var type = "";
             var url = "";
+            var validate = '';
 
             // 댓글, 대댓글 구분
             if (commentID) {
                 // data = $(`.comment-${commentID} .reply-form form`).serialize();
+                validate = $(`#open_post_modal .comment-${commentID} .reply-form form #reply_text`).val();
                 data = $(`#open_post_modal .comment-${commentID} .reply-form form`).serialize();
             } else {
                 // data = $("#comment-form").serialize();
+                validate = $("#open_post_modal #comment-form #comment_text").val();
                 data = $("#open_post_modal #comment-form").serialize();
+            }
+            if(validate === "") {
+                alert("내용을 입력해주세요 ");
+                return false;
             }
 
             // 생성, 수정 구분
