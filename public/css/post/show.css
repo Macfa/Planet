@@ -30,11 +30,9 @@
     /*!* max-width:100%; *!*/
     /*border:1px solid #CBC7C7;*/
   }
-  .modal-parent > .modal-wrap > .modal-header > .modal-title h4 {
+.modal-parent > .modal-wrap > .modal-header > .modal-title p {
     font-size:26px;
     font-weight:400;
-  }
-.modal-parent > .modal-wrap > .modal-header > .modal-title p {
     letter-spacing: 0;
     float: left;
     overflow: hidden;

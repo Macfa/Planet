@@ -341,7 +341,9 @@
             @{{/if}}
             ">${totalLike}</span>
         </td>
-        <td><div class="thum"></div></td>
+        <td>
+            <div class="thum" style="background-image: url('${postImage}');"></div>
+        </td>
         <td>
             <div class="title">
                 <a href="#post-show-${post_id}" data-bs-toggle="modal" data-bs-post-id="${postID}" data-bs-channel-id="${channel_id}" data-bs-target="#open_post_modal">
@@ -353,16 +355,9 @@
             </div>
             <div class="stamps">
                 @{{each stamps}}
-                    <div class="stamp-item stamp-${id}
-                    @{{if totalCount > 1}}
-                        multi-stamps">
-                     @{{else}}
-                        ">
-                    @{{/if}}
-                        <img src="${image}" alt="">
-                        @{{if totalCount > 1}}
-                            <span class="stamp_count">${totalCount}</span>
-                        @{{/if}}
+                    <div class="stamp-item stamp-${id} multi-stamps">
+                        <img src="${image}" alt="" />
+                        <span class="stamp_count">${stampTotalCount}</span>
                     </div>
                 @{{/each}}
             </div>
@@ -376,7 +371,7 @@
         <td>
             <span class="updown dash"></span>
         </td>
-        <td><div class="thum"></div></td>
+        <td><div class="thum" style="background-image:url('/image/thum.jpg')"></div></td>
         <td>
             <div class="title">
                 <p class="placeholder col-6"></p>

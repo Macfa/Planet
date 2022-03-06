@@ -25,7 +25,7 @@
                         <div class="stamps post-{{ $post->id }}-stamps">
                             @foreach($post->stampsCount as $stamp)
                                 <div class="stamp-item stamp-{{ $stamp->stamp_id }} multi-stamps">
-                                    <img src="/image/{{ $stamp->image }}" alt="">
+                                    <img src="{{ url($stamp->image) }}" alt="">
                                     <span class="stamp_count">{{ $stamp->totalCount }}</span>
                                 </div>
                             @endforeach

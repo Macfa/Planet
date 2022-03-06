@@ -2,13 +2,11 @@
 <div class="modal-parent container-fluid flex-grow-1">
     <div class="modal-wrap">
         <div class="modal-header flex-wrap-wrap">
-            <div class="modal-title flex-0-0-100">
-                <h4>
-                    <p>{{ $post->title }}&nbsp;&nbsp;</p>
-                    @if($post->comments->count() > 0)
-                        <span class="titleSub">[&nbsp;<span class="commentCount">{{ $post->comments->count() }}</span>&nbsp;]</span>
-                    @endif
-                </h4>
+            <div class="modal-title flex-0-0-100 wid100">
+                <p style="width: inherit;">{{ $post->title }}&nbsp;&nbsp;</p>
+                @if($post->comments->count() > 0)
+                    <span class="titleSub">[&nbsp;<span class="commentCount">{{ $post->comments->count() }}</span>&nbsp;]</span>
+                @endif
             </div>
             <div class="stamps post-{{ $post->id }}-stamps">
                 @foreach($post->stampsCount as $stamp)
@@ -177,33 +175,20 @@
         // $(document).load(function () {
         //adjust modal body sizes
 
-        document.querySelectorAll( 'div[data-oembed-url]' ).forEach( element => {
-            // Discard the static media preview from the database (empty the <div data-oembed-url="...">).
-            while ( element.firstChild ) {
-                element.removeChild( element.firstChild );
-            }
 
-            // Generate the media preview using Iframely.
-            iframely.load( element, element.dataset.oembedUrl ) ;
-        } );
-        // document.querySelectorAll( 'oembed[url]' ).forEach( element => {
-        // embedly
-        //     const anchor = document.createElement( 'a' );
-        //
-        //     anchor.setAttribute( 'href', element.getAttribute( 'url' ) );
-        //     anchor.className = 'embedly-card';
-        //
-        //     element.appendChild( anchor );
-        // } );
+        // document.querySelectorAll( 'div[data-oembed-url]' ).forEach( element => {
+        // document.querySelectorAll('oembed[url]').forEach( element => {
+        //     // get just the code for this youtube video from the url
+        //     let vCode = element.attributes.url.value.split('?v=')[1];
+        //     console.log(element);
+        //     console.log(vCode);
+        //     // paste some BS5 embed code in place of the Figure tag
+        //     element.parentElement.outerHTML= `
+        //         <div class="ratio ratio-16x9">
+        //             <iframe src="https://www.youtube.com/embed/${vCode}?rel=0"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        //         </div>`;
+        // });
     });
-    // var openStampModal = document.getElementById('openStampModal')
-    // openStampModal.addEventListener('show.bs.modal', function (event) {
-    //     alert(1);
-    // });
-    // $.fn.modal.defaults.maxHeight = function(){
-    // subtract the height of the modal header and footer
-    // return $(window).height() - 165;
-    // }
     function deletePost(id) {
         if(confirm('삭제하시겠습니까 ?')) {
             $.ajax({

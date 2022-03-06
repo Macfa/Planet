@@ -141,40 +141,11 @@ input:focus {
   color: #0008f9;
 }
 
-#app .board_box .left div.list table tr td div.thum {
-  width: 70px;
-  height: 50px;
-  background-color: #fbc4c4;
-  background-image: url("/image/thum.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
 #app .board_box .left div.list table tr td div.title a {
   display: block;
   overflow: hidden;
   padding: 0 0 3px 4px;
   box-sizing: border-box;
-}
-#app .board_box .left div.list table tr td div.title a p {
-  /*color: rgba(0, 0, 0, 0.87);*/
-  font-size: 19px;
-  letter-spacing: 0;
-  float: left;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: calc(100% - 100px);
-  /*font-weight: 500;*/
-}
-
-#app .board_box .left div.list table tr td div.title a span {
-  /*margin-left: 7px;*/
-  /*font-size: 19px;*/
-  /*font-weight: 500;*/
-  /*padding: 0 30px 0 0;*/
-  /*box-sizing: border-box;*/
 }
 
 #app .board_box .left div.list table tr td div.user p {

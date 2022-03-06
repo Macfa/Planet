@@ -29,11 +29,11 @@ class PostController extends Controller
             redirect('http://m.localhost:8000/');
         }
     }
-    public function home() {
-        $posts = Post::getAllData();
-        $channelVisitHistories = ChannelVisitHistory::showHistory();
-        return view('main.index', compact('posts', 'channelVisitHistories'));
-    }
+//    public function home() {
+//        $posts = Post::getAllData();
+//        $channelVisitHistories = ChannelVisitHistory::showHistory();
+//        return view('main.index', compact('posts', 'channelVisitHistories'));
+//    }
     /**
      * Display a listing of the resource.
      *
@@ -92,7 +92,7 @@ class PostController extends Controller
         // set validation rules
         $rules = [
             'channel_id' => 'required',
-            'title' => 'required|max:40|min:2',
+            'title' => 'required|max:70|min:2',
             'content' => 'required',
         ];
 
@@ -101,7 +101,7 @@ class PostController extends Controller
             'content.required' => '게시글 내용을 입력해주세요.',
             'channel_id.required' => '채널명을 선택해주세요.',
             'title.min' => '게시글명은 최소 2 글자 이상입니다.',
-            'title.max' => '게시글명은 40 글자 이하입니다.',
+            'title.max' => '게시글명은 70 글자 이하입니다.',
         ];
         $validator = Validator::make($request->all(), $rules, $messages)->validate();
 
@@ -112,7 +112,7 @@ class PostController extends Controller
 //        dd($matchSubject);
         if($matchSubject == []) {
             // 이미지 소스를 추출하지못했다면
-            $mainImageUrl = null;
+            $mainImageUrl = "/image/thum.jpg";
         } else {
             // 첫번째 이미지 소스를 대표이미지로 지정
             $mainImageUrl = $matchSubject[0];
@@ -202,7 +202,7 @@ class PostController extends Controller
         // set validation rules
         $rules = [
             'channel_id' => 'required',
-            'title' => 'required|max:40|min:2',
+            'title' => 'required|max:70|min:2',
             'content' => 'required',
         ];
 
@@ -211,7 +211,7 @@ class PostController extends Controller
             'content.required' => '게시글 내용을 입력해주세요.',
             'channel_id.required' => '채널명을 선택해주세요.',
             'title.min' => '게시글명은 최소 2 글자 이상입니다.',
-            'title.max' => '게시글명은 40 글자 이하입니다.',
+            'title.max' => '게시글명은 70 글자 이하입니다.',
         ];
         $validator = Validator::make($request->all(), $rules, $messages)->validate();
 
@@ -222,7 +222,7 @@ class PostController extends Controller
 
         if($matchSubject == []) {
             // 이미지 소스를 추출하지못했다면
-            $mainImageUrl = '/image/thum.jpg';
+            $mainImageUrl = "/image/thum.jpg";
         } else {
             // 첫번째 이미지 소스를 대표이미지로 지정
             $mainImageUrl = $matchSubject[0];

@@ -118,6 +118,7 @@
                             "user_id": data.result[i].user.id,
                             "created_at_modi": data.result[i].created_at_modi,
                             "postImage": data.result[i].image,
+                            "stamps": data.result[i].stamps,
                         });
                         postIdArr.push(data.result[i].id);
                     }
@@ -319,7 +320,7 @@
             success: function (data) {
                 var valueList = [];
                 $("#main .main-wrap .left .list table tbody tr").remove();
-                if (data.result.length == 0) {
+                if (data.result.length === 0) {
                     // valueList.push("<tr class='none-tr'><td>데이터가 없습니다.</td></tr>");
                     var value = "<tr class='none-tr'><td>데이터가 없습니다.</td></tr>";
                     $("#main .wrap .left .list table tbody").html(value);
@@ -339,6 +340,7 @@
                             "stampInPosts": data.result[i].stamp_in_posts,
                             "created_at_modi": data.result[i].created_at_modi,
                             "postImage": data.result[i].image,
+                            "stamps": data.result[i].stamps,
                         });
                         postIdArr.push(data.result[i].id);
                     }
@@ -363,10 +365,10 @@
     <td>
         <div class="title">
             <a href="#post-show-${post_id}" data-bs-toggle="modal" data-bs-focus="false" data-bs-post-id="${post_id}" data-bs-channel-id="${postChannelID}" data-bs-target="#open_post_modal">
-                <p>${postTitle}&nbsp;&nbsp;</p>
-                @{{if commentCount > 0}}
-                    <span class="titleSub">[&nbsp;<span class="commentCount">${commentCount}</span>&nbsp;]</span>
-                @{{/if}}
+            <p>${postTitle}&nbsp;&nbsp;</p>
+            @{{if commentCount > 0}}
+                <span class="titleSub">[&nbsp;<span class="commentCount">${commentCount}</span>&nbsp;]</span>
+            @{{/if}}
 {{--                <span>--}}
             {{--                    @{{each(i,stamp) stampInPosts}}--}}
             {{--                    ${stamp.id}--}}
@@ -375,19 +377,23 @@
             {{--                </span>--}}
             </a>
         </div>
+        <div class="stamps">
+        @{{each stamps}}
+            <div class="stamp-item stamp-${id} multi-stamps">
+                <img src="${image}" alt="" />
+                <span class="stamp_count">${stampTotalCount}</span>
+            </div>
+        @{{/each}}
+        </div>
         <div class="user">
             <p><span><a href="/channel/${postChannelID}">[ ${channelName} ]</a></span> ${created_at_modi} / <a href="/user/${userID}">${userName}</a></p></div>
         </div>
     </td>
     </tr>
-
 </script>
 <script id="dataPlaceHolder" type="text/x-jquery-tmpl">
 <tr>
-{{--    <td>--}}
-{{--        <span class="updown up"></span>--}}
-{{--    </td>--}}
-    <td><div class="thum"></div></td>
+    <td><div class="thum" style="background-image:url('/image/thum.jpg')"></div></td>
     <td>
         <div class="title">
             <p class="placeholder col-6"></p>

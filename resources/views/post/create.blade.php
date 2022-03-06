@@ -114,9 +114,9 @@
             alert("채널을 선택해주세요");
             return false;
         }
-        if(form.title.value === "" || form.title.value.length > 40)
+        if(form.title.value === "" || form.title.value.length > 70)
         {
-            alert("이름을 입력해주세요 ( 40자 이하 )");
+            alert("제목을 입력해주세요 ( 70자 이하 )");
             return false;
         }
         if(window.editor.data.get() === "")
@@ -142,48 +142,57 @@
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                 }
             },
-            // mediaEmbed: {
-            //     providers: [
-            //         {
-            //             name: 'YouTube',
-            //             url: /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube(-nocookie)?\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/,
-            //             html: match => '...'
-            //         },
-            //         ...
-            //     ]
-            // }
-            // mediaEmbed: {
-            //     previewsInData: true,
-            //
-            //     providers: [
-            //         {
-            //             // hint: this is just for previews. Get actual HTML codes by making API calls from your CMS
-            //             name: 'iframely previews',
-            //
-            //             // Match all URLs or just the ones you need:
-            //             url: /.+/,
-            //
-            //             html: match => {
-            //                 const url = match[ 0 ];
-            //
-            //                 var iframeUrl = IFRAME_SRC + '?app=1&api_key=' + API_KEY + '&url=' + encodeURIComponent(url);
-            //                 // alternatively, use &key= instead of &api_key with the MD5 hash of your api_key
-            //                 // more about it: https://iframely.com/docs/allow-origins
-            //
-            //                 return (
-            //                     // If you need, set maxwidth and other styles for 'iframely-embed' class - it's yours to customize
-            //                     '<div class="iframely-embed">' +
-            //                     '<div class="iframely-responsive">' +
-            //                     `<iframe src="${ iframeUrl }" ` +
-            //                     'frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>' +
-            //                     '</iframe>' +
-            //                     '</div>' +
-            //                     '</div>'
-            //                 );
-            //             }
-            //         }
-            //     ]
-            // }
+            mediaEmbed: {
+                previewsInData: true,
+                // removeProviders: ['youtube'],
+                // providers: [
+                //     {
+                //         name: 'youtube',
+                //         url: [
+                //             /^(?:m\.)?youtube\.com\/watch\?v=([\w-]+)/,
+                //             /^(?:m\.)?youtube\.com\/v\/([\w-]+)/,
+                //             /^youtube\.com\/embed\/([\w-]+)/,
+                //             /^youtu\.be\/([\w-]+)/,
+                //             /^(https:\/\/)?(?:m\.)?(www\.)?youtube\.com\/watch\?v=([\w-]+)/,
+                //         ],
+                //         html: match => {
+                //             const id = match[ 1 ];
+                //
+                //             return (
+                //                 '<div style="position: relative; padding-bottom: 100%; height: 0; padding-bottom: 56.2493%;">' +
+                //                 `<iframe src="https://www.youtube.com/embed/${ id }" ` +
+                //                 'style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;" ' +
+                //                 'frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>' +
+                //                 '</iframe>' +
+                //                 '</div>'
+                //             );
+                //         }
+                //     },
+                // ],
+                extraProviders: [
+                    {
+                        name: 'afreecaTV',
+                        url: [
+                            /^(https:\/\/)?v\.afree\.ca\/ST\/([\w-]+)/,
+                            /^(https:\/\/)?vod\.afreecatv\.com\/([\w-]+)/,
+                            /^(https:\/\/)?play\.afreecatv\.com\/([\w-]+)\/([\w-]+)/,
+                            /^play\.afreecatv\.com\/([\w-]+)\/([\w-]+)/,
+                        ],
+                        html: match => {
+                            const id = match[ 1 ];
+                            // https://play.afreecatv.com/daybymin/239212813
+                            return (
+                                '<div style="position: relative; padding-bottom: 100%; height: 0; padding-bottom: 56.2493%;">' +
+                                `<iframe src="https://openapi.afreecatv.com/oembed/embedinfo/${ id }" ` +
+                                'style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;" ' +
+                                'frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>' +
+                                '</iframe>' +
+                                '</div>'
+                            );
+                        }
+                    },
+                ]
+            }
         })
             .then(editor => {
                 window.editor = editor;

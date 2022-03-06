@@ -19,7 +19,7 @@ class CreatePostsTable extends Migration
 //            $table->enum("is_notice");
             $table->bigInteger('channel_id')->unsigned();
             $table->foreign("channel_id")->references("id")->on("channels")->onDelete('cascade');
-            $table->string('title', 200);
+            $table->string('title', 100);
             $table->string('image', 100)->nullable();
             $table->longText('content');
 //            $table->foreignId('user_id')->nullable()->constrained("users")->cascadeOnUpdate()->nullOnDelete();

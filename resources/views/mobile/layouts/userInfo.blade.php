@@ -88,9 +88,8 @@
                 </div>
                 <div class="modal-header">
                     <div class="left">
-                        <img alt="img">
                         @if($user->isNameChanged=="Y")
-                            <span> 100 차감</span>
+                            <span> 100 코인 차감</span>
                         @else
                             <span> 차감 없음</span>
                         @endif

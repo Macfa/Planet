@@ -118,7 +118,7 @@
                     },
                     success: function (data) {
                         var valueList = [];
-                        if (data.result.length == 0) {
+                        if (data.result.length === 0) {
                             toastr.info("데이터가 없습니다");
                         } else {
                             addDataPlaceHolder();

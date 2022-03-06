@@ -141,16 +141,6 @@ input:focus {
   color: #0008f9;
 }
 
-#app .board_box .left div.list table tr td div.thum {
-  width: 70px;
-  height: 50px;
-  background-color: #fbc4c4;
-  background-image: url("/image/thum.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
 #app .board_box .left div.list table tr td div.title a {
   display: block;
   overflow: hidden;

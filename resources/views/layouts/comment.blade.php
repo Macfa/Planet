@@ -391,7 +391,7 @@
                     success: function (data) {
                         var el = '.comment-' + id;
                         $(el).remove();
-                        var commentTotalCount = $(".comment-list").length;
+                        var commentTotalCount = $(".comment-item").length;
                         if (commentTotalCount === 0) {
                             $("#comment").remove();
                         }

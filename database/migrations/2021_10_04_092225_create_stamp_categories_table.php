@@ -15,7 +15,7 @@ class CreateStampCategoriesTable extends Migration
     {
         Schema::create('stamp_categories', function (Blueprint $table) {
             $table->id();
-            $table->string("image"); // 대표이미지
+//            $table->string("image")->nullable(); // 대표이미지
             $table->string("name", 30); // 명칭
             $table->softDeletes();
             $table->timestamps();

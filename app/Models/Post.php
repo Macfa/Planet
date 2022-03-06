@@ -18,7 +18,7 @@ class Post extends Model
     protected $primaryKey = "id";
     protected $guarded = [];
     protected $cascadeDeletes = ['comments', 'likes', 'stampInPosts', 'scrap', 'report', 'postReadHistories'];
-    private int $count = 10;
+    private int $count = 15;
 
     public function channel() {
         return $this->belongsTo(Channel::class, 'channel_id', 'id');
@@ -136,6 +136,10 @@ class Post extends Model
                 ->with('likes')
                 ->with('user')
 //                ->with('stamps')
+                ->with('stamps', function($query) {
+                    $query->select('*', DB::raw('count(*) as stampTotalCount'));
+                    $query->groupBy(["stamp_in_posts.post_id", "stamps.id"]);
+                })
                 ->withCount('comments')
                 ->orderby('id', 'desc')
                 ->where(function($query) use ($channelID) {
@@ -156,10 +160,11 @@ class Post extends Model
                 })
                 ->withCount('comments')
                 ->with('user')
-//                ->with('stamps', function($query) {
-//                    $query->select('*', DB::raw('count(*) as totalCount'));
-//                    $query->groupBy(["stamp_in_posts.post_id", "stamps.id"]);
-//                })
+//                ->with('stamps')
+                ->with('stamps', function($query) {
+                    $query->select('*', DB::raw('count(*) as stampTotalCount'));
+                    $query->groupBy(["stamp_in_posts.post_id", "stamps.id"]);
+                })
                 ->where(function ($query) use ($channelID) {
                     if ($channelID) {
                         $query->where('channel_id', '=', $channelID);
@@ -190,6 +195,7 @@ class Post extends Model
 //                $stamp['totalCount'] = $stamp->count();
 //            }
         }
+//        dd($posts);
         return $posts;
     }
 }

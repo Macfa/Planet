@@ -23,7 +23,7 @@ class StampController extends Controller
         $rules = [
             'name' => 'required',
             'image' => 'required',
-            'description' => 'required',
+//            'description' => 'required',
             'coin' => 'required',
         ];
 

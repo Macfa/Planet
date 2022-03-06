@@ -13,7 +13,6 @@ class StampCategoryController extends Controller
         // set validation rules
         $rules = [
             'name' => 'required',
-            'image' => 'required',
         ];
 
         $messages = [
@@ -25,14 +24,14 @@ class StampCategoryController extends Controller
 
         // upload file
         $upload_controller = new EditorsController();
-        $result = $upload_controller->upload($request);
-//        dd($request->hasFile('image'), $result);
-        if($result) {
+//        $result = $upload_controller->upload($request);
+
+//        if($result) {
             StampCategory::create([
                 'name' => $request->input("name"),
-                'image' => $result["url"]
+//                'image' => $result["url"]
             ]);
-        }
+//        }
         return redirect()->to('/admin/stampCategory');
     }
 
