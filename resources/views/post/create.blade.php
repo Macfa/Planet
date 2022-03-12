@@ -145,50 +145,51 @@
             mediaEmbed: {
                 previewsInData: true,
                 // removeProviders: ['youtube'],
-                // providers: [
-                //     {
-                //         name: 'youtube',
-                //         url: [
-                //             /^(?:m\.)?youtube\.com\/watch\?v=([\w-]+)/,
-                //             /^(?:m\.)?youtube\.com\/v\/([\w-]+)/,
-                //             /^youtube\.com\/embed\/([\w-]+)/,
-                //             /^youtu\.be\/([\w-]+)/,
-                //             /^(https:\/\/)?(?:m\.)?(www\.)?youtube\.com\/watch\?v=([\w-]+)/,
-                //         ],
-                //         html: match => {
-                //             const id = match[ 1 ];
-                //
-                //             return (
-                //                 '<div style="position: relative; padding-bottom: 100%; height: 0; padding-bottom: 56.2493%;">' +
-                //                 `<iframe src="https://www.youtube.com/embed/${ id }" ` +
-                //                 'style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;" ' +
-                //                 'frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>' +
-                //                 '</iframe>' +
-                //                 '</div>'
-                //             );
-                //         }
-                //     },
-                // ],
-                extraProviders: [
+                providers: [
                     {
-                        name: 'afreecaTV',
+                        name: 'youtube',
                         url: [
-                            /^(https:\/\/)?v\.afree\.ca\/ST\/([\w-]+)/,
-                            /^(https:\/\/)?vod\.afreecatv\.com\/([\w-]+)/,
-                            /^(https:\/\/)?play\.afreecatv\.com\/([\w-]+)\/([\w-]+)/,
-                            /^play\.afreecatv\.com\/([\w-]+)\/([\w-]+)/,
+                            /^(?:m\.)?youtube\.com\/watch\?v=([\w-]+)/,
+                            /^(?:m\.)?youtube\.com\/v\/([\w-]+)/,
+                            /^youtube\.com\/embed\/([\w-]+)/,
+                            /^youtu\.be\/([\w-]+)/,
                         ],
                         html: match => {
                             const id = match[ 1 ];
-                            // https://play.afreecatv.com/daybymin/239212813
                             return (
                                 '<div style="position: relative; padding-bottom: 100%; height: 0; padding-bottom: 56.2493%;">' +
-                                `<iframe src="https://openapi.afreecatv.com/oembed/embedinfo/${ id }" ` +
+                                `<iframe src="https://www.youtube.com/embed/${ id }" ` +
                                 'style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;" ' +
                                 'frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>' +
                                 '</iframe>' +
                                 '</div>'
                             );
+                        }
+                    },
+                ],
+                extraProviders: [
+                    {
+                        name: 'afreecaTV',
+                        url: [
+                            /^v\.afree\.ca\/ST\/([\w-]+)/,
+                            /^vod\.afreecatv\.com\/PLAYER\/STATION\/([\w-]+)/,
+                            /^vod\.afreecatv\.com\/([\w-]+)/,
+                            /^play\.afreecatv\.com\/\w+\/([\w-]+)/,
+                        ],
+                        // https://vod.afreecatv.com/PLAYER/STATION/84704398
+                        // 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        html: match => {
+                            const id = match[ 1 ];
+                            var data = "vod_url=https://vod.afreecatv.com/PLAYER/STATION/84704398";
+                            var url = "https://openapi.afreecatv.com/vod/embedinfo";
+                            const xhr = new XMLHttpRequest();
+                            xhr.open("POST", url);
+                            // xhr.withCredentials = true;
+                            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                            // xhr.setRequestHeader('Referer', 'http://localhost:8000/post/create');
+                            // xhr.setRequestHeader('Referrer-Policy', 'no-referrer');
+                            // xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+                            xhr.send(data);
                         }
                     },
                 ]

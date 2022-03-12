@@ -10,7 +10,7 @@
 
     <meta name="format-detection" content="telephone=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta http-equiv="Cache-Control" content="no-cache"/>
+{{--    <meta http-equiv="Cache-Control" content="no-cache"/>--}}
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
 
@@ -22,6 +22,7 @@
 
     <meta name="description" content="어쩌면 마음이 맞는 친구를 찾을지도 모릅니다." />
     <meta name="keywords" content="" />
+{{--    <meta name="Referrer-Policy" content="no-referrer" />--}}
     <meta name="author" content="" />
     {{-- <meta name="viewport" content="width=device-width, initial-scale=1"> --}}
 

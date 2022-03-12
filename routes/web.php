@@ -54,7 +54,7 @@ Route::post('/post/{post}/like', [PostController::class, 'like']);
 Route::post('/post/{post}/report', [PostController::class, 'report']);
 Route::post('/post/{post}/scrap', [PostController::class, 'scrap']);
 // Post's resource
-Route::resource('post', PostController::class);
+Route::resource('post', PostController::class)->middleware('cors');
 //Route::resource('post', PostController::class)->except([
 //    'show', 'index'
 //]);

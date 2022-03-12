@@ -31,4 +31,8 @@ return [
 
     'supports_credentials' => false,
 
+//    'access-control-allow-origin' => ['*'],
+//
+//    'content-type' => ['*'],
+
 ];

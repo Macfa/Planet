@@ -160,9 +160,18 @@
             $("#main .main-wrap .left .list table tbody tr:last-child").remove();
             checkRun = false;
         }
+
         $("#open_post_modal").on('hide.bs.modal', function(event) {
             // alert('hide post');
             if (event.target.id === 'open_post_modal') {
+                var videos = $("iframe");
+                if(videos.length >= 1 ) {
+                    videos.each(function(idx, val) {
+                        var src= $(this).attr('src');
+                        $(this).attr('src',src);
+                    });
+                }
+                $('video').trigger('pause');
                 if (history.state === "modal") {
                     var isOpen = $("#openStampModal").hasClass("show");
                     if(isOpen) {

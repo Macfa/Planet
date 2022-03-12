@@ -5694,8 +5694,9 @@ a.badge-dark.focus {
 }
 
 .media {
-  display: flex;
-  align-items: flex-start;
+  /*display: flex;*/
+    display: block;
+  /*align-items: flex-start;*/
 }
 
 .media-body {
