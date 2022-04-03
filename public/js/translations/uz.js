@@ -1,0 +1,1 @@
+(function(d){	const l = d['uz'] = d['uz'] || {};	l.dictionary=Object.assign(		l.dictionary||{},		{"Upload in progress":"Yuklanmoqda"}	);l.getPluralForm=function(n){return 0;;};})(window.CKEDITOR_TRANSLATIONS||(window.CKEDITOR_TRANSLATIONS={}));
