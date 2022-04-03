@@ -1,5 +1,8 @@
+{{--@push("styles")--}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/post/content-styles.css') }}">
+{{--@endpush--}}
 
-<div class="modal-parent container-fluid flex-grow-1">
+<div class="modal-parent container-fluid flex-grow-1 ck-content">
     <div class="modal-wrap">
         <div class="modal-header flex-wrap-wrap">
             <div class="modal-title flex-0-0-100 wid100">
@@ -140,76 +143,113 @@
         {{--    <script src="{{ asset('js/editorShow.js') }}"></script>--}}
     </div>
 </div>
-@push('styles')
-    <script async charset="utf-8"
-            src="//cdn.iframe.ly/embed.js?api_key=6341e81a116ba645f8ee8336332eb524"
-    ></script>
-@endpush
 <script>
-    $("#open_post_modal").scroll(function() {
-        var headerHeight = $("#header").outerHeight();
-        var postOffsetTop = $("#post").offset().top;
+$("#open_post_modal").scroll(function() {
+    var headerHeight = $("#header").outerHeight();
+    var postOffsetTop = $("#post").offset().top;
 
-        if(postOffsetTop   - headerHeight <= 0 ) {
-            var checkExist = $("#post-bot-function").hasClass("sticky-bottom");
-            if(checkExist === false) {
-                $("#post-bot-function").addClass("sticky-bottom");
-                $("#post-bot-function").removeClass("d-none");
-            }
-        } else {
-            var checkExist = $("#post-bot-function").hasClass("sticky-bottom");
-            if(checkExist === true) {
-                $("#post-bot-function").removeClass("sticky-bottom");
-                $("#post-bot-function").addClass("d-none");
-            }
+    if(postOffsetTop   - headerHeight <= 0 ) {
+        var checkExist = $("#post-bot-function").hasClass("sticky-bottom");
+        if(checkExist === false) {
+            $("#post-bot-function").addClass("sticky-bottom");
+            $("#post-bot-function").removeClass("d-none");
         }
-    });
-    $(document).ready(function () {
-        // $(document).load(function () {
-        //adjust modal body sizes
-
-
-        // document.querySelectorAll( 'div[data-oembed-url]' ).forEach( element => {
-        // document.querySelectorAll('oembed[url]').forEach( element => {
-        //     // get just the code for this youtube video from the url
-        //     let vCode = element.attributes.url.value.split('?v=')[1];
-        //     console.log(element);
-        //     console.log(vCode);
-        //     // paste some BS5 embed code in place of the Figure tag
-        //     element.parentElement.outerHTML= `
-        //         <div class="ratio ratio-16x9">
-        //             <iframe src="https://www.youtube.com/embed/${vCode}?rel=0"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        //         </div>`;
-        // });
-    });
-    function deletePost(id) {
-        if(confirm('삭제하시겠습니까 ?')) {
-            $.ajax({
-                type: "DELETE",
-                url: "/post/"+id,
-                data:{"id": id},
-                success: function(data) {
-                    alert(data);
-                    window.location.href = "/";
-                },
-                error: function(err) {
-                    console.log(err);
-                }
-            })
+    } else {
+        var checkExist = $("#post-bot-function").hasClass("sticky-bottom");
+        if(checkExist === true) {
+            $("#post-bot-function").removeClass("sticky-bottom");
+            $("#post-bot-function").addClass("d-none");
         }
-        return false;
     }
-    function voteLikeInPost(id, like) {
+});
+function deletePost(id) {
+    if(confirm('삭제하시겠습니까 ?')) {
         $.ajax({
-            url: "/post/"+id+"/like",
-            data: { like:like },
+            type: "DELETE",
+            url: "/post/"+id,
+            data:{"id": id},
+            success: function(data) {
+                alert(data);
+                window.location.href = "/";
+            },
+            error: function(err) {
+                console.log(err);
+            }
+        })
+    }
+    return false;
+}
+function voteLikeInPost(id, like) {
+    $.ajax({
+        url: "/post/"+id+"/like",
+        data: { like:like },
+        type: "post",
+        success: function(data) {
+            // console.log(data);
+            clearLike(id);
+            selectLike(data.like, id, data.totalLike);
+            $(".post-like").text(data.totalLike);
+            $(`#post-${id} .post-like-main`).text(data.totalLike);
+        },
+        error: function(err) {
+            if(err.status === 401) {
+                alert(err.responseText);
+            } else {
+                alert("문제가 생겨 확인 중입니다")
+            }
+        }
+    });
+}
+function clearLike(id) {
+    $("#post-downvote, #post-downvote-fix").attr("src", "{{ asset('image/downvote.png') }}");
+    $("#post-upvote, #post-upvote-fix").attr("src", "{{ asset('image/upvote.png') }}");
+    $(`#post-${id} .post-like-main`).attr('class', 'post-like-main updown dash');
+}
+function selectLike(like, id, totalLike) {
+    if(like == 1) {
+        $("#post-upvote, #post-upvote-fix").attr("src", "{{ asset('image/upvote_c.png') }}");
+    } else if(like == -1) {
+        $("#post-downvote, #post-downvote-fix").attr("src", "{{ asset('image/downvote_c.png') }}");
+    }
+
+    if(like != 0) {
+        if(totalLike > 0) {
+            $(`#post-${id} .post-like-main`).attr('class', 'post-like-main updown up');
+        } else if(totalLike < 0) {
+            $(`#post-${id} .post-like-main`).attr('class', 'post-like-main updown down');
+        }
+    }
+}
+function reportPost(postID) {
+    $.ajax({
+        url: "/post/"+postID+"/report",
+        type: "post",
+        success: function(data) {
+            // console.log(data);
+            alert(data);
+        },
+        error: function(err) {
+            if(err.status === 401) {
+                alert(err);
+            } else {
+                alert("문제가 생겨 확인 중입니다")
+            }
+        }
+    });
+}
+function scrapPost(postID) {
+    if(confirm('스크랩하시겠습니까?\n기존에 스크랩을 했었다면 스크랩이 삭제됩니다')) {
+        $.ajax({
+            url: "/post/"+postID+"/scrap",
             type: "post",
             success: function(data) {
-                // console.log(data);
-                clearLike(id);
-                selectLike(data.like, id, data.totalLike);
-                $(".post-like").text(data.totalLike);
-                $(`#post-${id} .post-like-main`).text(data.totalLike);
+                if(data.result === "insert") {
+                    $("#post-scrap").attr("src", "{{ asset('image/scrap_c.png') }}");
+                    alert("스크랩되었습니다");
+                } else if(data.result === "delete") {
+                    $("#post-scrap").attr("src", "{{ asset('image/scrap.png') }}");
+                    alert("스크랩이 삭제되었습니다");
+                }
             },
             error: function(err) {
                 if(err.status === 401) {
@@ -220,193 +260,134 @@
             }
         });
     }
-    function clearLike(id) {
-        $("#post-downvote, #post-downvote-fix").attr("src", "{{ asset('image/downvote.png') }}");
-        $("#post-upvote, #post-upvote-fix").attr("src", "{{ asset('image/upvote.png') }}");
-        $(`#post-${id} .post-like-main`).attr('class', 'post-like-main updown dash');
-    }
-    function selectLike(like, id, totalLike) {
-        if(like == 1) {
-            $("#post-upvote, #post-upvote-fix").attr("src", "{{ asset('image/upvote_c.png') }}");
-        } else if(like == -1) {
-            $("#post-downvote, #post-downvote-fix").attr("src", "{{ asset('image/downvote_c.png') }}");
-        }
-
-        if(like != 0) {
-            if(totalLike > 0) {
-                $(`#post-${id} .post-like-main`).attr('class', 'post-like-main updown up');
-            } else if(totalLike < 0) {
-                $(`#post-${id} .post-like-main`).attr('class', 'post-like-main updown down');
+}
+// function selectCategory(categoryID) {
+//     // alert(categoryID);
+//     $.ajax({
+//         url: "/stamp",
+//         data: { categoryID: categoryID },
+//         type: "get",
+//         success: function(data) {
+//             var result = {
+//                 'groups': data
+//             };
+//             $("#openStampModal #category-data > div").remove();
+//             $("#stampDataTemplate").tmpl(result).appendTo("#openStampModal #category-data");
+//         },
+//         errror: function(err) {
+//             alert("기능에러로 스탬프를 불러오지 못 했습니다.");
+//         }
+//     });
+// }
+// Stamp functions
+function selectCategory(id) {
+    $.ajax({
+        url: "/category/",
+        data: {
+            categoryId: id
+        },
+        type: "get",
+        success: function (data) {
+            var replaceData = [];
+            for(var i=0; i<data.length; i++) {
+                replaceData.push({
+                    'stampId': data[i].id,
+                    'stampImage': data[i].image,
+                    'stampCoin': data[i].coin,
+                })
             }
+            $(".category-data-list ul.d-flex li").remove();
+            $("#stampListTemplate").tmpl(replaceData).appendTo(".category-data-list ul.d-flex");
+        },
+        errror: function (err) {
+            alert("관리자에게 문의해주세요");
         }
-    }
-    function reportPost(postID) {
-        $.ajax({
-            url: "/post/"+postID+"/report",
-            type: "post",
-            success: function(data) {
-                // console.log(data);
-                alert(data);
-            },
-            error: function(err) {
-                if(err.status === 401) {
-                    alert(err);
-                } else {
-                    alert("문제가 생겨 확인 중입니다")
-                }
-            }
-        });
-    }
-    function scrapPost(postID) {
-        if(confirm('스크랩하시겠습니까?\n기존에 스크랩을 했었다면 스크랩이 삭제됩니다')) {
-            $.ajax({
-                url: "/post/"+postID+"/scrap",
-                type: "post",
-                success: function(data) {
-                    if(data.result === "insert") {
-                        $("#post-scrap").attr("src", "{{ asset('image/scrap_c.png') }}");
-                        alert("스크랩되었습니다");
-                    } else if(data.result === "delete") {
-                        $("#post-scrap").attr("src", "{{ asset('image/scrap.png') }}");
-                        alert("스크랩이 삭제되었습니다");
-                    }
-                },
-                error: function(err) {
-                    if(err.status === 401) {
-                        alert(err.responseText);
-                    } else {
-                        alert("문제가 생겨 확인 중입니다")
-                    }
-                }
-            });
+    });
+}
+function selectStamp(id) {
+    $.ajax({
+        url: "/stamp/"+id,
+        data: {
+            stampID: id
+        },
+        type: "get",
+        success: function (data) {
+            // console.log(data);
+            var replaceData = {
+                'id': data.id,
+                'coin': data.coin,
+                'name': data.name,
+                'image': data.image,
+                'description': data.description,
+                'hasCoin': data.hasCoin,
+                'afterPurchaseCoin': data.afterPurchaseCoin
+            };
+            $("#openStampModal #selectStampItem .category-data-item").remove();
+            $("#selectStampTemplate").tmpl(replaceData).prependTo("#openStampModal #selectStampItem");
+        },
+        errror: function (err) {
+            alert("관리자에게 문의해주세요");
         }
-    }
-    // function selectCategory(categoryID) {
-    //     // alert(categoryID);
-    //     $.ajax({
-    //         url: "/stamp",
-    //         data: { categoryID: categoryID },
-    //         type: "get",
-    //         success: function(data) {
-    //             var result = {
-    //                 'groups': data
-    //             };
-    //             $("#openStampModal #category-data > div").remove();
-    //             $("#stampDataTemplate").tmpl(result).appendTo("#openStampModal #category-data");
-    //         },
-    //         errror: function(err) {
-    //             alert("기능에러로 스탬프를 불러오지 못 했습니다.");
-    //         }
-    //     });
+    });
+}
+function purchaseStamp(stampID) {
+    var type = $("#openStampModal input[name=type]").val();
+    var id = $("#openStampModal input[name=id]").val();
+    // var url = '';
+    // if(type === "post") {
     // }
-    // Stamp functions
-    function selectCategory(id) {
+    if(confirm('구매하시겠습니까 ?')) {
         $.ajax({
-            url: "/category/",
+            url: "/stamp/purchase",
             data: {
-                categoryId: id
+                stampID: stampID,
+                type: type,
+                id: id
             },
-            type: "get",
+            type: "post",
             success: function (data) {
-                var replaceData = [];
-                for(var i=0; i<data.length; i++) {
-                    replaceData.push({
-                        'stampId': data[i].id,
-                        'stampImage': data[i].image,
-                        'stampCoin': data[i].coin,
-                    })
-                }
-                $(".category-data-list ul.d-flex li").remove();
-                $("#stampListTemplate").tmpl(replaceData).appendTo(".category-data-list ul.d-flex");
-            },
-            errror: function (err) {
-                alert("관리자에게 문의해주세요");
-            }
-        });
-    }
-    function selectStamp(id) {
-        $.ajax({
-            url: "/stamp/"+id,
-            data: {
-                stampID: id
-            },
-            type: "get",
-            success: function (data) {
-                // console.log(data);
-                var replaceData = {
-                    'id': data.id,
-                    'coin': data.coin,
-                    'name': data.name,
-                    'image': data.image,
-                    'description': data.description,
-                    'hasCoin': data.hasCoin,
-                    'afterPurchaseCoin': data.afterPurchaseCoin
-                };
-                $("#openStampModal #selectStampItem .category-data-item").remove();
-                $("#selectStampTemplate").tmpl(replaceData).prependTo("#openStampModal #selectStampItem");
-            },
-            errror: function (err) {
-                alert("관리자에게 문의해주세요");
-            }
-        });
-    }
-    function purchaseStamp(stampID) {
-        var type = $("#openStampModal input[name=type]").val();
-        var id = $("#openStampModal input[name=id]").val();
-        // var url = '';
-        // if(type === "post") {
-        // }
-        if(confirm('구매하시겠습니까 ?')) {
-            $.ajax({
-                url: "/stamp/purchase",
-                data: {
-                    stampID: stampID,
-                    type: type,
-                    id: id
-                },
-                type: "post",
-                success: function (data) {
-                    $("#total_coin").text(data.currentCoin);
-                    $("#openStampModal").modal("hide");
-                    if(data.target === "post") {
-                        if(data.count === 1) {
-                            $(`.stamps.post-${id}-stamps`).append(`<div class="stamp-item stamp-${stampID}"><img alt='${data.name}' src='${data.image}' ></div>`);
-                        } else if(data.count > 1) {
-                            if($(`.stamps.post-${id}-stamps div.stamp-${stampID} span.stamp_count`).length) {
-                                $(`.stamps.post-${id}-stamps div.stamp-${stampID} span.stamp_count`).text(data.count);
-                            } else {
-                                var tmpl = `<span class="stamp_count">${data.count}</span>`;
-                                $(`.stamps.post-${id}-stamps div.stamp-${stampID}`).append(tmpl);
-                                $(`.stamps.post-${id}-stamps div.stamp-${stampID}`).addClass("multi-stamps");
-                            }
-                        }
-                    } else if(data.target === "comment") {
-                        if(data.count === 1) {
-                            $(`.comment-${id} .stamps`).append(`<div class="stamp-item comment-${stampID}-stamp"><img alt='${data.name}' src='${data.image}' ></div>`);
-                            // $(".modal-title .stamps").append(`<span class="stamp-${stampID}"><img style='width:31px;' alt='${data.name}' src='${data.image}' alt=''></span>`);
-                        } else if(data.count > 1) {
-                            if($(`.comment-${id} .stamps div.comment-${stampID}-stamp span.stamp_count`).length) {
-                                $(`.comment-${id} .stamps div.comment-${stampID}-stamp span.stamp_count`).text(data.count);
-                            } else {
-                                var tmpl = `<span class="stamp_count">${data.count}</span>`;
-                                $(`.comment-${id} .stamps div.comment-${stampID}-stamp`).append(tmpl);
-                                $(`.comment-${id} .stamps div.comment-${stampID}-stamp`).addClass("multi-stamps");
-                            }
+                $("#total_coin").text(data.currentCoin);
+                $("#openStampModal").modal("hide");
+                if(data.target === "post") {
+                    if(data.count === 1) {
+                        $(`.stamps.post-${id}-stamps`).append(`<div class="stamp-item stamp-${stampID}"><img alt='${data.name}' src='${data.image}' ></div>`);
+                    } else if(data.count > 1) {
+                        if($(`.stamps.post-${id}-stamps div.stamp-${stampID} span.stamp_count`).length) {
+                            $(`.stamps.post-${id}-stamps div.stamp-${stampID} span.stamp_count`).text(data.count);
+                        } else {
+                            var tmpl = `<span class="stamp_count">${data.count}</span>`;
+                            $(`.stamps.post-${id}-stamps div.stamp-${stampID}`).append(tmpl);
+                            $(`.stamps.post-${id}-stamps div.stamp-${stampID}`).addClass("multi-stamps");
                         }
                     }
+                } else if(data.target === "comment") {
+                    if(data.count === 1) {
+                        $(`.comment-${id} .stamps`).append(`<div class="stamp-item comment-${stampID}-stamp"><img alt='${data.name}' src='${data.image}' ></div>`);
+                        // $(".modal-title .stamps").append(`<span class="stamp-${stampID}"><img style='width:31px;' alt='${data.name}' src='${data.image}' alt=''></span>`);
+                    } else if(data.count > 1) {
+                        if($(`.comment-${id} .stamps div.comment-${stampID}-stamp span.stamp_count`).length) {
+                            $(`.comment-${id} .stamps div.comment-${stampID}-stamp span.stamp_count`).text(data.count);
+                        } else {
+                            var tmpl = `<span class="stamp_count">${data.count}</span>`;
+                            $(`.comment-${id} .stamps div.comment-${stampID}-stamp`).append(tmpl);
+                            $(`.comment-${id} .stamps div.comment-${stampID}-stamp`).addClass("multi-stamps");
+                        }
+                    }
+                }
 
-                    alert("스탬프 정상 구매하였습니다");
-                },
-                error: function (err) {
-                    if(err.responseJSON.errorType === "login") {
-                        alert(err.responseJSON.errorText);
-                    } else if(err.responseJSON.errorType === "coin"){
-                        alert(err.responseJSON.errorText);
-                    }
+                alert("스탬프 정상 구매하였습니다");
+            },
+            error: function (err) {
+                if(err.responseJSON.errorType === "login") {
+                    alert(err.responseJSON.errorText);
+                } else if(err.responseJSON.errorType === "coin"){
+                    alert(err.responseJSON.errorText);
                 }
-            });
-        }
+            }
+        });
     }
+}
+
 </script>
 <script id="stampDataTemplate" type="text/x-jquery-tmpl">
 @{{each groups}}

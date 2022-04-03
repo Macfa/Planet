@@ -1,8 +1,10 @@
 @extends('layouts.master')
 
+@push('styles')
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/post/create.css') }}">
+@endpush
 @section('main')
-<link rel="stylesheet" type="text/css" href="{{ asset('css/post/create.css') }}">
-{{--{{ dd($user->allChannels()) }}--}}
+
 <section id="channel">
     <div class="post_wrap">
         <article class="board_box">
@@ -97,11 +99,6 @@
             </article>
         </div>
     </section>
-@push('styles')
-{{--        <script async charset="utf-8"--}}
-{{--                src="//cdn.iframe.ly/embed.js?api_key=6341e81a116ba645f8ee8336332eb524"--}}
-{{--        ></script>--}}
-@endpush
 @push('scripts')
 <script src="{{ asset('js/ckeditor.js') }}"></script>
 <script>
@@ -125,17 +122,51 @@
             return false;
         }
     }
+    function AddCkeVideoControls(editor) {
+        editor.conversion.for('downcast').add(function(dispatcher) {
+            dispatcher.on('insert:videoBlock', function(evt, data, conversionApi) {
+                console.log(evt,data,conversionApi);
+                const viewWriter = conversionApi.writer;
+                alert(11);
+                //
+                const figure = conversionApi.mapper.toViewElement(data.item);
+            })
+        });
+    }
+                // const img = figure.getChild(0);
+                //
+                // if (data.attributeNewValue !== null) {
+                //     const src = data.attributeNewValue;
+                //     const url = new URL(src, window.location.origin);
+                //     const matches = url.pathname.match(/^\/(.+?)\/(.+)$/); // <-- parsing out the original values from the url
+                //     const bucket = matches ? matches[1] : '';
+                //     const path = matches ? matches[2] : '';
+                //
+                //     if (url) {
+                //         viewWriter.setAttribute('data-upload-bucket', bucket, img);
+                //         viewWriter.setAttribute('data-upload-key', path, img);
+                //     }
+                // } else {
+                //     viewWriter.removeAttribute('data-upload-bucket', img);
+                //     viewWriter.removeAttribute('data-upload-key', img);
+                // }
+
     $(document).ready(function () {
-        // var IFRAME_SRC = '//cdn.iframe.ly/api/iframe';
-        // var API_KEY = '6341e81a116ba645f8ee8336332eb524';
 
         ClassicEditor.create(document.querySelector('#editor'), {
+            extraPlugins: [ AddCkeVideoControls ],
+            video: {
+                upload: {
+                    types: ['mp4', 'avi', 'mpeg'],
+                    allowMultipleFiles: true,
+                }
+            },
             simpleUpload: {
                 // The URL that the images are uploaded to.
                 uploadUrl: '{{ route('ck.upload') }}',
 
                 // Enable the XMLHttpRequest.withCredentials property.
-                // withCredentials: true,
+                withCredentials: true,
 
                 // Headers sent along with the XMLHttpRequest to the upload server.
                 headers: {
@@ -144,7 +175,6 @@
             },
             mediaEmbed: {
                 previewsInData: true,
-                // removeProviders: ['youtube'],
                 providers: [
                     {
                         name: 'youtube',
@@ -176,8 +206,6 @@
                             /^vod\.afreecatv\.com\/([\w-]+)/,
                             /^play\.afreecatv\.com\/\w+\/([\w-]+)/,
                         ],
-                        // https://vod.afreecatv.com/PLAYER/STATION/84704398
-                        // 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         html: match => {
                             const id = match[ 1 ];
                             var data = "vod_url=https://vod.afreecatv.com/PLAYER/STATION/84704398";
@@ -186,9 +214,6 @@
                             xhr.open("POST", url);
                             // xhr.withCredentials = true;
                             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                            // xhr.setRequestHeader('Referer', 'http://localhost:8000/post/create');
-                            // xhr.setRequestHeader('Referrer-Policy', 'no-referrer');
-                            // xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
                             xhr.send(data);
                         }
                     },
@@ -197,20 +222,24 @@
         })
             .then(editor => {
                 window.editor = editor;
+                // Add a converter to editing downcast and data downcast.
+                editor.conversion.for( 'downcast' ).elementToElement({
+                    model: 'figcaption',
+                    view: 'p1'
+                } );
+
+
+                // Dedicated converter to propagate image's attribute to the img tag.
+                // editor.conversion.for('downcast').add((dispatcher: any) =>
+                //     dispatcher.on('attribute:src:image', (evt: any, data: any, conversionApi: any) => {
+
+
             })
             .catch(error => {
                 console.error('There was a problem initializing the editor.', error);
             });
     });
-    // function clickSubmit() {
-    //     var val = $("#channelList").val();
-    //     if(val != "") {
-    //         $("#form").submit();
-    //     } else {
-    //         alert('채널을 선택해주세요');
-    //         $("#channelList").focus();
-    //     }
-    // }
+
 </script>
 @endpush
 @endsection

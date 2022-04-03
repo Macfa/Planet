@@ -180,9 +180,6 @@ class HomeController extends Controller
     }
 
     public function test2() {
-        $posts = Post::willRemove();
-
-        $channelVisitHistories = ChannelVisitHistory::showHistory();
-        return view('main.index', compact('posts', 'channelVisitHistories'));
+        return view('layouts.test');
     }
 }

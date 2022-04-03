@@ -44,31 +44,22 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('image/favicon/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('image/favicon/favicon-96x96.png') }}">
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('css.bak/bootstrap-5.1.0.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css.bak/main/font.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-5.1.0.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/main/font.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/mobile/common/header.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/mobile/common/flex.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/mobile/main/common.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/mobile/main/layout.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/mobile/main/index.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css.bak/toastr.min.css') }}">
-
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/toastr.min.css') }}">
+    @stack("styles")
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/bootstrap-5.1.0.min.js') }}"></script>
-{{--    <script src="{{ asset('js/toastr.min.js') }}"></script>--}}
     <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('js/jquery-tmpl.js') }}"></script>
-{{--    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>--}}
-    <script async charset="utf-8" src="//cdn.embedly.com/widgets/platform.js"></script>
-    @stack("styles")
-    <!-- Fonts -->
-    {{-- <link rel="dns-prefetch" href="//fonts.gstatic.com"> --}}
-    {{-- <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> --}}
 
-<!-- Styles -->
-    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
 </head>
 
 
@@ -150,9 +141,9 @@
 
 </div>
 
-@if(Session::has('msg'))
-    alert("{{ Session::get('msg') }}");
-@endif
+{{--@if(Session::has('msg'))--}}
+{{--    alert("{{ Session::get('msg') }}");--}}
+{{--@endif--}}
 
 <script src="{{ asset('js/common.js') }}"></script>
 @stack("javascripts")
