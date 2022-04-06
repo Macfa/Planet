@@ -122,42 +122,13 @@
             return false;
         }
     }
-    function AddCkeVideoControls(editor) {
-        editor.conversion.for('downcast').add(function(dispatcher) {
-            dispatcher.on('insert:videoBlock', function(evt, data, conversionApi) {
-                console.log(evt,data,conversionApi);
-                const viewWriter = conversionApi.writer;
-                alert(11);
-                //
-                const figure = conversionApi.mapper.toViewElement(data.item);
-            })
-        });
-    }
-                // const img = figure.getChild(0);
-                //
-                // if (data.attributeNewValue !== null) {
-                //     const src = data.attributeNewValue;
-                //     const url = new URL(src, window.location.origin);
-                //     const matches = url.pathname.match(/^\/(.+?)\/(.+)$/); // <-- parsing out the original values from the url
-                //     const bucket = matches ? matches[1] : '';
-                //     const path = matches ? matches[2] : '';
-                //
-                //     if (url) {
-                //         viewWriter.setAttribute('data-upload-bucket', bucket, img);
-                //         viewWriter.setAttribute('data-upload-key', path, img);
-                //     }
-                // } else {
-                //     viewWriter.removeAttribute('data-upload-bucket', img);
-                //     viewWriter.removeAttribute('data-upload-key', img);
-                // }
 
     $(document).ready(function () {
-
         ClassicEditor.create(document.querySelector('#editor'), {
-            extraPlugins: [ AddCkeVideoControls ],
+            // plugins: [ MediaEmbed ],
             video: {
                 upload: {
-                    types: ['mp4', 'avi', 'mpeg'],
+                    types: ['mp4', 'avi', 'mpeg', 'mov'],
                     allowMultipleFiles: true,
                 }
             },
@@ -175,65 +146,47 @@
             },
             mediaEmbed: {
                 previewsInData: true,
-                providers: [
-                    {
-                        name: 'youtube',
-                        url: [
-                            /^(?:m\.)?youtube\.com\/watch\?v=([\w-]+)/,
-                            /^(?:m\.)?youtube\.com\/v\/([\w-]+)/,
-                            /^youtube\.com\/embed\/([\w-]+)/,
-                            /^youtu\.be\/([\w-]+)/,
-                        ],
-                        html: match => {
-                            const id = match[ 1 ];
-                            return (
-                                '<div style="position: relative; padding-bottom: 100%; height: 0; padding-bottom: 56.2493%;">' +
-                                `<iframe src="https://www.youtube.com/embed/${ id }" ` +
-                                'style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;" ' +
-                                'frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>' +
-                                '</iframe>' +
-                                '</div>'
-                            );
-                        }
-                    },
-                ],
                 extraProviders: [
                     {
                         name: 'afreecaTV',
                         url: [
                             /^v\.afree\.ca\/ST\/([\w-]+)/,
                             /^vod\.afreecatv\.com\/PLAYER\/STATION\/([\w-]+)/,
-                            /^vod\.afreecatv\.com\/([\w-]+)/,
+                            /^vod\.afreecatv\.com\/player\/([\w-]+)/,
                             /^play\.afreecatv\.com\/\w+\/([\w-]+)/,
                         ],
+                        // https://vod.afreecatv.com/PLAYER/STATION/84704398
+                        // 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         html: match => {
-                            const id = match[ 1 ];
-                            var data = "vod_url=https://vod.afreecatv.com/PLAYER/STATION/84704398";
+                            const fullUrl = match[ 0 ];
+                            var data = "vod_url="+fullUrl;
                             var url = "https://openapi.afreecatv.com/vod/embedinfo";
                             const xhr = new XMLHttpRequest();
-                            xhr.open("POST", url);
-                            // xhr.withCredentials = true;
+
+                            xhr.open("POST", url, false);
+                            xhr.withCredentials = true;
                             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                             xhr.send(data);
+
+                            var jsonResponse = JSON.parse(xhr.response);
+                            return jsonResponse.html;
                         }
                     },
                 ]
             }
         })
             .then(editor => {
-                window.editor = editor;
-                // Add a converter to editing downcast and data downcast.
-                editor.conversion.for( 'downcast' ).elementToElement({
-                    model: 'figcaption',
-                    view: 'p1'
-                } );
-
-
-                // Dedicated converter to propagate image's attribute to the img tag.
-                // editor.conversion.for('downcast').add((dispatcher: any) =>
-                //     dispatcher.on('attribute:src:image', (evt: any, data: any, conversionApi: any) => {
-
-
+                editor.conversion.for('downcast').add(function(dispatcher) {
+                    dispatcher.on('insert:video', function(evt, data, conversionApi) {
+                        console.log("inserted");
+                        const viewWriter = conversionApi.writer;
+                        const $figure = conversionApi.mapper.toViewElement(data.item);
+                        const $video = $figure.getChild(0);
+                        // viewWriter.addClass('test', $video);
+                        viewWriter.setAttribute('controls', true, $video);
+                        // viewWriter.setAttribute('autoplay', true, $video);
+                    })
+                });
             })
             .catch(error => {
                 console.error('There was a problem initializing the editor.', error);

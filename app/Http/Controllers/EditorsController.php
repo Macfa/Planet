@@ -19,11 +19,19 @@ class EditorsController extends Controller
             $extension = $request->file($target)->getClientOriginalExtension();
             $fileName = $fileName.'_'.time().'.'.$extension;
 
-            $request->file($target)->move(public_path('image'), $fileName);
+            if($request->hasFile('upload')) {
+                $request->file($target)->move(public_path('upload'), $fileName);
+                $url = asset('upload/'.$fileName);
+                $msg = 'File uploaded successfully';
+            } else {
+                $request->file($target)->move(public_path('image'), $fileName);
+                $url = asset('image/'.$fileName);
+                $msg = 'Image uploaded successfully';
+            }
 //            dd($fileName);
             $CKEditorFuncNum = $request->input('CKEditorFuncNum');
-            $url = asset('image/'.$fileName);
-            $msg = 'Image uploaded successfully';
+
+
             $result = [
                 'url' => $url,
                 'msg' =>  $msg,
