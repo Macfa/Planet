@@ -15,7 +15,7 @@
 
 
     <meta property="og:type" content="website">
-    <meta property="og:title" content="몽드">
+    <meta property="og:title" content="밈클라우드,memecloud">
     <meta property="og:description" content="사람들과 얘기하고 싶었던 주제로 나만의 몽드를 만들어 보세요.">
     <meta property="og:image" content="../img/favicon/og_img.png">
     <meta property="og:url" content="">
@@ -27,7 +27,7 @@
     {{-- <meta name="viewport" content="width=device-width, initial-scale=1"> --}}
 
 
-    <title>Monde</title>
+    <title>밈클라우드</title>
     {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
     <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('image/favicon/apple-icon-57x57.png') }}">
     <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('image/favicon/apple-icon-60x60.png') }}">
