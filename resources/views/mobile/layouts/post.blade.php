@@ -25,7 +25,7 @@
 {{--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-image: url({{ asset('image/close.png') }})"></button>--}}
             </div>
 
-            <div class="modal-body" style="min-height: calc(100vh - 143px)">
+            <div class="modal-body" style="min-height: calc(100vh - 143px); padding-bottom: 50px;">
                 <!-- 왼쪽 게시글 내용 -->
                 <div class="modal-left">
                     <div>
