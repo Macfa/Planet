@@ -191,7 +191,12 @@ input:focus {
     box-shadow: 0 0 0 1pt blue;
     outline: none;
 }
-
+.ck-editor__editable_inline {
+    max-height: 267px;
+}
+.ck-editor__editable {
+    max-height: 267px;
+}
 @media screen and (max-width: 1440px) {
   .wrap {
     /*width: 1276px;*/

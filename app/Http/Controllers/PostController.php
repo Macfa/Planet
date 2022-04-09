@@ -107,7 +107,8 @@ class PostController extends Controller
 
         // 이미지 소스만 추출
         $content = $request->input('content');
-        $regex = "/https?:\/\/\S+image+\S+\.[gif|png|jpg|jpeg]+/";
+//        $regex = "/https?:\/\/\S+image+\S+\.[gif|png|jpg|jpeg]+/";
+        $regex = "/\/(upload|image).*\.(gif|jpe?g|jpg|bmp|png)/";
         preg_match($regex, $content,$matchSubject);
 //        dd($matchSubject);
         if($matchSubject == []) {
@@ -217,7 +218,8 @@ class PostController extends Controller
 
         // 이미지 소스만 추출
         $content = $request->input('content');
-        $regex = "/https?:\/\/\S+image+\S+\.[gif|png|jpg|jpeg]+/";
+//        $regex = "/https?:\/\/\S+image+\S+\.[gif|png|jpg|jpeg]+/";
+        $regex = "/\/(upload|image).*\.(gif|jpe?g|jpg|bmp|png)/";
         preg_match($regex, $content,$matchSubject);
 
         if($matchSubject == []) {
