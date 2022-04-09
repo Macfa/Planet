@@ -42,8 +42,8 @@
     letter-spacing: 0;
     float: left;
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    /*text-overflow: ellipsis;*/
+    /*white-space: nowrap;*/
 }
 .modal-parent > .modal-wrap > .modal-header > .modal-title h4 .titleSub {
     font-size:24px;

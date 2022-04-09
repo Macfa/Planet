@@ -482,6 +482,8 @@ button {
 .no-scroll {
     -ms-overflow-style: none;
     scrollbar-width: none;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
 }
 .no-scroll::-webkit-scrollbar {
     display: none;
