@@ -111,6 +111,10 @@ Route::get('oauth/{driver}/callback', [LoginController::class, 'handleProviderCa
 // it must be change api sections
 Route::post('/api/upload', [EditorsController::class, 'upload'])->name('ck.upload');
 
+Route::get('/.well-known/acme-challenge/{token}', function (string $token) {
+    return \Illuminate\Support\Facades\Storage::get('public/.well-known/acme-challenge/' . $token);
+});
+
 // admin page
 Route::group(['middleware'=>'check.admin'], function() {
     Route::get('/admin', [AdminController::class,'index']);
