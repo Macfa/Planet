@@ -153,6 +153,7 @@
         });
 
         $(window).on('popstate', function (e) {
+            console.log(e);alert(22);
             if (e.type === "popstate") {
                 var modalState = $("#open_post_modal").hasClass('show');
                 if (modalState) {
@@ -198,7 +199,18 @@
     });
 
     $("#open_post_modal").on('hide.bs.modal', function (event) {
+        console.log(event);
+        alert(1);
         if (event.target.id === 'open_post_modal') {
+            if (history.state === "modal") {
+                var isOpen = $("#openStampModal").hasClass("show");
+                if (isOpen) {
+                    history.back();
+                }
+            }
+        } else if (event.target.id === 'openStampModal') {
+            alert("stamp");
+            console.log(history);
             if (history.state === "modal") {
                 var isOpen = $("#openStampModal").hasClass("show");
                 if (isOpen) {

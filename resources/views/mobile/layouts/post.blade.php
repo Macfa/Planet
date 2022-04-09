@@ -132,7 +132,7 @@
             </div>
 
             <!-- Modal -->
-            <div class="modal fade" id="openStampModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="openStampModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%);">
                 <div class="modal-dialog" style="margin-top:250px;">
                     <div class="modal-content">
                     </div>

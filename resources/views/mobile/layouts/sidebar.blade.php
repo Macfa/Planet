@@ -1,17 +1,12 @@
 @section('sidebar')
-<div class="best">
-    <ul>
-        <li class="clickable realtime" onclick="clickSidebarMenu('realtime');"><a>인기</a></li>
-        <li class="clickable hot" onclick="clickSidebarMenu('hot');"><a>화제</a></li>
-    </ul>
-    <ol class="sidebar_list">
-{{--            <li><a href="#"><span class="up">111</span><p>아프리카tv</p></a></li>--}}
-{{--            <li><a href="#"><span class="up">111</span><p>아프리카tv</p></a></li>--}}
-{{--            <li><a href="#"><span class="up">111</span><p>아프리카tv</p></a></li>--}}
-{{--            <li><a href="#"><span class="up">111</span><p>아프리카tv</p></a></li>--}}
-{{--            <li><a href="#"><span class="up">111</span><p>아프리카tv</p></a></li>--}}
-    </ol>
-</div>
+{{--<div class="best">--}}
+{{--    <ul>--}}
+{{--        <li class="clickable realtime" onclick="clickSidebarMenu('realtime');"><a>인기</a></li>--}}
+{{--        <li class="clickable hot" onclick="clickSidebarMenu('hot');"><a>화제</a></li>--}}
+{{--    </ul>--}}
+{{--    <ol class="sidebar_list">--}}
+{{--    </ol>--}}
+{{--</div>--}}
 <div class="sidebar-sticky">
     <div class="link">
         <p>사람들과 얘기하고 싶었던 주제로 나만의 몽드를 만들어 보세요.</p>

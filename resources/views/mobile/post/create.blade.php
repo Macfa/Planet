@@ -135,15 +135,5 @@
                     console.error( 'There was a problem initializing the editor.', error );
                 } );
         });
-
-        // function clickSubmit() {
-        //     var val = $("#channelList").val();
-        //     if(val != "") {
-        //         $("#form").submit();
-        //     } else {
-        //         alert('채널을 선택해주세요');
-        //         $("#channelList").focus();
-        //     }
-        // }
     </script>
 @endsection
