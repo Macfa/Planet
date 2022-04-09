@@ -14,7 +14,7 @@ input:focus {
     border: none;
     border-radius: 2pt;
     box-shadow: 0 0 0 1pt blue;
-    outline: none;
+    /*outline: none;*/
 }
 
 /* 메인 */
