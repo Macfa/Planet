@@ -147,17 +147,6 @@ input:focus {
   /*padding: 0 0 3px 4px;*/
   box-sizing: border-box;
 }
-#app .board_box .left div.list table tr td div.title a p {
-  /*color: rgba(0, 0, 0, 0.87);*/
-  font-size: 19px;
-  letter-spacing: 0;
-  float: left;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: calc(100% - 100px);
-  font-weight: 500;
-}
 
 #app .board_box .left div.list table tr td div.title a span {
   /*margin-left: 7px;*/

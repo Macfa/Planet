@@ -156,7 +156,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  max-width: calc(100% - 100px);
+    width: 90%;
   /*font-weight: 500;*/
 }
 
