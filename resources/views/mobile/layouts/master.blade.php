@@ -254,6 +254,13 @@
         return;
         // }
     }
+    function setContentHeight() {
+        let list = $(".list").offset().top;
+        let footer = $("#footer").offset().top;
+
+        let distance = footer - list;
+        $(".list").css("max-height", distance);
+    }
 
 </script>
 </body>

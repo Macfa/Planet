@@ -245,9 +245,10 @@
                 url: '/post/'+postID+"/get",
                 type: 'get',
                 success: function(data) {
-                    // console.log(data);
                     modalBody.html(data);
-                    history.pushState('modal', 'modal', urlPath);
+                    if(history.state === null) {
+                        history.pushState('modal', 'modal', urlPath);
+                    }
                     var readPost = JSON.parse(localStorage.getItem('readPost'));
 
                     if(readPost === null)
@@ -270,7 +271,6 @@
                             $(`#main #post-${postID} a[data-bs-post-id=${postID}]`).addClass('visited');
                         }
                     }
-                    console.log($(`#open_post_modal`));
                     $('#open_post_modal').modal('show');
 
                     // }

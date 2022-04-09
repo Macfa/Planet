@@ -158,6 +158,7 @@
                 if (modalState) {
                     // 뒤로가기
                     $("#open_post_modal").modal("hide");
+
                 } else {
                     // 앞으로 가기
                     let url = window.location.href;
@@ -171,10 +172,12 @@
 
         });
         var checkPost = "{{ request()->route()->named("post.show") }}";
-        if (checkPost === "1") {
+        if(checkPost === "1") {
             let url = window.location.href;
             var tmpPostID = url.split('/').pop();
-            if ($.isNumeric(tmpPostID)) {
+
+            if($.isNumeric(tmpPostID))
+            {
                 openPostModal(tmpPostID);
             }
         }
@@ -252,9 +255,10 @@
             url: '/post/' + postID + "/get",
             type: 'get',
             success: function (data) {
-
                 modalBody.html(data);
-                history.pushState('modal', 'modal', urlPath);
+                if(history.state === null) {
+                    history.pushState('modal', 'modal', urlPath);
+                }
                 var readPost = JSON.parse(localStorage.getItem('readPost'));
 
                 if (readPost === null) {
@@ -276,6 +280,7 @@
                 }
                 // addReadPost(postID);
                 setModalHeight();
+                $('#open_post_modal').modal('show');
                 // $.fn.modal.Constructor.prototype.enforceFocus = function () {};
                 // var button = event.relatedTarget;
                 // $("#openStampModal").on('hide.bs.modal', function(event) {
@@ -291,13 +296,13 @@
         let height = $("#header").outerHeight();
         $("#open_post_modal").css("top", height);
     }
-    function setContentHeight() {
-        let list = $(".list").offset().top;
-        let footer = $("#footer").offset().top;
-
-        let distance = footer - list;
-        $(".list").css("max-height", distance);
-    }
+    // function setContentHeight() {
+    //     let list = $(".list").offset().top;
+    //     let footer = $("#footer").offset().top;
+    //
+    //     let distance = footer - list;
+    //     $(".list").css("max-height", distance);
+    // }
     function willRemove() {
         location.href = "/test2";
     }
