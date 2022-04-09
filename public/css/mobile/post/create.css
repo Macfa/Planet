@@ -1,7 +1,6 @@
 @charset "UTF-8";
 /* 공통 */
 .post_wrap {
-  width: 80%;
   margin: 0 auto;
 }
 
@@ -12,6 +11,11 @@ input:focus {
 /* 셀렉트 */
 #channel .board_box .select_box {
   margin-bottom: 16px;
+}
+#channel .board_box .left div.list {
+    /*border: 1px solid #cbc7c7;*/
+    border-radius: 10px;
+    min-height: 686px;
 }
 #channelList {
     padding: 5px 10px;
@@ -32,7 +36,7 @@ input:focus {
 
 /* 메인 */
 #channel .board_box {
-  margin: 0 0 0;
+  margin: 30px 0 0;
   overflow: hidden;
 }
 

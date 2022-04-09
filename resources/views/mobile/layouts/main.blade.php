@@ -146,7 +146,7 @@
     }
 
     $(document).ready(function () {
-        setContentHeight();
+        // setContentHeight();
         $('#main .tab li').click(function (event) {
             $('#main .tab li').removeClass('on');
             $(this).addClass('on');
