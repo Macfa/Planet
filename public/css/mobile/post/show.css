@@ -233,11 +233,8 @@
     /*margin-top:40px;*/
 }
 .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .comment-item {
-    /*display:flex;*/
-    /*flex-direction:column;*/
     position:relative;
     overflow:hidden;
-    margin-bottom: 20px;
 }
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .section-title {
     margin:10px 0 23px;
@@ -675,4 +672,7 @@ table, td {
 }
 .modal-wrap {
     padding: 0 10px;
+}
+.comment-list {
+    margin-bottom: 20px;
 }
