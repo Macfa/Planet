@@ -86,12 +86,11 @@
                 <p>베스트 댓글 수</p>
             </div>
         </div>
-        <div class="flex">
-            <div class="flex_item">
-{{--                <a href="{{ route('user.destroy', auth()->id()) }}">삭제</a>--}}
-                <a class="cst_sp_g_12" href="{{ route('user.destroy', ['id'=>auth()->id()]) }}">삭제 ( 수정 중 )</a>
-            </div>
-        </div>
+{{--        <div class="flex">--}}
+{{--            <div class="flex_item">--}}
+{{--                <a class="cst_sp_g_12" href="{{ route('user.destroy', ['id'=>auth()->id()]) }}">삭제 ( 수정 중 )</a>--}}
+{{--            </div>--}}
+{{--        </div>--}}
     </div>
 </div>
 <div class="link">

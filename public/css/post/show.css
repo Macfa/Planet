@@ -325,7 +325,7 @@
     font-size:12px;
     color: rgb(120,120,120);
     vertical-align:middle;
-    margin-left:12px;
+    margin-left: 5px;
 }
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .comment-item > .comment-top > .comment-info > ul > li img,
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .comment-item > .reply-list > .reply-item .reply-top > .reply-info > ul > li img  {
@@ -674,4 +674,7 @@ table, td {
 }
 .stamp-item + .stamp-item {
     margin-left: 3px;
+}
+#comment .comment-list .comment-cont > p {
+    font-size: 13px;
 }

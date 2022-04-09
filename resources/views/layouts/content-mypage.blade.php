@@ -1,6 +1,7 @@
 @section('content-mypage')
 <ul class="tab_title">
     활동이력
+    <div class="unread">읽은 글 숨기기</div>
 </ul>
 <ul class="tab">
     <li value="post" @if( $el =="post") class="on" @endif><a href="{{ route('user.show', ['user'=>$user->id, 'el'=>'post']) }}">나의 쓴 글</a></li>

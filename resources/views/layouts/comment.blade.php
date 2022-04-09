@@ -32,13 +32,13 @@
         <!-- 댓글 리스트 -->
         @foreach ($comments as $comment)
         <div class="comment-list">
-            <div style="padding-left:{{ ($comment->depth <= 4) ? $comment->depth*22 : 4*22 }}px;"
+            <div style="padding-left:{{ ($comment->depth > 0) ? 22 : 0 }}px;"
                  class="comment-item comment-{{ $comment->id }}">
                 <div class="comment-top">
                     <table>
                         <tbody>
                             <tr>
-                                <td style="vertical-align: top; width: 50px;">
+                                <td style="vertical-align: top; width: 30px;">
                                     <img src="{{ $comment->user->avatar }}" class="mr-2" alt="닉네임"/>
                                 </td>
                                 <td>
@@ -94,7 +94,7 @@
                                                     @endif
                                                 </button>
                                                 {{--                                    <li>--}}
-                                                <button class="sub_txt comment-like">{{ $comment->likes->sum('like') }}</button>
+                                                <button style="color: rgb(120,120,120);" class="comment-like">{{ $comment->likes->sum('like') }}</button>
                                                 {{--                                    </li>--}}
                                                 <button>
                                                     <img onclick="voteLikeInComment({{ $comment->id }}, -1)"
@@ -182,8 +182,7 @@
         </div>
 
         <div class="right-function">
-            <a href="javascript:$('#open_post_modal').animate( { scrollTop : 0 }, 400 );"><img
-                    src="{{ asset('image/message.png') }}" alt="message" class="message-image"></a>
+            <a href="javascript:$('#open_post_modal').animate( { scrollTop : 0 }, 400 );">맨 위로</a>
             {{--        <a href="javascript:$('#open_post_modal').scrollTop(0);"><img src="{{ asset('image/message.png') }}" alt="message" class="message-image"></a>--}}
         </div>
     </div>

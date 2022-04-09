@@ -30,7 +30,7 @@
        @foreach ($comments as $comment)
         <div class="comment-list">
             <!-- 댓글 리스트 -->
-                <div style="padding-left:{{ ($comment->depth <= 4) ? $comment->depth*22 : 4*22 }}px;"
+                <div style="padding-left:{{ ($comment->depth > 0) ? 22 : 0 }}px;"
                      class="comment-item comment-{{ $comment->id }}">
                     <div class="comment-top">
                         <table>
@@ -91,7 +91,7 @@
                                         @endif
                                     </button>
                                     {{--                                    <li>--}}
-                                    <button class="sub_txt comment-like">{{ $comment->likes->sum('like') }}</button>
+                                    <button style="color: rgb(120,120,120);" class="comment-like">{{ $comment->likes->sum('like') }}</button>
                                     {{--                                    </li>--}}
                                     <button>
                                         <img onclick="voteLikeInComment({{ $comment->id }}, -1)"
@@ -168,7 +168,7 @@
             </div>
 
             <div class="right-function">
-                <img src="{{ asset('image/message.png') }}" alt="message" class="image-sm">
+                <a href="javascript:$('#open_post_modal').animate( { scrollTop : 0 }, 0 );">맨 위로</a>
             </div>
         </div>
     </div>

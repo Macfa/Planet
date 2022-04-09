@@ -3,14 +3,8 @@
 @section('main')
 <section id="main">
     <div class="main-wrap">
-        {{--        <article class="advertising"><a href="#"><img src="../img/test.jpg"></a></article>--}}
-        {{--        <article class="board_box">--}}
         <article class="board_box">
             <div class="left">
-                {{--                @auth--}}
-                <button style="margin:0 30px;" onclick="willRemove();">Unread</button>
-                <button onclick="location.href='/test'">Coin</button>
-
                 <div class="category_title">최근 방문한 토픽</div>
                 <ul class="category flex-container flex-nowrap channel-history justify-content-start align-items-center">
                     <div><a href="/">실시간 화제글</a></div>
@@ -146,20 +140,22 @@
     }
 
     $(document).ready(function () {
-        setContentHeight();
+        // setContentHeight();
         $('#main .tab li').click(function (event) {
             $('#main .tab li').removeClass('on');
             $(this).addClass('on');
         });
 
         $(window).on('popstate', function (e) {
-            console.log(e);alert(22);
             if (e.type === "popstate") {
-                var modalState = $("#open_post_modal").hasClass('show');
-                if (modalState) {
+                var stampModalState = $("#openStampModal").hasClass('show');
+                var postModalState = $("#open_post_modal").hasClass('show');
+                if (stampModalState) {
                     // 뒤로가기
+                    // history.go();
+                    $("#openStampModal").modal("hide");
+                } else if(postModalState) {
                     $("#open_post_modal").modal("hide");
-
                 } else {
                     // 앞으로 가기
                     let url = window.location.href;
@@ -200,7 +196,6 @@
 
     $("#open_post_modal").on('hide.bs.modal', function (event) {
         console.log(event);
-        alert(1);
         if (event.target.id === 'open_post_modal') {
             if (history.state === "modal") {
                 var isOpen = $("#openStampModal").hasClass("show");
@@ -209,14 +204,13 @@
                 }
             }
         } else if (event.target.id === 'openStampModal') {
-            alert("stamp");
-            console.log(history);
-            if (history.state === "modal") {
-                var isOpen = $("#openStampModal").hasClass("show");
-                if (isOpen) {
-                    history.back();
-                }
-            }
+
+            // if (history.state === "modal") {
+            //     var isOpen = $("#openStampModal").hasClass("show");
+            //     if (isOpen) {
+            //         history.back();
+            //     }
+            // }
         }
     });
     $("#open_post_modal").on('show.bs.modal', function (event) {

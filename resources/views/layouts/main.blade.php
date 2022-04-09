@@ -5,8 +5,6 @@
     <div class="main-wrap">
         <article class="board_box d-flex">
             <div class="left col-9">
-                <button style="margin:0 30px;" onclick="willRemove();">Unread</button>
-                <a href="{{ route("test") }}">Coin</a>
                     <ul class="category">
                         <div class="category_title">최근 방문한 토픽</div>
 {{--                        <ul class="channel-history d-flex flex-nowrap justify-content-between align-items-center">--}}

@@ -1,5 +1,5 @@
 
-    <div class="modal-parent wid100" style="height: 100vh; background-color: #888888;">
+    <div class="modal-parent wid100" style="background-color: #888888;">
         <div class="modal-wrap" style="background-color: #ffffff;">
             <div class="modal-header flex-wrap-wrap">
                 <div class="modal-title flex-0-0-100">
