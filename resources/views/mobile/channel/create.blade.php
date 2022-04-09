@@ -1,6 +1,8 @@
-@include('mobile.layouts.app')
+@extends('mobile.layouts.master')
 
+@section('main')
 <link rel="stylesheet" type="text/css" href="{{ asset('css/mobile/channel/create.css') }}">
+
 <section style="width: 100vw; height: calc(var(--vh, 89vh) * 89);" id="channel">
   <div class="wrap">
     <article class="board_box">
@@ -95,3 +97,4 @@
         }
     }
 </script>
+@endsection

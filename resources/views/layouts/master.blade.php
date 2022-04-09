@@ -17,7 +17,7 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="밈클라우드,memecloud">
     <meta property="og:description" content="사람들과 얘기하고 싶었던 주제로 나만의 몽드를 만들어 보세요.">
-    <meta property="og:image" content="../img/favicon/og_img.png">
+    <meta property="og:image" content="/image/logo_v1.png">
     <meta property="og:url" content="">
 
     <meta name="description" content="어쩌면 마음이 맞는 친구를 찾을지도 모릅니다." />
