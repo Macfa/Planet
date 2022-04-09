@@ -184,8 +184,8 @@
         });
 
         function setModalContentHeight() {
-            $("#post-bot-function").offset().top - $("#open_post_modal").offset().top;
-            $("#post-bot-function").offset()
+            // $("#post-bot-function").offset().top - $("#open_post_modal").offset().top;
+            // $("#post-bot-function").offset()
         }
         // add : 댓글, 대댓글   |   edit : 수정
         function checkCommentTypeToAddForm(commentType, commentID) {

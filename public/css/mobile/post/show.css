@@ -103,6 +103,7 @@
   .modal-parent > .modal-wrap > .modal-body > .modal-left .board-etc-function > ul {
     display:flex;
     align-items:center;
+      justify-content: space-around;
   }
 
   .modal-parent > .modal-wrap > .modal-body > .modal-left .board-etc-function > ul > li.items {
@@ -110,7 +111,6 @@
     align-items:center;
     position:relative;
     color:rgba(0, 0, 0, 0.6);
-    margin-right:10px;
   }
 
 .modal-parent > .modal-wrap > .modal-body > .modal-left .board-etc-function > ul .items-r {
@@ -230,6 +230,7 @@
     position:relative;
     padding-top: 20px;
     border-top: 1px solid #888;
+    padding-bottom: 30px;
     /*margin-top:40px;*/
 }
 .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list .comment-item {
@@ -674,5 +675,8 @@ table, td {
     padding: 0 10px;
 }
 .comment-list {
+    margin-bottom: 20px;
+}
+.board-etc-function {
     margin-bottom: 20px;
 }

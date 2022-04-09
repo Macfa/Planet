@@ -150,7 +150,7 @@
 }
 #main .board_box .left div.list table tr td div.title a p {
   /*color: rgba(0, 0, 0, 0.87);*/
-  font-size: 14px;
+  font-size: 16px;
   letter-spacing: 0;
   float: left;
   overflow: hidden;
@@ -361,4 +361,7 @@ textarea[name=content]:focus {
 }
 .list {
     padding: 0 10px;
+}
+.user > p a {
+    font-size: 10px;
 }

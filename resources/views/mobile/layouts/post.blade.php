@@ -153,6 +153,7 @@
                         if(checkExist === false) {
                             $("#post-bot-function").addClass("cst-fixed-bot");
                             $("#post-bot-function").removeClass("d-none");
+                            $("#comment:last-child").css("margin-bottom", "27px");
                             // console.log($("#post-bot-function").className);
                         }
                         if (checkCssExist === 'none') {
