@@ -337,7 +337,6 @@
       color: rgb(120,120,120);
       /*14 400 돋움,Dotum,Arial,나눔고딕,"Malgun Gothic",맑은고딕,굴림,sans-serif*/
   }
-
 .write-info .comment-modi-form > button > div.function-text > p {
     font-size:12px;
     color: rgb(120,120,120);
@@ -660,7 +659,7 @@ table, td {
     font-size:12px;
     color: rgb(120,120,120);
     vertical-align:middle;
-    margin-left:12px;
+    margin-left:5px;
 }
 .cst-fixed-bot {
     position: fixed !important;
@@ -679,4 +678,7 @@ table, td {
 }
 .board-etc-function {
     margin-bottom: 20px;
+}
+.stamps {
+    clear: left;
 }

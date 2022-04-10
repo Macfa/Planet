@@ -35,18 +35,11 @@
             <div style="padding-left:{{ ($comment->depth > 0) ? 22 : 0 }}px;"
                  class="comment-item comment-{{ $comment->id }}">
                 <div class="comment-top">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td style="vertical-align: top; width: 30px;">
-                                    <img src="{{ $comment->user->avatar }}" class="mr-2" alt="닉네임"/>
-                                </td>
-                                <td>
                                     <div class="write-info {{ $comment->depth>0 ? 'write-info-line':'' }}">
 
-                                        <div class="d-flex justify-content-between comment-item-header-r">
-                                            {{--                        inline-block --}}
-                                            <div class="comment-modi-form">
+                                        <div class="comment-item-header-r">
+                                            <div class="comment-modi-form float-left">
+                                                <img src="{{ $comment->user->avatar }}" width="20" alt="닉네임"/>
                                                 <span class="nickname">{{ $comment->user->name }}</span>
                                                 <span class="sub_txt">{{ $comment->updated_at->diffForHumans() }}</span>
                                                 @if(auth()->id()==$comment->user_id)
@@ -63,9 +56,7 @@
                                                     </button>
                                                 @endif
                                             </div>
-                                            {{--                            <div class="comment-info">--}}
-                                            {{--                                <ul>--}}
-                                            <div>
+                                            <div class="comment-modi-form-r float-right">
                                                 @auth
                                                     <button class="sub_txt" data-bs-type="comment"
                                                             data-bs-id="{{ $comment->id }}" data-bs-toggle="modal"

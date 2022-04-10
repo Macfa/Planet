@@ -678,3 +678,6 @@ table, td {
 #comment .comment-list .comment-cont > p {
     font-size: 13px;
 }
+.stamps {
+    clear: left;
+}
