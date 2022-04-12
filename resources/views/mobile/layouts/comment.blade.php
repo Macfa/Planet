@@ -305,7 +305,6 @@
                             $(`.comment-${commentID} .comment-cont p`).html(data.content);
                             toggleEditForm('hide', commentID);
                         } else if (form === "add") { // 신규 댓글 생성 로직
-                            var target_name = "To. "+data.target_name;
                             var templateValues = {
                                 "id": data.id,
                                 "depth": (data.depth > 0) ? 22 : 0,
@@ -317,13 +316,13 @@
                                 "avatar": data.user.avatar,
                                 "commentCount": data.commentCount,
                                 "name": data.user.name,
-                                "target_name": target_name
                             };
 
                             if (data.commentCount < 2) { // 첫번째 글일 때, 댓글보기 헤더 추가
                                 $("#replyForm").tmpl(templateValues).insertAfter('.comment-write-form');
                             } else { // 첫번쨰 글이 아닌 경우 그냥 추가
                                 if (commentID) { // 대댓글
+                                    templateValues.target_name = "<span class='sub_text'>To. "+data.target_name+"</span>";
                                     $("#replyForm").tmpl(templateValues).insertAfter(`.comment-${commentID}`);
                                 } else { // 댓글
                                     $("#replyForm").tmpl(templateValues).insertAfter(".section-title");
@@ -473,7 +472,7 @@
                         </div>
                         <div class="stamps"></div>
                         <div class="comment-cont">
-                            <span class="sub_text">${target_name}</span>
+                            ${target_name}
                             <p>
                                 ${content}
                             </p>
