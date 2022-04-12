@@ -683,4 +683,8 @@ table, td {
 .stamps {
     clear: left;
 }
-
+.cst_hr {
+    margin: 10px 0;
+    border-top: 1px solid #bac0c7;
+    opacity: 0.1;
+}

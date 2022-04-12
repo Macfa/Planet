@@ -239,7 +239,6 @@
     /*flex-direction:column;*/
     position:relative;
     overflow:hidden;
-      margin-bottom: 20px;
   }
 
   /* 댓글보기 에서 이래로 이어지는 선 */
@@ -679,4 +678,9 @@ table, td {
 }
 .stamps {
     clear: left;
+}
+.cst_hr {
+    margin: 10px 0;
+    border-top: 1px solid #bac0c7;
+    opacity: 0.1;
 }

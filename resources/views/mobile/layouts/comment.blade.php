@@ -119,6 +119,7 @@
                         </div>
                     </div>
                 </div>
+                <hr class="cst_hr">
             @endforeach
         <!-- 하단 기능 Comment -->
             {{--        <div class="flex-container board-bot-function justify-content-between" style="position: sticky; top:0px;  background: rgba(252, 252, 252, 1) !important;" id="post-bot-function">--}}
@@ -323,7 +324,7 @@
                             } else { // 첫번쨰 글이 아닌 경우 그냥 추가
                                 if (commentID) { // 대댓글
                                     templateValues.target_name = "<span class='sub_text'>To. "+data.target_name+"</span>";
-                                    $("#replyForm").tmpl(templateValues).insertAfter(`.comment-${commentID}`);
+                                    $("#replyForm").tmpl(templateValues).insertAfter( $(`.comment-${commentID}`).next() );
                                 } else { // 댓글
                                     $("#replyForm").tmpl(templateValues).insertAfter(".section-title");
                                 }
@@ -445,6 +446,8 @@
     <div class="section-title">
         <h4>댓글 보기</h4>
     </div>
+    @{{else}}
+    <hr class="cst_hr">
     @{{/if}}
    <div class="comment-list comment-${id}">
         <div style="padding-left:${depth}px;">
@@ -472,7 +475,9 @@
                         </div>
                         <div class="stamps"></div>
                         <div class="comment-cont">
-                            ${target_name}
+                            @{{if target_name}}
+                                <span class="sub_text">${target_name}</span>
+                            @{{/if}}
                             <p>
                                 ${content}
                             </p>
