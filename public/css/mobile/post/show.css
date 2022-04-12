@@ -42,8 +42,9 @@
     letter-spacing: 0;
     float: left;
     overflow: hidden;
-    /*text-overflow: ellipsis;*/
-    /*white-space: nowrap;*/
+    font-size:24px;
+    line-height: 30px;
+    overflow-wrap: anywhere;
 }
 .modal-parent > .modal-wrap > .modal-header > .modal-title h4 .titleSub {
     font-size:24px;
@@ -682,3 +683,4 @@ table, td {
 .stamps {
     clear: left;
 }
+

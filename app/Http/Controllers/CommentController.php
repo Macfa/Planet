@@ -142,6 +142,7 @@ class CommentController extends Controller
             'post_id' => $req->input('post_id'),
             'group' => $req->input('post_id'),
             'content' => $this->content,
+            'target_id' => null,
             'user_id' => auth()->id()
         ]);
 
@@ -170,6 +171,7 @@ class CommentController extends Controller
             'post_id' => $thatComment['post_id'],
             'group' => $thatComment['group'],
             'content' => $this->content,
+            'target_id' => $thatComment->user_id,
             'depth' => $thatComment['depth']+1,
             'order' => $thatComment['order']+1,
             'user_id' => auth()->id()
@@ -192,6 +194,8 @@ class CommentController extends Controller
         $comment->sumOfLikes = $comment->likes->sum('like');
 //        dd($comment->post());
         $comment->commentCount = $commentCount;
+        $comment->target_name = ( $comment->targetUser ) ? $comment->targetUser->name : "";
+
         return $comment;
     }
 

@@ -35,9 +35,8 @@
     font-weight:400;
     letter-spacing: 0;
     float: left;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    line-height: 30px;
+    overflow-wrap: anywhere;
 }
 .modal-parent > .modal-wrap > .modal-header > .modal-title h4 .titleSub {
     font-size:23px;
