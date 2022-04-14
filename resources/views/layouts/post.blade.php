@@ -6,10 +6,12 @@
     <div class="modal-wrap">
         <div class="modal-header flex-wrap-wrap">
             <div class="modal-title flex-0-0-100 wid100">
-                <p style="width: inherit;">{{ $post->title }}&nbsp;&nbsp;</p>
-                @if($post->comments->count() > 0)
-                    <span class="titleSub">[&nbsp;<span class="commentCount">{{ $post->comments->count() }}</span>&nbsp;]</span>
-                @endif
+                <p>
+                    {{ $post->title }}
+                    @if($post->comments->count() > 0)
+                        <span class="titleSub">[&nbsp;<span class="commentCount">{{ $post->comments->count() }}</span>&nbsp;]</span>
+                    @endif
+                </p>
             </div>
             <div class="stamps post-{{ $post->id }}-stamps">
                 @foreach($post->stampsCount as $stamp)

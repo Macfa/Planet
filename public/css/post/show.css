@@ -40,6 +40,7 @@
 }
 .modal-parent > .modal-wrap > .modal-header > .modal-title h4 .titleSub {
     font-size:23px;
+    margin-left: 10px;
     /*font-weight:400;*/
 }
     .modal-parent > .modal-wrap > .modal-header > .modal-title h4 .titleSub .commentCount {
@@ -253,36 +254,6 @@
 /*    height:100%;*/
 /*    background-color:rgba(0, 0, 0, 0.6);*/
   }
-
-/* 댓글보기 에서 좌측으로 이어지는 선 */
-/*.modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .reply-list > .reply-item > .reply-top > .write-info:before {*/
-.modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .comment-top > .write-info-line:before {
-    /*content:"";*/
-    /*position:absolute;*/
-    /*left:-25px;*/
-    /*top:19px;*/
-    /*background-color:#707070;*/
-    /*width:50px;*/
-    /*height:1px;*/
-    /*display:block;*/
-}
-
-  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .comment-top,
-  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .reply-list > .reply-item .reply-top  {
-    /*display:flex;*/
-    /*justify-content:space-between;*/
-    /*margin-bottom:6px;*/
-    /*align-items:center;*/
-  }
-
-  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .comment-top > .write-info .comment-item-header-r,
-  .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .reply-list > .reply-item .reply-top > .write-info  {
-    /*display:flex;*/
-    /*align-items:center;*/
-    /*position:relative;*/
-    /*  float: right;*/
-  }
-
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .comment-top > .write-info h5,
   .modal-parent > .modal-wrap > .modal-body > .modal-left .comment-list-parent > .comment-list > .comment-item > .reply-list > .reply-item .reply-top > .write-info h5  {
     font-size:14px;
@@ -676,6 +647,9 @@ table, td {
 #comment .comment-list .comment-cont > p {
     font-size: 13px;
 }
+.comment-cont {
+    margin: 5px 0 0;
+}
 .stamps {
     clear: left;
 }
@@ -683,4 +657,7 @@ table, td {
     margin: 10px 0;
     border-top: 1px solid #bac0c7;
     opacity: 0.1;
+}
+.nickname {
+    font-size: 14px;
 }

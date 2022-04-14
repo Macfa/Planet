@@ -82,10 +82,7 @@
                                                 src="{{ asset('image/downvote.png') }}" />
                                             @endif
                                         </button>
-                                        {{--                                </div>--}}
-                                        {{--                                </ul>--}}
                                     </div>
-                                    {{--                            </div>--}}
                                 </div>
                                 <div class="stamps">
                                     @foreach($comment->stampsCount as $stamp)
@@ -130,9 +127,7 @@
                         </div>
                     </div>
                 </div>
-{{--                @if(!$loop->last)--}}
-                    <hr class="cst_hr">
-{{--                @endif--}}
+                <hr class="cst_hr">
             @endforeach
         </div>
     @endif

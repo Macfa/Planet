@@ -3,11 +3,12 @@
         <div class="modal-wrap" style="background-color: #ffffff;">
             <div class="modal-header flex-wrap-wrap">
                 <div class="modal-title flex-0-0-100">
-                    <p>{{ $post->title }}
+                    <p>
+                        {{ $post->title }}
+                        @if($post->comments->count() > 0)
+                            <span class="titleSub">[&nbsp;<span class="commentCount">{{ $post->comments->count() }}</span>&nbsp;]</span>
+                        @endif
                     </p>
-                    @if($post->comments->count() > 0)
-                        <span class="titleSub">[&nbsp;<span class="commentCount">{{ $post->comments->count() }}</span>&nbsp;]</span>
-                    @endif
                 </div>
                 <div class="stamps post-{{ $post->id }}-stamps flex-0-0-100">
                     @foreach($post->stampsCount as $stamp)

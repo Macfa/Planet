@@ -48,6 +48,7 @@
 }
 .modal-parent > .modal-wrap > .modal-header > .modal-title h4 .titleSub {
     font-size:24px;
+    margin-left: 10px;
     /*font-weight:400;*/
 }
     .modal-parent > .modal-wrap > .modal-header > .modal-title h4 .titleSub .commentCount {
@@ -687,4 +688,13 @@ table, td {
     margin: 10px 0;
     border-top: 1px solid #bac0c7;
     opacity: 0.1;
+}
+.nickname {
+    font-size: 14px;
+}
+#comment .comment-list .comment-cont > p {
+    font-size: 13px;
+}
+.comment-cont {
+    margin: 5px 0 0;
 }
