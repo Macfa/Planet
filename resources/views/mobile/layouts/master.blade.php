@@ -39,11 +39,10 @@
     <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('image/favicon/apple-icon-144x144.png') }}">
     <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('image/favicon/apple-icon-152x152.png') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('image/favicon/apple-icon-180x180.png') }}">
-{{--    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('image/favicon/android-icon-192x192.png') }}">--}}
-    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('image/logo_v1.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('image/favicon/favicon-16x16.png') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('image/favicon/favicon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('image/favicon/favicon-96x96.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('image/tab_image.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('image/tab_image.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('image/tab_image.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('image/tab_image.png') }}">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('css.bak/bootstrap-5.1.0.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">

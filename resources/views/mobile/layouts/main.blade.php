@@ -84,6 +84,7 @@
     function loadMoreData(page) {
         var channelID = "{{ request()->route('channel.id') }}";
         var type = $(".tab .on").attr('value');
+        var readPost = JSON.parse(localStorage.getItem('readPost'));
 
         $.ajax({
             url: '/mainMenu',
@@ -91,7 +92,8 @@
             data: {
                 "page": page,
                 'type': type,
-                'channelID': channelID
+                'channelID': channelID,
+                'readPost': readPost
             },
             success: function (data) {
                 var valueList = [];

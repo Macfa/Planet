@@ -93,10 +93,10 @@
                                 @guest
                                     <li onclick="notLogged()" class="clickable items">
                                 @endguest
-                                    <img src="{{ asset('image/share_c.png') }}" class="image-sm" alt="" />
+                                    <img src="{{ asset('image/linkcopy.png') }}" class="image-sm" alt="" />
 
                                     <div class="function-text">
-                                        <p>공유</p>
+                                        <p>링크 복사</p>
                                     </div>
                                 </li>
                                 <li class="clickable items" onclick="@if(auth()->check()) scrapPost({{ $post->id }}) @else notLogged(); @endif">

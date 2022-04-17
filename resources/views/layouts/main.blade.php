@@ -56,16 +56,21 @@
 
         $(document).ready(function(){
             $(window).on('popstate', function(e) {
-                if(e.type === "popstate") {
-                    var modalState = $("#open_post_modal").hasClass('show');
-                    if(modalState) {
+                if (e.type === "popstate") {
+                    var stampModalState = $("#openStampModal").hasClass('show');
+                    var postModalState = $("#open_post_modal").hasClass('show');
+                    if (stampModalState) {
+                        // 뒤로가기
+                        // history.go();
+                        $("#openStampModal").modal("hide");
+                    } else if(postModalState) {
                         $("#open_post_modal").modal("hide");
                     } else {
+                        // 앞으로 가기
                         let url = window.location.href;
                         var tmpPostID = url.split('/').pop();
-                        if($.isNumeric(tmpPostID))
-                        {
-                            // $(`#main #post-${tmpPostID} a[data-bs-post-id=${tmpPostID}]`).get(0).click();
+                        if ($.isNumeric(tmpPostID)) {
+                            // $(`#post-${tmpPostID} .title a`).get(0).click();
                             openPostModal(tmpPostID);
                         }
                     }
@@ -105,6 +110,11 @@
             // alert(page);
             var channelID = "{{ request()->route('channel.id') }}";
             var type = $(".tab .on").attr('value');
+            var readPost = JSON.parse(localStorage.getItem('readPost'));
+            // var readPost = localStorage.getItem('readPost');
+            // console.log(readPost);
+            // console.log(localStorage.getItem('readPost'));
+            // return;
             // alert(channel_id);
             $.ajax({
                 url: '/mainMenu',
@@ -113,6 +123,7 @@
                     "page": page,
                     'type': type,
                     'channelID': channelID,
+                    'readPost': readPost
                 },
                 success: function (data) {
                     var valueList = [];
@@ -160,7 +171,6 @@
         }
 
         $("#open_post_modal").on('hide.bs.modal', function(event) {
-            // alert('hide post');
             if (event.target.id === 'open_post_modal') {
                 var videos = $("iframe");
                 if(videos.length >= 1 ) {
@@ -170,20 +180,28 @@
                     });
                 }
                 $('video').trigger('pause');
+
                 if (history.state === "modal") {
-                    var isOpen = $("#openStampModal").hasClass("show");
-                    if(isOpen) {
+                    var isOpen = $("#open_post_modal").hasClass("show");
+
+                    if(!isOpen) {
                         history.back();
                     }
                 }
+            } else if (event.target.id === 'openStampModal') {
+                var isOpen = $("#open_post_modal").hasClass("show");
+
+                if(isOpen) {
+                    $("#open_post_modal").modal("hide");
+                }
             }
         });
-        $("#open_post_modal").on('shown.bs.modal', function(event) {
-            if (event.target.id === 'open_post_modal') {
-                $('body').removeClass('modal-open');
-                $('#open_post_modal').addClass('modal-open');
-            }
-        });
+        // $("#open_post_modal").on('shown.bs.modal', function(event) {
+        //     if (event.target.id === 'open_post_modal') {
+        //         $('body').removeClass('modal-open');
+        //         $('#open_post_modal').addClass('modal-open');
+        //     }
+        // });
         $("#open_post_modal").on('show.bs.modal', function(event) {
             if (event.target.id === 'open_post_modal') {
                 var button = event.relatedTarget;

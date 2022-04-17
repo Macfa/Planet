@@ -155,7 +155,9 @@
         </div>
 
         <div class="right-function">
-            <a href="javascript:$('#open_post_modal').animate( { scrollTop : 0 }, 0 );">맨 위로</a>
+            <a href="javascript:$('#open_post_modal').animate( { scrollTop : 0 }, 0 );">
+                <img class="image-sm" src="{{ asset('image/top.png') }}" />
+            </a>
         </div>
     </div>
 

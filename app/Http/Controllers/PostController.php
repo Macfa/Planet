@@ -113,7 +113,7 @@ class PostController extends Controller
 //        dd($matchSubject);
         if($matchSubject == []) {
             // 이미지 소스를 추출하지못했다면
-            $mainImageUrl = "/image/thum.jpg";
+            $mainImageUrl = "/image/none_img.png";
         } else {
             // 첫번째 이미지 소스를 대표이미지로 지정
             $mainImageUrl = $matchSubject[0];
@@ -224,7 +224,7 @@ class PostController extends Controller
 
         if($matchSubject == []) {
             // 이미지 소스를 추출하지못했다면
-            $mainImageUrl = "/image/thum.jpg";
+            $mainImageUrl = "/image/none_img.png";
         } else {
             // 첫번째 이미지 소스를 대표이미지로 지정
             $mainImageUrl = $matchSubject[0];

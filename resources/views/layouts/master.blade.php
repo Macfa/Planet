@@ -17,7 +17,7 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="밈클라우드,memecloud">
     <meta property="og:description" content="사람들과 얘기하고 싶었던 주제로 나만의 몽드를 만들어 보세요.">
-    <meta property="og:image" content="/image/logo_v1.png">
+    <meta property="og:image" content="/image/tab_image.png">
     <meta property="og:url" content="">
 
     <meta name="description" content="어쩌면 마음이 맞는 친구를 찾을지도 모릅니다." />
@@ -38,10 +38,10 @@
     <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('image/favicon/apple-icon-144x144.png') }}">
     <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('image/favicon/apple-icon-152x152.png') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('image/favicon/apple-icon-180x180.png') }}">
-    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('image/favicon/android-icon-192x192.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('image/favicon/favicon-16x16.png') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('image/favicon/favicon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('image/favicon/favicon-96x96.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('image/tab_image.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('image/tab_image.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('image/tab_image.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('image/tab_image.png') }}">
 
 
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-5.1.0.min.css') }}">

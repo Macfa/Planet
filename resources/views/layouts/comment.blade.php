@@ -163,7 +163,7 @@
                 <img alt="stamp" onclick="notLogged()" class="mr-3 stamp-image image-m clickable"
                      src="{{ asset('image/stamp_c.png') }}"/>
             @endguest
-            <img src="{{ asset('image/share_c.png') }}" class="mr-3 clickable image-m" alt=""/>
+            <img src="{{ asset('image/linkcopy.png') }}" class="mr-3 clickable image-m" alt=""/>
             <img class="mr-3 favorit-image image-m clickable" id="post-scrap"
                  onclick="scrapPost({{ $post->id }})" alt="favorit" src="{{ asset('image/scrap_c.png') }}"/>
             <a href="javascript:$('#post').get(0).scrollIntoView( {behavior: 'smooth' })"><img

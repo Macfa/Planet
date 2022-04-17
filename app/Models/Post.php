@@ -130,7 +130,8 @@ class Post extends Model
             ->pagination()
             ->get();
     }
-    public static function mainMenu($type="realtime", $channelID=null, $page=0) {
+    public static function mainMenu($type="realtime", $channelID=null, $page=0, $readPost = []) {
+//        dd($read);
         if($type==='realtime') {
             $posts = self::with('channel')
                 ->with('likes')
@@ -147,6 +148,7 @@ class Post extends Model
                         $query->where('channel_id', '=', $channelID);
                     }
                 })
+                ->whereNotIn('id', $readPost)
 //                ->groupBy(["posts.id", "stamps.id"])
                 ->pagination($page)
                 ->get();

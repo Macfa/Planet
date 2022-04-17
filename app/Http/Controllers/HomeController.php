@@ -57,9 +57,11 @@ class HomeController extends Controller
         $type = $request->input("type");
 //        $channelID = $request->channelID;
         $page = $request->input("page");
+        $readPost = $request->input("readPost");
 //        var_dump($channelID);
 //        $params = $request->only('type', 'channel_id', 'page');
-        $posts = Post::mainMenu($type, $channelID, $page);
+//        dd($read);
+        $posts = Post::mainMenu($type, $channelID, $page, $readPost);
 //        var_dump($posts);
 //        dd($posts);
 
