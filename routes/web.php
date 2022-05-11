@@ -73,6 +73,7 @@ Route::post('/channel/channelJoin', [ChannelController::class, 'channelJoin']);
 Route::post('/channel/addChannelAdmin', [ChannelController::class, 'addChannelAdmin']);
 Route::get('/channel/getUserInChannel/{channelID}', [ChannelController::class, 'getUserInChannel']);
 Route::get('/channel/removeChannelAdmin/{userID}', [ChannelController::class, 'getUserInChannel']);
+Route::get('/channel/checkOwner', [ChannelController::class, 'checkOwner']);
 Route::resource('channel', ChannelController::class);
 
 // Post resource in Channel

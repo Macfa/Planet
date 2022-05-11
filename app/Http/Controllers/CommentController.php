@@ -10,6 +10,7 @@ use App\Notifications\NoticeChannel;
 use App\Notifications\Noticenotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CommentController extends Controller
 {
@@ -47,13 +48,8 @@ class CommentController extends Controller
         $id = $request->input('id'); // 그룹 아이디
         $this->content = preg_replace('/\r\n|\r|\n/',PHP_EOL,$request->input("content"));
 
-        // $this->content = preg_replace("(\<(/?[^\>]+)\>)", "", $request->input("content"));
-
-//        dd($request->input('content'));
-
         if($id == null) {
             // 첫 댓글의 경우
-//            $result = $this->storeFirst($request);
             $createdCommentID = $this->storeComment($request);
         } else {
             // 대댓글의 경우
@@ -209,7 +205,6 @@ class CommentController extends Controller
         $like = request()->input('like');
 
         // 수정 및 생성
-//        $comment = Comment::find($id);
         $checkExistValue = $comment->likes()
             ->where('like', $like)
             ->where('user_id', auth()->id())
@@ -217,11 +212,23 @@ class CommentController extends Controller
 
         if ($checkExistValue != null) {
             $result = $checkExistValue->delete(); // get bool
+            if($comment->target_id && $comment->target_id !== auth()->id()) {
+                $targetComment = Comment::find($comment->group);
+                $targetComment->update(['score' => DB::raw('score - ' . $like)]);
+            } else if($comment->user_id !== auth()->id()) {
+                $comment->update(['score' => DB::raw('score - ' . $like)]);
+            }
         } else {
             $result = $comment->likes()->updateOrCreate(
                 ['user_id' => auth()->id()],
                 ['like' => $like, 'user_id' => auth()->id()]
             );
+            if($comment->target_id && $comment->target_id !== auth()->id()) {
+                $targetComment = Comment::find($comment->group);
+                $targetComment->update(['score' => DB::raw('score + ' . $like)]);
+            } else if($comment->user_id !== auth()->id()) {
+                $comment->update(['score' => DB::raw('score + ' . $like)]);
+            }
         }
 
         // 결과

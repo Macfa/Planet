@@ -20,7 +20,7 @@
                         <div class="ch_list">
                             <div>
                                 <div class="select_box d-flex">
-                                    <select class="cst_select is-invalid" name="channel_id" id="channelList">
+                                    <select class="cst_select is-invalid" name="channel_id" id="channelList" onchange="checkOwner(this);">
                                         <option value="">등록할 채널을 선택해주세요</option>
                                         @if($setting["type"] === "create")
                                             @foreach (auth()->user()->allChannels() as $channel)
@@ -54,16 +54,21 @@
                             <div class="input_box input_box_title">
                                 <div class="sub_box sub_box_line">
                                     <span class="menu">포스트</span>
+                                </div>
+                                <div id="checkOwner">
 
-                                    @if(auth()->user()->role === "admin")
+                                </div>
+                                @if(auth()->user()->role === "admin")
+                                <div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="is_notice" value="1" id="is_notice" {{ (isset($post->is_notice) && $post->is_notice === 1) ? 'checked' : '' }} >
-                                        <label class="form-check-label" for="is_notice">
-                                            안내글
+                                        <input type='hidden' name="is_main_notice" value="0">
+                                        <input class="form-check-input" type="checkbox" name="is_main_notice" value="1" id="is_main_notice" {{ (isset($post->is_main_notice) && $post->is_main_notice === 1) ? 'checked' : '' }} >
+                                        <label class="form-check-label" for="is_main_notice">
+                                            메인 안내글
                                         </label>
                                     </div>
-                                    @endif
                                 </div>
+                                @endif
                                 <div class="sub_box sub_box_line">
                                     <input type="text" class="box is-invalid" name="title" value="{{ ($post->title) ?? old('title') }}" placeholder="이름을 입력하세요">
                                     @error('title')
@@ -102,6 +107,37 @@
 @push('scripts')
 <script src="{{ asset('js/ckeditor.js') }}"></script>
 <script>
+    function checkOwner(obj) {
+        if(obj.value) {
+            $.ajax({
+                url: '/channel/checkOwner',
+                type: 'get',
+                data: {
+                    id: obj.value
+                },
+                success: function(data) {
+                    window.d = data;
+                    console.log(data);
+                    if(data["result"]) {
+                        $("#checkOwner").html('');
+                        $.tmpl(checkOwnerTemplate).appendTo("#checkOwner");
+                        // $("#checkOwnerTemplate").tmpl().appendTo("#checkOwner");
+                    } else {
+                        console.log("Issue");
+                    }
+                    // var valueList = {
+
+                    // };
+                    // $("#checkOwnerTemplate").tmpl(valueList).pre
+                },
+                error: function(err) {
+                    console.log(err);
+                }
+            })
+        } else {
+            $("#checkOwner").html('');
+        }
+    }
     function checkValue()
     {
         let form = document.searchForm;
@@ -178,7 +214,7 @@
             .then(editor => {
                 editor.conversion.for('downcast').add(function(dispatcher) {
                     dispatcher.on('insert:video', function(evt, data, conversionApi) {
-                        console.log("inserted");
+
                         const viewWriter = conversionApi.writer;
                         const $figure = conversionApi.mapper.toViewElement(data.item);
                         const $video = $figure.getChild(0);
@@ -193,6 +229,15 @@
             });
     });
 
+</script>
+<script id="checkOwnerTemplate" type="text/x-jquery-tmpl">
+<div class="form-check">
+    <input type='hidden' name="is_channel_notice" value="0">
+    <input class="form-check-input" type="checkbox" name="is_channel_notice" value="1" id="is_channel_notice">
+    <label class="form-check-label" for="is_channel_notice">
+        토픽 안내글
+    </label>
+</div>
 </script>
 @endpush
 @endsection

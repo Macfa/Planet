@@ -59,20 +59,6 @@
         </section>
     </section>
 </div>
-{{--<section--}}
-{{--    style="position: absolute; bottom: 0; background: rgba(252, 252, 252, 1) !important; z-index: 2 !important; width: 100%;"--}}
-{{--    id="footer" class="">--}}
-{{--    <section class="container-fluid">--}}
-{{--        <nav style="padding: 8px; text-align: center;" class="flex-container flex-justify-space-between">--}}
-{{--            --}}{{--        <li><a href="@if(auth()->check()) {{ route('post.create') }} @else javascript:notLogged(); @endif">게시글 작성</a></li>--}}
-{{--            <a href="@if(auth()->check()) {{ route('channel.create') }} @else javascript:notLogged(); @endif"--}}
-{{--               class="col">토픽 만들기</a>--}}
-{{--            <a href="javascript:$('#main').animate({ scrollTop: 0}, 300);" class="col">맨 위로</a>--}}
-{{--            <a href="@if(auth()->check()) {{ route('post.create') }} @else javascript:notLogged(); @endif"--}}
-{{--               class="col">글쓰기</a>--}}
-{{--        </nav>--}}
-{{--    </section>--}}
-{{--</section>--}}
 @endsection
 
 @push('scripts')
@@ -340,6 +326,7 @@
                 } else {
                     var postIdArr = [];
                     for (var i = 0; i < data.result.length; i++) {
+                        var notice = (data.result[i].notice) ? 'style=background-color:#d7aeae' : ''
                         // console.log(data.result[i]);
                         valueList.push({
                             "totalLike": data.result[i].totalLike,
@@ -354,6 +341,7 @@
                             "created_at_modi": data.result[i].created_at_modi,
                             "postImage": data.result[i].image,
                             "stamps": data.result[i].stamps,
+                            "notice": notice,
                         });
                         postIdArr.push(data.result[i].id);
                     }
@@ -371,7 +359,7 @@
     }
 </script>
 <script id="mainMenuItem" type="text/x-jquery-tmpl">
-<tr id="post-${post_id}" class="post-title">
+<tr id="post-${post_id}" class="post-title" ${notice}>
     <td>
         <div class="thum" style="background-image: url(${postImage});"></div>
     </td>

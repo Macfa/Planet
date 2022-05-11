@@ -130,39 +130,44 @@ class Post extends Model
             ->pagination()
             ->get();
     }
-    public static function mainMenu($type="realtime", $channelID=null, $page=0, $readPost = []) {
-//        dd($read);
+    public static function mainMenu($type="realtime", $channelID=null, $page=0, $readPost = '') {
+        if($readPost === '') {
+            $readPostArr = [''];
+        } else {
+            $readPostArr = array_map('intval', explode(',', $readPost));
+            // $readPostArr = explode(',', $readPost);
+        }
+
+    //    dd($readPostArr);
         if($type==='realtime') {
-            $posts = self::with('channel')
-                ->with('likes')
+            $posts = self::withCount('comments')
+                ->with('channel')
                 ->with('user')
-//                ->with('stamps')
                 ->with('stamps', function($query) {
                     $query->select('*', DB::raw('count(*) as stampTotalCount'));
                     $query->groupBy(["stamp_in_posts.post_id", "stamps.id"]);
                 })
-                ->withCount('comments')
-                ->orderby('id', 'desc')
+                // ->withCount('comments')
                 ->where(function($query) use ($channelID) {
                     if($channelID) {
                         $query->where('channel_id', '=', $channelID);
                     }
                 })
-                ->whereNotIn('id', $readPost)
-//                ->groupBy(["posts.id", "stamps.id"])
+                ->whereNotIn('id', $readPostArr)
+                ->orderby('is_main_notice', 'desc')
+                ->orderby('id', 'desc')
                 ->pagination($page)
                 ->get();
-//                ->toSql();
-//            dd($posts);
+                // ->toSql();
+                // dd($posts);
+
         } else if($type==='hot') {
             $posts = self::with('channel')
-//                ->with('likes')
                 ->with('likes', function ($q) {
                     $q->orderBy('like', 'desc');
                 })
                 ->withCount('comments')
                 ->with('user')
-//                ->with('stamps')
                 ->with('stamps', function($query) {
                     $query->select('*', DB::raw('count(*) as stampTotalCount'));
                     $query->groupBy(["stamp_in_posts.post_id", "stamps.id"]);
@@ -172,32 +177,20 @@ class Post extends Model
                         $query->where('channel_id', '=', $channelID);
                     }
                 })
-//                ->orderBy('likes.like', 'desc')
+                ->whereNotIn('id', $readPostArr)
+                ->orderby('is_main_notice', 'desc')
                 ->pagination($page)
                 ->get();
         }
-//        } else if($type==="scrap") {
-//            $posts = self::with('channel')
-//                ->with('likes')
-//                ->with('user')
-//                ->with('stamps')
-//                ->withCount('comments')
-//                ->orderby('id', 'desc')
-//                ->join("scraps", "posts.id", "=", "scraps.post_id")
-//                ->pagination($page)
-//                ->get();
-//        }
-//        $posts->toSql();
+
         foreach($posts as $idx => $post) {
             $posts[$idx]['totalLike'] = $post->likes->sum('like');
             $posts[$idx]['created_at_modi'] = $post->created_at->diffForHumans();
-//            dd($posts, $posts->count(), $post->stamps, $post->stamps);
-//            foreach($post->stamps as $stamp_idx => $stamp) {
-//                dd($stamp, $stamp->count());
-//                $stamp['totalCount'] = $stamp->count();
-//            }
+            if($post->is_main_notice === 1) {
+                $posts[$idx]['notice'] = true;
+            }
         }
-//        dd($posts);
+
         return $posts;
     }
 }

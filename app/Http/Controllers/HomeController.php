@@ -13,6 +13,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Notifications\Alarmnotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Jenssegers\Agent\Agent;
@@ -55,15 +56,19 @@ class HomeController extends Controller
     public function mainMenu(Request $request) {
         $channelID = $request->input("channelID");
         $type = $request->input("type");
-//        $channelID = $request->channelID;
         $page = $request->input("page");
-        $readPost = $request->input("readPost");
-//        var_dump($channelID);
-//        $params = $request->only('type', 'channel_id', 'page');
-//        dd($read);
+        $checkUnread = Cookie::get("unread");
+
+        $readPost = '';
+
+        if($checkUnread) {
+            $readPostExist = Cookie::has("readPost");
+            if($readPostExist) {
+                $readPost = Cookie::get("readPost");
+            }
+        }
+        // dd($checkUnread,$readPost);
         $posts = Post::mainMenu($type, $channelID, $page, $readPost);
-//        var_dump($posts);
-//        dd($posts);
 
         return response()->json(['result' => $posts]);
     }

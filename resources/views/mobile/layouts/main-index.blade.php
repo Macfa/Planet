@@ -8,7 +8,7 @@
                 @endif
             </colgroup>
             @forelse ($posts as $post)
-                <tr id="post-{{ $post->id }}" class="post-title">
+                <tr id="post-{{ $post->id }}" class="post-title" {{ ($post['notice']) ? 'style=background-color:#d7aeae' : '' }}>
                     <td style="vertical-align: top">
 {{--                        <div class="thum"></div>--}}
                         <div class="thum" style="background-image: url({{ $post->image }});"></div>

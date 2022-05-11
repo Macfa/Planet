@@ -121,18 +121,25 @@ class ChannelController extends Controller
         // get all of posts with channels
         $posts = Post::with('channel')
             ->withCount('comments')
-            ->with('user')
-            ->with('likes')
+            // ->with('user')
+            // ->with('likes')
             ->where("posts.channel_id",$channel->id)
+            // ->whereNotIn('is_main_notice', [0])
+            ->orderby('is_channel_notice', 'desc')
             ->orderby('id', 'desc')
             ->get();
 
         // channel info
         $channel = Channel::where('id', $channel->id)
-            ->with('channelJoins')
-            ->with('channelAdmins')
+            // ->with('channelJoins')
+            // ->with('channelAdmins')
             ->first();
 
+        foreach($posts as $idx => $post) {
+            if($post->is_channel_notice === 1) {
+                $posts[$idx]['notice'] = true;
+            }
+        }
         $channelVisitHistories = ChannelVisitHistory::addHistory($channel);
 
         if($this->agent->isMobile()) {
@@ -271,9 +278,24 @@ class ChannelController extends Controller
         }
         return redirect()->back();
     }
+    function checkOwner(Request $request) {
+        $userID = auth()->id();
+        $channel = Channel::find($request->input('id'));
+        if($userID === $channel->user_id) {
+            $result = true;
+        } else {
+            $result = false;
+        }
+
+        return [
+            'result' => $result
+        ];
+        // dd($res, $channel, $channel->is_channel_notice);
+
+
+    }
     function removeChannelAdmin($userID) {
         $user = User::find($userID);
-//        $user->
-    }
+   }
 }
 

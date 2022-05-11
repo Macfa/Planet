@@ -38,6 +38,10 @@ class Channel extends Model
     {
         return $query->where('user_id', auth()->id());
     }
+    // function getAttributeUserId() {
+    function getUserIdAttribute($value) {
+        return $value;
+    }
 //    protected static function booted()
 //    {
 //        static::deleted(function ($channel) {

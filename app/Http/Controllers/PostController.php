@@ -14,6 +14,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 use Jenssegers\Agent\Agent;
@@ -41,10 +42,19 @@ class PostController extends Controller
      */
     public function index()
     {
-//        $posts = Post::getAllData();
-        $posts = Post::mainMenu('realtime','', 0);
+        $checkUnread = Cookie::get("unread");
+        $readPost = '';
+        if($checkUnread === '1') {
+            $readPostExist = Cookie::has("readPost");
+            if($readPostExist) {
+                $readPost = Cookie::get("readPost");
+            }
+        }
+        // dd($checkUnread,$readPost);
+        // dd($readPost);exit;
+        $posts = Post::mainMenu('realtime','', 0, $readPost);
         Gate::check('check-admin', auth()->user());
-//        dd($posts);
+
         $channelVisitHistories = ChannelVisitHistory::showHistory();
 
         if($this->agent->isMobile()) {
@@ -124,7 +134,8 @@ class PostController extends Controller
             'channel_id' => $request->input('channel_id'),
             'image' => $mainImageUrl,
             'title' => $request->input('title'),
-//            'is_notice' => $request->input('is_notice'),
+           'is_channel_notice' => $request->input('is_channel_notice'),
+           'is_main_notice' => $request->input('is_main_notice'),
             'content' => $content,
             'user_id' => auth()->id()
         ])->id;
@@ -234,7 +245,8 @@ class PostController extends Controller
             ->update([
                 'image'=>$mainImageUrl,
                 'title'=>$request->title,
-//                'is_notice' => $request->has('is_notice'),
+                'is_channel_notice' => $request->input('is_channel_notice'),
+                'is_main_notice' => $request->input('is_main_notice'),
                 'channel_id'=>$request->channel_id,
                 'content'=>$content
             ]);

@@ -259,12 +259,9 @@
                             localStorage.setItem('readPost', JSON.stringify(readPost));
                         }
                     }
+                    var readPosts = JSON.parse(localStorage.getItem('readPost'));
+                    setCookie("readPost", readPosts);
                     addReadPost(postID);
-                    // $.fn.modal.Constructor.prototype.enforceFocus = function () {};
-                    // var button = event.relatedTarget;
-                    // $("#openStampModal").on('hide.bs.modal', function(event) {
-                    //     event.stopPropagation();
-                    // });
                 },
                 error: function(err) {
                     console.log(err);
@@ -282,7 +279,6 @@
                 success: function(data) {
                     modalBody.html(data);
                     $("#openStampModal").on('shown.bs.modal', function(event) {
-                        // event.stopPropagation();
                         $("#openStampModal input[name=type]").val(type);
                         $("#openStampModal input[name=id]").val(id);
                         $("#category-data .stamp-list:first button").click();
@@ -294,13 +290,6 @@
             })
         }
     });
-
-    // var open_post_modal = document.getElementById('open_post_modal')
-    // open_post_modal.addEventListener('show.bs.modal', function (event) {
-    //     // event.stopPropagation();
-    //     // Button that triggered the modal
-    //
-    // })
 
     $('#main .tab li').click(function(event){
         $('#main .tab li').removeClass('on');
@@ -327,12 +316,10 @@
                 var valueList = [];
                 $("#main .main-wrap .left .list table tbody tr").remove();
                 if(data.result.length==0) {
-                    // valueList.push("<tr class='none-tr'><td>데이터가 없습니다.</td></tr>");
                     var value = "<tr class='none-tr'><td>데이터가 없습니다.</td></tr>";
                     $("#main .wrap .left .list table tbody").html(value);
                 } else {
                     for(var i=0; i<data.result.length; i++) {
-                        // console.log(data.result[i]);
                         valueList.push({
                             "totalLike": data.result[i].totalLike,
                             "post_id": data.result[i].id,

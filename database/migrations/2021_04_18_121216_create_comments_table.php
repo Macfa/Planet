@@ -20,6 +20,7 @@ class CreateCommentsTable extends Migration
             $table->bigInteger('target_id')->unsigned()->nullable();
             $table->foreign("target_id")->references("id")->on("users")->onDelete('cascade');
             $table->integer('group');
+            $table->integer('score')->default(0);
             $table->mediumText('content');
             $table->bigInteger("user_id")->unsigned();
             $table->foreign("user_id")->references("id")->on("users")->onDelete('cascade');

@@ -57,21 +57,10 @@ a:visited {
     text-decoration: none;
     color: #000;
 }
-a:hover {
-  /*text-decoration: none;*/
-  /*color: #000;*/
-}
 a:active {
   text-decoration: none;
   color: #000;
 }
-
-
-a:focus,
-button:focus {
-  /*outline: none;*/
-}
-
 table {
   table-layout: fixed;
   padding: 0;
@@ -397,13 +386,6 @@ button {
 .right_sub .info span button {
     color: #FFF;
 }
-.sub_btn {
-
-}
-.can_btn {
-
-}
-
 .cst_sp_g_12 {
     font-size:12px;
     color:#808080 !important;
@@ -468,4 +450,7 @@ button {
 }
 .stamp_count {
     color: #fff;
+}
+.unread_white {
+  color: #fff !important;
 }

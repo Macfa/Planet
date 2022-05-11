@@ -1,5 +1,24 @@
 @section('mainlist')
 
+{{-- @php
+$route = Route::current();
+// dd($route);
+
+$name = $route->getName();
+// dd($name);
+
+$actionName = $route->getActionName();
+// dd($actionName);
+
+dd($route->parameters()
+);
+
+$name = Route::currentRouteName();
+// dd($name);
+
+$action = Route::currentRouteAction();
+// dd($action);
+@endphp --}}
 <div class="list">
     <table>
         <colgroup>
@@ -10,7 +29,7 @@
             @endif
         </colgroup>
         @forelse ($posts as $post)
-            <tr id="post-{{ $post->id }}">
+            <tr id="post-{{ $post->id }}" {{ ($post['notice']) ? 'style=background-color:#d7aeae' : '' }}>
                 <td>
                     <!-- 업이면 클래스 up, 다운이면 down -->
                     <span class="post-like-main
@@ -24,8 +43,9 @@
                         ">{{ $post->likes->sum('like') }}</span>
                 </td>
                 <td>
-                    <div class="thum" style="background-image: url({{ $post->image }});"></div>
-{{--                    <div class="thum"></div>--}}
+                    <div class="thum">
+                        <img src="{{ $post->image }}" alt="" />
+                    </div>
                 </td>
                 <td>
                     <div class="title">
@@ -40,9 +60,7 @@
                         @foreach($post->stampsCount as $stamp)
                             <div class="stamp-item stamp-{{ $stamp->stamp_id }} multi-stamps">
                                 <img src="{{ $stamp->image }}" alt="">
-{{--                                @if($stamp->totalCount>1)--}}
                                     <span class="stamp_count">{{ $stamp->totalCount }}</span>
-{{--                                @endif--}}
                             </div>
                         @endforeach
                     </div>
