@@ -15,16 +15,15 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-//            $table->foreignId('channel_id')->nullable()->constrained("channels")->cascadeOnUpdate()->nullOnDelete();
-//            $table->enum("is_notice");
             $table->bigInteger('channel_id')->unsigned();
             $table->foreign("channel_id")->references("id")->on("channels")->onDelete('cascade');
             $table->string('title', 100);
             $table->string('image', 100)->nullable();
             $table->longText('content');
-//            $table->foreignId('user_id')->nullable()->constrained("users")->cascadeOnUpdate()->nullOnDelete();
             $table->bigInteger('user_id')->unsigned();
             $table->foreign("user_id")->references("id")->on("users")->onDelete('cascade');
+            $table->integer('is_main_notice')->default(0)->after('user_id');
+            $table->integer('is_channel_notice')->default(0)->after('user_id');
             $table->softDeletes();
             $table->timestamps();
             $table->index('id');

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddScoreIntoComment extends Migration
+class AddNoticeIntoPost extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddScoreIntoComment extends Migration
      */
     public function up()
     {
-        Schema::table('comments', function (Blueprint $table) {
-            $table->integer('score')->default(0)->after('group');
+        Schema::table('posts', function (Blueprint $table) {
+            $table->integer('is_main_notice')->default(0)->after('user_id');
+            $table->integer('is_channel_notice')->default(0)->after('user_id');
         });
     }
 
@@ -25,7 +26,7 @@ class AddScoreIntoComment extends Migration
      */
     public function down()
     {
-        Schema::table('comments', function (Blueprint $table) {
+        Schema::table('posts', function (Blueprint $table) {
             //
         });
     }
