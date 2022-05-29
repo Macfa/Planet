@@ -445,8 +445,6 @@
     <div class="section-title">
         <h4>댓글 보기</h4>
     </div>
-    @{{else}}
-    <hr class="cst_hr">
     @{{/if}}
    <div class="comment-list comment-${id}">
         <div style="padding-left:${depth}px;">
@@ -498,6 +496,7 @@
             </div>
         </div>
     </div>
+    <hr class="cst_hr">
     @{{if commentCount < 2}}
 </div>
 @{{/if}}
