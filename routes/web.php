@@ -55,12 +55,6 @@ Route::post('/post/{post}/report', [PostController::class, 'report']);
 Route::post('/post/{post}/scrap', [PostController::class, 'scrap']);
 // Post's resource
 Route::resource('post', PostController::class)->middleware('cors');
-//Route::resource('post', PostController::class)->except([
-//    'show', 'index'
-//]);
-//Route::get('/post/show/{post}', [PostController::class, 'show']);
-//Route::get('/post/show/{post}', [HomeController::class, 'index']);
-
 
 Route::post('/comment/{comment}/like', [CommentController::class, 'like']);
 // Comments resource

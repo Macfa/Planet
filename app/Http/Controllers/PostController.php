@@ -30,11 +30,6 @@ class PostController extends Controller
             redirect('http://m.localhost:8000/');
         }
     }
-//    public function home() {
-//        $posts = Post::getAllData();
-//        $channelVisitHistories = ChannelVisitHistory::showHistory();
-//        return view('main.index', compact('posts', 'channelVisitHistories'));
-//    }
     /**
      * Display a listing of the resource.
      *
@@ -50,8 +45,7 @@ class PostController extends Controller
                 $readPost = Cookie::get("readPost");
             }
         }
-        // dd($checkUnread,$readPost);
-        // dd($readPost);exit;
+
         $posts = Post::mainMenu('realtime','', 0, $readPost);
         Gate::check('check-admin', auth()->user());
 
@@ -127,6 +121,7 @@ class PostController extends Controller
         } else {
             // 첫번째 이미지 소스를 대표이미지로 지정
             $mainImageUrl = $matchSubject[0];
+            // \Thumbnail::src(public_path('images/example.jpeg'));
         }
 
 
@@ -337,12 +332,18 @@ class PostController extends Controller
     public function getPost(Post $post)
     {
 //        $post = Post::where('id', $post->id)->;
+        // $bestGroups = Comment::where('post_id', '=', $post->id)
+        //     ->where('score', '>=', 3)
+        //     ->select('group')
+        //     ->get();
         $comments = Comment::where('post_id', '=', $post->id)
             ->with('likes')
             ->with('user')
+            ->orderBy('score', 'desc')
             ->orderBy('group', 'desc')
             ->orderBy('order', 'asc')
             ->orderBy('depth', 'asc')
+            // ->toSql();
             ->get();
 
         if(auth()->check()) {
@@ -352,6 +353,7 @@ class PostController extends Controller
                 ['updated_at' => now()]
             );
         }
+
         if($this->agent->isMobile()) {
             return view('mobile.post.get', compact('post', 'comments'));
         } else {
@@ -362,6 +364,7 @@ class PostController extends Controller
         $comments = Comment::where('post_id', '=', $post->id)
             ->with('likes')
             ->with('user')
+            ->orderBy('score', 'desc')
             ->orderBy('group', 'desc')
             ->orderBy('order', 'asc')
             ->orderBy('depth', 'asc')

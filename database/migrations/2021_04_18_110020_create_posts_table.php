@@ -22,8 +22,8 @@ class CreatePostsTable extends Migration
             $table->longText('content');
             $table->bigInteger('user_id')->unsigned();
             $table->foreign("user_id")->references("id")->on("users")->onDelete('cascade');
-            $table->integer('is_main_notice')->default(0)->after('user_id');
-            $table->integer('is_channel_notice')->default(0)->after('user_id');
+            $table->integer('is_main_notice')->nullable()->default(0)->after('user_id');
+            $table->integer('is_channel_notice')->nullable()->default(0)->after('user_id');
             $table->softDeletes();
             $table->timestamps();
             $table->index('id');

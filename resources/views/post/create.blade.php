@@ -11,7 +11,7 @@
             @if($setting["type"] === "create")
                 <form id="form" action="{{ route('post.store') }}" name="searchForm" method="POST" onsubmit="return checkValue();">
             @else
-                <form id="form" action="{{ route('post.update', $post->id) }}" method="POST">
+                <form id="form" action="{{ route('post.update', $post->id) }}" method="POST" onsubmit="return checkValue();">
                 @method('PUT')
             @endif
             @csrf
@@ -107,6 +107,7 @@
 @push('scripts')
 <script src="{{ asset('js/ckeditor.js') }}"></script>
 <script>
+    let ckEditor;
     function checkOwner(obj) {
         if(obj.value) {
             $.ajax({
@@ -152,15 +153,28 @@
             alert("제목을 입력해주세요 ( 70자 이하 )");
             return false;
         }
-        if(window.editor.data.get() === "")
+        // if(window.editor.data.get() === "")
+        if(ckEditor.getData() === "")
         {
             alert("내용을 입력해주세요");
             return false;
         }
-    }
+        var hasTopic = $("#is_channel_notice:checked").length;
 
+        if(hasTopic > 0) {
+            var main = $("#is_main_notice").is(':checked');
+
+            if(main) {
+                // 토픽 안내글 과 메인 안내글은 같이 선택될 수 없다
+                alert("안내글은 토픽 또는 메인 하나만 선택해야합니다");
+                return false;
+            }
+        }
+    }
     $(document).ready(function () {
-        ClassicEditor.create(document.querySelector('#editor'), {
+        $("#channelList").trigger("change");
+
+        var ckeditor = ClassicEditor.create(document.querySelector('#editor'), {
             // plugins: [ MediaEmbed ],
             video: {
                 upload: {
@@ -212,6 +226,7 @@
             }
         })
             .then(editor => {
+                ckEditor = editor;
                 editor.conversion.for('downcast').add(function(dispatcher) {
                     dispatcher.on('insert:video', function(evt, data, conversionApi) {
 

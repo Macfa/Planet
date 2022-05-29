@@ -41,13 +41,12 @@
                     </div>
                 </div>
 
-                {{-- <div style="float: right; font-size: 20px;"> --}}
-                <div class="point">
+                {{-- <div class="point">
                     <div class='point_box'>
                         <input type="checkbox">&nbsp;&nbsp;<span>10,000/100</span>
                     </div>
-                </div>
-                <div>
+                </div> --}}
+                <div class="mt-3">
                     <ul class="btn">
                         <li><button class="btn_cancle" type="button" onclick="location.href='{{ url('/') }}'">취소</button></li>
                         {{-- <li><a href="">등록</a></li> --}}

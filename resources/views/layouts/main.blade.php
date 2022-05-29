@@ -391,7 +391,7 @@
             </td>
             <td>
                 <div class="title">
-                    <a href="#post-show-${post_id}" data-bs-toggle="modal" data-bs-post-id="${postID}" data-bs-channel-id="${channel_id}" data-bs-target="#open_post_modal">
+                    <a href="#post-show-${postID}" data-bs-toggle="modal" data-bs-post-id="${postID}" data-bs-channel-id="${channel_id}" data-bs-target="#open_post_modal">
                         <p>${postTitle}&nbsp;&nbsp;</p>
                         @{{if commentCount > 0}}
                             <span class="titleSub">[&nbsp;<span class="commentCount">${commentCount}</span>&nbsp;]</span>

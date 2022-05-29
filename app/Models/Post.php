@@ -135,10 +135,8 @@ class Post extends Model
             $readPostArr = [''];
         } else {
             $readPostArr = array_map('intval', explode(',', $readPost));
-            // $readPostArr = explode(',', $readPost);
         }
 
-    //    dd($readPostArr);
         if($type==='realtime') {
             $posts = self::withCount('comments')
                 ->with('channel')
@@ -147,38 +145,40 @@ class Post extends Model
                     $query->select('*', DB::raw('count(*) as stampTotalCount'));
                     $query->groupBy(["stamp_in_posts.post_id", "stamps.id"]);
                 })
-                // ->withCount('comments')
+                ->whereNotIn('id', $readPostArr)
                 ->where(function($query) use ($channelID) {
                     if($channelID) {
                         $query->where('channel_id', '=', $channelID);
+                        $query->where('is_main_notice', '=', 0);
+                    } else {
+                        $query->where('is_channel_notice', '=', 0);
                     }
                 })
-                ->whereNotIn('id', $readPostArr)
+                ->orderby('is_channel_notice', 'desc')
                 ->orderby('is_main_notice', 'desc')
                 ->orderby('id', 'desc')
                 ->pagination($page)
                 ->get();
-                // ->toSql();
-                // dd($posts);
 
         } else if($type==='hot') {
             $posts = self::with('channel')
-                ->with('likes', function ($q) {
-                    $q->orderBy('like', 'desc');
-                })
                 ->withCount('comments')
                 ->with('user')
                 ->with('stamps', function($query) {
                     $query->select('*', DB::raw('count(*) as stampTotalCount'));
                     $query->groupBy(["stamp_in_posts.post_id", "stamps.id"]);
                 })
+                ->whereNotIn('id', $readPostArr)
                 ->where(function ($query) use ($channelID) {
                     if ($channelID) {
                         $query->where('channel_id', '=', $channelID);
+                        $query->where('is_main_notice', '=', 0);
                     }
                 })
-                ->whereNotIn('id', $readPostArr)
+
                 ->orderby('is_main_notice', 'desc')
+                ->orderby('is_channel_notice', 'desc')
+                ->orderby('comments_count', 'desc')
                 ->pagination($page)
                 ->get();
         }
@@ -186,8 +186,14 @@ class Post extends Model
         foreach($posts as $idx => $post) {
             $posts[$idx]['totalLike'] = $post->likes->sum('like');
             $posts[$idx]['created_at_modi'] = $post->created_at->diffForHumans();
-            if($post->is_main_notice === 1) {
-                $posts[$idx]['notice'] = true;
+            if($channelID) {
+                if($post->is_channel_notice === 1) {
+                    $posts[$idx]['notice'] = true;
+                }
+            } else {
+                if($post->is_main_notice === 1) {
+                    $posts[$idx]['notice'] = true;
+                }
             }
         }
 

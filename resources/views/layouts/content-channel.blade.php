@@ -9,8 +9,8 @@
         </div>
     </ul>
     <ul class="tab">
-        <li class="on clickable realtime" value="realtime" onclick="clickMainMenu('realtime');"><a>화제</a></li>
-        <li class="clickable hot" value="hot" onclick="clickMainMenu('hot');"><a>전체</a></li>
+        <li class="on clickable realtime" value="realtime" onclick="clickMainMenu('realtime');"><a>전체</a></li>
+        <li class="clickable hot" value="hot" onclick="clickMainMenu('hot');"><a>화제</a></li>
     </ul>
 @endsection
 

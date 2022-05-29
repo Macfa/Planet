@@ -17,7 +17,7 @@
                     @forelse($posts as $post)
                     <tr>
                         <td>{{ $loop->index+1 }}</td>
-                        <td><a href="/post/{{ $post->id }}" target="_blank">{{ $post->title }}</a></td>
+                        <td><a href="/post/{{ $post->reportable_id }}" target="_blank">{{ $post->title }}</a></td>
                         <td>{{ $post->user->name }}</td>
                         <td>{{ $post->totalCount }}</td>
                         <td>ex) buttons</td>

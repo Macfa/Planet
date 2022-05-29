@@ -121,18 +121,14 @@ class ChannelController extends Controller
         // get all of posts with channels
         $posts = Post::with('channel')
             ->withCount('comments')
-            // ->with('user')
-            // ->with('likes')
             ->where("posts.channel_id",$channel->id)
-            // ->whereNotIn('is_main_notice', [0])
+            ->where('is_main_notice', 0)
             ->orderby('is_channel_notice', 'desc')
             ->orderby('id', 'desc')
             ->get();
 
         // channel info
         $channel = Channel::where('id', $channel->id)
-            // ->with('channelJoins')
-            // ->with('channelAdmins')
             ->first();
 
         foreach($posts as $idx => $post) {
