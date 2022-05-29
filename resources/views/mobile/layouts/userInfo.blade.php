@@ -42,11 +42,15 @@
                 <p>게시글 수</p>
             </div>
             <div class="flex_item">
+                <div>{{ $coin->commentCount }}</div>
+                <p>댓글 수</p>
+            </div>
+            {{-- <div class="flex_item">
                 <div>{{ number_format($coin->postCoin) }}</div>
                 <p>대자보 등극 수</p>
-            </div>
+            </div> --}}
         </div>
-        <div class="flex">
+        {{-- <div class="flex">
             <div class="flex_item">
                 <div>{{ $coin->commentCount }}</div>
                 <p>댓글 수</p>
@@ -55,7 +59,7 @@
                 <div>{{ number_format($coin->commentCoin) }}</div>
                 <p>베스트 댓글 수</p>
             </div>
-        </div>
+        </div> --}}
 {{--        <div class="flex">--}}
 {{--            <div class="flex_item">--}}
 {{--                <a href="{{ route('user.destroy', auth()->id()) }}">삭제 ( 수정 중 )</a>--}}

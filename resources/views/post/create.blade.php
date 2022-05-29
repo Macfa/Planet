@@ -233,9 +233,10 @@
                         const viewWriter = conversionApi.writer;
                         const $figure = conversionApi.mapper.toViewElement(data.item);
                         const $video = $figure.getChild(0);
-                        // viewWriter.addClass('test', $video);
+
                         viewWriter.setAttribute('controls', true, $video);
-                        // viewWriter.setAttribute('autoplay', true, $video);
+                        viewWriter.setStyle('width', '100%', $video);
+                        viewWriter.addClass('wid100', $video);
                     })
                 });
             })

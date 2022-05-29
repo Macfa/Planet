@@ -70,7 +70,7 @@
     function loadMoreData(page) {
         var channelID = "{{ request()->route('channel.id') }}";
         var type = $(".tab .on").attr('value');
-        var readPost = JSON.parse(localStorage.getItem('readPost'));
+        // var readPost = JSON.parse(localStorage.getItem('readPost'));
 
         $.ajax({
             url: '/mainMenu',
@@ -79,7 +79,7 @@
                 "page": page,
                 'type': type,
                 'channelID': channelID,
-                'readPost': readPost
+                // 'readPost': readPost
             },
             success: function (data) {
                 var valueList = [];
@@ -272,7 +272,9 @@
                         $(`#main #post-${postID} a[data-bs-post-id=${postID}]`).addClass('visited');
                     }
                 }
-                // addReadPost(postID);
+                var readPosts = JSON.parse(localStorage.getItem('readPost'));
+                setCookie("readPost", readPosts);
+
                 setModalHeight();
                 $('#open_post_modal').modal('show');
                 // $.fn.modal.Constructor.prototype.enforceFocus = function () {};
