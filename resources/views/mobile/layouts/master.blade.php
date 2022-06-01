@@ -27,7 +27,7 @@
     {{-- <meta name="viewport" content="width=device-width, initial-scale=1"> --}}
 
 
-    <title>Monde</title>
+    <title>밈클라우드</title>
     {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
 
     <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('image/favicon/apple-icon-57x57.png') }}">
@@ -57,14 +57,8 @@
 
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/bootstrap-5.1.0.min.js') }}"></script>
-    {{--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>--}}
-    {{--    <script async charset="utf-8" src="//cdn.embedly.com/widgets/platform.js"></script>--}}
-
-    {{--    <script src="https://unpkg.com/@popperjs/core@2"></script>--}}
-    {{--    <script src="{{ asset('js/toastr.min.js') }}"></script>--}}
     <script src="{{ asset('js/jquery-tmpl.js') }}"></script>
     <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
-    {{--    <script async charset="utf-8" src="//cdn.embedly.com/widgets/platform.js"></script>--}}
     <script charset="utf-8" src="//cdn.iframe.ly/embed.js?api_key=ddc93c9ff7add82b1b3370"></script>
 
     @stack("styles")
@@ -84,10 +78,10 @@
         @yield('main')
     </div>
 
-{{--@auth--}}
-{{--    @include('modals.header-noti')--}}
-{{--    @include('modals.header-list')--}}
-{{--@endauth--}}
+@auth
+   @include('modals.header-noti')
+   @include('modals.header-list')
+@endauth
 @stack("modals")
 
 @if(Session::has('msg'))

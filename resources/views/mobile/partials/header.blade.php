@@ -1,27 +1,12 @@
 <div class="row flex-justify-space-between align-self-center" id="header">
     <div class="col-3">
         <a href="/">
-            <img src="{{ asset('image/logo_v1.png') }}">
+            <img alt="logo" src="{{ asset('image/logo_v1.png') }}">
         </a>
     </div>
     <div class="@if(auth()->check()) col-5 @else col-6 @endif header-sections header-section-search align-self-center">
         <form class="row align-items-center vertical-md" name="mainSearchForm" id="mainSearchForm" action="{{ route('home.search') }}" method="get">
-            {{--                <input list="searched-list" type="text" name="searchText" onkeydown="searchingCallback(this);" placeholder="검색..." value="{{ Request::input('searchText') }}">--}}
             <input type="text" class="vertical-md" name="searchText" onkeydown="searchingCallback(this);" placeholder="검색..." value="{{ Request::input('searchText') }}">
-            {{--                <datalist id="searched-list">--}}
-            {{--                    <option oninput="selectSearchItem();" value="Chocolate">--}}
-            {{--                    <option value="Coconut">--}}
-            {{--                    <option value="Mint">--}}
-            {{--                    <option value="Strawberry">--}}
-            {{--                    <option value="Vanilla">--}}
-            {{--                </datalist>--}}
-{{--            <div id="header-search">--}}
-                {{--                                    <div>--}}
-                {{--                                        <a href="" class="list-group-item list-group-item-action">Some</a>--}}
-                {{--                                        <a href="" class="list-group-item list-group-item-action">Some</a>--}}
-                {{--                                        <a href="" class="list-group-item list-group-item-action">Some</a>--}}
-                {{--                                    </div>--}}
-{{--            </div>--}}
 
             <input type="hidden" name="searchType" id="searchType" value="a">
             <button type="submit"></button>
@@ -38,10 +23,6 @@
         @endguest
         @auth
             <ul class="row flex-justify-content-flex-end flex-wrap-nowrap">
-                {{--                    <li class="header_icon header_icon_clickable"><a class="" data-bs-toggle="collapse" href="#header-mypage" role="button" aria-expanded="false" aria-controls="header-mypage"><img src="{{ asset('image/mypage_4x.png') }}" alt="mypage" /></a></li>--}}
-
-                {{--                    <li class="header_icon"><a href="{{ route('user.show', auth()->id()) }}" class="btn btn-primary" data-bs-toggle="collapse" href="#header-mypage" role="button" aria-expanded="false" aria-controls="header-mypage"><img src="{{ asset('image/mypage_4x.png') }}" alt="mypage" /></a></li>--}}
-
                 <li class="header_icon header_icon_clickable">
                     <a style="position: relative;" class="" data-bs-toggle="collapse" href="#header-noti" role="button" aria-expanded="false" aria-controls="header-noti"><img src="{{ asset('image/noti_4x.png') }}" alt="noti" />
                         @if(auth()->user()->unreadNotifications->count() > 0)

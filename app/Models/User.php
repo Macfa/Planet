@@ -114,8 +114,6 @@ class User extends Authenticatable
             ->get();
         $values = $joins->merge($channels)->sortBy('updated_at', SORT_REGULAR, true)->forPage($page, 10);
 
-//        $result = [ $page => $values ];
-//        dd($values);
         return $values;
     }
 

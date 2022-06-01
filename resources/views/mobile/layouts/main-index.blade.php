@@ -11,7 +11,7 @@
                 <tr id="post-{{ $post->id }}" class="post-title" {{ ($post['notice']) ? 'style=background-color:#d7aeae' : '' }}>
                     <td style="vertical-align: top">
 {{--                        <div class="thum"></div>--}}
-                        <div class="thum" style="background-image: url({{ $post->image }});"></div>
+                        <div class="thum" style="background-size: contain; background-image: url('{{ $post->image }}');"></div>
                     </td>
                     <td>
                         <div class="title">

@@ -331,11 +331,6 @@ class PostController extends Controller
     }
     public function getPost(Post $post)
     {
-//        $post = Post::where('id', $post->id)->;
-        // $bestGroups = Comment::where('post_id', '=', $post->id)
-        //     ->where('score', '>=', 3)
-        //     ->select('group')
-        //     ->get();
         $comments = Comment::where('post_id', '=', $post->id)
             ->with('likes')
             ->with('user')

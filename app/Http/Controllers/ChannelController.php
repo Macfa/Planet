@@ -119,13 +119,15 @@ class ChannelController extends Controller
     public function show(Channel $channel)
     {
         // get all of posts with channels
-        $posts = Post::with('channel')
-            ->withCount('comments')
-            ->where("posts.channel_id",$channel->id)
-            ->where('is_main_notice', 0)
-            ->orderby('is_channel_notice', 'desc')
-            ->orderby('id', 'desc')
-            ->get();
+        // $posts = Post::with('channel')
+        //     ->withCount('comments')
+        //     ->where("posts.channel_id",$channel->id)
+        //     ->where('is_main_notice', 0)
+        //     ->orderby('is_channel_notice', 'desc')
+        //     ->orderby('id', 'desc')
+        //     ->get();
+
+        $posts = Post::mainMenu('realtime', $channel->id);
 
         // channel info
         $channel = Channel::where('id', $channel->id)

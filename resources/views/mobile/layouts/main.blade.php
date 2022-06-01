@@ -303,6 +303,20 @@
         location.href = "/test2";
     }
 
+    function getCookie(key) {
+        var cookie = document.cookie;
+        var cookies = cookie.split(";");
+
+        for(var i=0; i<cookies.length; i++) {
+            var item = cookies[i].split("=");
+            if(key === item[0].trim()) {
+                return item[1];
+            }
+        }
+    }
+    function setCookie(key, value) {
+        document.cookie = key + "=" + value;
+    }
     function getSearchCategory(type) {
         $("#searchType").val(type);
         $("#mainSearchForm").submit();

@@ -306,6 +306,20 @@
             })
         }
 
+        function getCookie(key) {
+            var cookie = document.cookie;
+            var cookies = cookie.split(";");
+
+            for(var i=0; i<cookies.length; i++) {
+                var item = cookies[i].split("=");
+                if(key === item[0].trim()) {
+                    return item[1];
+                }
+            }
+        }
+        function setCookie(key, value) {
+            document.cookie = key + "=" + value;
+        }
         function clickMainMenu(type) {
             var channelID = "{{ request()->route('channel.id') }}";
 
@@ -356,21 +370,6 @@
                     console.log(err);
                 }
             })
-        }
-
-        function getCookie(key) {
-            var cookie = document.cookie;
-            var cookies = cookie.split(";");
-
-            for(var i=0; i<cookies.length; i++) {
-                var item = cookies[i].split("=");
-                if(key === item[0].trim()) {
-                    return item[1];
-                }
-            }
-        }
-        function setCookie(key, value) {
-            document.cookie = key + "=" + value;
         }
     </script>
     <script id="mainMenuItem" type="text/x-jquery-tmpl">

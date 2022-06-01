@@ -1,11 +1,8 @@
 @section('content')
 <section style="height: calc(var(--vh, 92vh) * 92); overflow-y: scroll;" id="main">
     <div class="main-wrap">
-{{--        <article class="advertising"><a href="#"><img src="../img/test.jpg"></a></article>--}}
-{{--        <article class="board_box">--}}
         <article class="board_box">
             <div class="left">
-{{--                @auth--}}
                     <button style="margin:0 30px;" onclick="willRemove();">Unread</button>
                     <button onclick="location.href='/test'">Coin</button>
 
@@ -16,17 +13,13 @@
                             @if($loop->first)
                                 <span>/</span>
                             @endif
-{{--                            <li style="flex: 1 1 20%; text-overflow: ellipsis;" class="history_channel_{{ $history->channel_id }}">--}}
                                 <div><a href="{{ route('channel.show', $history->channel_id) }}">{{ $history->channel->name }}</a></div>
                                 @if($loop->remaining)
                                     <span>/</span>
                                 @endif
-{{--                            </li>--}}
                         @endforeach
                     </ul>
-{{--                @endauth--}}
 
-                {{-- search, user.show, content  --}}
                 @hasSection('mobile.content-mainmenu')
                     @yield('mobile.content-mainmenu')
                 @endif

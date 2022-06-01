@@ -93,16 +93,15 @@
                                     <p>스탬프</p>
                                 </div>
                             </li>
-                            @auth
-                                <li class="clickable items">
-                            @endauth
-                            @guest
-                                <li onclick="notLogged()" class="clickable items">
-                            @endguest
+                            <li class="clickable items">
                                 <img src="{{ asset('image/linkcopy.png') }}" class="image-sm" alt="" />
 
                                 <div class="function-text">
-                                    <p>링크 복사</p>
+                                    <p>
+                                        <button onclick="copyUrl()">
+                                            링크 복사
+                                        </button>
+                                    </p>
                                 </div>
                             </li>
                             <li class="clickable items" onclick="scrapPost({{ $post->id }});">
@@ -180,6 +179,17 @@ function deletePost(id) {
         })
     }
     return false;
+}
+function copyUrl() {
+    var dummy   = document.createElement("input");
+    var text    = location.href;
+
+    document.body.appendChild(dummy);
+    dummy.value = text;
+    dummy.select();
+    document.execCommand("copy");
+    alert("URL이 복사되었습니다");
+    document.body.removeChild(dummy);
 }
 function voteLikeInPost(id, like) {
     $.ajax({

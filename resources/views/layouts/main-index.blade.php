@@ -44,7 +44,8 @@ $action = Route::currentRouteAction();
                 </td>
                 <td>
                     <div class="thum">
-                        <img src="{{ $post->image }}" alt="" />
+                        <div class="thum" style="background-size: contain; background-image: url('{{ $post->image }}');"></div>
+                        {{-- <img src="{{ $post->image }}" alt="" /> --}}
                     </div>
                 </td>
                 <td>

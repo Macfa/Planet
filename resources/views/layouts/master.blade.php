@@ -58,14 +58,8 @@
 
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/bootstrap-5.1.0.min.js') }}"></script>
-{{--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>--}}
-{{--    <script async charset="utf-8" src="//cdn.embedly.com/widgets/platform.js"></script>--}}
-
-{{--    <script src="https://unpkg.com/@popperjs/core@2"></script>--}}
-{{--    <script src="{{ asset('js/toastr.min.js') }}"></script>--}}
     <script src="{{ asset('js/jquery-tmpl.js') }}"></script>
     <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
-{{--    <script async charset="utf-8" src="//cdn.embedly.com/widgets/platform.js"></script>--}}
     <script charset="utf-8" src="//cdn.iframe.ly/embed.js?api_key=ddc93c9ff7add82b1b3370"></script>
 
     @stack("styles")
@@ -73,30 +67,9 @@
 
 <body>
 
-{{--@if(session('status'))--}}
-{{--    <script>--}}
-{{--    var status = "{{ session('status') }}";--}}
-{{--    switch(status){--}}
-{{--        case 'info':--}}
-{{--        toastr.info("{{ session('message') }}");--}}
-{{--        break;--}}
-{{--        case 'warning':--}}
-{{--        toastr.warning("{{ session('message') }}");--}}
-{{--        break;--}}
-{{--        case 'success':--}}
-{{--        toastr.success("{{ session('message') }}");--}}
-{{--        break;--}}
-{{--        case 'error':--}}
-{{--        toastr.error("{{ session('message') }}");--}}
-{{--        break;--}}
-{{--    }--}}
-{{--    </script>--}}
-{{--@endif--}}
-
 <!-- Modals -->
 <div class="modal fade" id="open_post_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div style="height: auto; width: 80%; max-width: none; top: 53px; margin-top: 0px;" class="modal-dialog">
-{{--    <div class="modal-dialog">--}}
         <div class="modal-content">
         </div>
     </div>
@@ -112,7 +85,6 @@
 
 @auth
     @include('modals.header-noti')
-{{--    @include('modals.header-mypage')--}}
     @include('modals.header-list')
 @endauth
 @stack("modals")
