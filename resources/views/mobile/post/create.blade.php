@@ -163,7 +163,7 @@
             // plugins: [ MediaEmbed ],
             video: {
                 upload: {
-                    types: ['mp4', 'avi', 'mpeg', 'mov', 'MPEG-4'],
+                    types: ['mp4', 'avi', 'mpeg', 'quicktime'],
                     allowMultipleFiles: true,
                 }
             },
@@ -209,7 +209,6 @@
             }
         })
         .then(editor => {
-            alert("started");
             ckEditor = editor;
             editor.conversion.for('downcast').add(function(dispatcher) {
                 dispatcher.on('insert:video', function(evt, data, conversionApi) {

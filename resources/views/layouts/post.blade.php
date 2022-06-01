@@ -181,15 +181,15 @@ function deletePost(id) {
     return false;
 }
 function copyUrl() {
-    var dummy   = document.createElement("input");
     var text    = location.href;
 
-    document.body.appendChild(dummy);
-    dummy.value = text;
-    dummy.select();
-    document.execCommand("copy");
-    alert("URL이 복사되었습니다");
-    document.body.removeChild(dummy);
+    navigator.clipboard.writeText(text).then(function() {
+        /* clipboard successfully set */
+        alert("URL이 복사되었습니다");
+    }, function() {
+        alert("복사 실패 되었습니다");
+        /* clipboard write failed */
+    });
 }
 function voteLikeInPost(id, like) {
     $.ajax({
