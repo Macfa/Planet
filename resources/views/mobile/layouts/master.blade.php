@@ -114,30 +114,30 @@
         // }
     });
     var timer = null;
-    $(document).ready(function () {
-        let vh = window.innerHeight * 0.01;
+    // $(document).ready(function () {
+        // let vh = window.innerHeight * 0.01;
 
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
-        window.addEventListener('resize', () => {
-            let vh = window.innerHeight * 0.01;
-            document.documentElement.style.setProperty('--vh', `${vh}px`);
-            // set Content Max-Height
-            setContentHeight();
-        });
-        setContentHeight();
-        $('#open_post_modal').on('shown.bs.modal', function() {
-            $(document).off('focusin.modal');
-        });
-        var myCollapsible = document.getElementById('header-noti');
-        if(myCollapsible) {
-            myCollapsible.addEventListener('show.bs.collapse', function () {
-                $.ajax({
-                    type: "get",
-                    url: "/mark",
-                })
-            });
-        }
-    });
+        // document.documentElement.style.setProperty('--vh', `${vh}px`);
+        // window.addEventListener('resize', () => {
+        //     let vh = window.innerHeight * 0.01;
+        //     document.documentElement.style.setProperty('--vh', `${vh}px`);
+        //     // set Content Max-Height
+        //     setContentHeight();
+        // });
+        // setContentHeight();
+        // $('#open_post_modal').on('shown.bs.modal', function() {
+        //     $(document).off('focusin.modal');
+        // });
+        // var myCollapsible = document.getElementById('header-noti');
+        // if(myCollapsible) {
+        //     myCollapsible.addEventListener('show.bs.collapse', function () {
+        //         $.ajax({
+        //             type: "get",
+        //             url: "/mark",
+        //         })
+        //     });
+        // }
+    // });
 
     var delay = (function(){
         var timer = 0;
@@ -248,13 +248,13 @@
         return;
         // }
     }
-    function setContentHeight() {
-        let list = $(".list").offset().top;
-        let footer = $("#footer").offset().top;
+    // function setContentHeight() {
+    //     let list = $(".list").offset().top;
+    //     let footer = $("#footer").offset().top;
 
-        let distance = footer - list;
-        $(".list").css("max-height", distance);
-    }
+    //     let distance = footer - list;
+    //     $(".list").css("max-height", distance);
+    // }
 
 </script>
 </body>

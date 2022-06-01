@@ -122,14 +122,9 @@
                     if(data["result"]) {
                         $("#checkOwner").html('');
                         $.tmpl(checkOwnerTemplate).appendTo("#checkOwner");
-                        // $("#checkOwnerTemplate").tmpl().appendTo("#checkOwner");
                     } else {
                         console.log("Issue");
                     }
-                    // var valueList = {
-
-                    // };
-                    // $("#checkOwnerTemplate").tmpl(valueList).pre
                 },
                 error: function(err) {
                     console.log(err);
@@ -228,14 +223,16 @@
             .then(editor => {
                 ckEditor = editor;
                 editor.conversion.for('downcast').add(function(dispatcher) {
+                    console.log("processing ...");
                     dispatcher.on('insert:video', function(evt, data, conversionApi) {
+                        console.log("inserting ...");
 
                         const viewWriter = conversionApi.writer;
                         const $figure = conversionApi.mapper.toViewElement(data.item);
                         const $video = $figure.getChild(0);
 
                         viewWriter.setAttribute('controls', true, $video);
-                        viewWriter.setStyle('width', '100%', $video);
+                        // viewWriter.setStyle('width', '100%', $video);
                         viewWriter.addClass('wid100', $video);
                     })
                 });

@@ -175,11 +175,28 @@
                 }
             }
         });
-        // $(window.location.hash).modal('show'); // URL 입력 확인 후 모달 오픈
-        // $('a[data-bs-toggle="modal"]').click(function(){
-        //     console.log($(this).attr('href'));
-        //     window.location.hash = $(this).attr('href');
-        // });
+        let vh = window.innerHeight * 0.01;
+
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+        window.addEventListener('resize', () => {
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+            // set Content Max-Height
+            setContentHeight();
+        });
+        setContentHeight();
+        $('#open_post_modal').on('shown.bs.modal', function() {
+            $(document).off('focusin.modal');
+        });
+        var myCollapsible = document.getElementById('header-noti');
+        if(myCollapsible) {
+            myCollapsible.addEventListener('show.bs.collapse', function () {
+                $.ajax({
+                    type: "get",
+                    url: "/mark",
+                })
+            });
+        }
     });
 
     $("#open_post_modal").on('hide.bs.modal', function (event) {
@@ -288,6 +305,13 @@
             }
         })
     }
+    function setContentHeight() {
+        let list = $(".list").offset().top;
+        let footer = $("#footer").offset().top;
+
+        let distance = footer - list;
+        $(".list").css("max-height", distance);
+    }
     function setModalHeight() {
         let height = $("#header").outerHeight();
         $("#open_post_modal").css("top", height);
@@ -377,7 +401,7 @@
 <script id="mainMenuItem" type="text/x-jquery-tmpl">
 <tr id="post-${post_id}" class="post-title" ${notice}>
     <td>
-        <div class="thum" style="background-image: url(${postImage});"></div>
+        <div class="thum" style="background-size: contain; background-image: url('${postImage}');"></div>
     </td>
     <td>
         <div class="title">
@@ -386,12 +410,6 @@
             @{{if commentCount > 0}}
                 <span class="titleSub">[&nbsp;<span class="commentCount">${commentCount}</span>&nbsp;]</span>
             @{{/if}}
-{{--                <span>--}}
-            {{--                    @{{each(i,stamp) stampInPosts}}--}}
-            {{--                    ${stamp.id}--}}
-            {{--                            <img style="width:27px;" src="${stamp.image}" alt="">--}}
-            {{--                    @{{/each}}--}}
-            {{--                </span>--}}
             </a>
         </div>
         <div class="stamps">
