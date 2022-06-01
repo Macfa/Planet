@@ -117,8 +117,6 @@
                     id: obj.value
                 },
                 success: function(data) {
-                    window.d = data;
-                    console.log(data);
                     if(data["result"]) {
                         $("#checkOwner").html('');
                         $.tmpl(checkOwnerTemplate).appendTo("#checkOwner");
@@ -223,16 +221,12 @@
             .then(editor => {
                 ckEditor = editor;
                 editor.conversion.for('downcast').add(function(dispatcher) {
-                    console.log("processing ...");
                     dispatcher.on('insert:video', function(evt, data, conversionApi) {
-                        console.log("inserting ...");
-
                         const viewWriter = conversionApi.writer;
                         const $figure = conversionApi.mapper.toViewElement(data.item);
                         const $video = $figure.getChild(0);
 
                         viewWriter.setAttribute('controls', true, $video);
-                        // viewWriter.setStyle('width', '100%', $video);
                         viewWriter.addClass('wid100', $video);
                     })
                 });

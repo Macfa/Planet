@@ -147,6 +147,7 @@ class PostController extends Controller
         $experience->writePost($post);
 
         $redirect = $request->input('channel_id');
+        // return response();
         return redirect()->route('channel.show', $redirect)->with(["status"=>"success", "message"=>"생성되었습니다"]);
     }
 
