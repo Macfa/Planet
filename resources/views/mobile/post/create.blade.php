@@ -163,7 +163,7 @@
             // plugins: [ MediaEmbed ],
             video: {
                 upload: {
-                    types: ['mp4', 'avi', 'mpeg', 'mov'],
+                    types: ['mp4', 'avi', 'mpeg', 'mov', 'MPEG-4'],
                     allowMultipleFiles: true,
                 }
             },
