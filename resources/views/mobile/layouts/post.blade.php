@@ -1,6 +1,6 @@
-@push("styles")
+{{-- @push("styles") --}}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/post/content-styles.css') }}">
-@endpush
+{{-- @endpush --}}
 
 
     <div class="modal-parent wid100" style="background-color: #888888;">
