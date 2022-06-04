@@ -218,7 +218,7 @@
 
                     viewWriter.setAttribute('controls', true, $video);
                     // viewWriter.setStyle('width', '100%', $video);
-                    // viewWriter.addClass('wid100', $video);
+                    viewWriter.addClass('wid100', $video);
                 })
             });
         })
