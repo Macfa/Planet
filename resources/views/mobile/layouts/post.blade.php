@@ -1,3 +1,7 @@
+@push("styles")
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/post/content-styles.css') }}">
+@endpush
+
 
     <div class="modal-parent wid100" style="background-color: #888888;">
         <div class="modal-wrap" style="background-color: #ffffff;">
