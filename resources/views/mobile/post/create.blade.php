@@ -56,7 +56,6 @@
                             @if(auth()->user()->role === "admin")
                             <div>
                                 <div class="form-check">
-                                    <input type='hidden' name="is_main_notice" value="0">
                                     <input class="form-check-input" type="checkbox" name="is_main_notice" value="1" id="is_main_notice" {{ (isset($post->is_main_notice) && $post->is_main_notice === 1) ? 'checked' : '' }} >
                                     <label class="form-check-label" for="is_main_notice">
                                         메인 안내글
@@ -230,7 +229,6 @@
 </script>
 <script id="checkOwnerTemplate" type="text/x-jquery-tmpl">
 <div class="form-check">
-    <input type='hidden' name="is_channel_notice" value="0">
     <input class="form-check-input" type="checkbox" name="is_channel_notice" value="1" id="is_channel_notice">
     <label class="form-check-label" for="is_channel_notice">
         토픽 안내글

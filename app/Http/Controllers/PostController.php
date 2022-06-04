@@ -124,13 +124,19 @@ class PostController extends Controller
             // \Thumbnail::src(public_path('images/example.jpeg'));
         }
 
+        if($request->input('is_channel_notice') == null) {
+            $is_channel_notice = 0;
+        }
+        if($request->input('is_main_notice') == null) {
+            $is_main_notice = 0;
+        }
 
         $id = Post::create([
             'channel_id' => $request->input('channel_id'),
             'image' => $mainImageUrl,
             'title' => $request->input('title'),
-           'is_channel_notice' => $request->input('is_channel_notice'),
-           'is_main_notice' => $request->input('is_main_notice'),
+            'is_channel_notice' => $is_channel_notice,
+            'is_main_notice' => $is_main_notice,
             'content' => $content,
             'user_id' => auth()->id()
         ])->id;
