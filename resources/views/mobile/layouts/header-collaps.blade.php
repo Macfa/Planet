@@ -16,21 +16,12 @@
         <!--mypage-->
         <a href="{{ route('user.show', ['user'=>auth()->id(), 'el'=>'post']) }}" class="fw-bold flex-container list-group-item list-group-item-action"><p>마이 페이지</p></a>
         <!--Channels-->
-        <div class="accordion list-group-item list-group-item-action" id="accordionExample">
-            <div class="">
-                <div class="accordion-header">
+        <a href="{{ route('user.show', ['user'=>auth()->id(), 'el'=>'channel']) }}" class="fw-bold flex-container list-group-item list-group-item-action">내 토픽</a>
 
-                    <button class="fw-bold flex-container" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_channelJoins" aria-expanded="true" aria-controls="collapseOne">
-                        내 토픽
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div id="collapse_channelJoins" class="accordion-collapse collapse accordion show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                @foreach(auth()->user()->channelJoins as $joined)
-{{--                    <a style="padding-left: 30px;" href="{{ route('channel.show', $joined->channel->id) }}" class="flex-container list-group-item list-group-item-action"><img src="{{ asset('image/scrap_c.png') }}" alt="" class="header-list-icon"><p>{{ $joined->channel->name }}</p></a>--}}
-                    <a style="padding-left: 30px;" href="{{ route('channel.show', $joined->channel->id) }}" class="flex-container list-group-item list-group-item-action"><p>{{ $joined->channel->name }}</p></a>
-                @endforeach
+        <div id="collapse_channelJoins">
+            @foreach(auth()->user()->allChannels() as $page => $list)
+                <a style="padding-left: 30px;" href="{{ route('channel.show', $list->id) }}" class="flex-container list-group-item list-group-item-action"><p>{{ $list->name }}</p></a>
+            @endforeach
         </div>
         <a href="{{ route('user.logout') }}" class="fw-bold flex-container list-group-item list-group-item-action"><p>로그아웃</p></a>
     </div>

@@ -78,10 +78,10 @@
         @yield('main')
     </div>
 
-@auth
+{{-- @auth
    @include('modals.header-noti')
    @include('modals.header-list')
-@endauth
+@endauth --}}
 @stack("modals")
 
 @if(Session::has('msg'))

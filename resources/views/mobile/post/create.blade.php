@@ -217,8 +217,8 @@
                     const $video = $figure.getChild(0);
 
                     viewWriter.setAttribute('controls', true, $video);
-                    // viewWriter.setStyle('width', '100%', $video);
-                    viewWriter.addClass('wid100', $video);
+                    viewWriter.setStyle('width', '100%', $video);
+                    // viewWriter.addClass('wid100', $video);
                 })
             });
         })
