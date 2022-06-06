@@ -56,7 +56,6 @@
         $.ajax({
             type: "get",
             url: "/channel/getUserInChannel/"+channelID,
-            // data:{"id": channelID},
             success: function(data) {
                 var html = '';
                 $.each(data, function (idx, name) {
@@ -76,12 +75,12 @@
         $(this).removeData("bs.modal");
     });
 
-    $("#channelAdminList").click(function (event) {
-        console.log(event);
-        console.log(event.target);
-        console.log(event.target.val());
+    // $("#channelAdminList").click(function (event) {
+    //     console.log(event);
+    //     console.log(event.target);
+    //     console.log(event.target.val());
 
-    });
+    // });
     function deleteChannel(id) {
         if(confirm('삭제하시겠습니까 ?')) {
                 $.ajax({

@@ -198,7 +198,20 @@
             });
         }
     });
+    $("#collapseOne").on('shown.bs.collapse', function() {
+        var height = $("#collapseOne .accordion-body-channelinfo").height();
+        var beforeChangeValue = parseFloat($("#main .main-wrap .left .list").css('max-height'));
+        var afterChangeValue = beforeChangeValue - height;
 
+        $("#main .main-wrap .left .list").css('max-height', afterChangeValue);
+    })
+    $("#collapseOne").on('hide.bs.collapse', function() {
+        var height = $("#collapseOne .accordion-body-channelinfo").height();
+        var beforeChangeValue = parseFloat($("#main .main-wrap .left .list").css('max-height'));
+        var afterChangeValue = height + beforeChangeValue;
+
+        $("#main .main-wrap .left .list").css('max-height', afterChangeValue);
+    })
     $("#open_post_modal").on('hide.bs.modal', function (event) {
         console.log(event);
         if (event.target.id === 'open_post_modal') {
