@@ -47,7 +47,7 @@ class UserController extends Controller
 //            $posts = Post::join('users', 'users.id', '=', 'posts.user _id')
             $posts = Post::leftJoin('scraps', function($join) {
 //                    $join->on('users.id', '=', 'scraps.user_id');
-                    $join->on('posts.id', '=', 'scraps.post_id');
+                    $join->on('posts.id', '=', 'scraps.post_id')->where('scraps.deleted_at', null);
                 })
                 ->with('channel')
                 ->with('likes')

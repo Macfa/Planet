@@ -126,9 +126,13 @@ class PostController extends Controller
 
         if($request->input('is_channel_notice') == null) {
             $is_channel_notice = 0;
+        } else {
+            $is_channel_notice = $request->input('is_channel_notice');
         }
         if($request->input('is_main_notice') == null) {
             $is_main_notice = 0;
+        } else {
+            $is_main_notice = $request->input('is_main_notice');
         }
 
         $id = Post::create([

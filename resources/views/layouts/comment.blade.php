@@ -357,6 +357,9 @@
                                 var afterData = '<span class="titleSub">[&nbsp;<span class="commentCount">1</span>&nbsp;]</span>';
                                 $(".modal-parent > .modal-wrap > .modal-header > .modal-title h4 p").after(afterData);
                             }
+
+                            // Change User's Coin
+                            $("#total_coin").html(data['totalCoin']);
                         }
 
 

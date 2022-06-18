@@ -9,6 +9,7 @@
                         <th>num</th>
                         <th>게시글명</th>
                         <th>작성자</th>
+                        <th>신고자</th>
                         <th>신고횟수</th>
                         <th>[]</th>
                     </tr>
@@ -18,7 +19,7 @@
                     <tr>
                         <td>{{ $loop->index+1 }}</td>
                         <td><a href="/post/{{ $post->reportable_id }}" target="_blank">{{ $post->title }}</a></td>
-                        <td>{{ $post->user->name }}</td>
+                        <td>{{ $post->posts.user-> }}</td>
                         <td>{{ $post->totalCount }}</td>
                         <td>ex) buttons</td>
                     </tr>

@@ -23,8 +23,9 @@ class AdminController extends Controller
         $posts = Post::join('reports', 'posts.id', '=', 'reportable_id')
             ->select(DB::raw('*, count(*) AS totalCount'))
             ->groupby(['reports.reportable_id', 'reports.reportable_type'])
+            ->orderby('reports.reportable_id', 'desc')
             ->get();
-//            ->toSql();dd($posts);
+        //    ->toSql();dd($posts);
 
         return view('admin.report', compact('posts'));
     }

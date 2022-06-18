@@ -70,6 +70,10 @@ class CommentController extends Controller
             $user = User::find($postUserID);
             $user->notify(new Noticenotification($result));
 
+            // get total Coin from User
+            $today = Carbon::now();
+            $totalCoin = $user->hasCoins()->sum('coin');
+            $result['totalCoin'] = $totalCoin;
             return $result;
         } else {
             return redirect(["reason"=>""])->back();
@@ -210,10 +214,10 @@ class CommentController extends Controller
             ->where('user_id', auth()->id())
             ->first();
 
-        if ($checkExistValue != null) {
+        if ($checkExistValue != null) { // 기존 값이 있다면
             $result = $checkExistValue->delete(); // get bool
             $totalLike = $comment->likes()->where('like', 1)->sum('like');
-            if($like !== -1) {
+            if($like != -1) {
                 if($comment->target_id && $comment->target_id !== auth()->id()) {
                     // 대댓글의 경우이고 원본 댓글이 본인 댓글이 아닌 경우
                     // 대댓글에 스코어 점수를 업데이트한다.

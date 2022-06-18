@@ -33,7 +33,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="comment_limit" class="form-label">일일최대제한</label>
-                        <input type="text" class="form-control" id="comment_limit" placeholder="" name="comment_limit" value="{{ $coin_setup->day_limit ?? 0}}">
+                        <input type="text" class="form-control" id="comment_limit" placeholder="" name="comment_limit" value="{{ $coin_setup->comment_limit ?? 0}}">
                     </div>
                     <div><button type="submit">등록</button></div>
                 </div>
