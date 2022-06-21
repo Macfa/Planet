@@ -80,8 +80,9 @@ class ChannelController extends Controller
 
         $user = User::find(auth()->id());
         $hasCoin = $user->hasCoins()->sum('coin');
+        $toUseCoin = 20;
 
-        if($hasCoin < 0) {
+        if($hasCoin < $toUseCoin) {
             return response()->redirectTo('/')->with(["status"=>"warning", "msg"=>"코인이 부족합니다"]);
         } else {
 
@@ -100,7 +101,7 @@ class ChannelController extends Controller
 
             $user->coins()->create([
                 "type" => "토픽생성",
-                "coin" => -100,
+                "coin" => -$toUseCoin,
                 'user_id' => auth()->id(),
             ]);
 

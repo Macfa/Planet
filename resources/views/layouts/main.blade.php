@@ -54,10 +54,12 @@
         // 무한 스크롤
         var page = 1;
         var checkRun = false;
+        var popstate = false;
 
         $(document).ready(function() {
             $(window).on('popstate', function(e) {
                 if (e.type === "popstate") {
+                    popstate = true;
                     var stampModalState = $("#openStampModal").hasClass('show');
                     var postModalState = $("#open_post_modal").hasClass('show');
                     if (stampModalState) {
@@ -75,6 +77,8 @@
                             openPostModal(tmpPostID);
                         }
                     }
+                } else {
+                    popstate = false;
                 }
             });
             var checkPost = "{{ request()->route()->named('post.show') }}";
@@ -201,8 +205,7 @@
                 }
             } else if (event.target.id === 'openStampModal') {
                 var isOpen = $("#open_post_modal").hasClass("show");
-
-                if (isOpen) {
+                if (isOpen && popstate) {  // 뒤로가기 시, 게시글이 열려있으면 처리
                     $("#open_post_modal").modal("hide");
                 }
             }

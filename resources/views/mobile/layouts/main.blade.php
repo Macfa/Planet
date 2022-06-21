@@ -213,7 +213,6 @@
         $("#main .main-wrap .left .list").css('max-height', afterChangeValue);
     })
     $("#open_post_modal").on('hide.bs.modal', function (event) {
-        console.log(event);
         if (event.target.id === 'open_post_modal') {
             if (history.state === "modal") {
                 var isOpen = $("#openStampModal").hasClass("show");

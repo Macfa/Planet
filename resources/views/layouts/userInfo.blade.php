@@ -133,8 +133,8 @@
                 <div class="left">
                     @if($user->isNameChanged=="Y")
                         <span> 100 코인 차감</span>
-                    @else
-                        <span> 차감 없음</span>
+                    {{-- @else
+                        <span></span> --}}
                     @endif
                 </div>
                 <div>

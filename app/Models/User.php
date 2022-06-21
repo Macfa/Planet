@@ -135,7 +135,6 @@ class User extends Authenticatable
 
             return true;
         } else {
-//            dd($this);
             $coin = new Coin();
             $result = $coin->changeUserName($this);
 

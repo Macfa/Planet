@@ -173,9 +173,14 @@ class Post extends Model
                     if ($channelID) {
                         $query->where('channel_id', '=', $channelID);
                         $query->where('is_main_notice', '=', 0);
+                    } else {
+                        $query->where('is_channel_notice', '=', 0);
+                        $query->whereHas('channelJoins', function() {
+                            // test
+                        });
                     }
                 })
-
+// whereHas(string $relation, Closure $callback = null, string $operator = '>=', int $count = 1)
                 ->orderby('is_main_notice', 'desc')
                 ->orderby('is_channel_notice', 'desc')
                 ->orderby('comments_count', 'desc')

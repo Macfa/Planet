@@ -23,7 +23,7 @@
                     <tr>
                         <td>{{ $loop->index+1 }}</td>
                         <td>{{ $stamp->category->name }}</td>
-                        <td><img src="{{ asset($stamp->image) }}" alt="img" /></td>
+                        <td><img width="50" src="{{ asset($stamp->image) }}" alt="img" /></td>
                         <td>{{ $stamp->name }}</td>
                         <td>{{ $stamp->description }}</td>
                         <td>{{ $stamp->coin }}</td>
