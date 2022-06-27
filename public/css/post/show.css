@@ -619,9 +619,9 @@ table, td {
     text-align: center;
     font-size: 13px;
 }
-#openStampModal #category-data ul .stamp-list:not(:first-child) {
+/* #openStampModal #category-data ul .stamp-list:not(:first-child) {
     margin-left: 2rem;
-}
+} */
 #openStampModal .category-data-item .item-header img {
     width: 50px;
 }

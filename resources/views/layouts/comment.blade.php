@@ -208,8 +208,9 @@
                     "form": "edit"
                 };
 
-                // $("#replyWriteForm").tmpl(templateValues).appendTo(`.comment-${commentID} .comment-item`);
                 $("#replyWriteForm").tmpl(templateValues).appendTo(`.comment-${commentID}`);
+                $(`#comment-form-${commentID} textarea[name='content']`).blur();
+                $(`#comment-form-${commentID} textarea[name='content']`).focus();
             } else if (status === "hide") {
                 $(`.comment-${commentID} .reply-form`).remove();
                 el.show();
@@ -239,8 +240,9 @@
                     "form": "add"
                 };
 
-                // $("#replyWriteForm").tmpl(templateValues).appendTo(`.comment-${commentID} .comment-item`);
                 $("#replyWriteForm").tmpl(templateValues).appendTo(`.comment-${commentID}`);
+                $(`#comment-form-${commentID} textarea[name='content']`).blur();
+                $(`#comment-form-${commentID} textarea[name='content']`).focus();
             } else if (status === "hide") {
                 $(`.comment-${commentID} .reply-form`).remove();
             }

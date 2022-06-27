@@ -53,7 +53,7 @@ class UserController extends Controller
                 ->with('likes')
                 ->withCount('comments')
                 ->where('scraps.user_id', $user->id)
-                ->orderby("id", "desc")
+                ->orderby("scraps.created_at", "desc")
                 ->get();
             //                ('scraps', 'users.id', '=', 'scraps.userID')
         } else if($el == "channel") {
