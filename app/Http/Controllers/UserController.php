@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Visit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Validator;
 use Jenssegers\Agent\Agent;
 
@@ -122,9 +123,9 @@ class UserController extends Controller
     }
 
     public function logout(Request $request) {
-//        Auth::logoutOtherDevices("4", 'id');
-//        $request->session()->invalidate();
-//        $request->session()->regenerateToken();
+        $rememberMeCookie = Auth::getRecallerName();
+        // Tell Laravel to forget this cookie
+        $cookie = Cookie::forget($rememberMeCookie);
         Auth::logout();
         return redirect('/')->with(["msg" => "로그아웃 되었습니다.", "type" => "info"]);
     }

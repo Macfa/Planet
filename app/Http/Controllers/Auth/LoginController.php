@@ -133,7 +133,8 @@ class LoginController extends Controller
         // we dont have a password
         Auth::logoutOtherDevices($user->id, 'id');
         // login the user
-        Auth::login($user, true);
+        // Auth::login($user, true);
+        Auth::login($user);
 
         return $this->sendSuccessResponse();
     }

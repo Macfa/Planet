@@ -37,6 +37,7 @@ class PostController extends Controller
      */
     public function index()
     {
+        // dd($_COOKIE, 11, $_POST);
         $checkUnread = Cookie::get("unread");
         $readPost = '';
         if($checkUnread === '1') {
