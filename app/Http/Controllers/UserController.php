@@ -126,6 +126,8 @@ class UserController extends Controller
         $rememberMeCookie = Auth::getRecallerName();
         // Tell Laravel to forget this cookie
         $cookie = Cookie::forget($rememberMeCookie);
+        $request->session()->flush();
+        $request->session()->regenerate();
         Auth::logout();
         return redirect('/')->with(["msg" => "로그아웃 되었습니다.", "type" => "info"]);
     }

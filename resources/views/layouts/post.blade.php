@@ -308,8 +308,8 @@ function selectCategory(id) {
                     'stampCoin': data[i].coin,
                 })
             }
-            $(".category-data-list ul.d-flex li").remove();
-            $("#stampListTemplate").tmpl(replaceData).appendTo(".category-data-list ul.d-flex");
+            $(".category-data-list ul li.stamp-list").remove();
+            $("#stampListTemplate").tmpl(replaceData).appendTo(".category-data-list ul");
         },
         errror: function (err) {
             alert("관리자에게 문의해주세요");
@@ -387,8 +387,6 @@ function purchaseStamp(stampID) {
                         // }
                     }
                 }
-
-                alert("스탬프 정상 구매하였습니다");
             },
             error: function (err) {
                 if(err.responseJSON.errorType === "login") {

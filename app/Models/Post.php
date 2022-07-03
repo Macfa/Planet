@@ -175,9 +175,7 @@ class Post extends Model
                         $query->where('is_main_notice', '=', 0);
                     } else {
                         $query->where('is_channel_notice', '=', 0);
-                        $query->whereHas('channelJoins', function() {
-                            // test
-                        });
+                        $query->has('channel.channelJoins');
                     }
                 })
 // whereHas(string $relation, Closure $callback = null, string $operator = '>=', int $count = 1)

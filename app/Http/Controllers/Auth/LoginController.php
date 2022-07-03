@@ -63,7 +63,7 @@ class LoginController extends Controller
         }
 
         try {
-//            return Socialite::driver($driver)->stateless()->redirect();
+        //    return Socialite::driver($driver)->stateless()->redirect();
             return Socialite::driver($driver)->redirect();
         } catch (Exception $e) {
             // You should show something simple fail message
@@ -79,6 +79,7 @@ class LoginController extends Controller
         try {
             $user = Socialite::driver($driver)->user();
 //            $user = Socialite::driver($driver)->stateless()->user();
+        //    $user = Socialite::driver($driver)->stateless()->user();
 //            return dd($user);
         } catch (Exception $e) {
             return $this->sendFailedResponse($e->getMessage());

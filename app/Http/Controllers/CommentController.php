@@ -205,61 +205,89 @@ class CommentController extends Controller
             return response("로그인이 필요한 기능입니다", 401);
         }
 
-        // 이력 확인
+        // 현재 값
         $like = request()->input('like');
 
-        // 수정 및 생성
+        // 기존 값
         $checkExistValue = $comment->likes()
-            ->where('like', $like)
+            // ->where('like', $like)
             ->where('user_id', auth()->id())
             ->first();
 
         if ($checkExistValue != null) { // 기존 값이 있다면
             $result = $checkExistValue->delete(); // get bool
-            $totalLike = $comment->likes()->where('like', 1)->sum('like');
-            if($like != -1) {
-                if($comment->target_id && $comment->target_id !== auth()->id()) {
+            // $totalLike = $comment->likes()->where('like', 1)->sum('like');
+
+            // 기존 값과 현재 값이 같다면
+            if($like == $checkExistValue['like']) {
+                if($like == 1) {
+                    if($comment->target_id !== auth()->id() && $comment->user_id !== auth()->id() ) {
                     // 대댓글의 경우이고 원본 댓글이 본인 댓글이 아닌 경우
                     // 대댓글에 스코어 점수를 업데이트한다.
-                    if($totalLike >= 2) {
+                    // if($totalLike >= 2) {
                         $targetComment = Comment::where('group', '=', $comment->group);
                         $targetComment->update(['score' => DB::raw('score - 1')]);
+                    // }
                     }
-                } else if($comment->user_id !== auth()->id()) {
-                    // 댓글이 내가 작성한 것이 아닌 경우
-                    // 댓글 의 스코어 점수를 업데이트 한다
-                    if($totalLike >= 2) {
-                        $targetComment = Comment::where('group', '=', $comment->group);
-                        $comment->update(['score' => DB::raw('score - 1')]);
+                } else if($like == -1) {
+                    if($comment->target_id !== auth()->id() && $comment->user_id !== auth()->id() ) {
+                        // 대댓글의 경우이고 원본 댓글이 본인 댓글이 아닌 경우
+                        // 대댓글에 스코어 점수를 업데이트한다.
+                        // if($totalLike >= 2) {
+                            $targetComment = Comment::where('group', '=', $comment->group);
+                            $targetComment->update(['score' => DB::raw('score + 1')]);
+                        // }
+                        }
+                }
+
+            // 기존 값과 현재 값이 다르다면
+            } else {
+                if($like == 1) {
+                    if($comment->target_id !== auth()->id() && $comment->user_id !== auth()->id() ) {
+                        // 대댓글의 경우이고 원본 댓글이 본인 댓글이 아닌 경우
+                        // 대댓글에 스코어 점수를 업데이트한다.
+                        // if($totalLike >= 2) {
+                            $targetComment = Comment::where('group', '=', $comment->group);
+                            $targetComment->update(['score' => DB::raw('score + 1')]);
+                        // }
+                    }
+                } else if($like == -1) {
+                                        if($comment->target_id !== auth()->id() && $comment->user_id !== auth()->id() ) {
+                        // 대댓글의 경우이고 원본 댓글이 본인 댓글이 아닌 경우
+                        // 대댓글에 스코어 점수를 업데이트한다.
+                        // if($totalLike >= 2) {
+                            $targetComment = Comment::where('group', '=', $comment->group);
+                            $targetComment->update(['score' => DB::raw('score - 1')]);
+                        // }
                     }
                 }
             }
-        } else {
-            $type = $comment->likes()
-            ->where('user_id', auth()->id())
-            ->first();
 
+        // 기존 값이 없는 경우
+        } else {
             // 댓글에 선택된 좋아요 가 없는 경우
             $result = $comment->likes()->updateOrCreate(
                 ['user_id' => auth()->id()],
                 ['like' => $like, 'user_id' => auth()->id()]
             );
 
-            if($like !== -1) {
-                if(!$type) {
-                    $totalLike = $comment->likes()->where('like', 1)->sum('like');
-                    if($comment->target_id && $comment->target_id !== auth()->id()) {
-                        if($totalLike >= 2) {
-                            $targetComment = Comment::where('group', '=', $comment->group);
-                            $targetComment->update(['score' => DB::raw('score + ' . $like)]);
-                        }
-                    } else if($comment->user_id !== auth()->id()) {
-                        if($totalLike >= 2) {
-                            $targetComment = Comment::where('group', '=', $comment->group);
-                            $targetComment->update(['score' => DB::raw('score + ' . $like)]);
-                            // $comment->update(['score' => DB::raw('score + ' . $like)]);
-                        }
-                    }
+            if($like == 1) {
+                if($comment->target_id !== auth()->id() && $comment->user_id !== auth()->id() ) {
+                    // 대댓글의 경우이고 원본 댓글이 본인 댓글이 아닌 경우
+                    // 대댓글에 스코어 점수를 업데이트한다.
+                    // if($totalLike >= 2) {
+                        $targetComment = Comment::where('group', '=', $comment->group);
+                        $targetComment->update(['score' => DB::raw('score + 1')]);
+                    // }
+                }
+            } else if($like == -1) {
+                if($comment->target_id !== auth()->id() && $comment->user_id !== auth()->id() ) {
+                    // 대댓글의 경우이고 원본 댓글이 본인 댓글이 아닌 경우
+                    // 대댓글에 스코어 점수를 업데이트한다.
+                    // if($totalLike >= 2) {
+                        $targetComment = Comment::where('group', '=', $comment->group);
+                        $targetComment->update(['score' => DB::raw('score - 1')]);
+                    // }
                 }
             }
         }
@@ -267,7 +295,11 @@ class CommentController extends Controller
         // 결과
         if ($result) {
             $totalLike = $comment->likes->sum('like');
-            return response(['totalLike' => $totalLike, 'like' => $comment->existCommentLike], 200);
+            return response([
+                'totalLike' => $totalLike,
+                'like' => $comment->existCommentLike,
+                'val' => $checkExistValue
+            ], 200);
         } else {
             return response('', 500);
         }
