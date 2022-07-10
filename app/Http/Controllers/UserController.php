@@ -27,7 +27,6 @@ class UserController extends Controller
         }
     }
     public function show(User $user, $el = 'post') {
-//        $el = 'post';
         if($el == "post") {
             $posts = Post::where('user_id', $user->id)
                 ->with('user')
@@ -35,37 +34,34 @@ class UserController extends Controller
                 ->withCount('comments')
                 ->orderby("id", "desc")
                 ->get();
+
         } else if($el == "comment") {
             $posts = Post::join('comments', 'posts.id', '=', 'comments.post_id')
                 ->where('comments.user_id', $user->id)
                 ->with('user')
                 ->with('likes')
                 ->withCount('comments')
-//                ->groupBy('posts.id')
                 ->orderby("id", "desc")
                 ->get();
+
         } else if($el == "scrap") {
-//            $posts = Post::join('users', 'users.id', '=', 'posts.user _id')
-            $posts = Post::leftJoin('scraps', function($join) {
-//                    $join->on('users.id', '=', 'scraps.user_id');
-                    $join->on('posts.id', '=', 'scraps.post_id')->where('scraps.deleted_at', null);
+            $posts = Post::join('scraps', function($q) {
+                    $q->on('posts.id', '=', 'scraps.post_id');
+                    $q->where('scraps.deleted_at', null);
                 })
                 ->with('channel')
                 ->with('likes')
+                ->with('user')
                 ->withCount('comments')
                 ->where('scraps.user_id', $user->id)
                 ->orderby("scraps.created_at", "desc")
                 ->get();
-            //                ('scraps', 'users.id', '=', 'scraps.userID')
+
         } else if($el == "channel") {
-//            $posts = Post::join('users', 'users.id', '=', 'posts.user _id')
-//            dd($user);
             $posts = $user->allChannels();
-            //                ('scraps', 'users.id', '=', 'scraps.userID')
         }
 
         $user = User::find($user->id);
-        // $visit = new Visit();
         $channelVisitHistories = ChannelVisitHistory::showHistory();
 
         $coin = array();
@@ -76,7 +72,6 @@ class UserController extends Controller
         $coin['commentCount'] = $user->hasCoins()->where('coinable_type', 'App\Models\Comment')->count();
 
         $coin = (object)$coin;
-//        dd($coin);
 
         if($this->agent->isMobile()) {
             return view('mobile.user.show', compact('posts', 'channelVisitHistories', 'user', 'coin', 'el'));

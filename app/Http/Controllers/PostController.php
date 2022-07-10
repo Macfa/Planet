@@ -11,6 +11,7 @@ use App\Models\Experience;
 use App\Models\Like;
 use App\Models\Post;
 use App\Models\User;
+use FFMpeg\FFMpeg as FFMpegFFMpeg;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -18,6 +19,7 @@ use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 use Jenssegers\Agent\Agent;
+use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 
 class PostController extends Controller
 {
@@ -115,14 +117,26 @@ class PostController extends Controller
 //        $regex = "/https?:\/\/\S+image+\S+\.[gif|png|jpg|jpeg]+/";
         $regex = "/\/(upload|image).*\.(gif|jpe?g|jpg|bmp|png)/";
         preg_match($regex, $content,$matchSubject);
-//        dd($matchSubject);
+    //    dd($matchSubject);
         if($matchSubject == []) {
-            // 이미지 소스를 추출하지못했다면
-            $mainImageUrl = "/image/none_img.png";
+            $regex = "/\/(upload)\S*\.(mov|mpeg|mp4|avi|quicktime)/";
+            preg_match($regex, $content,$matchSubject_video);
+            if($matchSubject_video == []) {
+                // 이미지 소스를 추출하지못했다면
+                $mainImageUrl = "/image/none_img.png";
+            } else {
+                FFMpeg::fromDisk('upload')
+                    ->open($matchSubject_video[0])
+                    ->getFrameFromSeconds(0)
+                    ->export()
+                    ->toDisk('thumb')
+                    ->save("${matchSubject_video[0]}.png");
+
+                $mainImageUrl = "/thumb/${matchSubject_video[0]}.png";
+            }
         } else {
             // 첫번째 이미지 소스를 대표이미지로 지정
             $mainImageUrl = $matchSubject[0];
-            // \Thumbnail::src(public_path('images/example.jpeg'));
         }
 
         if($request->input('is_channel_notice') == null) {
@@ -149,8 +163,6 @@ class PostController extends Controller
 
         // 포인트 추가
         $post = Post::find($id);
-//        $post->saveCoinForWritePost();
-//        dd($post->coins());
         $coin = new Coin();
         $experience = new Experience();
 

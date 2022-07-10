@@ -104,7 +104,12 @@
                                     </p>
                                 </div>
                             </li>
-                            <li class="clickable items" onclick="scrapPost({{ $post->id }});">
+                            @auth
+                                <li class="clickable items" onclick="scrapPost({{ $post->id }});">
+                            @endauth
+                            @guest
+                                <li class="clickable items" onclick="notLogged();">
+                            @endguest
                                 <img class="image-sm" name="scrap" alt="" src="{{ asset('image/scrap_c.png') }}" />
 {{--                                         @if($post->existPostScrap == 1)--}}
 {{--                                             src="{{ asset('image/scrap_c.png') }}" />--}}
