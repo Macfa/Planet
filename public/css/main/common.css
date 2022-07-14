@@ -433,16 +433,18 @@ button {
     color: rgb(128,128,128) !important;
 }
 .multi-stamps {
-    background-color: #888;
+    background-color: #fff;
 }
 .stamp-item > img {
     vertical-align: middle;
     width:20px;
 }
 .stamp-item {
-    display:inline-block;
+    display: inline-flex;
+    align-items: center;
     /*background-color: #888;
     */border-radius: 10px;
+    border: 1px solid #888;
     padding: 2px 3px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
@@ -453,8 +455,9 @@ button {
     font-size: 11px;
 }
 .stamp_count {
-    color: #fff;
+    color: #000;
     margin-left: 5px;
+    margin-right: 5px;
 }
 .unread_white {
   color: #fff !important;

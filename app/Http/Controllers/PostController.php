@@ -11,7 +11,7 @@ use App\Models\Experience;
 use App\Models\Like;
 use App\Models\Post;
 use App\Models\User;
-use FFMpeg\FFMpeg as FFMpegFFMpeg;
+// use FFMpeg\FFMpeg as FFMpegFFMpeg;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 use Jenssegers\Agent\Agent;
-use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
+// use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 
 class PostController extends Controller
 {
@@ -125,14 +125,14 @@ class PostController extends Controller
                 // 이미지 소스를 추출하지못했다면
                 $mainImageUrl = "/image/none_img.png";
             } else {
-                FFMpeg::fromDisk('upload')
-                    ->open($matchSubject_video[0])
-                    ->getFrameFromSeconds(0)
-                    ->export()
-                    ->toDisk('thumb')
-                    ->save("${matchSubject_video[0]}.png");
+                // FFMpeg::fromDisk('upload')
+                //     ->open($matchSubject_video[0])
+                //     ->getFrameFromSeconds(0)
+                //     ->export()
+                //     ->toDisk('thumb')
+                //     ->save("${matchSubject_video[0]}.png");
 
-                $mainImageUrl = "/thumb/${matchSubject_video[0]}.png";
+                // $mainImageUrl = "/thumb/${matchSubject_video[0]}.png";
             }
         } else {
             // 첫번째 이미지 소스를 대표이미지로 지정
