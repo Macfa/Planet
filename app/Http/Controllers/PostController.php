@@ -133,7 +133,7 @@ class PostController extends Controller
                 //     ->save("${matchSubject_video[0]}.png");
 
                 // $mainImageUrl = "/thumb/${matchSubject_video[0]}.png";
-                $mainImageUrl = $matchSubject[0];
+                $mainImageUrl = "/image/none_img.png";
             }
         } else {
             // 첫번째 이미지 소스를 대표이미지로 지정
