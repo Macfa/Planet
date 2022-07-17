@@ -18,19 +18,19 @@
         <input type="hidden" name="type">
         <div class="wid70 pt-3">
             <div class="stamp-left pl-4">
-                <nav id="category-header" class="d-flex justify-content-start">
+                <nav id="category-header" class="no-scroll d-flex flex-nowrap" style="overflow-x: auto;">
                     {{-- Categories --}}
-                    <button onclick="selectCategory(0);">모두</button>
+                    <button style="flex: 0 0 auto;" onclick="selectCategory(0);">모두</button>
                     {{--                        {{ dd(\App\Models\StampCategory::getAllCategories()) }}--}}
                     @foreach($allCategories as $category)
-                        <button class="ml-5" onclick="selectCategory({{ $category->id }});">
+                        <button style="flex: 0 0 auto;" onclick="selectCategory({{ $category->id }});">
                             {{ $category->name }}
                         </button>
                     @endforeach
                 </nav>
                 <div id="category-data" class="mt-4">
                     <div class="category-data-list">
-                        <ul class="d-flex">
+                        <ul style="display: grid; grid-template-columns: repeat(5, 1fr)">
                             @foreach($allStamps as $stamp)
                                 <li class="stamp-list">
                                     {{--                            <button onclick="purchaseStamp({{ $stamp->id }}, {{ $post->id }});">--}}

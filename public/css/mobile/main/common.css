@@ -456,17 +456,21 @@ button {
     z-index: 1056;
 }
 .multi-stamps {
-    background-color: #c9c9c9;
+    /* background-color: #c9c9c9; */
+    background-color: #fff;
 }
 .stamp-item > img {
     vertical-align: middle;
-    width: 40px !important;
+    width: 20px !important;
     height: 20px !important;
 }
 .stamp-item {
-    display:inline-block;
+    /* display:inline-block; */
+    display: inline-flex;
+    align-items: center;
     /*background-color: #888;*/
     border-radius: 10px;
+    border: 1px solid #888;
     padding: 4px 6px;
 }
 .stamps {
