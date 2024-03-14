@@ -1,0 +1,43 @@
+/* 공통 */
+.wrap { width:1276px; margin:0 auto; }
+input:focus { outline:none; }
+
+/* 셀렉트 */
+#channel .board_box .select_box { margin-bottom: 16px; }
+.cst_select { border-radius:0; /* 아이폰 사파리 보더 없애기 */ -webkit-appearance:none; /* 화살표 없애기 for chrome*/ -moz-appearance:none; /* 화살표 없애기 for firefox*/ appearance:none /* 화살표 없애기 공통*/ }
+#channel .board_box .select_box select { padding: 5px 10px; width: 218px; height: 31px; background: url('/image/sort-down.png') no-repeat 95% 50%;   background-size: 15px; }
+// #channel .board_box .select_box select option { font-size: 17px;}
+
+/* 메인 */
+#channel {  }
+#channel .board_box { margin:40px 0 0; overflow:hidden; }
+#channel .board_box .left { float:left; width:calc(100% - 216px); }
+#channel .board_box .left div.list { border:1px solid #cbc7c7; border-radius:10px; min-height:686px; }
+#channel .board_box .left div.list .menu { font-size: 25px; border-bottom: 4px solid rgba(90,78,112,1); text-align: center; }
+#channel .board_box .left div.list .input_box { border: 1px solid #cbc7c7; padding: 15px 9px; border-radius:10px; }
+#channel .board_box .left div.list .box { height: 55px; width: 1028px; border-radius: 5px; }
+#channel .board_box .left div.list .box::placeholder { padding-left: 30px; }
+#channel .board_box .left div.list .text_box { height: 267px; width: 100%; }
+#channel .board_box .left div.list .text_box::placeholder { padding-left: 30px; padding-top: 16px; }
+
+#channel .board_box .right { width:189px; float:right; margin:0 0 0 22px; }
+#channel .board_box .banner { height: 287px; background-color: rgba(245,164,164,1); }
+#channel .board_box .banner_below { margin-top: 53px; }
+
+/* 하단 버튼 */
+#channel .point { margin: 10px 20px 10px 896px;}
+// #channel .point { margin-left: 896px; height: 36px; margin-top: 15px; padding: 5px;}
+#channel .point .point_box { padding: 5px; background-color: rgba(233,233,233,1); }
+#channel .point .point_box span { font-size: 17px; }
+#channel .point .point_box input[type=checkbox] { width: 24px; height: 24px; }
+
+#channel ul.btn { float:right; overflow:hidden; padding:0 20px 0 0; }
+#channel ul.btn li { float:left; margin:0 0 0 14px; }
+#channel ul.btn li:first-child { margin:0; }
+#channel ul.btn li a { letter-spacing:2px; color:#fff; background-color:#5a4e70; border-radius:10px; height:30px; line-height:30px; width:144px; display:inline-block; text-align:center; font-size:20px; border:3px solid #5a4370; }
+#channel ul.btn li .submit { letter-spacing:2px; color:#fff; background-color:#5a4e70; border-radius:10px; height:30px; line-height:30px; width:144px; display:inline-block; text-align:center; font-size:20px; border:3px solid #5a4370; }
+
+@media screen and (max-width:1440px) {
+  .wrap { width:1276px; }
+}
+

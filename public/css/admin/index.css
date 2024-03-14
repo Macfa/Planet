@@ -1,0 +1,13 @@
+body {
+
+}
+
+.sidebar {
+    float:left;
+}
+.content {
+    float:left;
+}
+.container {
+    margin-top: 200px;
+}

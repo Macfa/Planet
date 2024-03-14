@@ -1,0 +1,114 @@
+@charset "UTF-8";
+/* 헤더 */
+#header {
+  overflow: hidden;
+  border-bottom: 1px solid #b5b5b5;
+  padding: 10px 0 9px;
+  position: relative;
+}
+
+#header h1 {
+  font-size: 0;
+  position: absolute;
+  top: 50%;
+  left: 7px;
+  transform: translate(0, -50%);
+}
+
+#header .btn .header_icon {
+    width: 37px;
+    height: 37px;
+}
+#header .btn .header_text {
+    height: 37px;
+    line-height: 37px;
+    width: 65px;
+    overflow-x: hidden;
+}
+#header .input {
+  position: absolute;
+  top: 50%;
+  left: 153px;
+  transform: translate(0, -50%);
+}
+
+#header .input input[type=text] {
+  border: 1px solid #cbc7c7;
+  border-radius: 15px;
+  width: 536px;
+  height: 33px;
+  line-height: 33px;
+  font-size: 14px;
+  padding: 0 0 0 31px;
+  box-sizing: border-box;
+}
+
+#header .input input[type=text]::-moz-placeholder {
+  color: #cbc7c7;
+}
+
+#header .input input[type=text]:-ms-input-placeholder {
+  color: #cbc7c7;
+}
+
+#header .input input[type=text]::placeholder {
+  color: #cbc7c7;
+}
+
+#header .input button {
+  display: inline-block;
+  width: 15px;
+  height: 16px;
+  background-image: url("/image/icon_search.png");
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translate(0, -50%);
+}
+
+#header ul.btn {
+  float: right;
+  overflow: hidden;
+  padding: 0 20px 0 0;
+}
+
+#header ul.btn li {
+  float: left;
+  margin: 0 0 0 14px;
+}
+
+#header ul.btn li:first-child {
+  margin: 0;
+}
+
+/*#header ul.btn li a { modify */
+#header ul.btn li.login a {
+  letter-spacing: 2px;
+  color: #fff;
+  background-color: #3d5afe;
+  border-radius: 10px;
+  height: 30px;
+  line-height: 30px;
+  width: 144px;
+  display: inline-block;
+  text-align: center;
+  font-size: 20px;
+  border: 3px solid #5a4370;
+}
+
+#header ul.btn li.login a {
+  background-color: #fff;
+  border: 3px solid #5a4370;
+  color: #5a4e70;
+}
+.header_text_align {
+    text-align: left;
+}
+.ml-0 {
+    margin-left: 0 !important;
+}
+/*@media screen and (max-width: 1276px) {*/
+/*  #header {*/
+/*    width: 1276px;*/
+/*  }*/
+/*}*/
