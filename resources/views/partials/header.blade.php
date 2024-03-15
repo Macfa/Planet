@@ -1,7 +1,7 @@
 <div class="d-flex align-items-center" id="header">
     <div style="flex: 1 0 auto;" class="header-sections">
         <a href="/">
-            <img alt="logo" class="header_logo" src="{{ asset('image/logo_v1.png') }}">
+            <img alt="logo" class="header_logo" src="{{ asset('image/logo.png') }}">
         </a>
     </div>
     <div style="flex: 5 5 auto;" class="header-sections header-section-search">
