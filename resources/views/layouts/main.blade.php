@@ -41,7 +41,7 @@
                         @yield('mainlist')
                     @endif
                 </div>
-                <div class="right col-3 pr-4 pl-4">
+                <div class="right col-3 p-4">
                     @yield('sidebar')
                 </div>
             </article>
@@ -59,6 +59,7 @@
         $(document).ready(function() {
             $(window).on('popstate', function(e) {
                 if (e.type === "popstate") {
+                    // 자바스크립트 히스토리 API - 뒤로 또는 앞으로 가기
                     popstate = true;
                     var stampModalState = $("#openStampModal").hasClass('show');
                     var postModalState = $("#open_post_modal").hasClass('show');
@@ -186,6 +187,7 @@
         }
 
         $("#open_post_modal").on('hide.bs.modal', function(event) {
+            // 게시글이 닫힐 떄 ( 모달 밖 클릭하는 경우 핸들링을 위한 이벤트 )
             if (event.target.id === 'open_post_modal') {
                 var videos = $("iframe");
                 if (videos.length >= 1) {
@@ -199,23 +201,18 @@
                 if (history.state === "modal") {
                     var isOpen = $("#open_post_modal").hasClass("show");
 
-                    if (!isOpen) {
+                    if (isOpen) {
                         history.back();
                     }
                 }
             } else if (event.target.id === 'openStampModal') {
                 var isOpen = $("#open_post_modal").hasClass("show");
                 if (isOpen && popstate) {  // 뒤로가기 시, 게시글이 열려있으면 처리
+
                     $("#open_post_modal").modal("hide");
                 }
             }
         });
-        // $("#open_post_modal").on('shown.bs.modal', function(event) {
-        //     if (event.target.id === 'open_post_modal') {
-        //         $('body').removeClass('modal-open');
-        //         $('#open_post_modal').addClass('modal-open');
-        //     }
-        // });
         $("#open_post_modal").on('show.bs.modal', function(event) {
             if (event.target.id === 'open_post_modal') {
                 var button = event.relatedTarget;
