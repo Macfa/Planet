@@ -18,7 +18,7 @@ class User extends Authenticatable
     protected $primaryKey = "id";
     protected $cascadeDeletes = ['posts', 'channelJoins', 'channelVisitHistories', 'channelAdmins', 'comments', 'channels', 'reports', 'scraps', 'hasCoins', 'hasExperiences'];
 
-    /**
+    /** 
      * The attributes that are mass assignable.
      *
      * @var array
@@ -29,7 +29,7 @@ class User extends Authenticatable
         'access_token'
    ];
 
-
+ 
    //You can also use below statement
    protected $guarded = ['*'];
 
@@ -103,19 +103,20 @@ class User extends Authenticatable
             return $q;
         }
     }
-    public function allChannels($page = 1) {
-        $userId = $this->id; // 본인이 아닌 대상유저
-        $joins = Channel::whereHas('channelJoins', function($q) use ($userId) {
-            $q->where('user_id', $userId);
-        })
-            ->get();
-        $channels = Channel::where('user_id', $userId)
-            ->with('channelJoins')
-            ->get();
-        $values = $joins->merge($channels)->sortBy('updated_at', SORT_REGULAR, true)->forPage($page, 10);
+    // migrate to repository class
+    // public function allChannels($page = 1) {
+    //     $userId = $this->id; // 본인이 아닌 대상유저
+    //     $joins = Channel::whereHas('channelJoins', function($q) use ($userId) {
+    //         $q->where('user_id', $userId);
+    //     })
+    //         ->get();
+    //     $channels = Channel::where('user_id', $userId)
+    //         ->with('channelJoins')
+    //         ->get();
+    //     $values = $joins->merge($channels)->sortBy('updated_at', SORT_REGULAR, true)->forPage($page, 10);
 
-        return $values;
-    }
+    //     return $values;
+    // }
 
     // Custom Functions...
     public function setSetNameAttribute($name) {

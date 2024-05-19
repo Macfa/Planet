@@ -185,7 +185,9 @@ class HomeController extends Controller
 //        return redirect()->back();
         return back();
     }
-
+    public function te() {
+        
+    }
     public function test2() {
         return view('layouts.test');
     }

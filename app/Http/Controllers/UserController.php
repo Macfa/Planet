@@ -8,6 +8,7 @@ use App\Models\Favorite;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Visit;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
@@ -18,60 +19,21 @@ class UserController extends Controller
 {
 
     private Agent $agent;
+    protected userService $userService;
 
-    public function __construct()
+    public function __construct(UserService $userService)
     {
+        $this->checkAgent();
+        $this->userService = $userService;
+    }
+    public function checkAgent() {
         $this->agent = new Agent();
         if($this->agent->isMobile()) {
             redirect('http://m.localhost:8000/');
         }
     }
     public function show(User $user, $el = 'post') {
-        if($el == "post") {
-            $posts = Post::where('user_id', $user->id)
-                ->with('user')
-                ->with('likes')
-                ->withCount('comments')
-                ->orderby("id", "desc")
-                ->get();
-
-        } else if($el == "comment") {
-            $posts = Post::join('comments', 'posts.id', '=', 'comments.post_id')
-                ->where('comments.user_id', $user->id)
-                ->with('user')
-                ->with('likes')
-                ->withCount('comments')
-                ->orderby("id", "desc")
-                ->get();
-
-        } else if($el == "scrap") {
-            $posts = Post::join('scraps', function($q) {
-                    $q->on('posts.id', '=', 'scraps.post_id');
-                    $q->where('scraps.deleted_at', null);
-                })
-                ->with('channel')
-                ->with('likes')
-                ->with('user')
-                ->withCount('comments')
-                ->where('scraps.user_id', $user->id)
-                ->orderby("scraps.created_at", "desc")
-                ->get();
-
-        } else if($el == "channel") {
-            $posts = $user->allChannels();
-        }
-
-        $user = User::find($user->id);
-        $channelVisitHistories = ChannelVisitHistory::showHistory();
-
-        $coin = array();
-        $coin['totalCoin'] = $user->hasCoins()->sum('coin');
-        $coin['postCoin'] = $user->hasCoins()->where('coinable_type', 'App\Models\Post')->sum('coin');
-        $coin['commentCoin'] = $user->hasCoins()->where('coinable_type', 'App\Models\Comment')->sum('coin');
-        $coin['postCount'] = $user->hasCoins()->where('coinable_type', 'App\Models\Post')->count();
-        $coin['commentCount'] = $user->hasCoins()->where('coinable_type', 'App\Models\Comment')->count();
-
-        $coin = (object)$coin;
+        [$posts, $channelVisitHistories, $coin] = $this->userSerivce->getData($user, $el);
 
         if($this->agent->isMobile()) {
             return view('mobile.user.show', compact('posts', 'channelVisitHistories', 'user', 'coin', 'el'));
@@ -126,4 +88,5 @@ class UserController extends Controller
         Auth::logout();
         return redirect('/')->with(["msg" => "로그아웃 되었습니다.", "type" => "info"]);
     }
+    
 }
