@@ -1,6 +1,7 @@
 {
   "recommendations": [
     "onecentlin.laravel-blade",
-    "onecentlin.laravel5-snippets"
+    "onecentlin.laravel5-snippets",
+    "shd101wyy.markdown-preview-enhanced"
   ]
 }
