@@ -3,6 +3,8 @@
 # /public/storage
 # /storage/*.key
 /vendor
+macfa_planet.pem
+lanet.sql
 # .env.backup
 # .phpunit.result.cache
 # docker-compose.override.yml

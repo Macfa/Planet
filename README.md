@@ -1,5 +1,14 @@
-# Installed
-1. npm i && composer i 
-2. open docker application
-3. sail up -d
-4. sail artisan migrate
+# Planet
+
+### Current 
+운영 중이던 EC2 작업 삭제 후 일부 복원결과물
+
+### Specs
+Laravel
+jquery
+
+### how to use ?
+npm i && composer i 
+open docker application
+sail up -d
+sail artisan migrate
