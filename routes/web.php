@@ -11,18 +11,27 @@
 |
 */
 
-use App\Http\Controllers\CommentController;
+// TOBE
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\front\HomeController;
+
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+
+// AsIs 
+use App\Http\Controllers\CommentController as AsisCommentController;
 use App\Http\Controllers\EditorsController;
 use App\Http\Controllers\MobileHomeController;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HomeController as AsisHomeController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\StampController;
 use App\Http\Controllers\UserController;
 use App\Models\Channel;
 use App\Models\Post;
-use Illuminate\Support\Facades\Route;
+// use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\AdminController;
 
 Route::domain('m.lanet.co.kr')->group(function () {
@@ -35,18 +44,17 @@ Route::domain('m.localhost')->group(function () {
 
 Route::get('/te/{post}', [PostController::class, 'showPost']);
 // should be deleted route
-Route::get('/test', [HomeController::class, 'test'])->name("test");
-Route::get('/test2', [HomeController::class, 'test2']);
+Route::get('/test', [AsisHomeController::class, 'test'])->name("test");
+Route::get('/test2', [AsisHomeController::class, 'test2']);
 Route::get('/noti', [\App\Http\Controllers\NoticeNotiController::class, 'test'])->name('test.noti');
 Route::get('/noti2', [\App\Http\Controllers\NoticeNotiController::class, 'test_2'])->name('test.noti2');
 
 // Main's route
-//Route::get('/', [PostController::class, 'index'])->name('home');
-Route::get('/', [PostController::class, 'index'])->name('home');
-Route::get('/search', [HomeController::class, 'search'])->name('home.search');
-Route::get('/searchHelper', [HomeController::class, 'searchHelper'])->name('home.search.helper');
-Route::get('/sidebar', [HomeController::class, 'sidebar'])->name('home.sidebar');
-Route::get('/mainMenu', [HomeController::class, 'mainMenu'])->name('home.mainmenu');
+// Route::get('/', [PostController::class, 'index'])->name('home');
+Route::get('/search', [AsisHomeController::class, 'search'])->name('home.search');
+Route::get('/searchHelper', [AsisHomeController::class, 'searchHelper'])->name('home.search.helper');
+Route::get('/sidebar', [AsisHomeController::class, 'sidebar'])->name('home.sidebar');
+Route::get('/mainMenu', [AsisHomeController::class, 'mainMenu'])->name('home.mainmenu');
 
 
 Route::get('/post/{post}/get', [PostController::class, 'getPost']);
@@ -56,10 +64,9 @@ Route::post('/post/{post}/scrap', [PostController::class, 'scrap']);
 // Post's resource
 Route::resource('post', PostController::class)->middleware('cors');
 
-Route::post('/comment/{comment}/like', [CommentController::class, 'like']);
+Route::post('/comment/{comment}/like', [AsisCommentController::class, 'like']);
 // Comments resource
-Route::resource('comment', CommentController::class);
-//Route::post('/post/{post}/like', [PostController::class, 'like']);
+Route::resource('comment', AsisCommentController::class);
 
 
 // Channel's resource
@@ -71,10 +78,6 @@ Route::get('/channel/checkOwner', [ChannelController::class, 'checkOwner']);
 Route::resource('channel', ChannelController::class);
 
 // Post resource in Channel
-//Route::prefix('/channel/{channel}')->group(function () {
-//    Route::get('/post/{post}', [PostController::class, 'show']);
-//    Route::get('/post/{post}', [PostController::class, 'show']);
-//});
 // User's
 Route::get('/user/{user}/{el?}', [UserController::class,'show'])->name('user.show');
 Route::get('/user/channels', [UserController::class,'allChannels'])->name('user.channels');
@@ -98,7 +101,6 @@ Route::post('/category/store', [\App\Http\Controllers\StampCategoryController::c
 
 
 // Login with APIs
-//Route::get('auth/social', 'Auth\LoginController@show')->name('social.login');
 Route::get('auth/social', [LoginController::class,'show'])->name('social.login');
 Route::get('oauth/{driver}', [LoginController::class, 'redirectToProvider'])->name('social.oauth');
 Route::get('oauth/{driver}/callback', [LoginController::class, 'handleProviderCallback'])->name('social.callback');
@@ -131,14 +133,3 @@ Route::group(['middleware'=>'check.admin'], function() {
     Route::post('/admin/coin/set', [AdminController::class,'setCoin']);
 });
 
-// Auth::routes();
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-// Auth::routes();
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-// Auth::routes();
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

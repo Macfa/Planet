@@ -6,7 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0",
-        "dyrynda/laravel-cascade-soft-deletes": "4.1.2",
+        "dyrynda/laravel-cascade-soft-deletes": "^4.2",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
