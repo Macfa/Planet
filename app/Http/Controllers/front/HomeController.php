@@ -11,6 +11,7 @@ class HomeController extends Controller
 
     public function __construct(HomeService $homeService)
     {
+        // Dependency Injection
         $this->homeService = $homeService;
     }
 

@@ -113,7 +113,7 @@ Route::get('/.well-known/acme-challenge/{token}', function (string $token) {
 });
 
 // admin page
-Route::group(['middleware'=>'check.admin'], function() {
+// Route::group(['middleware'=>'check.admin'], function() {
     Route::get('/admin', [AdminController::class,'index']);
     Route::get('/admin/report', [AdminController::class,'report']);
     Route::get('/admin/coin', [AdminController::class,'coin']);
@@ -131,5 +131,5 @@ Route::group(['middleware'=>'check.admin'], function() {
     Route::get('/admin/stampGroup', [AdminController::class,'stampGroup']);
     Route::get('/admin/stamp', [AdminController::class,'stamp']);
     Route::post('/admin/coin/set', [AdminController::class,'setCoin']);
-});
+// });
 
