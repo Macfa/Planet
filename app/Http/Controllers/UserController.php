@@ -33,7 +33,7 @@ class UserController extends Controller
         }
     }
     public function show(User $user, $el = 'post') {
-        [$posts, $channelVisitHistories, $coin] = $this->userSerivce->getData($user, $el);
+        [$posts, $channelVisitHistories, $coin] = $this->userService->getData($user, $el);
 
         if($this->agent->isMobile()) {
             return view('mobile.user.show', compact('posts', 'channelVisitHistories', 'user', 'coin', 'el'));

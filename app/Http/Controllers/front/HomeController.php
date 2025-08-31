@@ -17,11 +17,14 @@ class HomeController extends Controller
 
     public function index()
     {
-        $homeCompactValue = $this->homeService->homeIndex();
+        $homeCompactValue = $this->homeService->getHomeData();
         // refactoring view
         // return view('front.home.index', compact('homeCompactValue'));
         return view('main.index', $homeCompactValue);
 
     }
-
+    public function login()
+    {
+        return view('auth.login');
+    }
 }

@@ -23,11 +23,12 @@
                                     <select class="cst_select is-invalid" name="channel_id" id="channelList" onchange="checkOwner(this);">
                                         <option value="">등록할 채널을 선택해주세요</option>
                                         @if($setting["type"] === "create")
-                                            @foreach (auth()->user()->allChannels() as $channel)
+                                            {{-- @foreach (auth()->user()->allChannels() as $channel) --}}
+                                            @foreach($allChannels as $channel)
                                                 <option value="{{ $channel->id }}"
                                                     @if(old('channel_id') === $channel->id)
                                                         selected
-                                                    @elseif($setting["previous"] === $channel->id)
+                                                    @elseif(isset($setting["previous"]) && $setting["previous"] === $channel->id)
                                                         selected
                                                     @endif
                                                     >
@@ -35,7 +36,8 @@
                                                 </option>
                                             @endforeach
                                         @else
-                                            @foreach (auth()->user()->allChannels() as $channel)
+                                            {{-- @foreach (auth()->user()->allChannels() as $channel) --}}
+                                            @foreach($allChannels as $channel)
                                                 <option value="{{ $channel->id }}"
                                                         @if(old('channel_id') === $channel->id) selected
                                                         @elseif($post->channel_id === $channel->id) selected

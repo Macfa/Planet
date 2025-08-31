@@ -1,5 +1,4 @@
 @section('sidebar')
-
 <div class="right_sub">
     <div class="info d-flex justify-content-between">
         토픽 정보
@@ -60,7 +59,7 @@
         <p>어쩌면 마음이 맞는 친구를 찾을지도 모릅니다.</p>
         <ul>
 {{--            <div class="mt-4"><a class="d-btn favorite_btn clickable" onclick="addChannelJoin({{ $channel->id }})">토픽 가입</a></div>--}}
-            <li><a class="d-btn favorite_btn clickable" href="@if(auth()->check()) {{ route('post.create') }} @else javascript:notLogged(); @endif">게시글 작성</a></li>
+            <li><a class="d-btn favorite_btn clickable" href="@if(auth()->check()) {{ route('post.create', ['channel_id' => $channel->id]) }} @else javascript:notLogged(); @endif">게시글 작성</a></li>
             <li><a class="d-btn favorite_btn clickable" href="@if(auth()->check()) {{ route('channel.create') }} @else javascript:notLogged(); @endif">토픽 만들기</a></li>
         </ul>
     </div>
