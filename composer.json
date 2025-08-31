@@ -12,7 +12,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "jenssegers/agent": "^2.6",
         "laravel/framework": "^8.12",
-        "laravel/socialite": "^5.12",
+        "laravel/socialite": "^5.23",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
         "pbmedia/laravel-ffmpeg": "7.8.1",
