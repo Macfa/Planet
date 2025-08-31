@@ -19,7 +19,7 @@
         @guest
             <ul class="d-flex flex-justify-content-flex-end">
                 <li class="login">
-                    <a href="{{ route('social.oauth', 'google') }}">로그인</a>
+                    <a href="{{ route('login') }}">로그인</a>
                 </li>
             </ul>
         @endguest

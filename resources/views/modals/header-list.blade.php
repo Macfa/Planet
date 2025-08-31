@@ -5,9 +5,9 @@
         <a href="{{ route('user.show', ['user'=>auth()->id(), 'el'=>'channel']) }}" class="fw-bold flex-container list-group-item list-group-item-action">내 토픽</a>
 
         <div id="collapse_channelJoins">
-            @foreach(auth()->user()->allChannels() as $page => $list)
+            {{-- @foreach(auth()->user()->allChannels() as $page => $list)
                 <a style="padding-left: 30px;" href="{{ route('channel.show', $list->id) }}" class="flex-container list-group-item list-group-item-action"><p>{{ $list->name }}</p></a>
-            @endforeach
+            @endforeach --}}
         </div>
         <a href="{{ route('user.logout') }}" class="fw-bold flex-container list-group-item list-group-item-action"><p>로그아웃</p></a>
     </div>

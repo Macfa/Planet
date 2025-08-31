@@ -18,11 +18,11 @@ class HomeService
         $this->channelRepository = $channelRepository;
         $this->channelVisitHistoryRepository = $channelVisitHistoryRepository;
     }
-    public function homeIndex(): array
+    public function getHomeData(): array
     {
         $posts = $this->postRepository->getAll();
         $channels = $this->channelRepository->getAll();
-        $channelVisitHistories = $this->channelVisitHistoryRepository->getAll();
+        $channelVisitHistories = $this->channelVisitHistoryRepository->recent();
 
         return compact('posts', 'channels', 'channelVisitHistories');
     }

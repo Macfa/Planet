@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 use App\Models\Post;
+use Illuminate\Contracts\Support\ValidatedData;
 
 class PostRepository extends BaseRepository
 {
@@ -14,5 +15,13 @@ class PostRepository extends BaseRepository
     public function getAll()
     {
         return $this->model->all();
+    }
+    public function findByChannelId(int $channelId)
+    {
+        return $this->model->where('channel_id', $channelId)->get();
+    }
+    public function save(array $validatedData)
+    {
+        return $this->model->save($validatedData);
     }
 }

@@ -12,21 +12,38 @@
 */
 
 // TOBE
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\front\ChannelController;
+use App\Http\Controllers\front\PostController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\front\HomeController;
 
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::group(['auth.basic'], function() {
+    Route::resource('channel', ChannelController::class)->except(['index']);
+    Route::resource('post', PostController::class)->only(['create', 'store', 'edit', 'update', 'destroy']);
+});
+
+Route::group(['check.admin'], function() {
+
+});
+// authentication
+Route::get('/login', [HomeController::class,'login'])->name('login');
+
+// socialite login ( google )
+Route::get('/auth/{driver}/redirect', [AuthController::class, 'redirectToProvider']);
+Route::get('/auth/{driver}/callback', [AuthController::class, 'handleProviderCallback']);
 
 
 // AsIs 
 use App\Http\Controllers\CommentController as AsisCommentController;
 use App\Http\Controllers\EditorsController;
 use App\Http\Controllers\MobileHomeController;
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\PostController as AsisPostController;
 use App\Http\Controllers\HomeController as AsisHomeController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\ChannelController;
+// use App\Http\Controllers\ChannelController as AsisChannelController;
 use App\Http\Controllers\StampController;
 use App\Http\Controllers\UserController;
 use App\Models\Channel;
@@ -35,14 +52,14 @@ use App\Models\Post;
 use \App\Http\Controllers\AdminController;
 
 Route::domain('m.lanet.co.kr')->group(function () {
-    Route::get('/', [PostController::class, 'index'])->name('mobile.home');
+    Route::get('/', [AsisPostController::class, 'index'])->name('mobile.home');
 });
 
 Route::domain('m.localhost')->group(function () {
-    Route::get('/', [PostController::class, 'index'])->name('mobile.home2');
+    Route::get('/', [AsisPostController::class, 'index'])->name('mobile.home2');
 });
 
-Route::get('/te/{post}', [PostController::class, 'showPost']);
+Route::get('/te/{post}', [AsisPostController::class, 'showPost']);
 // should be deleted route
 Route::get('/test', [AsisHomeController::class, 'test'])->name("test");
 Route::get('/test2', [AsisHomeController::class, 'test2']);
@@ -50,32 +67,32 @@ Route::get('/noti', [\App\Http\Controllers\NoticeNotiController::class, 'test'])
 Route::get('/noti2', [\App\Http\Controllers\NoticeNotiController::class, 'test_2'])->name('test.noti2');
 
 // Main's route
-// Route::get('/', [PostController::class, 'index'])->name('home');
+// Route::get('/', [AsisPostController::class, 'index'])->name('home');
 Route::get('/search', [AsisHomeController::class, 'search'])->name('home.search');
 Route::get('/searchHelper', [AsisHomeController::class, 'searchHelper'])->name('home.search.helper');
 Route::get('/sidebar', [AsisHomeController::class, 'sidebar'])->name('home.sidebar');
 Route::get('/mainMenu', [AsisHomeController::class, 'mainMenu'])->name('home.mainmenu');
 
 
-Route::get('/post/{post}/get', [PostController::class, 'getPost']);
-Route::post('/post/{post}/like', [PostController::class, 'like']);
-Route::post('/post/{post}/report', [PostController::class, 'report']);
-Route::post('/post/{post}/scrap', [PostController::class, 'scrap']);
+// Route::get('/post/{post}/get', [AsisPostController::class, 'getPost']);
+// Route::post('/post/{post}/like', [AsisPostController::class, 'like']);
+// Route::post('/post/{post}/report', [AsisPostController::class, 'report']);
+// Route::post('/post/{post}/scrap', [AsisPostController::class, 'scrap']);
 // Post's resource
-Route::resource('post', PostController::class)->middleware('cors');
+// Route::resource('post', AsisPostController::class)->middleware('cors');
 
-Route::post('/comment/{comment}/like', [AsisCommentController::class, 'like']);
+// Route::post('/comment/{comment}/like', [AsisCommentController::class, 'like']);
 // Comments resource
 Route::resource('comment', AsisCommentController::class);
 
 
 // Channel's resource
-Route::post('/channel/channelJoin', [ChannelController::class, 'channelJoin']);
-Route::post('/channel/addChannelAdmin', [ChannelController::class, 'addChannelAdmin']);
-Route::get('/channel/getUserInChannel/{channelID}', [ChannelController::class, 'getUserInChannel']);
-Route::get('/channel/removeChannelAdmin/{userID}', [ChannelController::class, 'getUserInChannel']);
-Route::get('/channel/checkOwner', [ChannelController::class, 'checkOwner']);
-Route::resource('channel', ChannelController::class);
+// Route::post('/channel/channelJoin', [AsisChannelController::class, 'channelJoin']);
+// Route::post('/channel/addChannelAdmin', [AsisChannelController::class, 'addChannelAdmin']);
+// Route::get('/channel/getUserInChannel/{channelID}', [AsisChannelController::class, 'getUserInChannel']);
+// Route::get('/channel/removeChannelAdmin/{userID}', [AsisChannelController::class, 'getUserInChannel']);
+// Route::get('/channel/checkOwner', [AsisChannelController::class, 'checkOwner']);
+// Route::resource('channel', AsisChannelController::class);
 
 // Post resource in Channel
 // User's
@@ -101,9 +118,9 @@ Route::post('/category/store', [\App\Http\Controllers\StampCategoryController::c
 
 
 // Login with APIs
-Route::get('auth/social', [LoginController::class,'show'])->name('social.login');
-Route::get('oauth/{driver}', [LoginController::class, 'redirectToProvider'])->name('social.oauth');
-Route::get('oauth/{driver}/callback', [LoginController::class, 'handleProviderCallback'])->name('social.callback');
+// Route::get('auth/social', [LoginController::class,'show'])->name('social.login');
+// Route::get('oauth/{driver}', [LoginController::class, 'redirectToProvider'])->name('social.oauth');
+// Route::get('oauth/{driver}/callback', [LoginController::class, 'handleProviderCallback'])->name('social.callback');
 
 // it must be change api sections
 Route::post('/api/upload', [EditorsController::class, 'upload'])->name('ck.upload');
