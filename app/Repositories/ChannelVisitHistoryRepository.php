@@ -21,7 +21,14 @@ class ChannelVisitHistoryRepository extends BaseRepository
     }
     public function upsertVisits(array $data)
     {
-        return $this->model->upsert($data, ['user_id', 'channel_id'], ['updated_at']);
+        // $data['updated_at'] = now();
+        // data must be 2 dimensional array
+        $this->model->updateOrCreate(
+            ['user_id' => $data['user_id'], 'channel_id' => $data['channel_id']],
+            ['updated_at' => now()]
+        );
+
+        // return $this->model->upsert($data, ['user_id', 'channel_id'], ['updated_at']);
     }
     public function deleteOverLimit()
     {

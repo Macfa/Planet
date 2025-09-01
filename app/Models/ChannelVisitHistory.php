@@ -5,11 +5,11 @@ namespace App\Models;
 use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+// use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ChannelVisitHistory extends Model
 {
-    use SoftDeletes, CascadeSoftDeletes, HasFactory;
+    // use SoftDeletes, CascadeSoftDeletes, HasFactory;
 
     protected $table = "channel_visit_histories";
     protected $guarded = [];

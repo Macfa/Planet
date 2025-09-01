@@ -2,6 +2,7 @@
 
 namespace App\Services\Front;
 use App\Repositories\ChannelRepository;
+use App\Repositories\ChannelVisitHistoryRepository;
 use App\Repositories\PostRepository;
 use Illuminate\Support\Facades\Auth;
 
@@ -9,11 +10,13 @@ class ChannelService
 {
     protected $channelRepository;
     protected $postRepository;
+    protected $channelVisitHistoryRepository;
 
-    public function __construct(ChannelRepository $channelRepository, PostRepository $postRepository)
+    public function __construct(ChannelRepository $channelRepository, PostRepository $postRepository, ChannelVisitHistoryRepository $channelVisitHistoryRepository)
     {
         $this->channelRepository = $channelRepository;
         $this->postRepository = $postRepository;
+        $this->channelVisitHistoryRepository = $channelVisitHistoryRepository;
     }
     public function getAll()
     {
@@ -28,8 +31,9 @@ class ChannelService
         // return $this->channelRepository->with('posts')->find($id);
         $channel = $this->channelRepository->findById($id);
         $posts = $this->postRepository->findByChannelId($id);
+        $channelVisitHistories = $this->channelVisitHistoryRepository->recent();
 
-        return compact('channel', 'posts');
+        return compact('channel', 'posts', 'channelVisitHistories');
     }   
     public function getChannel(int $id)
     {

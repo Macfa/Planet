@@ -29,7 +29,7 @@ class storePostReqeust extends FormRequest
         return [
             'channel_id' => 'required',
             'title' => 'required|max:15|min:2',
-            'editor' => 'required',            
+            'content' => 'required',            
         ];
     }
     public function messages()
@@ -39,7 +39,7 @@ class storePostReqeust extends FormRequest
             'title.required' => '게시글명을 입력해주세요.',
             'title.min' => '게시글명은 최소 2 글자 이상입니다.',
             'title.max' => '게시글명은 15 글자 이하입니다.',
-            'editor.required' => '내용을 입력해주세요.',
+            'content.required' => '내용을 입력해주세요.',
         ];
     }
 }

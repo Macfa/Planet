@@ -20,8 +20,12 @@ class PostRepository extends BaseRepository
     {
         return $this->model->where('channel_id', $channelId)->get();
     }
+    public function getPostById(int $id)
+    {
+        return $this->model->findOrFail($id);
+    }
     public function save(array $validatedData)
     {
-        return $this->model->save($validatedData);
+        return $this->model->create($validatedData);
     }
 }

@@ -17,12 +17,13 @@ use App\Http\Controllers\front\ChannelController;
 use App\Http\Controllers\front\PostController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\front\HomeController;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::group(['auth.basic'], function() {
     Route::resource('channel', ChannelController::class)->except(['index']);
-    Route::resource('post', PostController::class)->only(['create', 'store', 'edit', 'update', 'destroy']);
+    Route::resource('post', PostController::class)->except(['index']);
 });
 
 Route::group(['check.admin'], function() {
@@ -30,6 +31,10 @@ Route::group(['check.admin'], function() {
 });
 // authentication
 Route::get('/login', [HomeController::class,'login'])->name('login');
+Route::get('/logout', function() {
+    Auth::logout();
+    return redirect('/');
+})->name('logout');
 
 // socialite login ( google )
 Route::get('/auth/{driver}/redirect', [AuthController::class, 'redirectToProvider']);

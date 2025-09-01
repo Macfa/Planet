@@ -20,7 +20,8 @@
                         <div class="ch_list">
                             <div>
                                 <div class="select_box d-flex">
-                                    <select class="cst_select is-invalid" name="channel_id" id="channelList" onchange="checkOwner(this);">
+                                    {{-- <select class="cst_select is-invalid" name="channel_id" id="channelList" onchange="checkOwner(this);"> --}}
+                                    <select class="cst_select is-invalid" name="channel_id" id="channelList" >
                                         <option value="">등록할 채널을 선택해주세요</option>
                                         @if($setting["type"] === "create")
                                             {{-- @foreach (auth()->user()->allChannels() as $channel) --}}
@@ -110,6 +111,7 @@
 <script>
     let ckEditor;
     function checkOwner(obj) {
+        // 이걸.. 왜 만들었지 ???
         if(obj.value) {
             $.ajax({
                 url: '/channel/checkOwner',

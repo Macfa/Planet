@@ -20,6 +20,28 @@ class PostService
         // 네이밍 규칙이 좀 애매...
         try {
             $this->postRepository->save($validated);
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+    }
+    public function getPosts()
+    {
+        try {
+            $posts = $this->postRepository->getAll();
+            return $posts;
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+    }
+    public function getPost($id)
+    {
+        try {
+            $post = $this->postRepository->getPostById($id);
+            // return compact('post');
+            return $post;
+
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 }

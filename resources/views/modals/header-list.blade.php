@@ -9,6 +9,6 @@
                 <a style="padding-left: 30px;" href="{{ route('channel.show', $list->id) }}" class="flex-container list-group-item list-group-item-action"><p>{{ $list->name }}</p></a>
             @endforeach --}}
         </div>
-        <a href="{{ route('user.logout') }}" class="fw-bold flex-container list-group-item list-group-item-action"><p>로그아웃</p></a>
+        <a href="{{ route('logout') }}" class="fw-bold flex-container list-group-item list-group-item-action"><p>로그아웃</p></a>
     </div>
 </div>
