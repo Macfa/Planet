@@ -9,6 +9,9 @@
 ![메인](./public/image/scr_monde_index.png)
 ![페이지](./public/image/scr_monde.png)
 
+### Changelog
+- ChannelVisitHistoryService 반환값 누락으로 인한 null 문제 수정
+- 게시글 모달(openPostModal) 및 댓글 처리 로직 개선
 
 ### how to use ?
 npm i && composer i 

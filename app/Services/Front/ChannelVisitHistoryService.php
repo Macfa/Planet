@@ -17,7 +17,7 @@ class ChannelVisitHistoryService
     public function recent()
     {
         // 날짜 내림차순으로 데이터 가져오기
-        $this->repository->recent();
+        return $this->repository->recent();
     }
     public function createChannelVisitHistories(array $data)
     {

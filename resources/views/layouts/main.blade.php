@@ -271,7 +271,7 @@
             }
 
             $.ajax({
-                url: '/post/' + postID + "/get",
+                url: '/post/' + postID,
                 type: 'get',
                 success: function(data) {
                     modalBody.html(data);
